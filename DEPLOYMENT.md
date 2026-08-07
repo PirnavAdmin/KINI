@@ -30,7 +30,7 @@ docker compose up -d --build
 
 ## Host Nginx
 
-Use the files in `nginx/conf.d` with Nginx installed on the Ubuntu host. Copy or symlink them into your Nginx config directory.
+Use `nginx/conf.d/kiniedx.com.conf` with Nginx installed on the Ubuntu host. Copy or symlink it into your Nginx config directory.
 
 The HTTP config allows Certbot challenges and redirects normal traffic to `https://www.kiniedx.com`.
 
@@ -42,10 +42,12 @@ Install certificates for both names:
 sudo certbot certonly --webroot -w ./certbot/www -d kiniedx.com -d www.kiniedx.com
 ```
 
-Enable HTTPS Nginx config:
+Enable the Nginx config:
 
 ```bash
-mv nginx/conf.d/10-https.conf.disabled nginx/conf.d/10-https.conf
+sudo cp nginx/conf.d/kiniedx.com.conf /etc/nginx/sites-available/kiniedx.com
+sudo ln -sf /etc/nginx/sites-available/kiniedx.com /etc/nginx/sites-enabled/kiniedx.com
+sudo rm -f /etc/nginx/sites-enabled/default
 sudo nginx -t
 sudo systemctl reload nginx
 ```
