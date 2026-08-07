@@ -1,0 +1,6 @@
+@Registerkini_HostAddress = http://localhost:5029
+
+GET {{Registerkini_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

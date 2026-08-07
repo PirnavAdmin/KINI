@@ -1,0 +1,190 @@
+import { motion } from 'framer-motion'
+import { ArrowRight, MessageCircle, Sparkles } from 'lucide-react'
+import { useThemeContext } from '@shared/context/ThemeContext'
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  }),
+}
+
+export default function Hero() {
+  const { isDark } = useThemeContext()
+
+  return (
+    <section 
+      className={`relative overflow-hidden pt-12 pb-24 sm:pt-16 sm:pb-32 transition-colors duration-500 ${
+        isDark ? 'bg-slate-950 text-white' : ''
+      }`}
+      style={!isDark ? {
+        background: 'linear-gradient(180deg, #B5DBFF 0%, #BCE4FD 25%, #C4EFF6 50%, #CDF5F5 75%, #D8FBF5 100%)'
+      } : undefined}
+    >
+      {/* Ambient gradient wash */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className={`absolute -top-32 left-1/2 h-[420px] w-[800px] -translate-x-1/2 rounded-full blur-[120px] ${
+          isDark ? 'bg-brand-blue/20' : 'bg-blue-400/20'
+        }`} />
+        <div className={`absolute bottom-0 right-0 h-[300px] w-[450px] rounded-full blur-[100px] ${
+          isDark ? 'bg-brand-green/15' : 'bg-emerald-400/15'
+        }`} />
+        <div className="absolute inset-0 bg-grid opacity-20 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]" />
+      </div>
+      <div className={`noise absolute inset-0 ${isDark ? '' : 'opacity-30'}`} />
+
+      {/* Signature "ascent line" */}
+      <svg
+        className={`pointer-events-none absolute inset-x-0 bottom-0 h-[50%] w-full ${isDark ? 'opacity-[0.3]' : 'opacity-35'}`}
+        viewBox="0 0 1200 400"
+        preserveAspectRatio="none"
+        fill="none"
+      >
+        <motion.path
+          d="M0 380 C 200 380, 260 300, 380 300 S 560 200, 680 190 S 860 90, 1000 70 S 1150 20, 1200 10"
+          stroke="url(#heroAscent)"
+          strokeWidth="2"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 2.2, ease: 'easeOut', delay: 0.3 }}
+        />
+        <defs>
+          <linearGradient id="heroAscent" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor={isDark ? "#2563EB" : "#1d4ed8"} />
+            <stop offset="100%" stopColor={isDark ? "#22C55E" : "#047857"} />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <div className="relative mx-auto max-w-5xl px-6 text-center">
+        <motion.div
+          initial="hidden"
+          animate="show"
+          custom={0}
+          variants={fadeUp}
+          className={`eyebrow inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-xs shadow-sm backdrop-blur-md ${
+            isDark 
+              ? 'border-white/10 bg-white/5 text-slate-300' 
+              : 'border-blue-900/10 bg-white/60 text-slate-800'
+          }`}
+        >
+          <Sparkles size={12} className={isDark ? "text-brand-green" : "text-emerald-600"} />
+          Kini Edx Hub — Career Outcomes Platform
+        </motion.div>
+
+        <motion.h1
+          initial="hidden"
+          animate="show"
+          custom={1}
+          variants={fadeUp}
+          className={`mx-auto mt-3.5 max-w-4xl text-[2.25rem] font-semibold leading-[1.1] sm:text-5xl md:text-[3.75rem] ${
+            isDark ? 'text-white' : 'text-slate-900'
+          }`}
+        >
+          We don't just teach.
+          <br />
+          <span className={isDark ? "text-ascent" : "bg-gradient-to-r from-blue-700 to-teal-700 bg-clip-text text-transparent"}>
+            We build careers.
+          </span>
+        </motion.h1>
+
+        <motion.p
+          initial="hidden"
+          animate="show"
+          custom={2}
+          variants={fadeUp}
+          className={`mx-auto mt-3 max-w-lg text-sm leading-relaxed sm:text-base ${
+            isDark ? 'text-slate-400' : 'text-slate-700 font-medium'
+          }`}
+        >
+          Structured curriculum, 1:1 mentorship from working engineers, and real
+          placement support — the shortest verified path from your first line
+          of code to a 5–12&nbsp;LPA offer.
+        </motion.p>
+
+        <motion.div
+          initial="hidden"
+          animate="show"
+          custom={3}
+          variants={fadeUp}
+          className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row"
+        >
+          <a
+            href="#programs"
+            className={`group inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300 hover:scale-[1.03] ${
+              isDark
+                ? 'bg-ascent-gradient text-white shadow-glow'
+                : 'bg-slate-900 text-white shadow-lg hover:bg-slate-800'
+            }`}
+          >
+            Explore Programs
+            <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+          </a>
+          <a
+            href="#mentor"
+            className={`inline-flex items-center gap-2 rounded-full border px-6 py-2.5 text-sm font-semibold backdrop-blur transition-all duration-300 ${
+              isDark
+                ? 'border-white/15 bg-white/5 text-white hover:bg-white/10'
+                : 'border-blue-900/20 bg-white/50 text-slate-900 hover:bg-white/80 shadow-sm'
+            }`}
+          >
+            <MessageCircle size={15} className={isDark ? '' : 'text-blue-700'} />
+            Talk to a Mentor
+          </a>
+        </motion.div>
+
+        {/* Floating proof badges — brought well inside view with balanced spacing */}
+        <motion.div
+          initial="hidden"
+          animate="show"
+          custom={4}
+          variants={fadeUp}
+          className="relative mx-auto mt-10 hidden max-w-3xl sm:block pb-4"
+        >
+          <FloatingCard
+            className="left-2 top-0 -rotate-3"
+            delay={0}
+            label="Avg. package"
+            value="9.2 LPA"
+            accent={isDark ? "text-brand-gold" : "text-amber-700"}
+            isDark={isDark}
+          />
+          <FloatingCard
+            className="right-2 top-0 rotate-2"
+            delay={0.6}
+            label="Hiring partners"
+            value="500+"
+            accent={isDark ? "text-brand-green" : "text-emerald-700"}
+            isDark={isDark}
+          />
+          <FloatingCard
+            className="left-1/2 top-4 -translate-x-1/2 -rotate-1"
+            delay={1.1}
+            label="Students placed"
+            value="20,000+"
+            accent={isDark ? "text-brand-blue" : "text-blue-700"}
+            isDark={isDark}
+          />
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+function FloatingCard({ className, delay, label, value, accent, isDark }) {
+  return (
+    <div
+      className={`absolute w-40 animate-float rounded-xl px-3.5 py-2.5 text-left ${
+        isDark 
+          ? 'glass-dark shadow-card-lg' 
+          : 'bg-white/80 backdrop-blur-md border border-white/80 shadow-lg'
+      } ${className}`}
+      style={{ animationDelay: `${delay}s` }}
+    >
+      <p className={`text-[10px] font-semibold uppercase tracking-wider ${isDark ? 'text-slate-400 eyebrow' : 'text-slate-500'}`}>{label}</p>
+      <p className={`mt-0.5 font-display text-lg font-bold ${accent}`}>{value}</p>
+    </div>
+  )
+}

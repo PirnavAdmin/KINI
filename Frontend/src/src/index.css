@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+/* Enables class-based dark mode (toggled via ThemeContext on <html>) so
+   `dark:` utilities work instead of only following the OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #085fa7;
+  --color-primary-50: #edf4fc;
+  --color-primary-100: #d7e7f8;
+  --color-primary-200: #afcef1;
+  --color-primary-300: #7eb0e6;
+  --color-primary-400: #1a7aca;
+  --color-primary-500: #085fa7;
+  --color-primary-600: #075093;
+  --color-primary-700: #06407a;
+  --color-primary-800: #063363;
+  --color-primary-900: #052949;
+  --color-primary-950: #031a30;
+
+  --color-secondary: #5ca347;
+  --color-secondary-50: #f1f8ed;
+  --color-secondary-100: #e1efd9;
+  --color-secondary-200: #c3dfb4;
+  --color-secondary-300: #9ed48f;
+  --color-secondary-400: #7dd3b2;
+  --color-secondary-500: #5ca347;
+  --color-secondary-600: #4a8738;
+  --color-secondary-700: #3b6b2d;
+  --color-secondary-800: #2f5424;
+  --color-secondary-900: #26431d;
+  --color-secondary-950: #172912;
+
+  --color-tertiary: #f5a623;
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-container-low: #eef3f8;
+  --color-on-surface: #0f172a;
+  --color-on-surface-variant: #64748b;
+  --color-outline-variant: #dbe5ef;
+  --color-secondary-fixed-dim: #dfeee3;
+  --color-on-secondary-container: #12301b;
+  --color-text-secondary: #64748b;
+  --color-button-primary-bg: #085fa7;
+  --color-button-primary-text: #ffffff;
+
+  --color-brand-blue: #2563eb;
+  --color-brand-green: #22c55e;
+  --color-brand-gold: #f5a623;
+
+  --color-ink-950: #050810;
+  --color-ink-900: #0f172a;
+  --color-ink-800: #1e293b;
+
+  --color-porcelain: #f8fafc;
+  --color-brand: #085fa7;
+  --color-brand-indigo: #085fa7;
+  --color-brand-coral: #f0765b;
+
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --radius-card: 1rem;
+  --radius-pill: 9999px;
+
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 32px -8px rgba(15, 23, 42, 0.08);
+  --shadow-card-dark: 0 1px 2px rgba(0, 0, 0, 0.2), 0 12px 32px -8px rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 8px 16px -4px rgba(8, 95, 167, 0.16), 0 24px 48px -12px rgba(8, 95, 167, 0.2);
+
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body text-slate-900 antialiased;
+    background: #eaeaec;
+  }
+  
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+
+  ::selection {
+    background: rgba(37, 99, 235, 0.25);
+    color: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-ascent {
+    background: linear-gradient(92deg, #3b82f6 0%, #22c55e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-ascent-gradient {
+    background-image: linear-gradient(92deg, #3b82f6 0%, #22c55e 100%);
+  }
+
+  .bg-ascent-gradient-vert {
+    background-image: linear-gradient(180deg, #3b82f6 0%, #22c55e 100%);
+  }
+
+  .glass-dark {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-light {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  }
+
+  .shadow-glow {
+    box-shadow: 0 0 0 1px rgba(8, 95, 167, 0.12), 0 20px 50px -20px rgba(8, 95, 167, 0.45);
+  }
+
+  .shadow-glow-primary {
+    box-shadow: 0 0 0 1px rgba(8, 95, 167, 0.15), 0 20px 50px -18px rgba(8, 95, 167, 0.55);
+  }
+
+  .shadow-card-lg {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .rounded-2\.5xl {
+    border-radius: 1.25rem;
+  }
+
+  .rounded-3\.5xl {
+    border-radius: 1.75rem;
+  }
+
+  .bg-brand-gradient {
+    background-image: linear-gradient(92deg, var(--color-primary-500) 0%, var(--color-secondary-500) 100%);
+  }
+
+  .bg-skill-ring {
+    background-image: conic-gradient(
+      from 180deg,
+      var(--color-primary-500),
+      var(--color-secondary-500),
+      var(--color-brand-coral),
+      var(--color-primary-500)
+    );
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 18s linear infinite;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.09) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.09) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.35;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.28em];
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
