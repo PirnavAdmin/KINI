@@ -4,7 +4,7 @@ import {
   Star, Plus, BarChart3, Code2, Languages, Megaphone, DollarSign, Palette,
   PiggyBank, Users, Video, Gamepad2, Clock, BookOpen, Sparkles, ShieldCheck
 } from 'lucide-react';
-import Navbar from '@shared/components/Navbar';
+import Navbar from '@shared/components/navbar';
 import Footer from '@shared/components/Footer';
 import { useEnrollment } from '@shared/context/ModalProvider';
 import CareerRoadmapGenerator from '../components/Careerroadmapgenerator';

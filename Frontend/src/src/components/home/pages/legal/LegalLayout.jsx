@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import Navbar from "@shared/components/Navbar";
+import Navbar from "@shared/components/navbar";
 import Footer from "@shared/components/Footer";
 import Badge from "@shared/components/ui/Badge";
 import { EASE_PREMIUM, fadeUp, staggerContainer } from "@shared/hooks/useScrollAnimation";

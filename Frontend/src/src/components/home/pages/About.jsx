@@ -1,6 +1,6 @@
 import { Suspense, lazy } from "react";
 
-import Navbar from "@shared/components/Navbar";
+import Navbar from "@shared/components/navbar";
 
 import CTASection from "../components/about/CTASection.jsx";
 import ComparisonSection from "../components/about/ComparisonSection.jsx";
