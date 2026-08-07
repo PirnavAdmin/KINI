@@ -1,0 +1,27 @@
+services:
+  frontend:
+    build:
+      context: ./Frontend
+      args:
+        VITE_API_BASE_URL: /api
+    container_name: kini-frontend
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./Backend
+    container_name: kini-backend
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:5000
+      ConnectionStrings__DefaultConnection: ${MYSQL_CONNECTION_STRING:?set MYSQL_CONNECTION_STRING in .env}
+      Cors__AllowedOrigins__0: https://www.kiniedx.com
+      Cors__AllowedOrigins__1: https://kiniedx.com
+      Cors__AllowedOrigins__2: http://localhost:3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "5000:5000"
+    restart: unless-stopped

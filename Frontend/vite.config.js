@@ -17,15 +17,8 @@ export default defineConfig({
   ],
   server: {
     proxy: {
-      // Dev-only workaround: the backend doesn't send
-      // Access-Control-Allow-Origin, so browser requests to it are
-      // blocked by CORS. Routing /api/* through the Vite dev server
-      // makes the request same-origin from the browser's perspective —
-      // Vite then forwards it server-to-server, which isn't subject to
-      // CORS. Doesn't apply to `vite preview` or the production build;
-      // that still needs the backend to send the header.
       '/api': {
-        target: 'https://latitude-apron-winter.ngrok-free.dev',
+        target: process.env.VITE_DEV_API_URL || 'http://localhost:5000',
         changeOrigin: true,
       },
     },
