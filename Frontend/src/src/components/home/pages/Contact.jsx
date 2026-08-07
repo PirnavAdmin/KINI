@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MapPin, ArrowUpRight, Zap, Building2, RefreshCw, ShieldCheck } from "lucide-react";
-import Navbar from "@shared/components/Navbar";
+import Navbar from "@shared/components/navbar";
 import Footer from "@shared/components/Footer";
 import GetInTouchFormFields from "@shared/components/GetInTouchFormFields";
 import { useThemeContext } from "@shared/context/ThemeContext";

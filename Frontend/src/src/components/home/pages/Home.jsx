@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 
-import Navbar from "@shared/components/Navbar";
+import Navbar from "@shared/components/navbar";
 import WhatsAppButton from "@shared/components/WhatsAppButton";
 import useLeadPopup from "@shared/hooks/useLeadPopup";
 
