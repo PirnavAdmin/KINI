@@ -105,35 +105,66 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
-          initial="hidden"
-          animate="show"
-          custom={3}
-          variants={fadeUp}
-          className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row"
-        >
-          <a
-            href="#programs"
-            className={`group inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300 hover:scale-[1.03] ${
-              isDark
-                ? 'bg-ascent-gradient text-white shadow-glow'
-                : 'bg-slate-900 text-white shadow-lg hover:bg-slate-800'
-            }`}
-          >
-            Explore Programs
-            <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
-          </a>
-          <a
-            href="#mentor"
-            className={`inline-flex items-center gap-2 rounded-full border px-6 py-2.5 text-sm font-semibold backdrop-blur transition-all duration-300 ${
-              isDark
-                ? 'border-white/15 bg-white/5 text-white hover:bg-white/10'
-                : 'border-blue-900/20 bg-white/50 text-slate-900 hover:bg-white/80 shadow-sm'
-            }`}
-          >
-            <MessageCircle size={15} className={isDark ? '' : 'text-blue-700'} />
-            Talk to a Mentor
-          </a>
-        </motion.div>
+  initial="hidden"
+  animate="show"
+  custom={3}
+  variants={fadeUp}
+  className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row"
+>
+  <a
+    href="#programs"
+    className="
+      group
+      relative
+      inline-flex
+      items-center
+      gap-2
+      overflow-hidden
+      rounded-full
+      px-6
+      py-2.5
+      text-sm
+      font-semibold
+      text-white
+      transition-all
+      duration-300
+      hover:scale-[1.03]
+      hover:-translate-y-0.5
+      shadow-[0_12px_30px_rgba(29,114,190,0.28)]
+      hover:shadow-[0_18px_40px_rgba(29,114,190,0.38)]
+    "
+    style={{
+      background:
+        "linear-gradient(90deg, #1D72BE 0%, #2B8FC6 30%, #33A8A0 68%, #5AB347 100%)",
+    }}
+  >
+    {/* Shine Effect */}
+    <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+
+    <span className="relative z-10 flex items-center gap-2">
+      Explore Programs
+      <ArrowRight
+        size={15}
+        className="transition-transform duration-300 group-hover:translate-x-1"
+      />
+    </span>
+  </a>
+
+  <a
+    href="#mentor"
+    className={`inline-flex items-center gap-2 rounded-full border px-6 py-2.5 text-sm font-semibold backdrop-blur transition-all duration-300 ${
+      isDark
+        ? "border-white/15 bg-white/5 text-white hover:bg-white/10"
+        : "border-blue-900/20 bg-white/50 text-slate-900 hover:bg-white/80 shadow-sm"
+    }`}
+  >
+    <MessageCircle
+      size={15}
+      className={isDark ? "" : "text-blue-700"}
+    />
+    Talk to a Mentor
+  </a>
+</motion.div>
 
         {/* Floating proof badges — brought well inside view with balanced spacing */}
         <motion.div

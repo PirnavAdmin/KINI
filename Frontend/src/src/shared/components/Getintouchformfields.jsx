@@ -1,7 +1,7 @@
 import { useCallback, useId, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { useThemeContext } from "@shared/context/ThemeContext";
@@ -9,31 +9,35 @@ import { getInTouchDefaultValues, getInTouchSchema, SUBJECT_OPTIONS } from "@sha
 import { submitGetInTouch } from "@shared/services/getInTouchService";
 import Button from "@shared/components/ui/Button";
 
+// ─── Brand gradient (single source of truth) ──────────────────────────────────
+const BRAND_GRADIENT = "linear-gradient(90deg,#1E73BD 0%,#2890B8 35%,#35A89D 65%,#58B347 100%)";
+// Subtle tinted version for backgrounds
+const BRAND_GRADIENT_SOFT_LIGHT = "linear-gradient(135deg,#EAF4FC 0%,#E7F5F6 40%,#E7F7F2 70%,#F0FAEC 100%)";
+const BRAND_GRADIENT_SOFT_DARK  = "linear-gradient(135deg,rgba(30,115,189,0.10) 0%,rgba(40,144,184,0.09) 40%,rgba(53,168,157,0.09) 70%,rgba(88,179,71,0.08) 100%)";
+
 function FieldError({ id, message }) {
   if (!message) return null;
   return (
-    <p id={id} role="alert" className="mt-1 text-xs font-medium text-red-500">
+    <motion.p
+      id={id}
+      role="alert"
+      initial={{ opacity: 0, y: -4 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.15 }}
+      className="mt-1 flex items-center gap-1 text-[11px] font-medium text-red-500"
+    >
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+        <circle cx="5" cy="5" r="4.5" stroke="currentColor" strokeWidth="1"/>
+        <path d="M5 3v2.5M5 7h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+      </svg>
       {message}
-    </p>
+    </motion.p>
   );
 }
 
-/**
- * The real Get In Touch form: same react-hook-form + zod validation and the
- * same submitGetInTouch API call that GetInTouchModal already used. Lives
- * here so it can be dropped in either behind a modal (GetInTouchModal) or
- * directly on a page with no click required (e.g. the Contact sidebar) —
- * one submission path, no duplicated logic between the two.
- *
- * @param {() => void} [onSubmitted] - called ~1.8s after a successful
- *   submit (after the success state has been visible for a beat). In the
- *   modal this is what closes it; inline, it's optional.
- * @param {string|null} [heading] - form heading. Pass null/omit to suppress
- *   it when the surrounding layout already has its own heading.
- */
 export default function GetInTouchFormFields({ onSubmitted, heading = null }) {
   const { isDark } = useThemeContext();
-  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const [status, setStatus] = useState("idle");
   const uid = useId();
 
   const {
@@ -71,162 +75,385 @@ export default function GetInTouchFormFields({ onSubmitted, heading = null }) {
   const onSubmit = handleSubmit(submitValues);
   const handleRetry = useCallback(() => submitValues(getValues()), [getValues, submitValues]);
 
-  const inputClass = (hasError) =>
-    `w-full rounded-xl border px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 ${
-      hasError
-        ? "border-red-400"
-        : isDark
-          ? "border-white/10 bg-white/5 text-white placeholder:text-slate-500"
-          : "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400"
-    }`;
+  // ── Input styling ────────────────────────────────────────────────────────────
+  const inputBase = [
+    "w-full rounded-xl border px-3.5 py-2.5 text-[13px] outline-none",
+    "transition-all duration-200 leading-normal",
+    "focus:ring-2",
+  ].join(" ");
 
-  if (status === "success") {
-    return (
-      <div className="flex min-h-[260px] flex-col items-center justify-center text-center">
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 260, damping: 18 }}
-          className="flex h-16 w-16 items-center justify-center rounded-full bg-secondary-500/15"
-        >
-          <CheckCircle2 className="h-9 w-9 text-secondary-500" aria-hidden="true" />
-        </motion.div>
-        <h3 className={`mt-4 text-lg font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
-          Thank you!
-        </h3>
-        <p className={`mt-1 text-sm ${isDark ? "text-slate-400" : "text-slate-500"}`}>
-          Our team will reach out shortly.
-        </p>
-      </div>
-    );
-  }
+  const inputClass = (hasError) =>
+    [
+      inputBase,
+      hasError
+        ? "border-red-400 bg-red-500/[0.04] text-red-600 placeholder:text-red-400/50 focus:border-red-400 focus:ring-red-400/15"
+        : isDark
+          ? [
+              "border-white/[0.09] bg-white/[0.05] text-white placeholder:text-slate-500",
+              "hover:border-white/[0.16] hover:bg-white/[0.08]",
+              // gradient border on focus via box-shadow trick
+              "focus:border-transparent focus:ring-[#2890B8]/30",
+              "focus:shadow-[0_0_0_2px_rgba(40,144,184,0.25)]",
+            ].join(" ")
+          : [
+              "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400",
+              "shadow-[0_1px_3px_rgba(0,0,0,0.06)]",
+              "hover:border-slate-300",
+              "focus:border-transparent focus:ring-[#2890B8]/20",
+              "focus:shadow-[0_0_0_2px_rgba(40,144,184,0.22),0_1px_3px_rgba(0,0,0,0.06)]",
+            ].join(" "),
+    ].join(" ");
+
+  const labelClass = [
+    "mb-1.5 block text-[11px] font-bold uppercase tracking-[0.07em]",
+    isDark ? "text-slate-400" : "text-slate-500",
+  ].join(" ");
 
   return (
-    <form onSubmit={onSubmit} noValidate>
-      {heading && (
-        <h3 className={`text-base font-bold ${isDark ? "text-white" : "text-slate-900"}`}>{heading}</h3>
-      )}
+    <div
+      className={[
+        "relative overflow-hidden rounded-2xl border",
+        isDark ? "border-white/[0.08]" : "border-slate-200/80",
+      ].join(" ")}
+      style={{
+        backgroundImage: isDark ? BRAND_GRADIENT_SOFT_DARK : BRAND_GRADIENT_SOFT_LIGHT,
+        backgroundColor: isDark ? "rgba(13,17,23,0.95)" : "#ffffff",
+      }}
+    >
+      {/* Top gradient accent bar */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-[3px]"
+        style={{ backgroundImage: BRAND_GRADIENT }}
+      />
 
-      <div className={`${heading ? "mt-4" : ""} space-y-3.5`}>
-        <div>
-          <label htmlFor={`${uid}-name`} className={`mb-1.5 block text-xs font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-            Full Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            id={`${uid}-name`}
-            type="text"
-            autoComplete="name"
-            aria-invalid={!!errors.name}
-            aria-describedby={errors.name ? `${uid}-name-error` : undefined}
-            className={inputClass(!!errors.name)}
-            placeholder="Your full name"
-            {...register("name")}
-          />
-          <FieldError id={`${uid}-name-error`} message={errors.name?.message} />
-        </div>
+      {/* Ambient corner glows */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+          className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-3xl opacity-30"
+          style={{ background: "radial-gradient(circle,#2890B8,transparent 70%)" }}
+        />
+        <div
+          className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full blur-3xl opacity-20"
+          style={{ background: "radial-gradient(circle,#58B347,transparent 70%)" }}
+        />
+      </div>
 
-        <div>
-          <label htmlFor={`${uid}-email`} className={`mb-1.5 block text-xs font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-            Email <span className="text-red-500">*</span>
-          </label>
-          <input
-            id={`${uid}-email`}
-            type="email"
-            autoComplete="email"
-            aria-invalid={!!errors.email}
-            aria-describedby={errors.email ? `${uid}-email-error` : undefined}
-            className={inputClass(!!errors.email)}
-            placeholder="you@example.com"
-            {...register("email")}
-          />
-          <FieldError id={`${uid}-email-error`} message={errors.email?.message} />
-        </div>
-
-        <div>
-          <label htmlFor={`${uid}-mobile`} className={`mb-1.5 block text-xs font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-            Mobile Number <span className="text-red-500">*</span>
-          </label>
-          <input
-            id={`${uid}-mobile`}
-            type="tel"
-            inputMode="numeric"
-            maxLength={10}
-            autoComplete="tel"
-            aria-invalid={!!errors.mobileNumber}
-            aria-describedby={errors.mobileNumber ? `${uid}-mobile-error` : undefined}
-            className={inputClass(!!errors.mobileNumber)}
-            placeholder="10-digit mobile number"
-            {...register("mobileNumber")}
-          />
-          <FieldError id={`${uid}-mobile-error`} message={errors.mobileNumber?.message} />
-        </div>
-
-        <div>
-          <label htmlFor={`${uid}-subject`} className={`mb-1.5 block text-xs font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-            Subject
-          </label>
-          <select
-            id={`${uid}-subject`}
-            aria-invalid={!!errors.subject}
-            aria-describedby={errors.subject ? `${uid}-subject-error` : undefined}
-            className={inputClass(!!errors.subject)}
-            defaultValue=""
-            {...register("subject")}
-          >
-            <option value="" disabled>
-              Select a subject
-            </option>
-            {SUBJECT_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          <FieldError id={`${uid}-subject-error`} message={errors.subject?.message} />
-        </div>
-
-        <div>
-          <label htmlFor={`${uid}-message`} className={`mb-1.5 block text-xs font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-            Message <span className="text-red-500">*</span>
-          </label>
-          <textarea
-            id={`${uid}-message`}
-            rows={3}
-            aria-invalid={!!errors.message}
-            aria-describedby={errors.message ? `${uid}-message-error` : undefined}
-            className={`${inputClass(!!errors.message)} resize-none`}
-            placeholder="Tell us what you're looking for (min. 20 characters)"
-            {...register("message")}
-          />
-          <FieldError id={`${uid}-message-error`} message={errors.message?.message} />
-        </div>
-
-        {status === "error" && (
-          <div role="alert" className="rounded-xl border border-red-300 bg-red-50 px-3.5 py-2.5 text-xs font-medium text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
-            <p>We couldn&apos;t submit your request. Please try again.</p>
-            <button
-              type="button"
-              onClick={handleRetry}
-              className="mt-1.5 font-bold underline underline-offset-2"
+      <div className="relative z-10 p-5 sm:p-6">
+        <AnimatePresence mode="wait">
+          {status === "success" ? (
+            /* ── SUCCESS ──────────────────────────────────────────────── */
+            <motion.div
+              key="success"
+              initial={{ opacity: 0, scale: 0.96, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="flex min-h-[260px] flex-col items-center justify-center gap-5 text-center"
             >
-              Retry
-            </button>
-          </div>
-        )}
-      </div>
+              {/* Layered rings */}
+              <div className="relative flex h-24 w-24 items-center justify-center">
+                <motion.div
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute inset-0 rounded-full"
+                  style={{
+                    background: "radial-gradient(circle,rgba(88,179,71,0.12),transparent 70%)",
+                  }}
+                />
+                <motion.div
+                  initial={{ scale: 0.4, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.36, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+                  className={[
+                    "relative flex h-16 w-16 items-center justify-center rounded-2xl border shadow-inner",
+                    isDark
+                      ? "border-[#58B347]/20 bg-[#58B347]/10"
+                      : "border-[#58B347]/25 bg-[#58B347]/08",
+                  ].join(" ")}
+                >
+                  <CheckCircle2 className="h-8 w-8" style={{ color: "#58B347" }} aria-hidden="true" />
+                </motion.div>
+              </div>
 
-      <div className="mt-5">
-        <Button type="submit" disabled={isSubmitting || status === "submitting"} className="w-full">
-          {status === "submitting" ? (
-            <span className="flex items-center justify-center gap-2">
-              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-              Sending...
-            </span>
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.28, delay: 0.22 }}
+                className="space-y-1.5"
+              >
+                <h3 className={`text-lg font-black tracking-[-0.015em] ${isDark ? "text-white" : "text-slate-900"}`}>
+                  Message sent!
+                </h3>
+                <p className={`text-[13px] leading-relaxed ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+                  Our team will reach out to you shortly.
+                </p>
+              </motion.div>
+
+              {/* Animated dots */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="flex gap-1.5"
+                aria-hidden="true"
+              >
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={i}
+                    animate={{ opacity: [0.25, 1, 0.25] }}
+                    transition={{ duration: 1.4, delay: i * 0.22, repeat: Infinity }}
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{ background: "#35A89D" }}
+                  />
+                ))}
+              </motion.div>
+            </motion.div>
+
           ) : (
-            "Submit"
+
+            /* ── FORM ─────────────────────────────────────────────────── */
+            <motion.div
+              key="form"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
+            >
+              <form onSubmit={onSubmit} noValidate>
+
+                {/* Optional heading */}
+                {heading && (
+                  <h3
+                    className={[
+                      "mb-4 text-[17px] font-black tracking-[-0.02em]",
+                      isDark ? "text-white" : "text-slate-900",
+                    ].join(" ")}
+                  >
+                    {heading}
+                  </h3>
+                )}
+
+                <div className={`${heading ? "mt-4" : ""} space-y-3.5`}>
+
+                  {/* Full Name */}
+                  <div>
+                    <label htmlFor={`${uid}-name`} className={labelClass}>
+                      Full Name <span className="normal-case tracking-normal text-red-500">*</span>
+                    </label>
+                    <input
+                      id={`${uid}-name`}
+                      type="text"
+                      autoComplete="name"
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? `${uid}-name-error` : undefined}
+                      className={inputClass(!!errors.name)}
+                      placeholder="Your full name"
+                      {...register("name")}
+                    />
+                    <FieldError id={`${uid}-name-error`} message={errors.name?.message} />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label htmlFor={`${uid}-email`} className={labelClass}>
+                      Email <span className="normal-case tracking-normal text-red-500">*</span>
+                    </label>
+                    <input
+                      id={`${uid}-email`}
+                      type="email"
+                      autoComplete="email"
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? `${uid}-email-error` : undefined}
+                      className={inputClass(!!errors.email)}
+                      placeholder="you@example.com"
+                      {...register("email")}
+                    />
+                    <FieldError id={`${uid}-email-error`} message={errors.email?.message} />
+                  </div>
+
+                  {/* Mobile */}
+                  <div>
+                    <label htmlFor={`${uid}-mobile`} className={labelClass}>
+                      Mobile Number <span className="normal-case tracking-normal text-red-500">*</span>
+                    </label>
+                    <input
+                      id={`${uid}-mobile`}
+                      type="tel"
+                      inputMode="numeric"
+                      maxLength={10}
+                      autoComplete="tel"
+                      aria-invalid={!!errors.mobileNumber}
+                      aria-describedby={errors.mobileNumber ? `${uid}-mobile-error` : undefined}
+                      className={inputClass(!!errors.mobileNumber)}
+                      placeholder="10-digit mobile number"
+                      {...register("mobileNumber")}
+                    />
+                    <FieldError id={`${uid}-mobile-error`} message={errors.mobileNumber?.message} />
+                  </div>
+
+                  {/* Subject */}
+                  <div>
+                    <label htmlFor={`${uid}-subject`} className={labelClass}>
+                      Subject
+                    </label>
+                    <select
+                      id={`${uid}-subject`}
+                      aria-invalid={!!errors.subject}
+                      aria-describedby={errors.subject ? `${uid}-subject-error` : undefined}
+                      className={inputClass(!!errors.subject)}
+                      defaultValue=""
+                      {...register("subject")}
+                    >
+                      <option value="" disabled>Select a subject</option>
+                      {SUBJECT_OPTIONS.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <FieldError id={`${uid}-subject-error`} message={errors.subject?.message} />
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label htmlFor={`${uid}-message`} className={labelClass}>
+                      Message <span className="normal-case tracking-normal text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id={`${uid}-message`}
+                      rows={3}
+                      aria-invalid={!!errors.message}
+                      aria-describedby={errors.message ? `${uid}-message-error` : undefined}
+                      className={`${inputClass(!!errors.message)} resize-none`}
+                      placeholder="Tell us what you're looking for (min. 20 characters)"
+                      {...register("message")}
+                    />
+                    <FieldError id={`${uid}-message-error`} message={errors.message?.message} />
+                  </div>
+
+                  {/* Error banner */}
+                  <AnimatePresence>
+                    {status === "error" && (
+                      <motion.div
+                        role="alert"
+                        initial={{ opacity: 0, y: -6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.2 }}
+                        className={[
+                          "flex items-start gap-2.5 rounded-xl border px-3.5 py-3",
+                          isDark
+                            ? "border-red-500/20 bg-red-500/[0.07]"
+                            : "border-red-200 bg-red-50",
+                        ].join(" ")}
+                      >
+                        <div className="mt-px flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-red-500/15">
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true" className="text-red-500">
+                            <circle cx="5" cy="5" r="4.5" stroke="currentColor" strokeWidth="1"/>
+                            <path d="M5 2.5v3M5 7.25h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <p className={`text-[12px] font-semibold ${isDark ? "text-red-400" : "text-red-600"}`}>
+                            Submission failed
+                          </p>
+                          <p className={`mt-0.5 text-[11px] ${isDark ? "text-red-400/75" : "text-red-500/80"}`}>
+                            Check your connection and try again.
+                          </p>
+                          <button
+                            type="button"
+                            onClick={handleRetry}
+                            className="mt-1 text-[11px] font-bold text-red-500 underline underline-offset-2
+                                       hover:opacity-80 transition-opacity
+                                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-1 rounded"
+                          >
+                            Retry now
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Divider */}
+                <div
+                  aria-hidden="true"
+                  className={`my-5 h-px ${isDark ? "bg-white/[0.06]" : "bg-slate-100"}`}
+                />
+
+                {/* Submit button */}
+                <Button
+                  type="submit"
+                  disabled={isSubmitting || status === "submitting"}
+                  className={[
+                    "relative w-full overflow-hidden rounded-xl py-3 text-[13.5px] font-bold",
+                    "tracking-[-0.01em] transition-all duration-200",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+                    "focus-visible:ring-[#2890B8]",
+                    isSubmitting || status === "submitting"
+                      ? isDark
+                        ? "cursor-not-allowed bg-white/10 text-slate-500"
+                        : "cursor-not-allowed bg-slate-100 text-slate-400"
+                      : "text-white active:scale-[0.99]",
+                  ].join(" ")}
+                  style={
+                    isSubmitting || status === "submitting"
+                      ? undefined
+                      : {
+                          backgroundImage: BRAND_GRADIENT,
+                          boxShadow: "0 4px 18px rgba(40,144,184,0.38)",
+                        }
+                  }
+                  // hover effect applied via onMouseEnter/Leave since Tailwind
+                  // can't drive inline-style shadow on hover
+                  onMouseEnter={(e) => {
+                    if (isSubmitting || status === "submitting") return;
+                    e.currentTarget.style.boxShadow = "0 6px 26px rgba(40,144,184,0.52)";
+                    e.currentTarget.style.filter = "brightness(1.07)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (isSubmitting || status === "submitting") return;
+                    e.currentTarget.style.boxShadow = "0 4px 18px rgba(40,144,184,0.38)";
+                    e.currentTarget.style.filter = "";
+                  }}
+                >
+                  {/* Shimmer overlay */}
+                  {!(isSubmitting || status === "submitting") && (
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-0
+                                 bg-gradient-to-r from-white/0 via-white/[0.08] to-white/0
+                                 translate-x-[-110%] group-hover:translate-x-[110%]
+                                 transition-transform duration-700"
+                    />
+                  )}
+
+                  {status === "submitting" ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                      Sending…
+                    </span>
+                  ) : (
+                    <span className="flex items-center justify-center gap-2">
+                      Send Message
+                      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true" className="opacity-90">
+                        <path d="M3.5 7.5h8M9 4.5l3 3-3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </span>
+                  )}
+                </Button>
+
+                {/* Trust note */}
+                <p className={`mt-3 text-center text-[11px] ${isDark ? "text-slate-600" : "text-slate-400"}`}>
+                  🔒 We respect your privacy. No spam, ever.
+                </p>
+              </form>
+            </motion.div>
           )}
-        </Button>
+        </AnimatePresence>
       </div>
-    </form>
+    </div>
   );
 }

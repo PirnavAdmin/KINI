@@ -2,7 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
-import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa6";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaThreads,
+  FaLinkedin,
+  FaYoutube,
+  FaWhatsapp,
+} from "react-icons/fa6";
 import { ROUTES } from "@shared/constants/routeConstants";
 import { fadeUp, staggerContainer } from "@shared/hooks/useScrollAnimation";
 import { useThemeContext } from "@shared/context/ThemeContext";
@@ -10,30 +17,53 @@ import kiniLogo from "../../../assets/Kini (7).svg";
 
 const quickLinks = [
   { label: "Home", to: ROUTES.PUBLIC.HOME },
-  { label: "Courses", to: ROUTES.PUBLIC.COURSES },
-  { label: "Programs", to: ROUTES.PUBLIC.UPSKILL_PROGRAM },
+ 
+  { label: "Courses", to: ROUTES.PUBLIC.UPSKILL_PROGRAM },
   { label: "About Us", to: ROUTES.PUBLIC.ABOUT },
-  { label: "Mentors", to: ROUTES.PUBLIC.MENTORS },
-  { label: "Success Stories", to: ROUTES.PUBLIC.SUCCESS_STORIES },
+  
+ 
   { label: "Contact", to: ROUTES.PUBLIC.CONTACT },
 ];
 
 const resourceLinks = [
   { label: "Career Guidance", to: ROUTES.PUBLIC.CAREER },
-  { label: "Book Free Demo", to: ROUTES.PUBLIC.CONTACT },
-  { label: "Learning Path", to: ROUTES.PUBLIC.HOME },
-  { label: "FAQs", to: ROUTES.PUBLIC.FAQ },
-  { label: "Support", to: ROUTES.PUBLIC.CONTACT },
+
+ 
   { label: "Privacy Policy", to: "/privacy-policy" },
   { label: "Terms & Conditions", to: "/terms-conditions" },
 ];
 
 const socialLinks = [
-  { label: "Instagram", href: "https://www.instagram.com/kiniedxhub", icon: FaInstagram },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/kiniedxhub", icon: FaLinkedin },
-  { label: "Facebook", href: "https://www.facebook.com/", icon: FaFacebook },
-  { label: "YouTube", href: "https://www.youtube.com/watch?v=zAdnmpnZHPM", icon: FaYoutube },
-  { label: "Threads", href: "https://www.threads.com/@kiniedxhub", icon: MessageCircle },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/kiniedxhub",
+    icon: FaInstagram,
+  },
+  {
+    label: "Threads",
+    href: "https://www.threads.net/@kiniedxhub",
+    icon: FaThreads,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/kiniedxhub",
+    icon: FaLinkedin,
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/",
+    icon: FaFacebook,
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@KiniEdxHub",
+    icon: FaYoutube,
+  },
+  {
+    label: "WhatsApp",
+    href: "https://wa.me/9000198239", // Replace with your WhatsApp number
+    icon: FaWhatsapp,
+  },
 ];
 
 const contactDetails = [
@@ -131,26 +161,48 @@ function FooterNewsletter({ isDark }) {
           }`}
         />
         <motion.button
-          type="submit"
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.96 }}
-          className={`relative flex-shrink-0 overflow-hidden rounded-pill px-5 py-2.5 text-sm font-semibold shadow-md ${
-            isDark ? "bg-white text-ink-900" : "bg-ink-900 text-white"
-          }`}
-        >
-          <span className="relative z-10">Subscribe</span>
-          <AnimatePresence>
-            {pulseKey > 0 && (
-              <motion.span
-                key={pulseKey}
-                initial={{ scale: 0, opacity: 0.45 }}
-                animate={{ scale: 2.6, opacity: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                className="pointer-events-none absolute inset-0 rounded-pill bg-primary-500/60"
-              />
-            )}
-          </AnimatePresence>
-        </motion.button>
+  type="submit"
+  whileHover={{ scale: 1.03, y: -2 }}
+  whileTap={{ scale: 0.96 }}
+  className="
+    group
+    relative
+    flex-shrink-0
+    overflow-hidden
+    rounded-full
+    px-6
+    py-2.5
+    text-sm
+    font-semibold
+    text-white
+    shadow-[0_12px_30px_rgba(29,114,190,0.28)]
+    transition-all
+    duration-300
+    hover:shadow-[0_18px_40px_rgba(29,114,190,0.38)]
+    active:shadow-[0_8px_20px_rgba(29,114,190,0.25)]
+  "
+  style={{
+    background:
+      "linear-gradient(90deg, #1D72BE 0%, #2B8FC6 30%, #33A8A0 68%, #5AB347 100%)",
+  }}
+>
+  {/* Shine Effect */}
+  <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+
+  <span className="relative z-10">Subscribe</span>
+
+  <AnimatePresence>
+    {pulseKey > 0 && (
+      <motion.span
+        key={pulseKey}
+        initial={{ scale: 0, opacity: 0.45 }}
+        animate={{ scale: 2.6, opacity: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="pointer-events-none absolute inset-0 rounded-full bg-white/25"
+      />
+    )}
+  </AnimatePresence>
+</motion.button>
       </form>
 
       <AnimatePresence>

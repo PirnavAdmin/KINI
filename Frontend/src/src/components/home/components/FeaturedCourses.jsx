@@ -19,80 +19,73 @@ function CourseCard({ course, isFlipped, onFlip, isDark }) {
   const { openEnrollment } = useEnrollment();
 
   return (
-    <div className="relative h-[380px] w-full [perspective:1200px]">
+    <div className="relative h-[320px] w-full [perspective:1200px]">
       <div
         className="relative h-full w-full transition-transform duration-700 [transform-style:preserve-3d]"
         style={{ transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)" }}
       >
         {/* FRONT */}
-      {/* FRONT */}
-<button
-  type="button"
-  onClick={() => onFlip(true)}
-  aria-hidden={isFlipped}
-  tabIndex={isFlipped ? -1 : 0}
-  aria-label={`View outcomes for ${course.title}`}
-  className={`absolute inset-0 h-full w-full rounded-3xl p-[2px] bg-gradient-to-br ${course.gradient} transition-all duration-300 shadow-card hover:shadow-card-lg hover:-translate-y-1.5 [backface-visibility:hidden]`}
->
-  <div
-    className={`flex h-full w-full flex-col rounded-[22px] p-6 text-left ${
-      isDark ? "bg-ink-900" : "bg-white"
-    }`}
-  >
-    <div className="flex items-start justify-between gap-3">
-      <div
-        className={`flex h-12 w-12 items-center justify-center rounded-2xl shadow-lg ring-4 ring-white/20 bg-gradient-to-br ${course.gradient} text-lg font-bold text-white shadow-sm`}
-        aria-hidden="true"
-      >
-        {course.title.charAt(0)}
-      </div>
-      <span className={`rounded-pill px-3 py-1 text-[11px] font-bold ${BADGE_TONE[course.badge] ?? DEFAULT_BADGE_TONE}`}>
-        {course.badge}
-      </span>
-    </div>
+        <button
+          type="button"
+          onClick={() => onFlip(true)}
+          aria-hidden={isFlipped}
+          tabIndex={isFlipped ? -1 : 0}
+          aria-label={`View outcomes for ${course.title}`}
+          className={`absolute inset-0 h-full w-full rounded-3xl p-[2px] bg-gradient-to-br ${course.gradient} transition-all duration-300 shadow-card hover:shadow-card-lg hover:-translate-y-1.5 [backface-visibility:hidden]`}
+        >
+          <div
+            className={`flex h-full w-full flex-col rounded-[22px] p-5 text-left ${
+              isDark ? "bg-ink-900" : "bg-white"
+            }`}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div
+                className={`flex h-11 w-11 items-center justify-center rounded-2xl shadow-lg ring-4 ring-white/20 bg-gradient-to-br ${course.gradient} text-base font-bold text-white shadow-sm`}
+                aria-hidden="true"
+              >
+                {course.title.charAt(0)}
+              </div>
+              <span className={`rounded-pill px-3 py-1 text-[11px] font-bold ${BADGE_TONE[course.badge] ?? DEFAULT_BADGE_TONE}`}>
+                {course.badge}
+              </span>
+            </div>
 
-    <h3 className={`mt-4 font-display text-lg font-bold leading-snug ${isDark ? "text-white" : "text-ink-900"}`}>
-      {course.title}
-    </h3>
-    <p className={`mt-2 line-clamp-2 text-sm leading-relaxed ${isDark ? "text-white/50" : "text-ink-900/50"}`}>
-      {course.desc}
-    </p>
+            <h3 className={`mt-3 line-clamp-2 font-display text-base font-bold leading-snug ${isDark ? "text-white" : "text-ink-900"}`}>
+              {course.title}
+            </h3>
+            <p className={`mt-1.5 line-clamp-2 text-sm leading-relaxed ${isDark ? "text-white/50" : "text-ink-900/50"}`}>
+              {course.desc}
+            </p>
 
-    <div className={`mt-4 flex flex-wrap gap-4 text-xs font-semibold ${isDark ? "text-white/50" : "text-ink-900/50"}`}>
-      <span className="flex items-center gap-1.5">
-        <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-        {course.duration}
-      </span>
-      <span className="flex items-center gap-1.5">
-        <Users2 className="h-3.5 w-3.5" aria-hidden="true" />
-        {course.sessions}
-      </span>
-    </div>
+            <div className={`mt-3 flex flex-wrap gap-3 text-xs font-semibold ${isDark ? "text-white/50" : "text-ink-900/50"}`}>
+              <span className="flex items-center gap-1.5">
+                <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                {course.duration}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Users2 className="h-3.5 w-3.5" aria-hidden="true" />
+                {course.sessions}
+              </span>
+            </div>
 
-    <div className={`mt-auto flex items-end justify-between border-t pt-4 ${isDark ? "border-white/10" : "border-ink-900/[0.06]"}`}>
-      <div>
-        <p className={`text-[11px] font-semibold uppercase tracking-wide ${isDark ? "text-white/40" : "text-ink-900/40"}`}>
-          Target salary
-        </p>
-        <p className={`text-xl font-extrabold ${isDark ? "text-white" : "text-ink-900"}`}>{course.salary}</p>
-      </div>
-      <span className="flex items-center gap-1 text-xs font-bold text-primary-500">
-        Outcomes <RotateCcw className="h-3 w-3" aria-hidden="true" />
-      </span>
-    </div>
-  </div>
-</button>
+            <div className={`mt-auto flex items-center justify-center border-t pt-3 ${isDark ? "border-white/10" : "border-ink-900/[0.06]"}`}>
+              <span className="flex items-center gap-1 text-xs font-bold text-primary-500">
+                See outcomes <RotateCcw className="h-3 w-3" aria-hidden="true" />
+              </span>
+            </div>
+          </div>
+        </button>
 
         {/* BACK */}
         <div
           aria-hidden={!isFlipped}
-          className={`absolute inset-0 flex h-full w-full flex-col rounded-3xl border border-white/20 p-6 text-white shadow-2xl [backface-visibility:hidden] bg-gradient-to-br ${course.gradient}`}
+          className={`absolute inset-0 flex h-full w-full flex-col rounded-3xl border border-white/20 p-5 text-white shadow-2xl [backface-visibility:hidden] bg-gradient-to-br ${course.gradient}`}
           style={{ transform: "rotateY(180deg)" }}
         >
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">Program outcomes</p>
-          <h3 className="mt-2 text-lg font-bold leading-snug">{course.title}</h3>
+          <h3 className="mt-2 line-clamp-2 text-base font-bold leading-snug">{course.title}</h3>
 
-          <ul className="mt-4 flex-1 space-y-2.5">
+          <ul className="mt-3 flex-1 space-y-2 overflow-y-auto">
             {course.outcomes.map((outcome) => (
               <li key={outcome} className="flex items-start gap-2 text-sm font-medium text-white/90">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" aria-hidden="true" />
@@ -101,7 +94,7 @@ function CourseCard({ course, isFlipped, onFlip, isDark }) {
             ))}
           </ul>
 
-          <div className="mt-auto space-y-2.5 border-t border-white/20 pt-4">
+          <div className="mt-auto space-y-2 border-t border-white/20 pt-3">
             <button
               type="button"
               onClick={() => openEnrollment(course)}

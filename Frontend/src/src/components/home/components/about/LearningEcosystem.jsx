@@ -37,17 +37,12 @@ const tracks = [
 export default function LearningEcosystem() {
   return (
     <section className="relative overflow-hidden py-28 sm:py-36">
-
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#B5DBFF] via-[#C4EFF6] to-[#D8FBF5]" />
 
-      {/* Blue Glow */}
+      {/* Glows */}
       <div className="absolute -top-48 -left-48 h-[500px] w-[500px] rounded-full bg-[#085FA7]/15 blur-[130px]" />
-
-      {/* Green Glow */}
       <div className="absolute -bottom-48 -right-48 h-[500px] w-[500px] rounded-full bg-[#5CA347]/15 blur-[130px]" />
-
-      {/* White Glow */}
       <div className="absolute top-1/2 left-1/2 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/40 blur-[120px]" />
 
       {/* Grid */}
@@ -61,137 +56,100 @@ export default function LearningEcosystem() {
       />
 
       <div className="relative mx-auto max-w-7xl px-6">
-
         {/* Heading */}
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: .6 }}
+          transition={{ duration: 0.6 }}
           className="text-center"
         >
           <span className="inline-flex rounded-full bg-white/80 backdrop-blur-xl px-5 py-2 text-sm font-semibold text-[#085FA7] shadow">
             One Ecosystem • Two Learning Modes
           </span>
-
           <h2 className="mt-5 text-4xl md:text-5xl font-black text-slate-900">
             Our Learning Ecosystem
           </h2>
-
           <p className="mt-5 max-w-2xl mx-auto text-lg text-slate-600">
             Learn online from anywhere or experience immersive offline
             training. Choose the path that fits your career goals.
           </p>
         </motion.div>
 
-        {/* Cards */}
-
-        <div className="mt-20 grid gap-8 lg:grid-cols-2">
-
+        {/* Cards – reduced sizes */}
+        <div className="mt-16 grid gap-6 lg:grid-cols-2">
           {tracks.map((track, index) => {
-
             const Icon = track.icon;
-
             return (
-
               <motion.div
                 key={track.title}
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{
-                  duration: .6,
-                  delay: index * .15,
+                  duration: 0.6,
+                  delay: index * 0.15,
                 }}
                 whileHover={{
-                  y: -8,
+                  y: -6,
                 }}
-                className="group relative overflow-hidden rounded-[28px] border border-white/60 bg-white/75 backdrop-blur-xl shadow-[0_25px_60px_rgba(15,23,42,.08)] transition-all duration-500 hover:shadow-[0_35px_90px_rgba(8,95,167,.18)]"
+                className="group relative overflow-hidden rounded-2xl border border-white/60 bg-white/75 backdrop-blur-xl shadow-[0_15px_40px_rgba(15,23,42,.06)] transition-all duration-500 hover:shadow-[0_25px_70px_rgba(8,95,167,.15)]"
               >
-
-                {/* Top Gradient */}
-
+                {/* Top Gradient – thinner */}
                 <div
-                  className={`absolute top-0 left-0 h-1.5 w-full bg-gradient-to-r ${track.accent}`}
+                  className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${track.accent}`}
                 />
 
                 {/* Hover Background */}
-
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/30 opacity-0 transition duration-500 group-hover:opacity-100" />
 
-                <div className="relative p-10">
-
+                <div className="relative p-6 sm:p-7">
+                  {/* Icon + arrow */}
                   <div className="flex items-start justify-between">
-
                     <div
-                      className={`flex h-16 w-16 items-center justify-center rounded-2xl ${track.iconBg}`}
+                      className={`flex h-12 w-12 items-center justify-center rounded-xl ${track.iconBg}`}
                     >
-                      <Icon
-                        className={track.iconColor}
-                        size={28}
-                      />
+                      <Icon className={track.iconColor} size={22} />
                     </div>
-
                     <ArrowUpRight
-                      size={22}
+                      size={18}
                       className="text-slate-400 transition duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#085FA7]"
                     />
-
                   </div>
 
-                  <h3 className="mt-8 text-2xl font-bold text-slate-900">
+                  <h3 className="mt-5 text-xl font-bold text-slate-900">
                     {track.title}
                   </h3>
 
-                  <p className="mt-3 leading-7 text-slate-600">
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">
                     {track.desc}
                   </p>
 
-                  <div className="mt-8 grid grid-cols-2 gap-4">
-
+                  <div className="mt-5 grid grid-cols-2 gap-3">
                     {track.items.map((item) => (
-
-                      <div
-                        key={item}
-                        className="flex items-center gap-3"
-                      >
-
+                      <div key={item} className="flex items-center gap-2.5">
                         <span
-                          className={`h-2.5 w-2.5 rounded-full ${track.iconBg}`}
+                          className={`h-2 w-2 rounded-full ${track.iconBg}`}
                         />
-
-                        <span className="text-sm font-medium text-slate-700">
+                        <span className="text-xs font-medium text-slate-700">
                           {item}
                         </span>
-
                       </div>
-
                     ))}
-
                   </div>
 
                   <button
-                    className="mt-10 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#085FA7] to-[#5CA347] px-6 py-3 text-white font-semibold transition hover:shadow-lg"
+                    className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#085FA7] to-[#5CA347] px-4 py-2 text-sm font-semibold text-white transition hover:shadow-lg hover:scale-[1.02]"
                   >
                     Explore Programs
-
-                    <ArrowUpRight size={18} />
-
+                    <ArrowUpRight size={15} />
                   </button>
-
                 </div>
-
               </motion.div>
-
             );
-
           })}
-
         </div>
-
       </div>
-
     </section>
   );
 }

@@ -10,10 +10,15 @@ import heroImage from "../../../../../public/Generated image_ Smiling Student wi
 // the rest of the page with different numbers for the same fact.
 const findStat = (label) => statData.find((s) => s.label === label) ?? { value: 0, suffix: "" };
 
+// All three floating badges point at registration, regardless of which
+// stat they display — the badge content (success rate / students /
+// partners) is just social proof, the click intent is always "sign up."
+const REGISTER_PATH = "/register";
+
 const floatingStats = [
-  { key: "success", icon: Award, label: "Success Rate", to: "/placement", ...findStat("Success Rate") },
-  { key: "students", icon: Users, label: "Students Trained", to: "/students", ...findStat("Students Trained") },
-  { key: "partners", icon: Briefcase, label: "Hiring Partners", to: "/placement", ...findStat("Hiring Partners") },
+  { key: "success", icon: Award, label: "Success Rate", ...findStat("Success Rate") },
+  { key: "students", icon: Users, label: "Students Trained", ...findStat("Students Trained") },
+  { key: "partners", icon: Briefcase, label: "Hiring Partners", ...findStat("Hiring Partners") },
 ];
 
 export default function Hero() {
@@ -135,7 +140,8 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Floating stat badges — real, site-wide figures */}
+          {/* Floating stat badges — content is real site-wide figures,
+              but clicking any of them takes you to registration. */}
           {floatingStats.map((stat, i) => {
             const Icon = stat.icon;
             const positionClass = [
@@ -153,7 +159,7 @@ export default function Hero() {
                 className={`absolute ${positionClass}`}
               >
                 <Link
-                  to={stat.to}
+                  
                   className={`flex items-center gap-3 rounded-3xl p-3 shadow-xl backdrop-blur-xl transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${
                     isDark ? "bg-ink-900/85" : "bg-white/85"
                   }`}

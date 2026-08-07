@@ -12,7 +12,6 @@ const navItems = [
   { label: "Home", to: ROUTES.PUBLIC.HOME },
   { label: "AboutUs", to: ROUTES.PUBLIC.ABOUT },
   { label: "Courses", to: ROUTES.PUBLIC.UPSKILL_PROGRAM },
-
   { label: "ContactUs", to: ROUTES.PUBLIC.CONTACT },
 ];
 
@@ -54,7 +53,6 @@ export default function Navbar() {
             alt="Kini Edu Hub logo"
             className="block h-9 w-auto max-w-none object-contain object-left sm:h-10 lg:h-11"
           />
-
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -66,14 +64,13 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          {/* Wrapped in a div rather than putting `hidden md:inline-flex`
-              directly on Button: Button's own root already carries an
-              unconditional `inline-flex` class, and Tailwind's generated
-              stylesheet order can let that win over a same-specificity
-              `hidden` utility regardless of className string order. A
-              wrapper sidesteps the conflict entirely. */}
+          {/* Desktop Register button with gradient */}
           <div className="hidden md:block">
-            <Button type="button" onClick={openRegister} className="!h-11 !px-5">
+            <Button
+              type="button"
+              onClick={openRegister}
+              className="register-btn !h-11 !px-5 !rounded-full !border-0 !text-white shadow-[0_12px_30px_rgba(30,115,189,0.25)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_18px_40px_rgba(30,115,189,0.35)]"
+            >
               <UserPlus className="h-[18px] w-[18px]" aria-hidden="true" />
               Register
             </Button>
@@ -108,10 +105,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Always rendered (not `menuOpen && (...)`,) so the open/close can
-          transition on max-height + opacity instead of just snapping —
-          `border-t-0` while closed avoids a stray 1px line sitting under
-          the header at zero height. */}
+      {/* Mobile menu */}
       <div
         className={`overflow-hidden border-t transition-all duration-300 md:hidden ${
           isDark ? "border-white/10 bg-ink-950" : "border-ink-900/5 bg-porcelain"
@@ -128,10 +122,11 @@ export default function Navbar() {
               {item.label}
             </NavLink>
           ))}
+          {/* Mobile Register button with same gradient */}
           <Button
             type="button"
             onClick={openRegister}
-            className="mt-2 w-full !h-11 justify-center !px-5"
+            className="register-btn mt-2 w-full justify-center !h-11 !px-5 !rounded-full !border-0 !text-white shadow-[0_12px_30px_rgba(30,115,189,0.25)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_18px_40px_rgba(30,115,189,0.35)]"
           >
             <UserPlus className="h-[18px] w-[18px]" aria-hidden="true" />
             Register
@@ -144,6 +139,16 @@ export default function Navbar() {
           <RegisterModal isOpen={isRegisterOpen} onClose={closeRegister} />
         </Suspense>
       )}
+
+      {/* Global style to apply gradient to .register-btn */}
+      <style>{`
+        .register-btn {
+          background: linear-gradient(90deg, #1E73BD 0%, #2890B8 35%, #35A89D 65%, #58B347 100%) !important;
+        }
+        .register-btn:hover {
+          background: linear-gradient(90deg, #1A65A8 0%, #2382A5 35%, #2E9A8C 65%, #4D9E3F 100%) !important;
+        }
+      `}</style>
     </header>
   );
 }

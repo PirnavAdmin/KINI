@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 
-import Navbar from "@shared/components/navbar";
+import Navbar from "@shared/components/Navbar";
 import WhatsAppButton from "@shared/components/WhatsAppButton";
 import useLeadPopup from "@shared/hooks/useLeadPopup";
 
@@ -204,11 +204,7 @@ function Home() {
       {loadWidgets && (
         <Suspense fallback={null}>
           <EnquiryWidget isOpen={isEnquiryOpen} onClose={handleCloseEnquiry} />
-          <GetInTouchModal
-            isOpen={leadPopup.isOpen}
-            onClose={leadPopup.close}
-            onSubmitted={leadPopup.markSubmitted}
-          />
+         <GetInTouchModal isOpen={leadPopup.isOpen} onClose={leadPopup.close} />
         </Suspense>
       )}
       <WhatsAppButton />

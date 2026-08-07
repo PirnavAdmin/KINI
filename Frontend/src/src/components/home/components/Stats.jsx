@@ -50,12 +50,18 @@ const Stats = memo(function Stats() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               whileHover={{ y: -5 }}
-              className={`rounded-2.5xl p-5 sm:p-6 text-center border backdrop-blur-xl transition-shadow duration-300 ${
+              className={`relative rounded-2.5xl p-5 sm:p-6 text-center border backdrop-blur-xl transition-shadow duration-300 ${
                 isDark
                   ? "glass-dark hover:shadow-glow"
                   : "bg-white border-ink-900/[0.06] shadow-card hover:shadow-card-lg"
               }`}
             >
+              {/* Colored top accent bar */}
+              <div 
+                className="absolute top-0 left-0 right-0 h-1 rounded-t-2.5xl"
+                style={{ backgroundColor: stat.color }}
+              />
+
               <div className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3" style={{ backgroundColor: `${stat.color}15` }}>
                 <div className="w-5 h-5 rounded-full" style={{ backgroundColor: stat.color }} />
               </div>

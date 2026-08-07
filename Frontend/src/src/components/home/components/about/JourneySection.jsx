@@ -116,20 +116,7 @@ export default function JourneySection() {
         </div>
 
         {/* Salary payoff badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mx-auto mt-16 flex max-w-sm items-center justify-center gap-4 rounded-2xl border border-brand-gold/30 bg-brand-gold/5 px-8 py-6 text-center"
-        >
-          <div ref={salary.ref}>
-            <p className="eyebrow text-brand-gold">Average outcome</p>
-            <p className="mt-1 font-display text-3xl font-semibold text-slate-900">
-              ₹{salary.value} <span className="text-base font-normal text-slate-500">LPA</span>
-            </p>
-          </div>
-        </motion.div>
+       
       </div>
     </section>
   )

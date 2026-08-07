@@ -4,12 +4,17 @@ import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import { Check } from "lucide-react";
 
+// Toggle this to show/hide the whole CTA section without touching the JSX below.
+const CTA_ENABLED = false;
+
 const TRUST_POINTS = ["7-day refund policy", "EMI from ₹2,499/month", "Zero-cost financing"];
 
 // Intentionally theme-independent (like the Footer): this is a single
 // bold, high-contrast brand-gradient band, not a neutral content
 // surface, so it doesn't need a dark-mode variant.
 const CTA = memo(function CTA({ onOpenEnquiry }) {
+  if (!CTA_ENABLED) return null;
+
   return (
     <section className="relative overflow-hidden py-16 text-center md:py-20">
       <div className="absolute inset-0 bg-gradient-to-br from-primary-500 via-primary-400 to-secondary-500" />

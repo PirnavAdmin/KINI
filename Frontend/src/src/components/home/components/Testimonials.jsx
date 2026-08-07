@@ -3,7 +3,46 @@ import { FaStar, FaQuoteRight } from "react-icons/fa";
 import { useThemeContext } from "@shared/context/ThemeContext";
 import Section from "@shared/components/ui/Section";
 import SectionHeader from "@shared/components/ui/SectionHeader";
-import { testimonials } from "../data/homeData";
+
+// South Indian testimonials data
+const southIndianTestimonials = [
+  {
+    name: "Priya Nair",
+    role: "Software Engineer",
+    text: "This program completely transformed my career. I went from a non-IT background to landing a job at a top product company in just 6 months.",
+    rating: 5,
+  },
+  {
+    name: "Arjun Reddy",
+    role: "Full Stack Developer",
+    text: "The live mentorship and project-based learning were game-changers. I built a portfolio that impressed recruiters and got me multiple offers.",
+    rating: 5,
+  },
+  {
+    name: "Meera Krishnan",
+    role: "Data Analyst",
+    text: "I was hesitant to start, but the structured curriculum and supportive community made all the difference. I'm now working as a data analyst at a leading firm.",
+    rating: 4.9,
+  },
+  {
+    name: "Karthik Rao",
+    role: "UI/UX Designer",
+    text: "The hands-on projects and mock interviews prepared me so well that I aced my first interview. Truly a life-changing experience!",
+    rating: 5,
+  },
+  {
+    name: "Divya Menon",
+    role: "Product Manager",
+    text: "The career guidance and placement assistance were top-notch. I got a role as a product manager within a month of completing the program.",
+    rating: 4.8,
+  },
+  {
+    name: "Rahul Shetty",
+    role: "DevOps Engineer",
+    text: "I was able to transition from support to a DevOps role thanks to the practical skills I learned. Highly recommended!",
+    rating: 4.9,
+  },
+];
 
 function ReviewCard({ item, isDark }) {
   return (
@@ -36,9 +75,6 @@ function ReviewCard({ item, isDark }) {
 
       <div className="flex items-center justify-between">
         <div className="flex min-w-0 items-center gap-2.5">
-          <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border-2 border-primary-500/20">
-            <img src={item.avatar} alt={`Photo of ${item.name}`} className="h-full w-full object-cover" loading="lazy" />
-          </div>
           <div className="min-w-0">
             <h3
               className={`truncate font-display text-sm font-bold transition-colors duration-200 ${
@@ -48,7 +84,7 @@ function ReviewCard({ item, isDark }) {
               {item.name}
             </h3>
             <p className={`truncate text-xs ${isDark ? "text-white/40" : "text-ink-900/40"}`}>
-              {item.role} @ <span className="font-medium text-secondary-600">{item.company}</span>
+              {item.role}
             </p>
           </div>
         </div>
@@ -59,7 +95,12 @@ function ReviewCard({ item, isDark }) {
 
 const Testimonials = memo(function Testimonials() {
   const { isDark } = useThemeContext();
-  const doubled = useMemo(() => [...testimonials, ...testimonials], []);
+
+  // Double the array for seamless marquee
+  const doubled = useMemo(
+    () => [...southIndianTestimonials, ...southIndianTestimonials],
+    []
+  );
 
   return (
     <Section
@@ -94,10 +135,7 @@ const Testimonials = memo(function Testimonials() {
         subheading="Real stories from real students who transformed their careers through our programs."
       />
 
-      {/* Auto-scrolling marquee: pure-CSS keyframe so hover/focus can pause it
-          natively without the jump-to-start that framer-motion's looping
-          `animate` keyframes cause on stop/resume. Disabled entirely under
-          prefers-reduced-motion via Tailwind's motion-reduce: variant. */}
+      {/* Auto-scrolling marquee */}
       <div className="mt-6 overflow-hidden">
         <div className="flex w-max animate-[testimonial-marquee_30s_linear_infinite] gap-5 hover:[animation-play-state:paused] focus-within:[animation-play-state:paused] motion-reduce:animate-none">
           {doubled.map((item, index) => (

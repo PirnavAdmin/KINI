@@ -1,180 +1,150 @@
 import { motion } from "framer-motion";
-import { CheckCircle, XCircle, AlertTriangle } from "lucide-react";
+import { Briefcase, Code2, GraduationCap, Infinity as InfinityIcon, Radio, Users } from "lucide-react";
 import { useThemeContext } from "@shared/context/ThemeContext";
+import { fadeUp, staggerContainer } from "@shared/hooks/useScrollAnimation";
+import Section from "@shared/components/ui/Section";
+import SectionHeader from "@shared/components/ui/SectionHeader";
+import { whyChooseUsFeatures } from "../data/homeData";
 
-const FEATURES = [
-  { title: "Live Classes",          academy: true, others: false,     othersNote: "Mostly Recorded"  },
-  { title: "Structured Curriculum", academy: true, others: false,     othersNote: "Scattered Content" },
-  { title: "1:1 Mentorship",        academy: true, others: false                                       },
-  { title: "Placement Support",     academy: true, others: false                                       },
-  { title: "Real Projects",         academy: true, others: "limited", othersNote: "Limited scope"     },
-  { title: "Mock Interviews",       academy: true, others: false                                       },
-];
+const ICONS = [Radio, GraduationCap, Briefcase, Code2, Users, InfinityIcon];
 
-const STATS = [
-  { value: "500+", label: "Students Trained" },
-  { value: "95%",  label: "Placement Rate"   },
-  { value: "50+",  label: "Industry Mentors" },
-];
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-};
-
-const stagger = {
-  hidden: {},
-  show:   { transition: { staggerChildren: 0.07 } },
-};
-
-function OthersCell({ others, othersNote }) {
-  if (others === false) {
-    return (
-      <div className="flex flex-col items-center gap-1">
-        <XCircle className="text-[#F0765B]" size={18} aria-label="Not available" />
-        {othersNote && (
-          <span className="text-[10px] text-slate-500 leading-tight text-center">
-            {othersNote}
-          </span>
-        )}
-      </div>
-    );
+// Define static border colors and their corresponding hover/bg classes
+const BORDER_CONFIG = {
+  featured: {
+    light: [
+      { border: "border-blue-500/40", hover: "hover:border-blue-500/60", bg: "bg-blue-500" },
+      { border: "border-purple-500/40", hover: "hover:border-purple-500/60", bg: "bg-purple-500" },
+    ],
+    dark: [
+      { border: "border-blue-400/40", hover: "hover:border-blue-400/60", bg: "bg-blue-400" },
+      { border: "border-purple-400/40", hover: "hover:border-purple-400/60", bg: "bg-purple-400" },
+    ]
+  },
+  regular: {
+    light: [
+      { border: "border-emerald-500/30", hover: "hover:border-emerald-500/50", bg: "bg-emerald-500" },
+      { border: "border-orange-500/30", hover: "hover:border-orange-500/50", bg: "bg-orange-500" },
+      { border: "border-pink-500/30", hover: "hover:border-pink-500/50", bg: "bg-pink-500" },
+      { border: "border-cyan-500/30", hover: "hover:border-cyan-500/50", bg: "bg-cyan-500" },
+    ],
+    dark: [
+      { border: "border-emerald-400/30", hover: "hover:border-emerald-400/50", bg: "bg-emerald-400" },
+      { border: "border-orange-400/30", hover: "hover:border-orange-400/50", bg: "bg-orange-400" },
+      { border: "border-pink-400/30", hover: "hover:border-pink-400/50", bg: "bg-pink-400" },
+      { border: "border-cyan-400/30", hover: "hover:border-cyan-400/50", bg: "bg-cyan-400" },
+    ]
   }
+};
+
+function FeatureCard({ feature, Icon, isDark, featured = false, className = "", borderIndex = 0 }) {
+  // Get config object based on card type and index
+  const getConfig = () => {
+    if (featured) {
+      return isDark 
+        ? BORDER_CONFIG.featured.dark[borderIndex] 
+        : BORDER_CONFIG.featured.light[borderIndex];
+    }
+    return isDark 
+      ? BORDER_CONFIG.regular.dark[borderIndex] 
+      : BORDER_CONFIG.regular.light[borderIndex];
+  };
+
+  const config = getConfig();
+
   return (
-    <div className="flex flex-col items-center gap-1">
-      <AlertTriangle className="text-[#F0765B]" size={18} aria-label="Limited" />
-      {othersNote && (
-        <span className="text-[10px] text-slate-500 leading-tight text-center">
-          {othersNote}
-        </span>
-      )}
-    </div>
+    <motion.div
+      variants={fadeUp}
+      className={`relative overflow-hidden rounded-3xl border-2 p-6 transition-all duration-300 hover:shadow-xl ${
+        featured
+          ? isDark
+            ? "bg-gradient-to-br from-primary-500/10 via-white/[0.02] to-secondary-500/10 shadow-glow"
+            : "bg-gradient-to-br from-primary-50 via-white to-secondary-50 shadow-card-lg"
+          : isDark
+            ? "bg-white/[0.03] hover:shadow-glow"
+            : "bg-white shadow-card hover:shadow-card-lg"
+      } ${config.border} ${config.hover} ${className}`}
+    >
+      {/* Colored accent bar at top */}
+      <div className={`absolute top-0 left-0 right-0 h-1 ${config.bg}`} />
+      
+      <span
+        className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 text-white ${
+          featured ? "shadow-glow" : ""
+        }`}
+      >
+        <Icon className={featured ? "h-6 w-6" : "h-5 w-5"} aria-hidden="true" />
+      </span>
+
+      <h3
+        className={`mt-4 font-display font-bold ${featured ? "text-xl" : "text-base"} ${
+          isDark ? "text-white" : "text-ink-900"
+        }`}
+      >
+        {feature.title}
+      </h3>
+      <p className={`mt-2 leading-relaxed ${featured ? "text-sm" : "text-xs"} ${isDark ? "text-white/50" : "text-ink-900/50"}`}>
+        {feature.desc}
+      </p>
+    </motion.div>
   );
 }
 
 export default function WhyChooseUs() {
   const { isDark } = useThemeContext();
+  const [first, second, ...rest] = whyChooseUsFeatures;
+
   return (
-    <section
-      id="why-us"
-      className={`relative overflow-hidden py-16 sm:py-20 lg:py-24 transition-colors duration-300 ${isDark ? 'bg-[#020617] text-white' : 'bg-[#F8FAFC] text-[#0F172A]'}`}
-    >
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        {isDark && <>
-          <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-[#085FA7]/10 blur-[120px]" />
-          <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#5CA347]/10 blur-[120px]" />
-        </>}
-        <div className={`absolute inset-0 bg-[size:50px_50px] ${isDark ? 'bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)]' : 'bg-[linear-gradient(to_right,#00000005_1px,transparent_1px),linear-gradient(to_bottom,#00000005_1px,transparent_1px)]'}`} />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-60px" }}
-          className="mb-8 text-center"
-        >
-          <span className="inline-block rounded-full border border-[#085FA7]/20 bg-[#EDF4FC] px-4 py-1 text-xs font-semibold text-[#085FA7]">
-            Why Choose Us
-          </span>
-
-          <h2 className="mt-4 text-3xl font-bold md:text-4xl">
-            Why{" "}
-            <span className="bg-gradient-to-r from-[#085FA7] to-[#5CA347] bg-clip-text text-transparent">
-              KiniEduHub
+    <Section className={isDark ? "bg-ink-950" : "bg-porcelain"}>
+      <SectionHeader
+        eyebrow="Why Choose Us"
+        heading={
+          <>
+            Built Different from{" "}
+            <span className="bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">
+              Every Other Bootcamp
             </span>
-          </h2>
+          </>
+        }
+        subheading="No recorded courses, no crowded cohorts, no guesswork. Just outcomes."
+      />
 
-          <p className={`mx-auto mt-3 max-w-xl text-sm ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>
-            Structured curriculum, real projects, and mentorship — side by side
-            with what the rest of the market offers.
-          </p>
-        </motion.div>
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        className="mt-10"
+      >
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+          <FeatureCard 
+            feature={first} 
+            Icon={ICONS[0]} 
+            isDark={isDark} 
+            featured 
+            borderIndex={0}
+            className="lg:col-span-2" 
+          />
+          <FeatureCard 
+            feature={second} 
+            Icon={ICONS[1]} 
+            isDark={isDark} 
+            featured 
+            borderIndex={1}
+          />
+        </div>
 
-        {/* Comparison Table */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-40px" }}
-          className="overflow-hidden rounded-2xl border backdrop-blur-xl"
-          style={{
-            borderColor: isDark ? "rgba(255,255,255,0.08)" : "#E5E7EB",
-            backgroundColor: isDark ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.8)",
-          }}
-          role="table"
-          aria-label="Feature comparison between Our Academy and others"
-        >
-          {/* Column headers */}
-          <div
-            role="row"
-            className="grid grid-cols-3 bg-gradient-to-r from-[#085FA7] to-[#5CA347] px-5 py-3 text-sm font-semibold text-white"
-          >
-            <div role="columnheader">Features</div>
-            <div role="columnheader" className="text-center">Our Academy</div>
-            <div role="columnheader" className="text-center">Others</div>
-          </div>
-
-          {/* Data rows */}
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            role="rowgroup"
-          >
-            {FEATURES.map((item, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                role="row"
-                className="grid grid-cols-3 items-center px-5 py-4 transition-colors hover:bg-white/[0.04] last:border-b-0"
-                style={{
-                  borderBottom: isDark ? "1px solid rgba(255,255,255,0.05)" : "1px solid #E5E7EB",
-                }}
-              >
-                <div role="cell">
-                  <p className={`text-sm font-medium ${isDark ? 'text-slate-200' : 'text-[#0F172A]'}`}>{item.title}</p>
-                </div>
-                <div role="cell" className="flex justify-center">
-                  <CheckCircle className="text-[#5CA347]" size={18} aria-label="Available" />
-                </div>
-                <div role="cell" className="flex justify-center">
-                  <OthersCell others={item.others} othersNote={item.othersNote} />
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-40px" }}
-          className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3"
-        >
-          {STATS.map((stat) => (
-            <motion.div
-              key={stat.label}
-              variants={fadeUp}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="rounded-xl border p-5 text-center backdrop-blur-xl transition-shadow"
-              style={{
-                borderColor: isDark ? "rgba(255,255,255,0.08)" : "#E5E7EB",
-                backgroundColor: isDark ? "rgba(255,255,255,0.03)" : "rgba(255,255,255,0.8)",
-              }}
-            >
-              <p className="text-3xl font-bold text-[#085FA7]" aria-label={`${stat.value} ${stat.label}`}>
-                {stat.value}
-              </p>
-              <p className={`mt-1 text-sm ${isDark ? 'text-slate-400' : 'text-[#64748B]'}`}>{stat.label}</p>
-            </motion.div>
+        <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {rest.map((feature, i) => (
+            <FeatureCard 
+              key={feature.title} 
+              feature={feature} 
+              Icon={ICONS[i + 2]} 
+              isDark={isDark} 
+              borderIndex={i}
+            />
           ))}
-        </motion.div>
-      </div>
-    </section>
+        </div>
+      </motion.div>
+    </Section>
   );
 }

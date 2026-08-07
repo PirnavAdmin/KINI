@@ -64,7 +64,8 @@ export default function ComparisonSection() {
           {/* Header row */}
           <div className="grid grid-cols-3 border-b border-ink-900/10">
             <div className="p-5 sm:p-6" />
-            <div className="relative flex items-center justify-center bg-ascent-gradient p-5 shadow-glow sm:p-6">
+            {/* Logo cell – now transparent */}
+            <div className="relative flex items-center justify-center p-5 sm:p-6">
               <img
                 src={kinilogo}
                 alt="Kini Edx Hub Logo"

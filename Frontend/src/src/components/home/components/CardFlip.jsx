@@ -122,22 +122,7 @@ export default function CardFlip({
           </div>
 
           {/* CTA */}
-          <button
-            onClick={handleEnroll}
-            className="relative z-10 mt-3.5 w-full py-2.5 rounded-xl
-                       bg-gradient-to-r from-[#085FA7] to-[#5CA347]
-                       text-white text-[11px] font-bold
-                       flex items-center justify-center gap-2
-                       hover:brightness-110 active:scale-95 transition-all duration-200"
-            style={{
-              opacity: flipped ? 1 : 0,
-              transform: flipped ? "translateY(0)" : "translateY(8px)",
-              transition: "opacity 0.3s ease, transform 0.3s ease",
-              transitionDelay: flipped ? "320ms" : "0ms",
-            }}
-          >
-            Enroll Now <FaArrowRight className="text-[9px]" />
-          </button>
+          
         </div>
       </div>
     </div>
