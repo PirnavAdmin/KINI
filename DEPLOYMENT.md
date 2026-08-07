@@ -18,7 +18,7 @@ frontend: 3000
 backend: 5000
 ```
 
-MySQL should run on the Ubuntu host. The backend reaches host MySQL through `host.docker.internal`, mapped by Docker to the host gateway.
+MySQL should run on the Ubuntu host. The backend uses Docker host networking, so `127.0.0.1:3306` in the backend connection string reaches host MySQL.
 
 Create the root `.env` file and update the connection string:
 

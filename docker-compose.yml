@@ -11,6 +11,7 @@ services:
     build:
       context: ./Backend
     container_name: kini-backend
+    network_mode: host
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: http://+:5000
@@ -18,8 +19,4 @@ services:
       Cors__AllowedOrigins__0: https://www.kiniedx.com
       Cors__AllowedOrigins__1: https://kiniedx.com
       Cors__AllowedOrigins__2: http://localhost:3000
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    ports:
-      - "5000:5000"
     restart: unless-stopped
