@@ -15,5 +15,12 @@ namespace Registerkini.Data
 
         public DbSet<GetInTouch> GetInTouches { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Registration>().ToTable("registrations");
+            modelBuilder.Entity<GetInTouch>().ToTable("getintouches");
+        }
     }
 }

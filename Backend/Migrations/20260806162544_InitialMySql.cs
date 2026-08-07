@@ -16,7 +16,7 @@ namespace Registerkini.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "GetInTouches",
+                name: "getintouches",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -35,12 +35,12 @@ namespace Registerkini.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GetInTouches", x => x.Id);
+                    table.PrimaryKey("PK_getintouches", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Registrations",
+                name: "registrations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -59,7 +59,7 @@ namespace Registerkini.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Registrations", x => x.Id);
+                    table.PrimaryKey("PK_registrations", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
         }
@@ -68,10 +68,10 @@ namespace Registerkini.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GetInTouches");
+                name: "getintouches");
 
             migrationBuilder.DropTable(
-                name: "Registrations");
+                name: "registrations");
         }
     }
 }

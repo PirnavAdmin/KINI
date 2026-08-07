@@ -58,7 +58,7 @@ namespace Registerkini.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GetInTouches");
+                    b.ToTable("getintouches");
                 });
 
             modelBuilder.Entity("Registerkini.Models.Registration", b =>
@@ -94,7 +94,7 @@ namespace Registerkini.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Registrations");
+                    b.ToTable("registrations");
                 });
 #pragma warning restore 612, 618
         }
