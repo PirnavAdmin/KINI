@@ -2,8 +2,6 @@ services:
   frontend:
     build:
       context: ./Frontend
-      args:
-        VITE_API_BASE_URL: ""
     container_name: kini-frontend
     ports:
       - "3000:3000"
