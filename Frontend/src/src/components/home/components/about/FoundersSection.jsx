@@ -30,7 +30,7 @@ const founders = [
 
 export default function FoundersSection() {
   return (
-    <section className="relative bg-slate-50 py-28 sm:py-36">
+    <section className="relative bg-slate-50 py-28 sm:py-36 dark:bg-app-dark-gradient">
       <div className="mx-auto max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -39,11 +39,11 @@ export default function FoundersSection() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <p className="eyebrow text-brand-blue">Leadership</p>
-          <h2 className="mt-3 font-display text-3xl font-semibold text-slate-900 sm:text-4xl">
+          <p className="eyebrow text-brand-blue dark:text-primary-300">Leadership</p>
+          <h2 className="mt-3 font-display text-3xl font-semibold text-slate-900 dark:text-white sm:text-4xl">
             Meet Our <span className="text-ascent">Founders</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-[15px] leading-relaxed text-slate-500">
+          <p className="mx-auto mt-4 max-w-lg text-[15px] leading-relaxed text-slate-500 dark:text-slate-400">
             Two engineers who've sat on both sides of the interview table —
             now building the pipeline they wish they'd had.
           </p>
@@ -93,24 +93,24 @@ function FounderRow({ name, role, tag, story, stats, reverse }) {
       {/* Content */}
       <div className={reverse ? '[direction:ltr]' : ''}>
         <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-brand-blue/10 px-3 py-1 font-mono text-xs text-brand-blue">
+          <span className="rounded-full bg-brand-blue/10 px-3 py-1 font-mono text-xs text-brand-blue dark:bg-primary-500/10 dark:text-primary-300">
             {role}
           </span>
-          <span className="rounded-full bg-slate-200 px-3 py-1 font-mono text-xs text-slate-600">
+          <span className="rounded-full bg-slate-200 px-3 py-1 font-mono text-xs text-slate-600 dark:bg-white/10 dark:text-slate-300">
             {tag}
           </span>
         </div>
-        <h3 className="mt-4 font-display text-2xl font-semibold text-slate-900 sm:text-3xl">
+        <h3 className="mt-4 font-display text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
           {name}
         </h3>
         <div className="mt-2 h-0.5 w-14 bg-ascent-gradient" />
-        <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-slate-600">{story}</p>
+        <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-slate-600 dark:text-slate-400">{story}</p>
 
         <div className="mt-7 flex gap-8">
           {stats.map((s) => (
             <div key={s.label}>
-              <p className="font-display text-xl font-semibold text-slate-900">{s.value}</p>
-              <p className="text-xs text-slate-500">{s.label}</p>
+              <p className="font-display text-xl font-semibold text-slate-900 dark:text-white">{s.value}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{s.label}</p>
             </div>
           ))}
         </div>

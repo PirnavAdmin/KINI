@@ -400,7 +400,7 @@ export default function StudentReviews() {
       id="reviews"
       aria-labelledby="reviews-heading"
       className={`relative w-full overflow-hidden py-20 md:py-28 font-sans transition-colors duration-300
-        ${isDark ? "bg-[#020b14] text-slate-100" : "bg-slate-50 text-slate-800"}`}
+        ${isDark ? "bg-app-dark-gradient text-slate-100" : "bg-slate-50 text-slate-800"}`}
     >
       {/* ── Background ─────────────────────────────────────────────────── */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">

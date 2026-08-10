@@ -17,21 +17,12 @@ import kiniLogo from "../../../assets/Kini (7).svg";
 
 const quickLinks = [
   { label: "Home", to: ROUTES.PUBLIC.HOME },
- 
   { label: "Courses", to: ROUTES.PUBLIC.UPSKILL_PROGRAM },
   { label: "About Us", to: ROUTES.PUBLIC.ABOUT },
-  
- 
   { label: "Contact", to: ROUTES.PUBLIC.CONTACT },
 ];
 
-const resourceLinks = [
-  { label: "Career Guidance", to: ROUTES.PUBLIC.CAREER },
 
- 
-  { label: "Privacy Policy", to: "/privacy-policy" },
-  { label: "Terms & Conditions", to: "/terms-conditions" },
-];
 
 const socialLinks = [
   {
@@ -80,7 +71,7 @@ const contactDetails = [
 const bottomLinks = [
   { label: "Privacy Policy", to: "/privacy-policy" },
   { label: "Terms", to: "/terms-conditions" },
-  { label: "Cookies", to: "/cookies" },
+  
 ];
 
 function FooterLink({ to, children, isDark }) {
@@ -228,7 +219,7 @@ export default function Footer() {
   return (
     <footer
       className={`relative overflow-hidden transition-colors duration-500 ${
-        isDark ? "bg-ink-950 text-white" : "bg-porcelain text-ink-900 border-t border-ink-900/10"
+        isDark ? "bg-app-dark-gradient text-white" : "bg-porcelain text-ink-900 border-t border-ink-900/10"
       }`}
     >
       <div aria-hidden="true" className="h-[3px] w-full bg-gradient-to-r from-primary-500 via-secondary-500 to-brand-coral" />
@@ -244,7 +235,7 @@ export default function Footer() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.15 }}
-        className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr] lg:gap-10 lg:px-8"
+        className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[1.4fr_1fr_1.3fr] lg:gap-10 lg:px-8"
       >
         {/* Column 1 — Brand */}
         <motion.div variants={fadeUp}>
@@ -279,21 +270,7 @@ export default function Footer() {
           </nav>
         </motion.div>
 
-        {/* Column 3 — Student Resources */}
-        <motion.div variants={fadeUp}>
-          <h3 className={`text-xs font-bold uppercase tracking-[0.2em] ${isDark ? "text-white/40" : "text-ink-900/40"}`}>
-            Student Resources
-          </h3>
-          <nav className="mt-4 flex flex-col gap-3" aria-label="Student resources">
-            {resourceLinks.map((link) => (
-              <FooterLink key={link.label} to={link.to} isDark={isDark}>
-                {link.label}
-              </FooterLink>
-            ))}
-          </nav>
-        </motion.div>
-
-        {/* Column 4 — Contact Information */}
+        {/* Column 3 — Contact Information */}
         <motion.div variants={fadeUp}>
           <h3 className={`text-xs font-bold uppercase tracking-[0.2em] ${isDark ? "text-white/40" : "text-ink-900/40"}`}>
             Contact Information

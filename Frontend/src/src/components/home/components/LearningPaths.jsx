@@ -14,7 +14,7 @@ export default function LearningPaths() {
   const { isDark } = useThemeContext();
 
   return (
-    <section className={`relative overflow-hidden py-16 md:py-20 transition-colors duration-500 ${isDark ? "bg-[#0F172A]" : "bg-white"}`}>
+    <section className={`relative overflow-hidden py-16 md:py-20 transition-colors duration-500 ${isDark ? "bg-app-dark-gradient" : "bg-white"}`}>
       <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-[#085FA7]/5 dark:bg-[#085FA7]/10 blur-[150px] rounded-full" />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

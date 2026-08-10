@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp \"C:\\\\Users\\\\Admin\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-Admin-Downloads-Frontenddemo-Frontend\\\\1a6151f9-eb6b-4cac-a821-967a44139af9\\\\scratchpad\\\\scroll-check.mjs\" ./scroll-check.mjs)",
+      "Bash(node scroll-check.mjs)"
+    ]
+  }
+}

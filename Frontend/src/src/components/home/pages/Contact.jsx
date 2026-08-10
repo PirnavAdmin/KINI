@@ -58,59 +58,61 @@ export default function Contact() {
       <Navbar />
 
       {/* ─── HERO ─── Reduced spacing ───────────────────── */}
-      <section
-        className="relative overflow-hidden pt-16 pb-10 text-slate-900 sm:pt-20 sm:pb-12"
-        style={{
-          background: "linear-gradient(135deg, #B5DBFF 0%, #C4EFF6 55%, #D8FBF5 100%)",
-        }}
-      >
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.35]"
-          style={{
-            backgroundImage: "radial-gradient(rgba(15,23,42,0.14) 1px, transparent 1px)",
-            backgroundSize: "22px 22px",
-            maskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 90%)",
-            WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 90%)",
-          }}
-        />
+<section
+  className="relative overflow-hidden pt-16 pb-10 text-slate-900 dark:text-white sm:pt-20 sm:pb-12
+             bg-[linear-gradient(135deg,#B5DBFF_0%,#C4EFF6_55%,#D8FBF5_100%)]
+             dark:bg-[linear-gradient(135deg,#0F172A_0%,#111827_50%,#0B1120_100%)]"
+>
+  {/* Background grid pattern – lower opacity in dark mode */}
+  <div
+    className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.08]"
+    style={{
+      backgroundImage: "radial-gradient(rgba(15,23,42,0.14) 1px, transparent 1px)",
+      backgroundSize: "22px 22px",
+      maskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 90%)",
+      WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 90%)",
+    }}
+  />
 
-        <div className="pointer-events-none absolute -top-24 -left-20 h-96 w-96 rounded-full bg-blue-400/25 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -right-16 h-96 w-96 rounded-full bg-indigo-300/25 blur-3xl" />
-        <div className="pointer-events-none absolute top-1/3 right-1/4 h-40 w-40 rounded-full bg-purple-300/20 blur-2xl" />
+  {/* Decorative blobs – darker, more subtle in dark mode */}
+  <div className="pointer-events-none absolute -top-24 -left-20 h-96 w-96 rounded-full bg-blue-400/25 blur-3xl dark:bg-blue-500/10" />
+  <div className="pointer-events-none absolute -bottom-24 -right-16 h-96 w-96 rounded-full bg-indigo-300/25 blur-3xl dark:bg-indigo-500/10" />
+  <div className="pointer-events-none absolute top-1/3 right-1/4 h-40 w-40 rounded-full bg-purple-300/20 blur-2xl dark:bg-purple-500/10" />
 
-        <div className="relative mx-auto max-w-7xl px-5 text-center">
-          <motion.span
-            {...rise(0)}
-            className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/70 px-4 py-1.5 text-xs font-semibold tracking-wide text-slate-700 shadow-sm backdrop-blur-xl"
-          >
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            </span>
-            Get in Touch
-          </motion.span>
+  <div className="relative mx-auto max-w-7xl px-5 text-center">
+    <motion.span
+      {...rise(0)}
+      className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/70 px-4 py-1.5 text-xs font-semibold tracking-wide text-slate-700 shadow-sm backdrop-blur-xl
+                 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
+    >
+      <span className="relative flex h-1.5 w-1.5">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+      </span>
+      Get in Touch
+    </motion.span>
 
-          <motion.h1
-            {...rise(0.08)}
-            className="mx-auto mb-3 max-w-3xl text-[2.2rem] font-extrabold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl"
-          >
-            We'd Love to
-            <span className="block bg-gradient-to-r from-[#2563EB] to-[#7C3AED] bg-clip-text text-transparent">
-              Hear From You
-            </span>
-          </motion.h1>
+    <motion.h1
+      {...rise(0.08)}
+      className="mx-auto mb-3 max-w-3xl text-[2.2rem] font-extrabold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl"
+    >
+      We'd Love to
+      <span className="block bg-gradient-to-r from-[#2563EB] to-[#7C3AED] bg-clip-text text-transparent">
+        Hear From You
+      </span>
+    </motion.h1>
 
-          <motion.p
-            {...rise(0.16)}
-            className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg"
-          >
-            Have a question, need support, or want to discuss enterprise plans? Our team is here to help.
-          </motion.p>
-        </div>
-      </section>
+    <motion.p
+      {...rise(0.16)}
+      className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg"
+    >
+      Have a question, need support, or want to discuss enterprise plans? Our team is here to help.
+    </motion.p>
+  </div>
+</section>
 
       {/* ─── STICKY FORM SIDEBAR + SCROLLING CONTENT ───────── */}
-      <section className={`py-16 sm:py-20 ${isDark ? "bg-[#020617]" : "bg-slate-50"}`}>
+      <section className={`py-16 sm:py-20 ${isDark ? "bg-app-dark-gradient" : "bg-slate-50"}`}>
         <div className="mx-auto max-w-7xl px-5">
           <div className="grid gap-10 lg:grid-cols-[440px_1fr] lg:gap-12">
             {/* ── LEFT: sticky — just the form ── */}

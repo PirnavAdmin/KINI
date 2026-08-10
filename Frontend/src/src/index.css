@@ -69,6 +69,12 @@
   --shadow-elevated: 0 8px 16px -4px rgba(8, 95, 167, 0.16), 0 24px 48px -12px rgba(8, 95, 167, 0.2);
 
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Single source of truth for the dark-mode app background. Every major
+     section/page that needs an opaque dark backdrop should reference this
+     (via .bg-app-dark-gradient) instead of a flat dark color, so the whole
+     app reads as one continuous surface. */
+  --gradient-app-dark: linear-gradient(135deg, #0f172a 0%, #111827 50%, #0b1120 100%);
 }
 
 @layer base {
@@ -80,7 +86,18 @@
     @apply font-body text-slate-900 antialiased;
     background: #eaeaec;
   }
-  
+
+  /* Global dark-mode app background. Fixed + cover so it stays a single,
+     seamless backdrop behind every route as the page scrolls; individual
+     sections either stay transparent over it or opt into the same
+     .bg-app-dark-gradient utility for an opaque backdrop of their own. */
+  :where(.dark) body {
+    background: var(--gradient-app-dark);
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
 
   h1,
   h2,
@@ -110,6 +127,12 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* Registered via @utility (not a plain .class in @layer utilities) so that
+   Tailwind's variant engine can generate dark:bg-app-dark-gradient. */
+@utility bg-app-dark-gradient {
+  background-image: var(--gradient-app-dark);
 }
 
 @layer utilities {

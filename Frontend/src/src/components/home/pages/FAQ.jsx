@@ -15,7 +15,7 @@ export default function FAQSection() {
   const { isDark } = useThemeContext();
 
   return (
-    <section className={`relative px-4 py-12 md:py-16 lg:py-20 overflow-hidden transition-colors duration-300 ${isDark ? 'bg-[#020b14] text-white' : 'bg-[#F8FAFC] text-[#0F172A]'}`}>
+    <section className={`relative px-4 py-12 md:py-16 lg:py-20 overflow-hidden transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient text-white' : 'bg-[#F8FAFC] text-[#0F172A]'}`}>
       {/* Glow Background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className={`absolute w-[400px] h-[400px] ${isDark ? 'bg-[#085FA7]/10' : 'bg-[#085FA7]/5'} blur-[140px] top-0 left-0`} />

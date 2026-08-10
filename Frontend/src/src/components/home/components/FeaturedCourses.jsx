@@ -142,7 +142,14 @@ export default function FeaturedCourses() {
   }, [search]);
 
   return (
-    <Section id="courses" className={isDark ? "bg-ink-950" : "bg-white"}>
+    <Section
+      id="courses"
+      className={
+        isDark
+          ? "bg-app-dark-gradient"
+          : "bg-white"
+      }
+    >
       <SectionHeader
         eyebrow="Career Programs"
         heading={

@@ -8,7 +8,7 @@ export default function CTASection() {
   return (
     <section 
       className={`relative overflow-hidden py-20 sm:py-24 transition-colors duration-500 ${
-        isDark ? 'bg-slate-950 text-white' : ''
+        isDark ? 'bg-app-dark-gradient text-white' : ''
       }`}
       style={!isDark ? {
         background: 'linear-gradient(135deg, #B5DBFF 0%, #C4EFF6 55%, #D8FBF5 100%)'

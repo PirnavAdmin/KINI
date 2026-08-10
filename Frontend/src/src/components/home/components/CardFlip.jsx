@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FaCheck, FaArrowRight } from "react-icons/fa";
@@ -9,17 +9,17 @@ export default function CardFlip({
   description = "",
   features = [],
   icon: Icon,
-  navigateTo = "/ai-engineering-immersive",
+
 }) {
   const [flipped, setFlipped] = useState(false);
   const navigate = useNavigate();
 
-  // Defensive: ensure features is always an array
   const featureList = Array.isArray(features) ? features : [];
 
   const handleEnroll = (e) => {
     e.stopPropagation();
-    navigate(navigateTo);
+    // Navigate or handle enrollment
+    
   };
 
   return (
@@ -29,7 +29,6 @@ export default function CardFlip({
       onMouseEnter={() => setFlipped(true)}
       onMouseLeave={() => setFlipped(false)}
     >
-      {/* Flip container */}
       <div
         className="relative w-full h-full"
         style={{
@@ -41,44 +40,41 @@ export default function CardFlip({
       >
         {/* ── FRONT ── */}
         <div
-          className="absolute inset-0 rounded-2xl overflow-hidden
-                     bg-gradient-to-br from-[#085FA7] to-[#5CA347]
-                     flex flex-col items-center justify-center p-6 text-center"
+          className="absolute inset-0 rounded-2xl overflow-hidden bg-gradient-to-br from-[#085FA7] to-[#5CA347] dark:from-[#1E293B] dark:to-[#0F172A] flex flex-col items-center justify-center p-6 text-center"
           style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
           {/* Glow blobs */}
-          <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#085FA7]/30 blur-[40px] rounded-full pointer-events-none" />
-          <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-[#5CA347]/30 blur-[40px] rounded-full pointer-events-none" />
+          <div className="absolute -top-10 -right-10 w-32 h-32 blur-[40px] rounded-full pointer-events-none bg-[#085FA7]/30 dark:bg-[#4F46E5]/30" />
+          <div className="absolute -bottom-10 -left-10 w-32 h-32 blur-[40px] rounded-full pointer-events-none bg-[#5CA347]/30 dark:bg-[#06B6D4]/30" />
 
-          {/* Icon with fallback */}
-          <div className="relative z-10 w-12 h-12 rounded-full bg-white/15 border border-white/25 flex items-center justify-center mb-4 flex-shrink-0">
-            {Icon ? (
-              <Icon className="w-6 h-6 text-white" />
-            ) : (
-              <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-              </svg>
-            )}
+          <div className="relative z-10 w-12 h-12 rounded-full border flex items-center justify-center mb-4 flex-shrink-0 bg-white/15 border-white/25 text-white dark:bg-white/10 dark:border-white/15">
+            {Icon ? <Icon className="w-6 h-6" /> : null}
           </div>
 
-          <h3 className="relative z-10 text-[15px] font-semibold text-white mb-1 leading-snug">{title}</h3>
+          <h3 className="relative z-10 text-[15px] font-semibold mb-1 leading-snug text-white dark:text-slate-100">
+            {title}
+          </h3>
           {subtitle && (
-            <p className="relative z-10 text-[11px] text-white/70 mb-2">{subtitle}</p>
+            <p className="relative z-10 text-[11px] mb-2 text-white/70 dark:text-slate-400">
+              {subtitle}
+            </p>
           )}
           {description && (
-            <p className="relative z-10 text-[10px] text-white/55 leading-relaxed max-w-[200px]">{description}</p>
+            <p className="relative z-10 text-[10px] leading-relaxed max-w-[200px] text-white/55 dark:text-slate-500">
+              {description}
+            </p>
           )}
 
           <div className="absolute bottom-3.5 left-0 right-0 flex justify-center">
-            <span className="text-[9px] text-white/35 tracking-widest uppercase">hover to explore →</span>
+            <span className="text-[9px] tracking-widest uppercase text-white/35 dark:text-slate-600">
+              hover to explore →
+            </span>
           </div>
         </div>
 
         {/* ── BACK ── */}
         <div
-          className="absolute inset-0 rounded-2xl overflow-hidden
-                     bg-[#0f172a] border border-[#085FA7]/20
-                     flex flex-col p-5"
+          className="absolute inset-0 rounded-2xl overflow-hidden flex flex-col p-5 bg-[#0f172a] border border-[#085FA7]/20 dark:border-[#4F46E5]/30"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
@@ -87,15 +83,15 @@ export default function CardFlip({
           }}
         >
           {/* Glow blobs */}
-          <div className="absolute -top-8 -right-8 w-24 h-24 bg-[#085FA7]/15 blur-[30px] rounded-full pointer-events-none" />
-          <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-[#5CA347]/15 blur-[30px] rounded-full pointer-events-none" />
+          <div className="absolute -top-8 -right-8 w-24 h-24 blur-[30px] rounded-full pointer-events-none bg-[#085FA7]/15 dark:bg-[#4F46E5]/20" />
+          <div className="absolute -bottom-8 -left-8 w-24 h-24 blur-[30px] rounded-full pointer-events-none bg-[#5CA347]/15 dark:bg-[#06B6D4]/20" />
 
-          {/* Top accent bar */}
-          <div className="relative z-10 h-[3px] w-full rounded-full bg-gradient-to-r from-[#085FA7] to-[#5CA347] mb-3.5" />
+          <div className="relative z-10 h-[3px] w-full rounded-full mb-3.5 bg-gradient-to-r from-[#085FA7] to-[#5CA347] dark:from-[#4F46E5] dark:to-[#06B6D4]" />
 
-          <h3 className="relative z-10 text-[13px] font-semibold text-slate-100 mb-3">{title}</h3>
+          <h3 className="relative z-10 text-[13px] font-semibold mb-3 text-slate-100">
+            {title}
+          </h3>
 
-          {/* Features with safe fallback */}
           <div className="relative z-10 flex-1 flex flex-col gap-2">
             {featureList.length > 0 ? (
               featureList.map((feat, i) => (
@@ -108,21 +104,29 @@ export default function CardFlip({
                     transitionDelay: `${i * 60 + 80}ms`,
                   }}
                 >
-                  <span className="flex-shrink-0 w-4 h-4 rounded-full bg-gradient-to-br from-[#085FA7] to-[#5CA347] flex items-center justify-center">
+                  <span className="flex-shrink-0 w-4 h-4 rounded-full bg-gradient-to-br from-[#085FA7] to-[#5CA347] dark:from-[#4F46E5] dark:to-[#06B6D4] flex items-center justify-center">
                     <FaCheck className="text-white text-[6px]" />
                   </span>
-                  <span className="text-[11px] text-slate-400">{feat}</span>
+                  <span className="text-[11px] text-slate-400 dark:text-slate-300">
+                    {feat}
+                  </span>
                 </div>
               ))
             ) : (
               <div className="flex items-center justify-center flex-1">
-                <p className="text-[11px] text-slate-500 italic">No features listed</p>
+                <p className="text-[11px] italic text-slate-500">No features listed</p>
               </div>
             )}
           </div>
 
-          {/* CTA */}
-          
+          <div className="relative z-10 mt-2 flex justify-end">
+            <button
+              onClick={handleEnroll}
+              className="flex items-center gap-1 text-[10px] font-medium transition-colors text-[#5CA347] hover:text-[#7ED67E] dark:text-[#60A5FA] dark:hover:text-[#93C5FD]"
+            >
+              Enroll now <FaArrowRight className="w-2.5 h-2.5" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

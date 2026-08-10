@@ -30,11 +30,11 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="overflow-x-hidden bg-gradient-to-b from-blue-50/50 via-white to-blue-50/30">
+      <main className="overflow-x-hidden bg-gradient-to-b from-blue-50/50 via-white to-blue-50/30 dark:bg-none">
         {aboutSections.map((Section) => (
-          <div 
-            key={Section.name} 
-            className="bg-white/50 backdrop-blur-sm transition-colors duration-300 hover:bg-white/70"
+          <div
+            key={Section.name}
+            className="bg-white/50 backdrop-blur-sm transition-colors duration-300 hover:bg-white/70 dark:bg-transparent dark:backdrop-blur-none dark:hover:bg-transparent"
           >
             <Section />
           </div>

@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <section 
       className={`relative overflow-hidden pt-12 pb-24 sm:pt-16 sm:pb-32 transition-colors duration-500 ${
-        isDark ? 'bg-slate-950 text-white' : ''
+        isDark ? 'bg-app-dark-gradient text-white' : ''
       }`}
       style={!isDark ? {
         background: 'linear-gradient(180deg, #B5DBFF 0%, #BCE4FD 25%, #C4EFF6 50%, #CDF5F5 75%, #D8FBF5 100%)'

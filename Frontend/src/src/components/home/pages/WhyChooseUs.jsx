@@ -94,7 +94,7 @@ export default function WhyChooseUs() {
   const [first, second, ...rest] = whyChooseUsFeatures;
 
   return (
-    <Section className={isDark ? "bg-ink-950" : "bg-porcelain"}>
+    <Section className={isDark ? "bg-app-dark-gradient" : "bg-porcelain"}>
       <SectionHeader
         eyebrow="Why Choose Us"
         heading={

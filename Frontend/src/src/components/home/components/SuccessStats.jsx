@@ -101,7 +101,7 @@ export default function SuccessStats() {
   return (
     <section
       className={`relative overflow-hidden py-12 md:py-16 lg:py-20 transition-colors duration-500 ${
-        isDark ? "bg-[#0F172A]" : "bg-gradient-to-b from-slate-50 to-white"
+        isDark ? "bg-app-dark-gradient" : "bg-gradient-to-b from-slate-50 to-white"
       }`}
     >
       {/* Background glow */}

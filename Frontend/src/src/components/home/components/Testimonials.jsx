@@ -104,7 +104,7 @@ const Testimonials = memo(function Testimonials() {
 
   return (
     <Section
-      className={isDark ? "bg-ink-950" : "bg-porcelain"}
+      className={isDark ? "bg-app-dark-gradient" : "bg-porcelain"}
       decoration={
         <>
           <div className="absolute left-1/2 top-0 h-[350px] w-[700px] -translate-x-1/2 rounded-full bg-primary-500/[0.06] blur-[160px] dark:bg-primary-500/[0.07]" />

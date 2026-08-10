@@ -324,10 +324,16 @@ function NativeSelect({ id, value, onChange, options }) {
         id={id}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="w-full appearance-none rounded-2xl border border-ink-900/10 bg-white px-3.5 py-2.5 pr-9 text-sm font-semibold text-ink-900 outline-none transition-colors focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-white/10 dark:bg-white/[0.03] dark:text-white"
+        // dark:[color-scheme:dark] tells the browser to paint the native popup
+        // chrome (background, scrollbar, hover state) using its dark palette
+        // instead of defaulting to light, which is what caused the white box.
+        className="w-full appearance-none rounded-2xl border border-ink-900/10 bg-white px-3.5 py-2.5 pr-9 text-sm font-semibold text-ink-900 outline-none transition-colors focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-white/10 dark:bg-white/[0.03] dark:text-white dark:[color-scheme:dark]"
       >
         {options.map((option) => (
-          <option key={option} value={option}>
+          // Each <option> also needs an explicit background/text color —
+          // color-scheme alone doesn't reliably theme option rows in every
+          // browser, so we set both belt-and-braces.
+          <option key={option} value={option} className="bg-white text-ink-900 dark:bg-ink-900 dark:text-white">
             {option}
           </option>
         ))}
@@ -404,7 +410,10 @@ export default function CareerRoadmapGenerator() {
   }, [roadmap]);
 
   return (
-    <section id="career-roadmap" className="relative overflow-hidden bg-white py-20 dark:bg-ink-950 sm:py-28">
+    <section 
+      id="career-roadmap" 
+      className="relative overflow-hidden bg-white py-20 sm:py-28 dark:bg-app-dark-gradient"
+    >
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute -top-24 left-1/4 h-72 w-72 rounded-full bg-primary-500/10 blur-3xl" />
         <div className="absolute -bottom-24 right-1/4 h-72 w-72 rounded-full bg-secondary-500/10 blur-3xl" />

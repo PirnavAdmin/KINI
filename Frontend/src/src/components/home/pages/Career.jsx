@@ -590,7 +590,7 @@ function Hero() {
 
 function CareerRoadmapSection() {
   return (
-    <section id="career-roadmap" className="bg-white py-14 dark:bg-slate-950 sm:py-16">
+    <section id="career-roadmap" className="bg-white py-14 dark:bg-app-dark-gradient sm:py-16">
       <div className="mx-auto max-w-7xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">Your Path Forward</p>
@@ -674,7 +674,7 @@ function SupportSection() {
 
 function MentorsSection() {
   return (
-    <section className="bg-white py-14 dark:bg-slate-950 sm:py-16">
+    <section className="bg-white py-14 dark:bg-app-dark-gradient sm:py-16">
       <div className="mx-auto max-w-6xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">Your Guides</p>
@@ -755,7 +755,7 @@ function PartnersSection() {
 
 function StoriesSection() {
   return (
-    <section className="bg-white py-14 dark:bg-slate-950 sm:py-16">
+    <section className="bg-white py-14 dark:bg-app-dark-gradient sm:py-16">
       <div className="mx-auto max-w-7xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">Real Outcomes</p>
@@ -819,7 +819,7 @@ function StatsSection() {
 
 function ProcessSection() {
   return (
-    <section className="bg-white py-14 dark:bg-slate-950 sm:py-16">
+    <section className="bg-white py-14 dark:bg-app-dark-gradient sm:py-16">
       <div className="mx-auto max-w-4xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">How It Works</p>

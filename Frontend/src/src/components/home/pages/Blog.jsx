@@ -212,7 +212,7 @@ function Blog() {
       </section>
 
       {/* Newsletter */}
-      <section className={`py-24 transition-colors duration-300 ${isDark ? 'bg-slate-950 text-white' : 'bg-slate-100 text-slate-900'}`}>
+      <section className={`py-24 transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient text-white' : 'bg-slate-100 text-slate-900'}`}>
 
         <div className="max-w-4xl mx-auto px-5 text-center">
 

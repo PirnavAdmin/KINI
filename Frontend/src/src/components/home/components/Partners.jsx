@@ -83,7 +83,7 @@ export default function Partners() {
   return (
     <section
       className={`relative overflow-hidden py-12 md:py-16 lg:py-20 transition-colors duration-500 ${
-        isDark ? "bg-[#0F172A]" : "bg-gradient-to-b from-white to-slate-50"
+        isDark ? "bg-app-dark-gradient" : "bg-gradient-to-b from-white to-slate-50"
       }`}
     >
       {/* Scoped marquee keyframes — width-independent, loops on the track's own content width */}

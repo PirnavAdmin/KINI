@@ -48,7 +48,7 @@ export default function ExpertMentors() {
 
   return (
     <Section
-      className={isDark ? "bg-ink-950" : "bg-porcelain"}
+      className={isDark ? "bg-app-dark-gradient" : "bg-porcelain"}
       decoration={
         <div className="absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-secondary-500/[0.06] blur-[150px]" />
       }

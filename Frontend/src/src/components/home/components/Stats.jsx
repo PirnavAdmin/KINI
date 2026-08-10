@@ -19,7 +19,7 @@ const Stats = memo(function Stats() {
   const { isDark } = useThemeContext();
 
   return (
-    <section className={`relative overflow-hidden py-16 md:py-20 transition-colors duration-500 ${isDark ? "bg-ink-950" : "bg-porcelain"}`}>
+    <section className={`relative overflow-hidden py-16 md:py-20 transition-colors duration-500 ${isDark ? "bg-app-dark-gradient" : "bg-porcelain"}`}>
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-brand-indigo/5 dark:bg-brand-indigo/10 blur-[150px] rounded-full" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-secondary-500/5 dark:bg-secondary-500/10 blur-[150px] rounded-full" />
 

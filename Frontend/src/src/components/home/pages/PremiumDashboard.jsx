@@ -112,7 +112,7 @@ export default function PremiumDashboard() {
   const { isDark } = useThemeContext();
 
   return (
-    <div className={`min-h-screen font-sans antialiased overflow-x-hidden selection:bg-cyan-500/30 select-none transition-colors duration-300 ${isDark ? 'bg-[#020b14] text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
+    <div className={`min-h-screen font-sans antialiased overflow-x-hidden selection:bg-cyan-500/30 select-none transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
       
       {/* ─── PREMIUM SAAS HEADER / NAVBAR ─── */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#010b14]/70 border-b border-white/[0.04] backdrop-blur-md">

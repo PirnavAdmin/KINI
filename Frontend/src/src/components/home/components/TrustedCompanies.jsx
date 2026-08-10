@@ -19,26 +19,6 @@ const LOGOS = [
     url: "https://upload.wikimedia.org/wikipedia/commons/5/56/Deloitte.svg",
   },
   {
-    name: "ROBOXA",
-    url: "https://logo.clearbit.com/roboxa.com",
-  },
-  {
-    name: "ANDISO ROBOTICS",
-    url: "https://logo.clearbit.com/andiso.com",
-  },
-  {
-    name: "COOPERWINDS",
-    url: "https://logo.clearbit.com/cooperwinds.com",
-  },
-  {
-    name: "RSSC Pvt Ltd",
-    url: "https://logo.clearbit.com/rssc.in",
-  },
-  {
-    name: "CHEYRAT",
-    url: "https://logo.clearbit.com/cheyrat.com",
-  },
-  {
     name: "MISTIMINDS",
     url: "https://logo.clearbit.com/mistminds.com",
   },
@@ -52,7 +32,6 @@ export default function Partners() {
   const { isDark } = useThemeContext();
 
   const handleImageError = (e) => {
-    // Fallback gracefully to text badge if external company logo fails to load
     e.target.style.display = "none";
     const parent = e.target.parentElement;
     if (parent && !parent.querySelector(".fallback-text")) {
@@ -66,11 +45,17 @@ export default function Partners() {
   return (
     <section
       className={`relative overflow-hidden py-12 md:py-16 lg:py-20 transition-colors duration-500 ${
-        isDark ? "bg-[#0F172A]" : "bg-gradient-to-b from-white to-slate-50"
+        isDark ? "bg-app-dark-gradient" : "bg-gradient-to-b from-white to-slate-50"
       }`}
     >
-      {/* Background glow */}
-      <div className="absolute top-0 left-1/2 w-[500px] h-[500px] bg-[#4F46E5]/5 dark:bg-[#4F46E5]/10 blur-[150px] rounded-full -translate-x-1/2 pointer-events-none" />
+      {/* Background glow (stronger in dark mode) */}
+      <div
+        className={`absolute top-0 left-1/2 w-[500px] h-[500px] rounded-full -translate-x-1/2 pointer-events-none blur-[150px] ${
+          isDark
+            ? "bg-[#4F46E5]/20"
+            : "bg-[#4F46E5]/5"
+        }`}
+      />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -83,7 +68,7 @@ export default function Partners() {
           <span
             className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-semibold ${
               isDark
-                ? "border-[#4F46E5]/30 bg-[#4F46E5]/10 text-[#818CF8]"
+                ? "border-[#4F46E5]/40 bg-[#4F46E5]/15 text-[#A5B4FC]"
                 : "border-[#4F46E5]/20 bg-[#4F46E5]/5 text-[#4F46E5]"
             }`}
           >
@@ -104,7 +89,7 @@ export default function Partners() {
 
           <p
             className={`mt-3 max-w-xl mx-auto text-sm ${
-              isDark ? "text-slate-400" : "text-slate-500"
+              isDark ? "text-slate-300" : "text-slate-500"
             }`}
           >
             Our graduates have gone on to build careers at the world&apos;s most
@@ -112,24 +97,24 @@ export default function Partners() {
           </p>
         </motion.div>
 
-        {/* Glass Container */}
+        {/* Glass Container – improved for dark mode */}
         <div
           className={`relative overflow-hidden rounded-2xl border ${
             isDark
-              ? "bg-white/[0.02] border-white/5"
+              ? "bg-white/[0.04] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
               : "bg-white/50 border-slate-200"
           }`}
         >
-          {/* Fade Edges */}
+          {/* Fade Edges – darker overlay for dark mode */}
           <div
             className={`absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r ${
-              isDark ? "from-[#0F172A]" : "from-white"
+              isDark ? "from-[#0F172A]/90" : "from-white"
             } to-transparent pointer-events-none`}
           />
 
           <div
             className={`absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l ${
-              isDark ? "from-[#0F172A]" : "from-white"
+              isDark ? "from-[#0F172A]/90" : "from-white"
             } to-transparent pointer-events-none`}
           />
 
@@ -157,7 +142,7 @@ export default function Partners() {
                     onError={handleImageError}
                     className={`h-7 sm:h-9 w-auto object-contain transition-all duration-300 ${
                       isDark
-                        ? "opacity-40 grayscale hover:opacity-100 hover:grayscale-0 filter brightness-125"
+                        ? "opacity-70 grayscale hover:opacity-100 hover:grayscale-0 filter brightness-125 drop-shadow-[0_0_8px_rgba(255,255,255,0.05)]"
                         : "opacity-50 grayscale hover:opacity-100 hover:grayscale-0"
                     }`}
                   />
@@ -176,7 +161,7 @@ export default function Partners() {
         >
           <p
             className={`text-xs ${
-              isDark ? "text-slate-500" : "text-slate-400"
+              isDark ? "text-slate-400" : "text-slate-400"
             }`}
           >
             <span className="font-semibold text-[#4F46E5]">500+</span> hiring

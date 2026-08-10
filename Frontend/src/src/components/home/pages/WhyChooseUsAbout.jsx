@@ -43,7 +43,7 @@ const features = [
 export default function WhyChooseUs() {
   const { isDark } = useThemeContext();
   return (
-    <section className={`py-24 relative overflow-hidden transition-colors duration-300 ${isDark ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
+    <section className={`py-24 relative overflow-hidden transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient text-white' : 'bg-slate-50 text-slate-900'}`}>
 
       <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-transparent to-cyan-900/20" />
 

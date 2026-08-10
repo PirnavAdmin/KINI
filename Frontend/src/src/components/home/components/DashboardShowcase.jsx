@@ -180,7 +180,7 @@ export default function DashboardShowcase() {
 
   return (
     <Section
-      className={isDark ? "bg-slate-950" : "bg-white"}
+      className={isDark ? "bg-app-dark-gradient" : "bg-white"}
       decoration={
         <div className="absolute right-0 top-1/4 h-[450px] w-[450px] rounded-full bg-primary-500/[0.06] blur-[150px]" />
       }

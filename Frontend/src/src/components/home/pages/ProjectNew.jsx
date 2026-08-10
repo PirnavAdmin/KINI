@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import { useThemeContext } from "@shared/context/ThemeContext";
+import { FaRobot } from "react-icons/fa";
 
-// Your 4 Lottie URLs
+// Lottie URLs
 const LOTTIE_1 = "https://lottie.host/7dffc81e-cd4a-4dd5-a7b8-f3051d0de370/KW4ucR2SjZ.lottie";
 const LOTTIE_2 = "https://lottie.host/31ec9d79-84e6-48e3-8ca5-e28d8f76b7f5/UvhgChLpzJ.lottie";
 const LOTTIE_3 = "https://lottie.host/1a197c3c-87a7-4a2f-ab43-0c2d2f6e9a13/Q13OGciyjR.lottie";
 const LOTTIE_4 = "https://lottie.host/29adac1f-8fa6-4a78-bdce-f9ae0199a4ec/VfN3A0v9wK.lottie";
-
-const LOTTIE_CORE =
-  "https://lottie.host/302e5e47-76ce-4a46-be53-e04492adc7f5/0qTdtA24zK.lottie";
+const LOTTIE_CORE = "https://lottie.host/302e5e47-76ce-4a46-be53-e04492adc7f5/0qTdtA24zK.lottie";
 
 const leftFeatures = [
   { id: "lessons",       title: "Interactive Lessons",  icon: LOTTIE_1 },
@@ -25,25 +25,25 @@ const decorativeElements = [
   { 
     id: "deco1", 
     src: LOTTIE_1, 
-    className: "absolute top-4 left-4 w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 opacity-20",
+    className: "absolute top-4 left-4 w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 opacity-20 hidden sm:block",
     animation: "float-slow"
   },
   { 
     id: "deco2", 
     src: LOTTIE_2, 
-    className: "absolute top-4 right-4 w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 opacity-20",
+    className: "absolute top-4 right-4 w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 opacity-20 hidden sm:block",
     animation: "float-medium"
   },
   { 
     id: "deco3", 
     src: LOTTIE_3, 
-    className: "absolute bottom-4 left-4 w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 opacity-20",
+    className: "absolute bottom-4 left-4 w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 opacity-20 hidden sm:block",
     animation: "float-slow"
   },
   { 
     id: "deco4", 
     src: LOTTIE_4, 
-    className: "absolute bottom-4 right-4 w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 opacity-20",
+    className: "absolute bottom-4 right-4 w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 opacity-20 hidden sm:block",
     animation: "float-medium"
   },
 ];
@@ -55,7 +55,7 @@ function CardLottie({ src }) {
   return (
     <div
       ref={ref}
-      className="h-24 w-24 shrink-0 sm:h-28 sm:w-28 lg:h-32 lg:w-32"
+      className="h-20 w-20 shrink-0 sm:h-28 sm:w-28 lg:h-32 lg:w-32"
       aria-hidden="true"
     >
       {inView && <DotLottieReact src={src} autoplay loop />}
@@ -106,7 +106,7 @@ function DecorativeLottie({ src, className, animation }) {
   );
 }
 
-function FeatureCard({ icon, title, align, cardRef }) {
+function FeatureCard({ icon, title, align, cardRef, isDark }) {
   const isRight = align === "right";
 
   return (
@@ -121,46 +121,92 @@ function FeatureCard({ icon, title, align, cardRef }) {
         isRight ? "items-end" : "items-start"
       }`}
     >
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#E3F2FD]/80 to-[#E8F5E9]/80 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:from-[#BBDEFB]/90 hover:to-[#C8E6C9]/90 hover:shadow-lg hover:shadow-[#085FA7]/20">
+      <div className={`relative overflow-hidden rounded-2xl p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+        isDark
+          ? "bg-gradient-to-br from-[#1E293B]/80 to-[#0F172A]/80 hover:from-[#334155]/90 hover:to-[#1E293B]/90 hover:shadow-[#085FA7]/30"
+          : "bg-gradient-to-br from-[#E3F2FD]/80 to-[#E8F5E9]/80 hover:from-[#BBDEFB]/90 hover:to-[#C8E6C9]/90 hover:shadow-[#085FA7]/20"
+      }`}>
         <CardLottie src={icon} />
-        {/* Glow ring on hover */}
-        <div className="absolute inset-0 rounded-2xl border-2 border-[#085FA7]/20 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+        <div className={`absolute inset-0 rounded-2xl border-2 transition-opacity duration-300 ${
+          isDark
+            ? "border-[#4F46E5]/20 opacity-0 hover:opacity-100"
+            : "border-[#085FA7]/20 opacity-0 hover:opacity-100"
+        }`} />
       </div>
 
-      <h3 className={`text-sm font-bold text-[#1A237E] sm:text-base lg:text-lg ${
+      <h3 className={`text-sm font-bold sm:text-base lg:text-lg ${
         isRight ? "text-right" : "text-left"
-      }`}>
+      } ${isDark ? "text-white" : "text-[#1A237E]"}`}>
         {title}
       </h3>
     </motion.div>
   );
 }
 
-function AiCore({ coreRef }) {
+// ---------- AiCore – robot badge at the BOTTOM ----------
+function AiCore({ coreRef, isDark }) {
   return (
     <div
       ref={coreRef}
-      className="relative flex h-64 w-64 items-center justify-center sm:h-80 sm:w-80 lg:h-96 lg:w-96"
+      className="relative flex h-56 w-56 items-center justify-center sm:h-72 sm:w-72 lg:h-96 lg:w-96"
     >
-      <div className="absolute inset-0 rounded-full bg-[#085FA7]/10 blur-2xl animate-pulse" />
-      <div className="absolute inset-6 rounded-full border border-[#085FA7]/20" />
-      <div className="absolute inset-12 rounded-full border border-[#085FA7]/10" />
-      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#085FA7]/10 to-[#5CA347]/10 animate-spin-slow" />
+      {/* Background glow, rings, and rotating gradient */}
+      <div className={`absolute inset-0 rounded-full blur-2xl animate-pulse ${
+        isDark ? "bg-[#4F46E5]/20" : "bg-[#085FA7]/10"
+      }`} />
+      <div className={`absolute inset-6 rounded-full border ${
+        isDark ? "border-[#4F46E5]/30" : "border-[#085FA7]/20"
+      }`} />
+      <div className={`absolute inset-12 rounded-full border ${
+        isDark ? "border-[#4F46E5]/20" : "border-[#085FA7]/10"
+      }`} />
+      <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${
+        isDark
+          ? "from-[#4F46E5]/20 to-[#06B6D4]/20"
+          : "from-[#085FA7]/10 to-[#5CA347]/10"
+      } animate-spin-slow`} />
       
-      {/* Pulsing rings around core */}
-      <div className="absolute inset-[-20%] rounded-full border border-[#085FA7]/20 animate-ping-slow"></div>
-      <div className="absolute inset-[-40%] rounded-full border border-[#5CA347]/15 animate-ping-slower"></div>
+      <div className={`absolute inset-[-20%] rounded-full border ${
+        isDark ? "border-[#4F46E5]/30" : "border-[#085FA7]/20"
+      } animate-ping-slow`} />
+      <div className={`absolute inset-[-40%] rounded-full border ${
+        isDark ? "border-[#06B6D4]/20" : "border-[#5CA347]/15"
+      } animate-ping-slower`} />
       
-      <div className="relative h-48 w-48 sm:h-60 sm:w-60 lg:h-72 lg:w-72">
+      {/* Lottie animation – main visual at full opacity */}
+      <div className="relative h-40 w-40 sm:h-56 sm:w-56 lg:h-72 lg:w-72">
         <DotLottieReact
           src={LOTTIE_CORE}
           loop
           autoplay
         />
       </div>
+
+      {/* 🤖 Robot badge – positioned at the BOTTOM */}
+      <motion.div
+        animate={{
+          y: [0, -4, 0],
+        }}
+        transition={{
+          duration: 2.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className={`absolute bottom-2 sm:bottom-3 lg:bottom-4 flex items-center gap-1.5 rounded-full px-2.5 py-1 sm:px-3.5 sm:py-1.5 ${
+          isDark
+            ? "bg-[#4F46E5]/40 border border-[#4F46E5]/50 text-[#A5B4FC] backdrop-blur-sm"
+            : "bg-white/40 backdrop-blur-sm border border-white/50 text-[#085FA7] shadow-lg"
+        }`}
+      >
+        <FaRobot className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
+        <span className="text-[8px] sm:text-[10px] lg:text-xs font-semibold tracking-wide whitespace-nowrap">
+          AI Mentor
+        </span>
+      </motion.div>
     </div>
   );
 }
+// ---------- End of AiCore ----------
 
 function useConnectorPaths({ containerRef, coreRef, leftRefs, rightRefs }) {
   const [paths, setPaths] = useState([]);
@@ -183,7 +229,7 @@ function useConnectorPaths({ containerRef, coreRef, leftRefs, rightRefs }) {
         if (!el) return null;
         const r = el.getBoundingClientRect();
         
-        const featureRect = el.querySelector('div[class*="h-32"]')?.getBoundingClientRect() || r;
+        const featureRect = el.querySelector('div[class*="h-20"]')?.getBoundingClientRect() || r;
         
         const sx = side === "left" 
           ? featureRect.right - cRect.left 
@@ -226,33 +272,50 @@ function useConnectorPaths({ containerRef, coreRef, leftRefs, rightRefs }) {
   return paths;
 }
 
-function ConnectorLines({ paths, reduceMotion }) {
+// ---------- ConnectorLines (bubbles flow center → corners) ----------
+function ConnectorLines({ paths, reduceMotion, isDark }) {
   if (!paths.length) return null;
+
+  const colors = isDark
+    ? {
+        gradient1: ["#4F46E5", "#818CF8", "#06B6D4"],
+        gradient2: ["#06B6D4", "#818CF8", "#4F46E5"],
+        bubble: "#818CF8",
+        glow: "#4F46E5",
+        pulse: "#4F46E5",
+      }
+    : {
+        gradient1: ["#085FA7", "#2EA7E0", "#5CA347"],
+        gradient2: ["#5CA347", "#2EA7E0", "#085FA7"],
+        bubble: "#2EA7E0",
+        glow: "#085FA7",
+        pulse: "#2EA7E0",
+      };
 
   return (
     <svg
-      className="pointer-events-none absolute inset-0 h-full w-full"
+      className="pointer-events-none absolute inset-0 hidden h-full w-full md:block"
       aria-hidden="true"
     >
       <defs>
         <linearGradient id="wg" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%"   stopColor="#085FA7" />
-          <stop offset="30%"  stopColor="#2EA7E0" />
-          <stop offset="70%"  stopColor="#5CA347" />
-          <stop offset="100%" stopColor="#5CA347" />
+          <stop offset="0%"   stopColor={colors.gradient1[0]} />
+          <stop offset="30%"  stopColor={colors.gradient1[1]} />
+          <stop offset="70%"  stopColor={colors.gradient1[2]} />
+          <stop offset="100%" stopColor={colors.gradient1[2]} />
         </linearGradient>
         
         <linearGradient id="wgReverse" x1="100%" y1="0%" x2="0%" y2="0%">
-          <stop offset="0%"   stopColor="#5CA347" />
-          <stop offset="30%"  stopColor="#2EA7E0" />
-          <stop offset="70%"  stopColor="#085FA7" />
-          <stop offset="100%" stopColor="#085FA7" />
+          <stop offset="0%"   stopColor={colors.gradient2[0]} />
+          <stop offset="30%"  stopColor={colors.gradient2[1]} />
+          <stop offset="70%"  stopColor={colors.gradient2[2]} />
+          <stop offset="100%" stopColor={colors.gradient2[2]} />
         </linearGradient>
         
         <radialGradient id="bubbleGrad">
-          <stop offset="0%" stopColor="#2EA7E0" stopOpacity="0.8"/>
-          <stop offset="50%" stopColor="#085FA7" stopOpacity="0.6"/>
-          <stop offset="100%" stopColor="#5CA347" stopOpacity="0.3"/>
+          <stop offset="0%" stopColor={colors.bubble} stopOpacity="0.8"/>
+          <stop offset="50%" stopColor={colors.glow} stopOpacity="0.6"/>
+          <stop offset="100%" stopColor={colors.gradient1[2]} stopOpacity="0.3"/>
         </radialGradient>
 
         <filter id="glow">
@@ -272,9 +335,9 @@ function ConnectorLines({ paths, reduceMotion }) {
         </filter>
 
         <radialGradient id="pulseGrad">
-          <stop offset="0%" stopColor="#2EA7E0" stopOpacity="0.7"/>
-          <stop offset="50%" stopColor="#085FA7" stopOpacity="0.4"/>
-          <stop offset="100%" stopColor="#5CA347" stopOpacity="0"/>
+          <stop offset="0%" stopColor={colors.pulse} stopOpacity="0.7"/>
+          <stop offset="50%" stopColor={colors.glow} stopOpacity="0.4"/>
+          <stop offset="100%" stopColor={colors.gradient1[2]} stopOpacity="0"/>
         </radialGradient>
       </defs>
 
@@ -284,7 +347,6 @@ function ConnectorLines({ paths, reduceMotion }) {
         
         return (
           <g key={i}>
-            {/* Main path with glow */}
             <motion.path
               d={pathData.d}
               stroke={gradient}
@@ -298,7 +360,6 @@ function ConnectorLines({ paths, reduceMotion }) {
               transition={{ duration: 1.5, delay: i * 0.15, ease: "easeInOut" }}
             />
 
-            {/* Glow path behind */}
             <motion.path
               d={pathData.d}
               stroke={gradient}
@@ -313,16 +374,14 @@ function ConnectorLines({ paths, reduceMotion }) {
               transition={{ duration: 1.8, delay: i * 0.15, ease: "easeInOut" }}
             />
 
-            {/* Bubbles flowing from center to edges */}
             {!reduceMotion && (
               <>
-                {/* Large bubble */}
                 <motion.circle
                   r="7"
                   fill="url(#bubbleGrad)"
                   filter="url(#glow)"
-                  initial={{ offsetDistance: "0%" }}
-                  animate={{ offsetDistance: "100%" }}
+                  initial={{ offsetDistance: "100%" }}
+                  animate={{ offsetDistance: "0%" }}
                   transition={{
                     duration: 2.5 + i * 0.2,
                     delay: i * 0.3,
@@ -332,13 +391,12 @@ function ConnectorLines({ paths, reduceMotion }) {
                   style={{ offsetPath: `path("${pathData.d}")` }}
                 />
                 
-                {/* Medium bubble */}
                 <motion.circle
                   r="5"
                   fill="url(#bubbleGrad)"
                   filter="url(#glow)"
-                  initial={{ offsetDistance: "0%" }}
-                  animate={{ offsetDistance: "100%" }}
+                  initial={{ offsetDistance: "100%" }}
+                  animate={{ offsetDistance: "0%" }}
                   transition={{
                     duration: 3 + i * 0.2,
                     delay: i * 0.3 + 0.5,
@@ -348,14 +406,13 @@ function ConnectorLines({ paths, reduceMotion }) {
                   style={{ offsetPath: `path("${pathData.d}")` }}
                 />
 
-                {/* Small fast bubble */}
                 <motion.circle
                   r="3.5"
-                  fill="#2EA7E0"
+                  fill={colors.bubble}
                   opacity="0.8"
                   filter="url(#glow)"
-                  initial={{ offsetDistance: "0%" }}
-                  animate={{ offsetDistance: "100%" }}
+                  initial={{ offsetDistance: "100%" }}
+                  animate={{ offsetDistance: "0%" }}
                   transition={{
                     duration: 2 + i * 0.15,
                     delay: i * 0.3 + 1,
@@ -365,13 +422,12 @@ function ConnectorLines({ paths, reduceMotion }) {
                   style={{ offsetPath: `path("${pathData.d}")` }}
                 />
 
-                {/* Tiny sparkle bubble */}
                 <motion.circle
                   r="2"
-                  fill="#5CA347"
+                  fill={colors.gradient1[2]}
                   opacity="0.7"
-                  initial={{ offsetDistance: "0%" }}
-                  animate={{ offsetDistance: "100%" }}
+                  initial={{ offsetDistance: "100%" }}
+                  animate={{ offsetDistance: "0%" }}
                   transition={{
                     duration: 1.8 + i * 0.15,
                     delay: i * 0.3 + 1.5,
@@ -383,7 +439,6 @@ function ConnectorLines({ paths, reduceMotion }) {
               </>
             )}
 
-            {/* Pulse at start (center) */}
             <motion.circle
               cx={pathData.start.x}
               cy={pathData.start.y}
@@ -402,7 +457,6 @@ function ConnectorLines({ paths, reduceMotion }) {
               }}
             />
 
-            {/* Pulse at end (feature card) */}
             <motion.circle
               cx={pathData.end.x}
               cy={pathData.end.y}
@@ -421,15 +475,14 @@ function ConnectorLines({ paths, reduceMotion }) {
               }}
             />
 
-            {/* Energy dots along the path */}
             {!reduceMotion && [0.2, 0.4, 0.6, 0.8].map((offset, idx) => (
               <motion.circle
                 key={`dot-${i}-${idx}`}
                 r="2"
-                fill={idx % 2 === 0 ? "#2EA7E0" : "#5CA347"}
+                fill={idx % 2 === 0 ? colors.bubble : colors.gradient1[2]}
                 opacity="0.3"
-                initial={{ offsetDistance: "0%" }}
-                animate={{ offsetDistance: "100%" }}
+                initial={{ offsetDistance: "100%" }}
+                animate={{ offsetDistance: "0%" }}
                 transition={{
                   duration: 3 + i * 0.1,
                   delay: i * 0.2 + offset * 2,
@@ -445,8 +498,10 @@ function ConnectorLines({ paths, reduceMotion }) {
     </svg>
   );
 }
+// ---------- End of ConnectorLines ----------
 
 export default function PremiumELearning() {
+  const { isDark } = useThemeContext();
   const reduceMotion = useReducedMotion();
   const containerRef = useRef(null);
   const coreRef = useRef(null);
@@ -461,37 +516,43 @@ export default function PremiumELearning() {
 
   return (
     <section
-      className="relative flex flex-col justify-center overflow-hidden"
-      style={{ 
-        background: "linear-gradient(135deg, #F5F9FF 0%, #E8F4FD 50%, #F0F7F1 100%)"
-      }}
+      className={`relative flex flex-col justify-center overflow-hidden transition-colors duration-500 ${
+        isDark
+          ? "bg-app-dark-gradient"
+          : "bg-gradient-to-br from-[#F5F9FF] via-[#E8F4FD] to-[#F0F7F1]"
+      }`}
     >
-      {/* Decorative background elements - lighter and more subtle */}
+      {/* Background glow */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          background: `
-            radial-gradient(ellipse at 20% 50%, rgba(8,95,167,0.08), transparent 50%),
-            radial-gradient(ellipse at 80% 50%, rgba(92,163,71,0.06), transparent 50%)
-          `,
+          background: isDark
+            ? `
+                radial-gradient(ellipse at 20% 50%, rgba(79,70,229,0.15), transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(6,182,212,0.10), transparent 50%)
+              `
+            : `
+                radial-gradient(ellipse at 20% 50%, rgba(8,95,167,0.08), transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(92,163,71,0.06), transparent 50%)
+              `,
         }}
         aria-hidden="true"
       />
 
-      {/* Subtle grid pattern */}
+      {/* Grid pattern */}
       <div 
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(8,95,167,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(8,95,167,0.1) 1px, transparent 1px)
+            linear-gradient(${isDark ? 'rgba(79,70,229,0.1)' : 'rgba(8,95,167,0.1)'} 1px, transparent 1px),
+            linear-gradient(90deg, ${isDark ? 'rgba(79,70,229,0.1)' : 'rgba(8,95,167,0.1)'} 1px, transparent 1px)
           `,
           backgroundSize: '60px 60px'
         }}
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto w-full max-w-6xl px-6 py-10 md:py-14">
+      <div className="relative mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:py-16">
         {decorativeElements.map((deco) => (
           <DecorativeLottie
             key={deco.id}
@@ -508,27 +569,33 @@ export default function PremiumELearning() {
           transition={{ duration: 0.55 }}
           className="mx-auto mb-6 max-w-2xl text-center sm:mb-8"
         >
-          <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#085FA7] sm:text-xs">
+          <p className={`text-[10px] font-bold uppercase tracking-[0.35em] sm:text-xs ${
+            isDark ? "text-[#818CF8]" : "text-[#085FA7]"
+          }`}>
             Interactive learning
           </p>
 
-          <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-[#1A237E] sm:text-3xl lg:text-4xl">
+          <h2 className={`mt-3 text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl ${
+            isDark ? "text-white" : "text-[#1A237E]"
+          }`}>
             E learning{" "}
-            <span className="bg-gradient-to-r from-[#085FA7] via-[#2EA7E0] to-[#5CA347] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#4F46E5] via-[#818CF8] to-[#06B6D4] bg-clip-text text-transparent">
               ecosystem
             </span>
           </h2>
 
-          <p className="mt-3 text-sm text-[#455A64] sm:text-base">
+          <p className={`mt-3 text-sm sm:text-base ${
+            isDark ? "text-slate-300" : "text-[#455A64]"
+          }`}>
             Transform your learning experience with our comprehensive platform
           </p>
 
-          <div className="mx-auto mt-4 h-px w-24 bg-gradient-to-r from-[#085FA7] to-[#5CA347] opacity-60" />
+          <div className={`mx-auto mt-4 h-px w-24 bg-gradient-to-r from-[#4F46E5] to-[#06B6D4] opacity-60`} />
         </motion.div>
 
         <div
           ref={containerRef}
-          className="relative grid grid-cols-1 items-center gap-6 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr] lg:gap-10"
+          className="relative grid grid-cols-1 items-center gap-6 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr] lg:gap-8"
         >
           <div className="order-2 flex flex-col gap-6 lg:order-1">
             {leftFeatures.map((card, i) => (
@@ -537,12 +604,13 @@ export default function PremiumELearning() {
                 {...card}
                 align="left"
                 cardRef={leftRefs[i]}
+                isDark={isDark}
               />
             ))}
           </div>
 
           <div className="order-1 flex justify-center md:col-span-2 lg:order-2 lg:col-span-1">
-            <AiCore coreRef={coreRef} />
+            <AiCore coreRef={coreRef} isDark={isDark} />
           </div>
 
           <div className="order-3 flex flex-col gap-6">
@@ -552,11 +620,12 @@ export default function PremiumELearning() {
                 {...card}
                 align="right"
                 cardRef={rightRefs[i]}
+                isDark={isDark}
               />
             ))}
           </div>
 
-          <ConnectorLines paths={paths} reduceMotion={reduceMotion} />
+          <ConnectorLines paths={paths} reduceMotion={reduceMotion} isDark={isDark} />
         </div>
       </div>
 
