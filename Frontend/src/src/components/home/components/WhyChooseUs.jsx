@@ -1,70 +1,52 @@
 import { motion } from "framer-motion";
-import { Briefcase, Code2, GraduationCap, Infinity as InfinityIcon, Radio, Users } from "lucide-react";
+import {
+  Radio,
+  GraduationCap,
+  Code2,
+  UsersRound,
+  BriefcaseBusiness,
+  BadgeCheck,
+} from "lucide-react";
 import { useThemeContext } from "@shared/context/ThemeContext";
 import { fadeUp, staggerContainer } from "@shared/hooks/useScrollAnimation";
 import Section from "@shared/components/ui/Section";
 import SectionHeader from "@shared/components/ui/SectionHeader";
-import { whyChooseUsFeatures } from "../data/homeData";
 
-const ICONS = [Radio, GraduationCap, Briefcase, Code2, Users, InfinityIcon];
-
-function FeatureCard({ feature, Icon, isDark, featured = false, className = "" }) {
-  return (
-    <motion.div
-      variants={fadeUp}
-      className={`relative rounded-3xl ${className}`}
-    >
-      {/* Top border – gradient */}
-      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-t-3xl pointer-events-none" />
-
-      <div
-        className={`p-6 rounded-3xl transition-shadow duration-300 ${
-          featured
-            ? isDark
-              ? "bg-gradient-to-br from-primary-500/10 via-white/[0.02] to-secondary-500/10"
-              : "bg-gradient-to-br from-primary-50 via-white to-secondary-50 shadow-card"
-            : isDark
-              ? "bg-white/[0.03] hover:bg-white/[0.06]"
-              : "bg-white shadow-card hover:shadow-card-lg"
-        }`}
-      >
-        <span
-          className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 text-white ${
-            featured ? "shadow-glow" : ""
-          }`}
-        >
-          <Icon className={featured ? "h-6 w-6" : "h-5 w-5"} aria-hidden="true" />
-        </span>
-
-        <h3
-          className={`mt-4 font-display font-bold ${featured ? "text-xl" : "text-base"} ${
-            isDark ? "text-white" : "text-ink-900"
-          }`}
-        >
-          {feature.title}
-        </h3>
-        <p
-          className={`mt-2 leading-relaxed ${featured ? "text-sm" : "text-xs"} ${
-            isDark ? "text-white/50" : "text-ink-900/50"
-          }`}
-        >
-          {feature.desc}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
+const benefits = [
+  {
+    icon: Radio,
+    title: "100% Live Training",
+    desc: "Instructor-led, interactive sessions with real-time feedback and active participation.",
+  },
+  {
+    icon: GraduationCap,
+    title: "Industry-Expert Mentors",
+    desc: "Learn from experienced professionals who bring practical, real-world industry knowledge.",
+  },
+  {
+    icon: Code2,
+    title: "Real-World Projects",
+    desc: "Build practical applications that strengthen your portfolio and showcase your skills.",
+  },
+  {
+    icon: UsersRound,
+    title: "Small Cohort Sizes",
+    desc: "Smaller batches ensure more personalized attention and meaningful mentor interaction.",
+  },
+  {
+    icon: BriefcaseBusiness,
+    title: "Placement Support",
+    desc: "Resume guidance, interview preparation, LinkedIn optimization, and dedicated career support.",
+  },
+  {
+    icon: BadgeCheck,
+    title: "Guaranteed Internships",
+    desc: "Gain practical industry experience through a structured internship opportunity as part of your journey.",
+  },
+];
 
 export default function WhyChooseUs() {
   const { isDark } = useThemeContext();
-  const [first, second, ...rest] = whyChooseUsFeatures;
-
-  // Add the Internship feature – we insert it after the grid as a full‑width card
-  const internshipFeature = {
-    title: "Guaranteed Internships",
-    desc: "Every learner is placed in a real, paid internship before graduating – hands-on experience, not just certificates.",
-  };
-  const InternshipIcon = Briefcase; // or Users, whichever fits
 
   return (
     <Section
@@ -75,16 +57,16 @@ export default function WhyChooseUs() {
       }
     >
       <SectionHeader
-        eyebrow="Why Choose Us"
+        eyebrow="WHY KINI EDX HUB"
         heading={
           <>
-            Built Different from{" "}
-            <span className="bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">
-              Every Other Bootcamp
+            Built for Skills.{" "}
+            <span className="bg-gradient-to-r from-[#0877B9] via-[#278F8D] to-[#58A94B] bg-clip-text text-transparent">
+              Designed for Careers.
             </span>
           </>
         }
-        subheading="No recorded courses, no crowded cohorts, no guesswork. Just outcomes."
+        subheading="Learn through live instruction, practical projects, expert mentorship, and focused career support."
       />
 
       <motion.div
@@ -92,31 +74,42 @@ export default function WhyChooseUs() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.15 }}
-        className="mt-10"
+        className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {/* First row: featured card + second card */}
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-          <FeatureCard feature={first} Icon={ICONS[0]} isDark={isDark} featured className="lg:col-span-2" />
-          <FeatureCard feature={second} Icon={ICONS[1]} isDark={isDark} />
-        </div>
+        {benefits.map((benefit, index) => {
+          const Icon = benefit.icon;
+          return (
+            <motion.div
+              key={benefit.title}
+              variants={fadeUp}
+              custom={index}
+              className="group relative rounded-2xl border border-slate-200/70 dark:border-white/10 bg-white dark:bg-white/[0.04] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:hover:bg-white/[0.08]"
+            >
+              {/* Permanent top gradient border */}
+              <div className="absolute inset-x-0 top-0 h-0.5 rounded-t-2xl bg-gradient-to-r from-[#0877B9] via-[#278F8D] to-[#58A94B] opacity-100" />
 
-        {/* Second row: the remaining features (4 items) */}
-        <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {rest.map((feature, i) => (
-            <FeatureCard key={feature.title} feature={feature} Icon={ICONS[i + 2]} isDark={isDark} />
-          ))}
-        </div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-[#0877B9] via-[#278F8D] to-[#58A94B] text-white shadow-md">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </div>
 
-        {/* 🆕 Internship feature – full width, highlighted */}
-        <div className="mt-5">
-          <FeatureCard
-            feature={internshipFeature}
-            Icon={InternshipIcon}
-            isDark={isDark}
-            featured={true}
-            className="w-full"
-          />
-        </div>
+              <h3
+                className={`mt-4 font-display text-base font-semibold ${
+                  isDark ? "text-white" : "text-slate-900"
+                }`}
+              >
+                {benefit.title}
+              </h3>
+
+              <p
+                className={`mt-2 text-sm leading-relaxed ${
+                  isDark ? "text-slate-400" : "text-slate-600"
+                }`}
+              >
+                {benefit.desc}
+              </p>
+            </motion.div>
+          );
+        })}
       </motion.div>
     </Section>
   );

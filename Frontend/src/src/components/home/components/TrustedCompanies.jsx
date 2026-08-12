@@ -48,12 +48,10 @@ export default function Partners() {
         isDark ? "bg-app-dark-gradient" : "bg-gradient-to-b from-white to-slate-50"
       }`}
     >
-      {/* Background glow (stronger in dark mode) */}
+      {/* Background glow */}
       <div
         className={`absolute top-0 left-1/2 w-[500px] h-[500px] rounded-full -translate-x-1/2 pointer-events-none blur-[150px] ${
-          isDark
-            ? "bg-[#4F46E5]/20"
-            : "bg-[#4F46E5]/5"
+          isDark ? "bg-[#4F46E5]/20" : "bg-[#4F46E5]/5"
         }`}
       />
 
@@ -97,7 +95,7 @@ export default function Partners() {
           </p>
         </motion.div>
 
-        {/* Glass Container – improved for dark mode */}
+        {/* Glass Container */}
         <div
           className={`relative overflow-hidden rounded-2xl border ${
             isDark
@@ -105,13 +103,12 @@ export default function Partners() {
               : "bg-white/50 border-slate-200"
           }`}
         >
-          {/* Fade Edges – darker overlay for dark mode */}
+          {/* Fade Edges */}
           <div
             className={`absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r ${
               isDark ? "from-[#0F172A]/90" : "from-white"
             } to-transparent pointer-events-none`}
           />
-
           <div
             className={`absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l ${
               isDark ? "from-[#0F172A]/90" : "from-white"
@@ -132,7 +129,8 @@ export default function Partners() {
               {[...LOGOS, ...LOGOS].map((company, index) => (
                 <motion.div
                   key={index}
-                  whileHover={{ scale: 1.08 }}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   className="flex-shrink-0 flex items-center justify-center px-2 min-w-[120px]"
                 >
                   <img
@@ -142,8 +140,8 @@ export default function Partners() {
                     onError={handleImageError}
                     className={`h-7 sm:h-9 w-auto object-contain transition-all duration-300 ${
                       isDark
-                        ? "opacity-70 grayscale hover:opacity-100 hover:grayscale-0 filter brightness-125 drop-shadow-[0_0_8px_rgba(255,255,255,0.05)]"
-                        : "opacity-50 grayscale hover:opacity-100 hover:grayscale-0"
+                        ? "opacity-80 hover:opacity-100 brightness-110"
+                        : "opacity-70 hover:opacity-100"
                     }`}
                   />
                 </motion.div>
@@ -159,11 +157,7 @@ export default function Partners() {
           viewport={{ once: true }}
           className="text-center mt-6"
         >
-          <p
-            className={`text-xs ${
-              isDark ? "text-slate-400" : "text-slate-400"
-            }`}
-          >
+          <p className={`text-xs ${isDark ? "text-slate-400" : "text-slate-400"}`}>
             <span className="font-semibold text-[#4F46E5]">500+</span> hiring
             partners •{" "}
             <span className="font-semibold text-[#4F46E5]">95%</span> placement

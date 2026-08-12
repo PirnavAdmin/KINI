@@ -1,38 +1,13 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import {
-  Rocket,
-  ArrowRight,
-  Sparkles,
-  ChevronDown,
-  Loader2,
-  Award,
-  Briefcase,
-  Target,
-  Code2,
-  FileJson,
-  GitBranch ,
-  Atom,
-  RefreshCcw,
-  Wind,
-  Server,
-  Database,
-  Terminal,
-  Layers,
-  Coffee,
-  Boxes,
-  Brain,
-  Cloud,
-  
-  Link2,
-  LineChart,
-  FolderGit2,
-  Star,
-  Clock,
-  ShieldCheck,
-  Milestone,
-  BadgeCheck,
+  Rocket, ArrowRight, Sparkles, ChevronDown, Loader2,
+  Award, Briefcase, Target, Code2, FileJson, GitBranch,
+  Atom, RefreshCcw, Wind, Server, Database, Terminal,
+  Layers, Coffee, Boxes, Brain, Cloud, Link2, LineChart,
+  FolderGit2, Star, Clock, ShieldCheck, Milestone, BadgeCheck,
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
@@ -40,125 +15,101 @@ import {
 /* ------------------------------------------------------------------ */
 
 const ROLE_META = {
-  "React JS Developer": { icon: Atom, tone: "from-blue-500 to-cyan-500" },
-  "Frontend Developer": { icon: Code2, tone: "from-sky-500 to-blue-600" },
-  "MERN Stack Developer": { icon: Layers, tone: "from-emerald-500 to-teal-500" },
-  "Full Stack Developer": { icon: Boxes, tone: "from-indigo-500 to-violet-500" },
-  "Python Developer": { icon: Terminal, tone: "from-amber-500 to-yellow-500" },
-  "Java Developer": { icon: Coffee, tone: "from-orange-500 to-red-500" },
-  "AI Engineer": { icon: Brain, tone: "from-fuchsia-500 to-purple-600" },
-  "Data Scientist": { icon: LineChart, tone: "from-teal-500 to-emerald-600" },
-  "Cloud Engineer": { icon: Cloud, tone: "from-sky-400 to-indigo-500" },
+  "React JS Developer":    { icon: Atom,      tone: "from-blue-500 to-cyan-500"     },
+  "Frontend Developer":    { icon: Code2,     tone: "from-sky-500 to-blue-600"      },
+  "MERN Stack Developer":  { icon: Layers,    tone: "from-emerald-500 to-teal-500"  },
+  "Full Stack Developer":  { icon: Boxes,     tone: "from-indigo-500 to-violet-500" },
+  "Python Developer":      { icon: Terminal,  tone: "from-amber-500 to-yellow-500"  },
+  "Java Developer":        { icon: Coffee,    tone: "from-orange-500 to-red-500"    },
+  "AI Engineer":           { icon: Brain,     tone: "from-fuchsia-500 to-purple-600"},
+  "Data Scientist":        { icon: LineChart, tone: "from-teal-500 to-emerald-600"  },
+  "Cloud Engineer":        { icon: Cloud,     tone: "from-sky-400 to-indigo-500"    },
 };
 
 const roadmapConfig = {
-  currentRoles: [
-    "Student",
-    "Fresher",
-    "Frontend Developer",
-    "Backend Developer",
-    "QA Engineer",
-    "Support Engineer",
-    "Working Professional",
-  ],
-  targetRoles: Object.keys(ROLE_META),
-  companies: [
-    "Google",
-    "Microsoft",
-    "Amazon",
-    "Meta",
-    "Apple",
-    "Netflix",
-    "Adobe",
-    "Oracle",
-    "Salesforce",
-    "TCS",
-    "Infosys",
-    "Wipro",
-    "Accenture",
-    "Capgemini",
-    "Startup",
-  ],
-  timelines: ["3 Months", "6 Months", "9 Months", "12 Months"],
-  learningModes: ["Live", "Recorded", "Hybrid"],
-  studyHours: ["1 Hour", "2 Hours", "4 Hours", "Weekend Only"],
+  currentRoles:  ["Student","Fresher","Frontend Developer","Backend Developer","QA Engineer","Support Engineer","Working Professional"],
+  targetRoles:   Object.keys(ROLE_META),
+  companies:     ["Google","Microsoft","Amazon","Meta","Apple","Netflix","Adobe","Oracle","Salesforce","TCS","Infosys","Wipro","Accenture","Capgemini","Startup"],
+  timelines:     ["3 Months","6 Months","9 Months","12 Months"],
+  learningModes: ["Live","Recorded","Hybrid"],
+  studyHours:    ["1 Hour","2 Hours","4 Hours","Weekend Only"],
 };
 
 const SKILL_LIBRARY = {
-  "HTML & CSS": { icon: Code2, weeks: 2 },
-  JavaScript: { icon: FileJson, weeks: 4 },
-  "Git & GitHub": { icon: GitBranch, weeks: 1 },
-  "React JS": { icon: Atom, weeks: 6 },
-  "Redux Toolkit": { icon: RefreshCcw, weeks: 2 },
-  "Tailwind CSS": { icon: Wind, weeks: 2 },
-  "Node.js": { icon: Server, weeks: 4 },
-  "Express & MongoDB": { icon: Database, weeks: 4 },
-  "REST APIs": { icon: Link2, weeks: 2 },
-  "SQL & Databases": { icon: Database, weeks: 2 },
-  "Python Core": { icon: Terminal, weeks: 3 },
-  "Django / Flask": { icon: Layers, weeks: 4 },
-  "Java Core": { icon: Coffee, weeks: 4 },
-  "Spring Boot": { icon: Boxes, weeks: 4 },
-  "Machine Learning": { icon: Brain, weeks: 6 },
-  "Deep Learning": { icon: Sparkles, weeks: 4 },
-  "Data Analysis": { icon: LineChart, weeks: 4 },
-  "Cloud Fundamentals (AWS)": { icon: Cloud, weeks: 4 },
-  "DevOps & CI/CD": { icon: GitBranch, weeks: 3 },
-  Projects: { icon: FolderGit2, weeks: 4 },
-  "Placement Prep": { icon: Target, weeks: 2 },
+  "HTML & CSS":              { icon: Code2,      weeks: 2 },
+  "JavaScript":              { icon: FileJson,   weeks: 4 },
+  "Git & GitHub":            { icon: GitBranch,  weeks: 1 },
+  "React JS":                { icon: Atom,       weeks: 6 },
+  "Redux Toolkit":           { icon: RefreshCcw, weeks: 2 },
+  "Tailwind CSS":            { icon: Wind,       weeks: 2 },
+  "Node.js":                 { icon: Server,     weeks: 4 },
+  "Express & MongoDB":       { icon: Database,   weeks: 4 },
+  "REST APIs":               { icon: Link2,      weeks: 2 },
+  "SQL & Databases":         { icon: Database,   weeks: 2 },
+  "Python Core":             { icon: Terminal,   weeks: 3 },
+  "Django / Flask":          { icon: Layers,     weeks: 4 },
+  "Java Core":               { icon: Coffee,     weeks: 4 },
+  "Spring Boot":             { icon: Boxes,      weeks: 4 },
+  "Machine Learning":        { icon: Brain,      weeks: 6 },
+  "Deep Learning":           { icon: Sparkles,   weeks: 4 },
+  "Data Analysis":           { icon: LineChart,  weeks: 4 },
+  "Cloud Fundamentals (AWS)":{ icon: Cloud,      weeks: 4 },
+  "DevOps & CI/CD":          { icon: GitBranch,  weeks: 3 },
+  "Projects":                { icon: FolderGit2, weeks: 4 },
+  "Placement Prep":          { icon: Target,     weeks: 2 },
 };
 
 const TARGET_ROLE_PATHS = {
-  "React JS Developer": ["HTML & CSS", "JavaScript", "Git & GitHub", "React JS", "Redux Toolkit", "Tailwind CSS", "Projects", "Placement Prep"],
-  "Frontend Developer": ["HTML & CSS", "JavaScript", "Git & GitHub", "React JS", "Tailwind CSS", "Projects", "Placement Prep"],
-  "MERN Stack Developer": ["HTML & CSS", "JavaScript", "Git & GitHub", "React JS", "Node.js", "Express & MongoDB", "Redux Toolkit", "Projects", "Placement Prep"],
-  "Full Stack Developer": ["HTML & CSS", "JavaScript", "Git & GitHub", "React JS", "Node.js", "Express & MongoDB", "REST APIs", "SQL & Databases", "Projects", "Placement Prep"],
-  "Python Developer": ["Python Core", "Git & GitHub", "SQL & Databases", "Django / Flask", "REST APIs", "Projects", "Placement Prep"],
-  "Java Developer": ["Java Core", "Git & GitHub", "SQL & Databases", "Spring Boot", "REST APIs", "Projects", "Placement Prep"],
-  "AI Engineer": ["Python Core", "Git & GitHub", "SQL & Databases", "Machine Learning", "Deep Learning", "Projects", "Placement Prep"],
-  "Data Scientist": ["Python Core", "SQL & Databases", "Data Analysis", "Machine Learning", "Git & GitHub", "Projects", "Placement Prep"],
-  "Cloud Engineer": ["Git & GitHub", "Python Core", "Cloud Fundamentals (AWS)", "DevOps & CI/CD", "SQL & Databases", "Projects", "Placement Prep"],
+  "React JS Developer":   ["HTML & CSS","JavaScript","Git & GitHub","React JS","Redux Toolkit","Tailwind CSS","Projects","Placement Prep"],
+  "Frontend Developer":   ["HTML & CSS","JavaScript","Git & GitHub","React JS","Tailwind CSS","Projects","Placement Prep"],
+  "MERN Stack Developer": ["HTML & CSS","JavaScript","Git & GitHub","React JS","Node.js","Express & MongoDB","Redux Toolkit","Projects","Placement Prep"],
+  "Full Stack Developer": ["HTML & CSS","JavaScript","Git & GitHub","React JS","Node.js","Express & MongoDB","REST APIs","SQL & Databases","Projects","Placement Prep"],
+  "Python Developer":     ["Python Core","Git & GitHub","SQL & Databases","Django / Flask","REST APIs","Projects","Placement Prep"],
+  "Java Developer":       ["Java Core","Git & GitHub","SQL & Databases","Spring Boot","REST APIs","Projects","Placement Prep"],
+  "AI Engineer":          ["Python Core","Git & GitHub","SQL & Databases","Machine Learning","Deep Learning","Projects","Placement Prep"],
+  "Data Scientist":       ["Python Core","SQL & Databases","Data Analysis","Machine Learning","Git & GitHub","Projects","Placement Prep"],
+  "Cloud Engineer":       ["Git & GitHub","Python Core","Cloud Fundamentals (AWS)","DevOps & CI/CD","SQL & Databases","Projects","Placement Prep"],
 };
 
 const SALARY_BY_ROLE = {
-  "React JS Developer": "\u20b96 \u2013 14 LPA",
-  "Frontend Developer": "\u20b95 \u2013 12 LPA",
-  "MERN Stack Developer": "\u20b97 \u2013 16 LPA",
-  "Full Stack Developer": "\u20b98 \u2013 18 LPA",
-  "Python Developer": "\u20b96 \u2013 14 LPA",
-  "Java Developer": "\u20b96 \u2013 15 LPA",
-  "AI Engineer": "\u20b910 \u2013 24 LPA",
-  "Data Scientist": "\u20b99 \u2013 22 LPA",
-  "Cloud Engineer": "\u20b98 \u2013 20 LPA",
+  "React JS Developer":  "₹6 – 14 LPA",
+  "Frontend Developer":  "₹5 – 12 LPA",
+  "MERN Stack Developer":"₹7 – 16 LPA",
+  "Full Stack Developer":"₹8 – 18 LPA",
+  "Python Developer":    "₹6 – 14 LPA",
+  "Java Developer":      "₹6 – 15 LPA",
+  "AI Engineer":         "₹10 – 24 LPA",
+  "Data Scientist":      "₹9 – 22 LPA",
+  "Cloud Engineer":      "₹8 – 20 LPA",
 };
 
 const BADGE_STYLES = {
-  BEGINNER: "bg-blue-500",
-  "MOST POPULAR": "bg-orange-500",
-  HOT: "bg-rose-500",
-  ADVANCED: "bg-violet-500",
-  "IN-DEMAND": "bg-emerald-500",
-  POPULAR: "bg-blue-500",
+  BEGINNER:     "bg-blue-500",
+  "MOST POPULAR":"bg-orange-500",
+  HOT:          "bg-rose-500",
+  ADVANCED:     "bg-violet-500",
+  "IN-DEMAND":  "bg-emerald-500",
+  POPULAR:      "bg-blue-500",
 };
 
 const COURSE_LIBRARY = [
-  { title: "HTML & CSS Fundamentals", level: "Beginner", roles: ["React JS Developer", "Frontend Developer", "MERN Stack Developer", "Full Stack Developer"], badge: "BEGINNER", icon: Code2, tone: "from-blue-500 to-blue-600", duration: "2 Weeks", rating: "4.8", reviews: "1.2K" },
-  { title: "JavaScript Complete Guide", level: "Beginner", roles: ["React JS Developer", "Frontend Developer", "MERN Stack Developer", "Full Stack Developer"], badge: "MOST POPULAR", icon: FileJson, tone: "from-amber-400 to-yellow-500", duration: "4 Weeks", rating: "4.9", reviews: "2.4K" },
-  { title: "React JS From Scratch", level: "Intermediate", roles: ["React JS Developer", "Frontend Developer", "MERN Stack Developer", "Full Stack Developer"], badge: "HOT", icon: Atom, tone: "from-rose-500 to-pink-600", duration: "6 Weeks", rating: "4.9", reviews: "3.1K" },
-  { title: "Redux Toolkit State Management", level: "Advanced", roles: ["React JS Developer", "MERN Stack Developer"], badge: "ADVANCED", icon: RefreshCcw, tone: "from-violet-500 to-purple-600", duration: "2 Weeks", rating: "4.7", reviews: "1.1K" },
-  { title: "Tailwind CSS Masterclass", level: "Beginner", roles: ["React JS Developer", "Frontend Developer", "MERN Stack Developer", "Full Stack Developer"], badge: "IN-DEMAND", icon: Wind, tone: "from-cyan-400 to-sky-500", duration: "2 Weeks", rating: "4.8", reviews: "1.6K" },
-  { title: "Node.js & Express Bootcamp", level: "Intermediate", roles: ["MERN Stack Developer", "Full Stack Developer"], badge: "HOT", icon: Server, tone: "from-emerald-500 to-green-600", duration: "4 Weeks", rating: "4.7", reviews: "980" },
-  { title: "Python for Developers", level: "Beginner", roles: ["Python Developer", "AI Engineer", "Data Scientist"], badge: "BEGINNER", icon: Terminal, tone: "from-yellow-400 to-amber-500", duration: "3 Weeks", rating: "4.8", reviews: "2.0K" },
-  { title: "Django & Flask APIs", level: "Intermediate", roles: ["Python Developer"], badge: "POPULAR", icon: Layers, tone: "from-teal-500 to-emerald-600", duration: "4 Weeks", rating: "4.6", reviews: "650" },
-  { title: "Java + Spring Boot", level: "Intermediate", roles: ["Java Developer"], badge: "IN-DEMAND", icon: Coffee, tone: "from-orange-500 to-red-600", duration: "6 Weeks", rating: "4.7", reviews: "890" },
-  { title: "Machine Learning Foundations", level: "Advanced", roles: ["AI Engineer", "Data Scientist"], badge: "ADVANCED", icon: Brain, tone: "from-fuchsia-500 to-purple-600", duration: "6 Weeks", rating: "4.8", reviews: "1.3K" },
-  { title: "Cloud & DevOps with AWS", level: "Intermediate", roles: ["Cloud Engineer"], badge: "HOT", icon: Cloud, tone: "from-sky-400 to-indigo-500", duration: "4 Weeks", rating: "4.6", reviews: "720" },
-  { title: "Data Analysis with SQL & Python", level: "Beginner", roles: ["Data Scientist", "Python Developer"], badge: "BEGINNER", icon: LineChart, tone: "from-teal-500 to-cyan-600", duration: "3 Weeks", rating: "4.7", reviews: "1.0K" },
+  { title:"HTML & CSS Fundamentals",      level:"Beginner",     roles:["React JS Developer","Frontend Developer","MERN Stack Developer","Full Stack Developer"], badge:"BEGINNER",     icon:Code2,      tone:"from-blue-500 to-blue-600",      duration:"2 Weeks", rating:"4.8", reviews:"1.2K" },
+  { title:"JavaScript Complete Guide",    level:"Beginner",     roles:["React JS Developer","Frontend Developer","MERN Stack Developer","Full Stack Developer"], badge:"MOST POPULAR", icon:FileJson,   tone:"from-amber-400 to-yellow-500",   duration:"4 Weeks", rating:"4.9", reviews:"2.4K" },
+  { title:"React JS From Scratch",        level:"Intermediate", roles:["React JS Developer","Frontend Developer","MERN Stack Developer","Full Stack Developer"], badge:"HOT",          icon:Atom,       tone:"from-rose-500 to-pink-600",       duration:"6 Weeks", rating:"4.9", reviews:"3.1K" },
+  { title:"Redux Toolkit State Management",level:"Advanced",    roles:["React JS Developer","MERN Stack Developer"],                                             badge:"ADVANCED",     icon:RefreshCcw, tone:"from-violet-500 to-purple-600",   duration:"2 Weeks", rating:"4.7", reviews:"1.1K" },
+  { title:"Tailwind CSS Masterclass",     level:"Beginner",     roles:["React JS Developer","Frontend Developer","MERN Stack Developer","Full Stack Developer"], badge:"IN-DEMAND",    icon:Wind,       tone:"from-cyan-400 to-sky-500",        duration:"2 Weeks", rating:"4.8", reviews:"1.6K" },
+  { title:"Node.js & Express Bootcamp",   level:"Intermediate", roles:["MERN Stack Developer","Full Stack Developer"],                                           badge:"HOT",          icon:Server,     tone:"from-emerald-500 to-green-600",   duration:"4 Weeks", rating:"4.7", reviews:"980"  },
+  { title:"Python for Developers",        level:"Beginner",     roles:["Python Developer","AI Engineer","Data Scientist"],                                        badge:"BEGINNER",     icon:Terminal,   tone:"from-yellow-400 to-amber-500",    duration:"3 Weeks", rating:"4.8", reviews:"2.0K" },
+  { title:"Django & Flask APIs",          level:"Intermediate", roles:["Python Developer"],                                                                       badge:"POPULAR",      icon:Layers,     tone:"from-teal-500 to-emerald-600",    duration:"4 Weeks", rating:"4.6", reviews:"650"  },
+  { title:"Java + Spring Boot",           level:"Intermediate", roles:["Java Developer"],                                                                         badge:"IN-DEMAND",    icon:Coffee,     tone:"from-orange-500 to-red-600",      duration:"6 Weeks", rating:"4.7", reviews:"890"  },
+  { title:"Machine Learning Foundations", level:"Advanced",     roles:["AI Engineer","Data Scientist"],                                                           badge:"ADVANCED",     icon:Brain,      tone:"from-fuchsia-500 to-purple-600",  duration:"6 Weeks", rating:"4.8", reviews:"1.3K" },
+  { title:"Cloud & DevOps with AWS",      level:"Intermediate", roles:["Cloud Engineer"],                                                                         badge:"HOT",          icon:Cloud,      tone:"from-sky-400 to-indigo-500",      duration:"4 Weeks", rating:"4.6", reviews:"720"  },
+  { title:"Data Analysis with SQL & Python",level:"Beginner",   roles:["Data Scientist","Python Developer"],                                                      badge:"BEGINNER",     icon:LineChart,  tone:"from-teal-500 to-cyan-600",       duration:"3 Weeks", rating:"4.7", reviews:"1.0K" },
 ];
 
 const DIFFICULTY_RANK = { Beginner: 1, Intermediate: 2, Advanced: 3 };
-const LEARNING_BONUS = { Live: 6, Hybrid: 3, Recorded: 0 };
-const TIMELINE_WEEKS = { "3 Months": 12, "6 Months": 24, "9 Months": 36, "12 Months": 48 };
+const LEARNING_BONUS  = { Live: 6, Hybrid: 3, Recorded: 0 };
+const TIMELINE_WEEKS  = { "3 Months": 12, "6 Months": 24, "9 Months": 36, "12 Months": 48 };
 
 const AVATAR_TONES = [
   "from-blue-500 to-indigo-500",
@@ -174,19 +125,12 @@ const AVATAR_TONES = [
 /* ------------------------------------------------------------------ */
 
 function initials(label) {
-  return label
-    .replace(/\(.*?\)/g, "")
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join("")
-    .toUpperCase();
+  return label.replace(/\(.*?\)/g,"").trim().split(/\s+/).slice(0,2).map((w) => w[0]).join("").toUpperCase();
 }
 
 function toneFor(label) {
   let hash = 0;
-  for (let i = 0; i < label.length; i += 1) hash = (hash * 31 + label.charCodeAt(i)) >>> 0;
+  for (let i = 0; i < label.length; i++) hash = (hash * 31 + label.charCodeAt(i)) >>> 0;
   return AVATAR_TONES[hash % AVATAR_TONES.length];
 }
 
@@ -196,38 +140,26 @@ function buildRoadmap({ currentRole, targetRole, experience, timeline, learningM
     id: `${targetRole}-${key}-${index}`,
     label: key,
     weeks: SKILL_LIBRARY[key]?.weeks ?? 2,
-    icon: SKILL_LIBRARY[key]?.icon ?? Sparkles,
+    icon:  SKILL_LIBRARY[key]?.icon ?? Sparkles,
   }));
-  const totalWeeks = steps.reduce((sum, step) => sum + step.weeks, 0);
-  const months = Math.max(1, Math.round(totalWeeks / 4));
-  const skillsCount = skillKeys.filter((key) => key !== "Projects" && key !== "Placement Prep").length;
+  const totalWeeks    = steps.reduce((sum, s) => sum + s.weeks, 0);
+  const months        = Math.max(1, Math.round(totalWeeks / 4));
+  const skillsCount   = skillKeys.filter((k) => k !== "Projects" && k !== "Placement Prep").length;
   const projectsCount = Math.max(3, Math.round(steps.length / 2));
-  const targetWeeks = TIMELINE_WEEKS[timeline] ?? 24;
-  const paceBonus = targetWeeks >= totalWeeks ? 10 : -6;
-  const rawScore = 58 + experience * 3 + paceBonus + (LEARNING_BONUS[learningMode] ?? 0);
-  const readinessScore = Math.round(Math.max(45, Math.min(98, rawScore)));
-
-  return {
-    currentRole,
-    targetRole,
-    steps,
-    totalWeeks,
-    months,
-    skillsCount,
-    projectsCount,
-    certificatesCount: 2,
-    salary: SALARY_BY_ROLE[targetRole] ?? "\u20b96 \u2013 16 LPA",
-    readinessScore,
-  };
+  const targetWeeks   = TIMELINE_WEEKS[timeline] ?? 24;
+  const paceBonus     = targetWeeks >= totalWeeks ? 10 : -6;
+  const rawScore      = 58 + experience * 3 + paceBonus + (LEARNING_BONUS[learningMode] ?? 0);
+  const readinessScore= Math.round(Math.max(45, Math.min(98, rawScore)));
+  return { currentRole, targetRole, steps, totalWeeks, months, skillsCount, projectsCount, certificatesCount: 2, salary: SALARY_BY_ROLE[targetRole] ?? "₹6 – 16 LPA", readinessScore };
 }
 
 function getRecommendedCourses(targetRole, experience) {
   const tier = experience <= 1 ? 1 : experience <= 4 ? 2 : 3;
-  return COURSE_LIBRARY.filter((course) => course.roles.includes(targetRole))
-    .map((course) => ({ course, gap: Math.abs(DIFFICULTY_RANK[course.level] - tier) }))
+  return COURSE_LIBRARY.filter((c) => c.roles.includes(targetRole))
+    .map((c) => ({ c, gap: Math.abs(DIFFICULTY_RANK[c.level] - tier) }))
     .sort((a, b) => a.gap - b.gap)
     .slice(0, 5)
-    .map((entry) => entry.course);
+    .map((e) => e.c);
 }
 
 /* ------------------------------------------------------------------ */
@@ -235,17 +167,16 @@ function getRecommendedCourses(targetRole, experience) {
 /* ------------------------------------------------------------------ */
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden:  { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
 };
-
 const staggerContainer = {
-  hidden: {},
+  hidden:  {},
   visible: { transition: { staggerChildren: 0.07 } },
 };
 
 /* ------------------------------------------------------------------ */
-/*  react-select theming                                               */
+/*  react-select shared classNames                                     */
 /* ------------------------------------------------------------------ */
 
 const selectClassNames = {
@@ -253,34 +184,39 @@ const selectClassNames = {
     `flex min-h-[42px] items-center rounded-2xl border bg-white px-3 text-sm transition-colors dark:bg-white/[0.03] ${
       state.isFocused ? "border-primary-500 ring-2 ring-primary-500/20" : "border-ink-900/10 dark:border-white/10"
     }`,
-  placeholder: () => "text-ink-900/35 dark:text-white/30 text-sm",
-  singleValue: () => "text-ink-900 dark:text-white text-sm font-semibold",
-  input: () => "text-ink-900 dark:text-white text-sm",
-  valueContainer: () => "gap-1 py-1",
-  indicatorsContainer: () => "gap-1",
-  dropdownIndicator: () => "text-ink-900/40 dark:text-white/40",
+  placeholder:        () => "text-ink-900/35 dark:text-white/30 text-sm",
+  singleValue:        () => "text-ink-900 dark:text-white text-sm font-semibold",
+  input:              () => "text-ink-900 dark:text-white text-sm",
+  valueContainer:     () => "gap-1 py-1",
+  indicatorsContainer:() => "gap-1",
+  dropdownIndicator:  () => "text-ink-900/40 dark:text-white/40",
   indicatorSeparator: () => "hidden",
-  clearIndicator: () => "text-ink-900/30 hover:text-ink-900/60 dark:text-white/30",
-  menu: () => "mt-2 overflow-hidden rounded-2xl border border-ink-900/10 bg-white shadow-card-lg dark:border-white/10 dark:bg-ink-900",
-  menuList: () => "max-h-64 overflow-y-auto py-1",
+  clearIndicator:     () => "text-ink-900/30 hover:text-ink-900/60 dark:text-white/30",
+  menu:               () => "mt-2 overflow-hidden rounded-2xl border border-ink-900/10 bg-white shadow-card-lg dark:border-white/10 dark:bg-ink-900",
+  menuList:           () => "max-h-64 overflow-y-auto py-1",
   option: (state) =>
     `cursor-pointer px-3 py-2 text-sm ${state.isFocused ? "bg-primary-50 dark:bg-white/10" : ""} ${
       state.isSelected ? "font-bold text-primary-600 dark:text-primary-300" : "text-ink-900/80 dark:text-white/70"
     }`,
-  noOptionsMessage: () => "px-3 py-4 text-center text-sm text-ink-900/40 dark:text-white/40",
+  noOptionsMessage:   () => "px-3 py-4 text-center text-sm text-ink-900/40 dark:text-white/40",
+  // "Create …" prompt row
+  createOption:       () => "cursor-pointer px-3 py-2 text-sm font-semibold text-primary-600 dark:text-primary-300",
 };
 
 function formatCompanyOption(option) {
   return (
     <span className="flex items-center gap-2">
       <span
-        className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md bg-gradient-to-br ${toneFor(
-          option.label,
-        )} text-[9px] font-bold text-white`}
+        className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md bg-gradient-to-br ${toneFor(option.label)} text-[9px] font-bold text-white`}
       >
         {initials(option.label)}
       </span>
       {option.label}
+      {option.__isNew__ && (
+        <span className="ml-auto rounded-md bg-primary-50 px-1.5 py-0.5 text-[10px] font-bold text-primary-600 dark:bg-primary-500/10 dark:text-primary-300">
+          Custom
+        </span>
+      )}
     </span>
   );
 }
@@ -290,11 +226,7 @@ function formatRoleOption(option) {
   const Icon = meta?.icon ?? Sparkles;
   return (
     <span className="flex items-center gap-2">
-      <span
-        className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md bg-gradient-to-br ${
-          meta?.tone ?? "from-primary-500 to-secondary-500"
-        } text-white`}
-      >
+      <span className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md bg-gradient-to-br ${meta?.tone ?? "from-primary-500 to-secondary-500"} text-white`}>
         <Icon className="h-3 w-3" aria-hidden="true" />
       </span>
       {option.label}
@@ -323,25 +255,14 @@ function NativeSelect({ id, value, onChange, options }) {
       <select
         id={id}
         value={value}
-        onChange={(event) => onChange(event.target.value)}
-        // dark:[color-scheme:dark] tells the browser to paint the native popup
-        // chrome (background, scrollbar, hover state) using its dark palette
-        // instead of defaulting to light, which is what caused the white box.
+        onChange={(e) => onChange(e.target.value)}
         className="w-full appearance-none rounded-2xl border border-ink-900/10 bg-white px-3.5 py-2.5 pr-9 text-sm font-semibold text-ink-900 outline-none transition-colors focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 dark:border-white/10 dark:bg-white/[0.03] dark:text-white dark:[color-scheme:dark]"
       >
-        {options.map((option) => (
-          // Each <option> also needs an explicit background/text color —
-          // color-scheme alone doesn't reliably theme option rows in every
-          // browser, so we set both belt-and-braces.
-          <option key={option} value={option} className="bg-white text-ink-900 dark:bg-ink-900 dark:text-white">
-            {option}
-          </option>
+        {options.map((o) => (
+          <option key={o} value={o} className="bg-white text-ink-900 dark:bg-ink-900 dark:text-white">{o}</option>
         ))}
       </select>
-      <ChevronDown
-        className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-900/40 dark:text-white/40"
-        aria-hidden="true"
-      />
+      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-900/40 dark:text-white/40" aria-hidden="true" />
     </div>
   );
 }
@@ -357,31 +278,63 @@ function StatCard({ icon: Icon, label, value }) {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Creatable company select                                           */
+/* ------------------------------------------------------------------ */
+
+/**
+ * CompanySelect — shows the fixed list but also lets the user type
+ * any name and press Enter (or click "Create …") to add it on the fly.
+ * A small "Custom" badge is shown on user-created options.
+ */
+function CompanySelect({ inputId, instanceId, value, onChange, placeholder, isClearable = true }) {
+  const options = useMemo(
+    () => roadmapConfig.companies.map((c) => ({ value: c, label: c })),
+    [],
+  );
+
+  return (
+    <CreatableSelect
+      inputId={inputId}
+      instanceId={instanceId}
+      unstyled
+      isClearable={isClearable}
+      classNames={selectClassNames}
+      options={options}
+      formatOptionLabel={formatCompanyOption}
+      placeholder={placeholder}
+      value={value ? { value, label: value } : null}
+      onChange={(option) => onChange(option ? option.value : null)}
+      // Friendly prompt text shown at the bottom of the list
+      formatCreateLabel={(inputValue) => `➕ Add "${inputValue}" as custom company`}
+      // Allow any non-empty string
+      isValidNewOption={(inputValue) => inputValue.trim().length > 0}
+      // Keep the new option's label as-is
+      getNewOptionData={(inputValue) => ({ value: inputValue.trim(), label: inputValue.trim(), __isNew__: true })}
+    />
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Main component                                                     */
 /* ------------------------------------------------------------------ */
 
 export default function CareerRoadmapGenerator() {
   const reduceMotion = useReducedMotion();
-  const roadmapRef = useRef(null);
+  const roadmapRef   = useRef(null);
 
-  const [currentRole, setCurrentRole] = useState(roadmapConfig.currentRoles[0]);
+  const [currentRole,    setCurrentRole]    = useState(roadmapConfig.currentRoles[0]);
   const [currentCompany, setCurrentCompany] = useState(null);
-  const [experience, setExperience] = useState(0);
-  const [targetRole, setTargetRole] = useState(roadmapConfig.targetRoles[0]);
-  const [targetCompany, setTargetCompany] = useState("Google");
-  const [timeAvailable, setTimeAvailable] = useState(roadmapConfig.studyHours[1]);
-  const [learningMode, setLearningMode] = useState(roadmapConfig.learningModes[0]);
-  const [timeline, setTimeline] = useState(roadmapConfig.timelines[1]);
+  const [experience,     setExperience]     = useState(0);
+  const [targetRole,     setTargetRole]     = useState(roadmapConfig.targetRoles[0]);
+  const [targetCompany,  setTargetCompany]  = useState("Google");
+  const [timeAvailable,  setTimeAvailable]  = useState(roadmapConfig.studyHours[1]);
+  const [learningMode,   setLearningMode]   = useState(roadmapConfig.learningModes[0]);
+  const [timeline,       setTimeline]       = useState(roadmapConfig.timelines[1]);
+  const [isGenerating,   setIsGenerating]   = useState(false);
+  const [roadmap,        setRoadmap]        = useState(null);
 
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [roadmap, setRoadmap] = useState(null);
-
-  const companyOptions = useMemo(
-    () => roadmapConfig.companies.map((company) => ({ value: company, label: company })),
-    [],
-  );
   const targetRoleOptions = useMemo(
-    () => roadmapConfig.targetRoles.map((role) => ({ value: role, label: role })),
+    () => roadmapConfig.targetRoles.map((r) => ({ value: r, label: r })),
     [],
   );
 
@@ -402,18 +355,15 @@ export default function CareerRoadmapGenerator() {
   };
 
   useEffect(() => {
-    if (!roadmap || !roadmapRef.current) return undefined;
-    const timeoutId = window.setTimeout(() => {
+    if (!roadmap || !roadmapRef.current) return;
+    const id = window.setTimeout(() => {
       roadmapRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 150);
-    return () => window.clearTimeout(timeoutId);
+    return () => window.clearTimeout(id);
   }, [roadmap]);
 
   return (
-    <section 
-      id="career-roadmap" 
-      className="relative overflow-hidden bg-white py-20 sm:py-28 dark:bg-app-dark-gradient"
-    >
+    <section id="career-roadmap" className="relative overflow-hidden bg-white py-20 sm:py-28 dark:bg-app-dark-gradient">
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute -top-24 left-1/4 h-72 w-72 rounded-full bg-primary-500/10 blur-3xl" />
         <div className="absolute -bottom-24 right-1/4 h-72 w-72 rounded-full bg-secondary-500/10 blur-3xl" />
@@ -422,10 +372,7 @@ export default function CareerRoadmapGenerator() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}
           className="mx-auto max-w-2xl text-center"
         >
           <h2 className="flex items-center justify-center gap-2 font-display text-2xl font-extrabold text-ink-900 dark:text-white sm:text-3xl">
@@ -439,44 +386,38 @@ export default function CareerRoadmapGenerator() {
 
         {/* Form card */}
         <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-80px" }}
           className="mx-auto mt-10 max-w-6xl rounded-3xl border border-ink-900/[0.06] bg-white p-6 shadow-card-lg dark:border-white/10 dark:bg-white/[0.02] sm:p-8"
         >
           {/* Row A: current + target */}
           <div className="flex flex-col gap-6 lg:flex-row lg:items-stretch lg:gap-4">
+            {/* WHERE YOU ARE */}
             <div className="flex-1">
               <p className="text-[11px] font-bold uppercase tracking-wider text-ink-900/40 dark:text-white/35">
                 Where You Are
               </p>
               <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <Field label="Current Role" htmlFor="current-role">
-                  <NativeSelect
-                    id="current-role"
-                    value={currentRole}
-                    onChange={setCurrentRole}
-                    options={roadmapConfig.currentRoles}
-                  />
+                  <NativeSelect id="current-role" value={currentRole} onChange={setCurrentRole} options={roadmapConfig.currentRoles} />
                 </Field>
+
                 <Field label="Current Company (Optional)" htmlFor="current-company">
-                  <Select
+                  <CompanySelect
                     inputId="current-company"
                     instanceId="current-company"
-                    unstyled
-                    isClearable
-                    classNames={selectClassNames}
-                    options={companyOptions}
-                    formatOptionLabel={formatCompanyOption}
+                    value={currentCompany}
+                    onChange={setCurrentCompany}
                     placeholder="Not Working / Student"
-                    value={currentCompany ? { value: currentCompany, label: currentCompany } : null}
-                    onChange={(option) => setCurrentCompany(option ? option.value : null)}
                   />
+                  {/* Helper hint */}
+                  <p className="mt-1 text-[10px] text-ink-900/35 dark:text-white/25">
+                    Not in list? Type your company name and press Enter
+                  </p>
                 </Field>
               </div>
             </div>
 
+            {/* Arrow */}
             <div className="flex items-center justify-center lg:pt-6">
               <motion.div
                 animate={reduceMotion ? undefined : { scale: [1, 1.08, 1] }}
@@ -488,6 +429,7 @@ export default function CareerRoadmapGenerator() {
               </motion.div>
             </div>
 
+            {/* WHERE YOU WANT TO GO */}
             <div className="flex-1">
               <p className="text-[11px] font-bold uppercase tracking-wider text-ink-900/40 dark:text-white/35">
                 Where You Want To Go
@@ -506,19 +448,19 @@ export default function CareerRoadmapGenerator() {
                     onChange={(option) => setTargetRole(option ? option.value : null)}
                   />
                 </Field>
+
                 <Field label="Target Company (Optional)" htmlFor="target-company">
-                  <Select
+                  <CompanySelect
                     inputId="target-company"
                     instanceId="target-company"
-                    unstyled
-                    isClearable
-                    classNames={selectClassNames}
-                    options={companyOptions}
-                    formatOptionLabel={formatCompanyOption}
+                    value={targetCompany}
+                    onChange={setTargetCompany}
                     placeholder="Search company..."
-                    value={targetCompany ? { value: targetCompany, label: targetCompany } : null}
-                    onChange={(option) => setTargetCompany(option ? option.value : null)}
                   />
+                  {/* Helper hint */}
+                  <p className="mt-1 text-[10px] text-ink-900/35 dark:text-white/25">
+                    Not in list? Type your company name and press Enter
+                  </p>
                 </Field>
               </div>
             </div>
@@ -538,37 +480,21 @@ export default function CareerRoadmapGenerator() {
                 </span>
               </div>
               <input
-                id="experience"
-                type="range"
-                min={0}
-                max={10}
-                step={1}
-                value={experience}
-                onChange={(event) => setExperience(Number(event.target.value))}
+                id="experience" type="range" min={0} max={10} step={1} value={experience}
+                onChange={(e) => setExperience(Number(e.target.value))}
                 className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-ink-900/10 accent-primary-500 dark:bg-white/10"
               />
               <div className="mt-1 flex justify-between text-[10px] font-semibold text-ink-900/35 dark:text-white/30">
-                <span>0 Years</span>
-                <span>10+ Years</span>
+                <span>0 Years</span><span>10+ Years</span>
               </div>
             </div>
 
             <Field label="Time Available Per Day" htmlFor="time-available">
-              <NativeSelect
-                id="time-available"
-                value={timeAvailable}
-                onChange={setTimeAvailable}
-                options={roadmapConfig.studyHours}
-              />
+              <NativeSelect id="time-available" value={timeAvailable} onChange={setTimeAvailable} options={roadmapConfig.studyHours} />
             </Field>
 
             <Field label="Learning Preference" htmlFor="learning-mode">
-              <NativeSelect
-                id="learning-mode"
-                value={learningMode}
-                onChange={setLearningMode}
-                options={roadmapConfig.learningModes}
-              />
+              <NativeSelect id="learning-mode" value={learningMode} onChange={setLearningMode} options={roadmapConfig.learningModes} />
             </Field>
 
             <Field label="Target Timeline" htmlFor="timeline">
@@ -578,24 +504,15 @@ export default function CareerRoadmapGenerator() {
 
           {/* CTA */}
           <motion.button
-            type="button"
-            onClick={handleGenerate}
-            disabled={!canGenerate}
+            type="button" onClick={handleGenerate} disabled={!canGenerate}
             whileHover={canGenerate ? { scale: 1.01 } : undefined}
             whileTap={canGenerate ? { scale: 0.98 } : undefined}
             className="group relative mt-8 flex w-full items-center justify-center gap-2 rounded-pill bg-gradient-to-r from-primary-500 to-secondary-500 px-6 py-4 text-sm font-bold text-white shadow-lg transition-shadow hover:shadow-[0_0_40px_-8px_rgba(37,99,235,0.55)] disabled:cursor-not-allowed disabled:opacity-60 sm:text-base"
           >
             {isGenerating ? (
-              <>
-                <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
-                Generating your roadmap...
-              </>
+              <><Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />Generating your roadmap...</>
             ) : (
-              <>
-                <Rocket className="h-5 w-5" aria-hidden="true" />
-                Generate My Roadmap
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-              </>
+              <><Rocket className="h-5 w-5" aria-hidden="true" />Generate My Roadmap<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" /></>
             )}
           </motion.button>
 
@@ -609,17 +526,12 @@ export default function CareerRoadmapGenerator() {
         <AnimatePresence>
           {roadmap && (
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
               className="mx-auto mt-8 max-w-6xl"
             >
               {/* Roadmap card */}
-              <div
-                ref={roadmapRef}
-                className="scroll-mt-24 rounded-3xl border border-ink-900/[0.06] bg-white p-6 shadow-card dark:border-white/10 dark:bg-white/[0.02] sm:p-8"
-              >
+              <div ref={roadmapRef} className="scroll-mt-24 rounded-3xl border border-ink-900/[0.06] bg-white p-6 shadow-card dark:border-white/10 dark:bg-white/[0.02] sm:p-8">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <h3 className="flex items-center gap-2 font-display text-lg font-bold text-ink-900 dark:text-white sm:text-xl">
@@ -636,18 +548,13 @@ export default function CareerRoadmapGenerator() {
                 </div>
 
                 <motion.div
-                  variants={staggerContainer}
-                  initial="hidden"
-                  animate="visible"
+                  variants={staggerContainer} initial="hidden" animate="visible"
                   className="mt-8 flex items-start gap-0 overflow-x-auto pb-3 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-ink-900/10 [&::-webkit-scrollbar-track]:bg-transparent dark:[&::-webkit-scrollbar-thumb]:bg-white/10"
                 >
                   {roadmap.steps.map((step, index) => (
                     <Fragment key={step.id}>
                       {index > 0 && (
-                        <div
-                          className="mt-7 h-0.5 w-6 flex-shrink-0 border-t-2 border-dashed border-ink-900/15 dark:border-white/15 sm:w-8 md:w-10"
-                          aria-hidden="true"
-                        />
+                        <div className="mt-7 h-0.5 w-6 flex-shrink-0 border-t-2 border-dashed border-ink-900/15 dark:border-white/15 sm:w-8 md:w-10" aria-hidden="true" />
                       )}
                       <motion.div variants={fadeInUp} className="flex w-24 flex-shrink-0 flex-col items-center text-center sm:w-28">
                         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 text-white shadow-card">
@@ -663,29 +570,21 @@ export default function CareerRoadmapGenerator() {
                 </motion.div>
 
                 <motion.div
-                  variants={staggerContainer}
-                  initial="hidden"
-                  animate="visible"
+                  variants={staggerContainer} initial="hidden" animate="visible"
                   className="mt-8 grid grid-cols-2 gap-3 border-t border-ink-900/[0.06] pt-6 dark:border-white/10 sm:grid-cols-3 lg:grid-cols-6"
                 >
-                  <motion.div variants={fadeInUp}>
-                    <StatCard icon={Clock} label="Estimated Duration" value={`${roadmap.months} ${roadmap.months === 1 ? "Month" : "Months"}`} />
-                  </motion.div>
-                  <motion.div variants={fadeInUp}>
-                    <StatCard icon={Sparkles} label="Skills You'll Gain" value={`${roadmap.skillsCount}+`} />
-                  </motion.div>
-                  <motion.div variants={fadeInUp}>
-                    <StatCard icon={FolderGit2} label="Projects" value={roadmap.projectsCount} />
-                  </motion.div>
-                  <motion.div variants={fadeInUp}>
-                    <StatCard icon={Award} label="Certificates" value={roadmap.certificatesCount} />
-                  </motion.div>
-                  <motion.div variants={fadeInUp}>
-                    <StatCard icon={Briefcase} label="Expected Salary" value={roadmap.salary} />
-                  </motion.div>
-                  <motion.div variants={fadeInUp}>
-                    <StatCard icon={BadgeCheck} label="Job Readiness Score" value={`${roadmap.readinessScore}%`} />
-                  </motion.div>
+                  {[
+                    { icon: Clock,       label: "Estimated Duration",  value: `${roadmap.months} ${roadmap.months === 1 ? "Month" : "Months"}` },
+                    { icon: Sparkles,    label: "Skills You'll Gain",  value: `${roadmap.skillsCount}+` },
+                    { icon: FolderGit2,  label: "Projects",            value: roadmap.projectsCount },
+                    { icon: Award,       label: "Certificates",        value: roadmap.certificatesCount },
+                    { icon: Briefcase,   label: "Expected Salary",     value: roadmap.salary },
+                    { icon: BadgeCheck,  label: "Job Readiness Score", value: `${roadmap.readinessScore}%` },
+                  ].map(({ icon, label, value }) => (
+                    <motion.div key={label} variants={fadeInUp}>
+                      <StatCard icon={icon} label={label} value={value} />
+                    </motion.div>
+                  ))}
                 </motion.div>
               </div>
 
@@ -702,44 +601,30 @@ export default function CareerRoadmapGenerator() {
                         Handpicked courses to help you follow the roadmap
                       </p>
                     </div>
-                    <a
-                      href="#courses"
-                      className="text-xs font-bold text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-300"
-                    >
+                    <a href="#courses" className="text-xs font-bold text-primary-600 underline underline-offset-2 hover:text-primary-700 dark:text-primary-300">
                       View All Courses
                     </a>
                   </div>
 
                   <motion.div
-                    variants={staggerContainer}
-                    initial="hidden"
-                    animate="visible"
+                    variants={staggerContainer} initial="hidden" animate="visible"
                     className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-5"
                   >
                     {recommendedCourses.map((course) => (
                       <motion.div
-                        key={course.title}
-                        variants={fadeInUp}
+                        key={course.title} variants={fadeInUp}
                         className="overflow-hidden rounded-2xl border border-ink-900/[0.06] bg-white shadow-card transition-all hover:-translate-y-1 hover:shadow-card-lg dark:border-white/10 dark:bg-ink-900/60"
                       >
                         <div className="relative flex h-28 items-center justify-center bg-ink-950">
-                          <span
-                            className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${course.tone} shadow-lg`}
-                          >
+                          <span className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${course.tone} shadow-lg`}>
                             <course.icon className="h-6 w-6 text-white" aria-hidden="true" />
                           </span>
-                          <span
-                            className={`absolute left-3 top-3 rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white ${
-                              BADGE_STYLES[course.badge] ?? "bg-primary-500"
-                            }`}
-                          >
+                          <span className={`absolute left-3 top-3 rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white ${BADGE_STYLES[course.badge] ?? "bg-primary-500"}`}>
                             {course.badge}
                           </span>
                         </div>
                         <div className="p-4">
-                          <h4 className="line-clamp-2 text-sm font-bold leading-snug text-ink-900 dark:text-white">
-                            {course.title}
-                          </h4>
+                          <h4 className="line-clamp-2 text-sm font-bold leading-snug text-ink-900 dark:text-white">{course.title}</h4>
                           <div className="mt-2 flex items-center gap-3 text-[11px] font-semibold text-ink-900/50 dark:text-white/40">
                             <span className="flex items-center gap-1">
                               <Star className="h-3 w-3 fill-amber-400 text-amber-400" aria-hidden="true" />

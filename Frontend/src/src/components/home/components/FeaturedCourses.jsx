@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { CheckCircle2, Clock, RotateCcw, Search, Users2 } from "lucide-react";
+import { CheckCircle2, Clock, RotateCcw, Search, Users2, X } from "lucide-react";
 import { useThemeContext } from "@shared/context/ThemeContext";
 import { useEnrollment } from "@shared/context/ModalProvider";
 import { fadeUp, staggerContainer } from "@shared/hooks/useScrollAnimation";
@@ -9,12 +9,14 @@ import Section from "@shared/components/ui/Section";
 import SectionHeader from "@shared/components/ui/SectionHeader";
 import { featuredCourses } from "../data/homeData";
 
+// ─── Badge styles ─────────────────────────────────────────────────────────────
 const BADGE_TONE = {
   Hot: "bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-300",
   New: "bg-secondary-50 text-secondary-600 dark:bg-secondary-500/10 dark:text-secondary-300",
 };
 const DEFAULT_BADGE_TONE = "bg-ink-900/5 text-ink-900/60 dark:bg-white/10 dark:text-white/70";
 
+// ─── Course Card ─────────────────────────────────────────────────────────────
 function CourseCard({ course, isFlipped, onFlip, isDark }) {
   const { openEnrollment } = useEnrollment();
 
@@ -76,7 +78,7 @@ function CourseCard({ course, isFlipped, onFlip, isDark }) {
           </div>
         </button>
 
-        {/* BACK */}
+        {/* BACK — "View Curriculum" removed */}
         <div
           aria-hidden={!isFlipped}
           className={`absolute inset-0 flex h-full w-full flex-col rounded-3xl border border-white/20 p-5 text-white shadow-2xl [backface-visibility:hidden] bg-gradient-to-br ${course.gradient}`}
@@ -103,14 +105,8 @@ function CourseCard({ course, isFlipped, onFlip, isDark }) {
             >
               Enroll Now
             </button>
-            <div className="flex items-center justify-between gap-3">
-              <Link
-                to={`/courses/${course.slug}`}
-                tabIndex={isFlipped ? 0 : -1}
-                className="text-xs font-bold text-white/80 underline underline-offset-2 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-              >
-                View Curriculum
-              </Link>
+            {/* "View Curriculum" link is removed; only the flip‑back button remains */}
+            <div className="flex justify-end">
               <button
                 type="button"
                 onClick={() => onFlip(false)}
@@ -128,28 +124,34 @@ function CourseCard({ course, isFlipped, onFlip, isDark }) {
   );
 }
 
+// ─── Main Component ──────────────────────────────────────────────────────────
 export default function FeaturedCourses() {
   const { isDark } = useThemeContext();
   const [flippedSlug, setFlippedSlug] = useState(null);
   const [search, setSearch] = useState("");
 
+  // Filter courses – trimmed search
   const filtered = useMemo(() => {
     const term = search.trim().toLowerCase();
     if (!term) return featuredCourses;
     return featuredCourses.filter((course) =>
-      [course.title, course.desc].join(" ").toLowerCase().includes(term),
+      [course.title, course.desc].join(" ").toLowerCase().includes(term)
     );
   }, [search]);
 
+  // Handlers
+  const handleSearchChange = (value) => {
+    setSearch(value);
+    setFlippedSlug(null);
+  };
+
+  const clearSearch = () => {
+    setSearch("");
+    setFlippedSlug(null);
+  };
+
   return (
-    <Section
-      id="courses"
-      className={
-        isDark
-          ? "bg-app-dark-gradient"
-          : "bg-white"
-      }
-    >
+    <Section id="courses" className={isDark ? "bg-app-dark-gradient" : "bg-white"}>
       <SectionHeader
         eyebrow="Career Programs"
         heading={
@@ -163,6 +165,7 @@ export default function FeaturedCourses() {
         subheading="Every track ships real projects, live mentorship, and a placement target, not just a syllabus."
       />
 
+      {/* Search Bar with Clear Button */}
       <div className="mx-auto mt-8 max-w-md">
         <label htmlFor="course-search" className="sr-only">
           Search programs
@@ -177,19 +180,35 @@ export default function FeaturedCourses() {
             id="course-search"
             type="text"
             value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => handleSearchChange(event.target.value)}
             placeholder="Search programs by name or skill..."
-            className={`w-full bg-transparent text-sm outline-none ${isDark ? "text-white placeholder:text-white/30" : "text-ink-900 placeholder:text-ink-900/30"}`}
+            className={`w-full bg-transparent text-sm outline-none ${
+              isDark ? "text-white placeholder:text-white/30" : "text-ink-900 placeholder:text-ink-900/30"
+            }`}
           />
+          {search && (
+            <button
+              type="button"
+              onClick={clearSearch}
+              aria-label="Clear search"
+              className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full transition-colors ${
+                isDark ? "hover:bg-white/10" : "hover:bg-ink-900/5"
+              }`}
+            >
+              <X className={`h-4 w-4 ${isDark ? "text-white/50" : "text-ink-900/40"}`} aria-hidden="true" />
+            </button>
+          )}
         </div>
       </div>
 
+      {/* Course Grid */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-80px" }}
         className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+        key={search}
       >
         {filtered.length > 0 ? (
           filtered.map((course) => (
@@ -203,8 +222,21 @@ export default function FeaturedCourses() {
             </motion.div>
           ))
         ) : (
-          <div className={`col-span-full rounded-card border p-10 text-center ${isDark ? "border-white/10 bg-white/[0.02]" : "border-ink-900/[0.06] bg-white shadow-sm"}`}>
-            <p className={`text-sm font-semibold ${isDark ? "text-white/70" : "text-ink-900/60"}`}>No programs match your search.</p>
+          <div
+            className={`col-span-full rounded-card border p-10 text-center ${
+              isDark ? "border-white/10 bg-white/[0.02]" : "border-ink-900/[0.06] bg-white shadow-sm"
+            }`}
+          >
+            <p className={`text-sm font-semibold ${isDark ? "text-white/70" : "text-ink-900/60"}`}>
+              No programs match your search.
+            </p>
+            <button
+              type="button"
+              onClick={clearSearch}
+              className="mt-3 text-sm font-medium text-primary-500 underline underline-offset-2 hover:text-primary-600"
+            >
+              Clear search and show all
+            </button>
           </div>
         )}
       </motion.div>

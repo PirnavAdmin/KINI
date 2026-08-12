@@ -3,6 +3,9 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-route
 import { Toaster } from "sonner";
 import { ThemeProvider, useThemeContext } from "@shared/context/ThemeContext";
 import { ModalProvider } from "@shared/context/ModalProvider";
+import { FaWhatsapp } from "react-icons/fa6";
+import { motion } from "framer-motion";
+import KiniChatbot from "./components/home/components/Kinichatbot";
 
 const Home = lazy(() => import("./components/home/pages/Home"));
 const About = lazy(() => import("./components/home/pages/About"));
@@ -46,6 +49,42 @@ function ThemedToaster() {
   return <Toaster theme={isDark ? "dark" : "light"} position="top-center" richColors closeButton />;
 }
 
+// ─── Floating WhatsApp Button ──────────────────────────────────────────────
+// Moved to bottom-24 so it sits above the Kini chatbot launcher
+function WhatsAppButton() {
+  const { isDark } = useThemeContext();
+  const phoneNumber = "919000198239"; // Replace with your number (without +)
+  const message = "Hello! I'm interested in your programs.";
+  const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+  return (
+    <motion.a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat on WhatsApp"
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 0.5, type: "spring", stiffness: 260, damping: 20 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      className="fixed bottom-24 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg shadow-green-500/30 transition-colors duration-200"
+      style={{
+        background: "linear-gradient(135deg, #25D366 0%, #128C7E 100%)",
+      }}
+    >
+      <FaWhatsapp className="h-7 w-7 text-white" aria-hidden="true" />
+    </motion.a>
+  );
+}
+
+// ─── Themed Kini Chatbot (reads isDark from ThemeContext) ──────────────────
+// function ThemedChatbot() {
+//   const { isDark } = useThemeContext();
+//   return <KiniChatbot isDark={isDark} />;
+// }
+
+// ─── App Routes ─────────────────────────────────────────────────────────────
 function AppRoutes() {
   return (
     <Suspense
@@ -93,6 +132,7 @@ function AppRoutes() {
   );
 }
 
+// ─── Root App ────────────────────────────────────────────────────────────────
 function App() {
   return (
     <ThemeProvider>
@@ -100,6 +140,12 @@ function App() {
         <ScrollToTop />
         <ModalProvider>
           <AppRoutes />
+
+          {/* WhatsApp button — sits above the chatbot launcher */}
+          <WhatsAppButton />
+
+          {/* Kini AI Chatbot — fixed bottom-right, theme-aware */}
+          {/* <ThemedChatbot /> */}
         </ModalProvider>
         <ThemedToaster />
       </BrowserRouter>

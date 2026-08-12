@@ -1,28 +1,61 @@
 import { motion } from 'framer-motion'
-import { CheckCircle2, XCircle, AlertTriangle } from 'lucide-react'
+import { Video, Layers, Code2, MessageCircle, Briefcase, Award } from 'lucide-react'
 import { useThemeContext } from '@shared/context/ThemeContext'
-import kinilogo from '../../../../assets/Kini (7).svg'
+import { Link } from 'react-router-dom'
 
-const rows = [
-  { label: 'Live Classes', us: 'yes', others: 'no' },
-  { label: 'Structured Curriculum', us: 'yes', others: 'no' },
-  { label: '1:1 Mentorship', us: 'yes', others: 'no' },
-  { label: 'Placement Support', us: 'yes', others: 'no' },
-  { label: 'Guaranteed Internships', us: 'yes', others: 'no' },
-  { label: 'Real, Reviewed Projects', us: 'yes', others: 'partial' },
-  { label: 'Mock Interviews', us: 'yes', others: 'no' },
+const features = [
+  {
+    icon: Video,
+    title: 'Live Mentor-Led Learning',
+    desc: 'Learn from industry professionals through interactive live sessions, not just pre-recorded videos.',
+    accent: 'bg-[#085FA7]',
+    shadow: 'shadow-[#085FA7]/20',
+  },
+  {
+    icon: Layers,
+    title: 'Career-Focused Curriculum',
+    desc: 'A structured path from fundamentals to advanced job-ready skills, designed for real tech roles.',
+    accent: 'bg-[#5CA347]',
+    shadow: 'shadow-[#5CA347]/20',
+  },
+  {
+    icon: Code2,
+    title: 'Hands-On Real Projects',
+    desc: 'Build portfolio-ready projects that are reviewed and refined by mentors, just like in a real job.',
+    accent: 'bg-[#7DD3B2]',
+    shadow: 'shadow-[#7DD3B2]/20',
+  },
+  {
+    icon: MessageCircle,
+    title: 'Personalized Mentor Guidance',
+    desc: 'Regular 1:1 sessions with experienced engineers to keep you on track and answer your questions.',
+    accent: 'bg-[#F0765B]',
+    shadow: 'shadow-[#F0765B]/20',
+  },
+  {
+    icon: Briefcase,
+    title: 'Career Preparation',
+    desc: 'Practice technical interviews, build your resume, and develop job-ready communication skills.',
+    accent: 'bg-[#7DD3B2]',
+    shadow: 'shadow-[#7DD3B2]/20',
+  },
+  {
+    icon: Award,
+    title: 'Portfolio & Skill Validation',
+    desc: 'Finish with a strong GitHub portfolio and verified project outcomes to showcase to employers.',
+    accent: 'bg-[#085FA7]',
+    shadow: 'shadow-[#085FA7]/20',
+  },
 ]
 
-const statusMap = {
-  yes: { icon: CheckCircle2, className: 'text-brand-green' },
-  no: { icon: XCircle, className: 'text-red-500/80' },
-  partial: { icon: AlertTriangle, className: 'text-brand-gold' },
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  }),
 }
-
-// Label column gets more room than the two icon columns — this matters most
-// on narrow viewports, where an even 3-way split crowds longer labels like
-// "Guaranteed Internships" against the status icons.
-const ROW_GRID = 'grid grid-cols-[1.3fr_1fr_1fr]'
 
 export default function ComparisonSection() {
   const { isDark } = useThemeContext()
@@ -39,86 +72,90 @@ export default function ComparisonSection() {
       {/* Ambient tint */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[700px] -translate-x-1/2 rounded-full bg-brand-blue/10 blur-[140px]" />
 
-      {/* Logo watermark */}
-      <img
-        src={kinilogo}
-        alt="Kini Edx Hub Logo"
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-24 -right-24 h-[420px] w-[420px] select-none opacity-[0.05] sm:h-[520px] sm:w-[520px]"
-      />
-
-      <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial="hidden"
+          whileInView="show"
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <p className="eyebrow text-brand-blue dark:text-primary-300">Why choose us</p>
-          <h2 className="mt-3 font-display text-2xl font-semibold text-ink-900 dark:text-white sm:text-3xl md:text-4xl">
-            More than a course
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-ink-500 dark:text-slate-400 sm:text-[15px]">
-            Learn from industry experts, build real projects, and get complete,
-            hands-on placement support — start to offer letter.
-          </p>
+          <motion.p variants={fadeUp} custom={0} className="eyebrow text-brand-blue dark:text-primary-300">
+            WHY KINI EDX HUB
+          </motion.p>
+          <motion.h2
+            variants={fadeUp}
+            custom={1}
+            className="mt-3 font-display text-3xl font-bold text-ink-900 dark:text-white sm:text-4xl md:text-5xl"
+          >
+            Built Around Your Career
+          </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            custom={2}
+            className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-ink-500 dark:text-slate-400 sm:text-[15px]"
+          >
+            Learn live, build projects, get personal mentorship, and prepare for real opportunities — all in
+            one structured journey.
+          </motion.p>
         </motion.div>
 
+        {/* Feature Grid */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mt-8 overflow-hidden rounded-2xl border border-white/60 bg-white/80 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.03] sm:rounded-3xl"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {/* Header row */}
-          <div className={`${ROW_GRID} border-b border-ink-900/10 dark:border-white/10`}>
-            <div className="p-3 sm:p-5 md:p-6" />
-            {/* Logo cell – now transparent */}
-            <div className="relative flex items-center justify-center p-2 sm:p-5 md:p-6">
-              <img
-                src={kinilogo}
-                alt="Kini Edx Hub Logo"
-                className="h-7 w-auto object-contain sm:h-10 md:h-12"
-              />
-            </div>
-            <div className="p-2 text-center sm:p-5 md:p-6">
-              <p className="font-display text-[11px] font-semibold leading-tight text-ink-500 dark:text-slate-400 sm:text-sm md:text-base">
-                Other Platforms
-              </p>
-            </div>
-          </div>
+          {features.map((feature, index) => {
+            const Icon = feature.icon
+            return (
+              <motion.div
+                key={feature.title}
+                variants={fadeUp}
+                custom={index + 3}
+                whileHover={{ y: -6 }}
+                className={`group rounded-2xl border border-white/60 bg-white/80 p-6 backdrop-blur-xl transition-all duration-300 hover:shadow-xl ${
+                  isDark
+                    ? 'border-white/10 bg-white/[0.03] hover:bg-white/[0.06]'
+                    : 'hover:bg-white/90'
+                } ${feature.shadow}`}
+              >
+                <div
+                  className={`flex h-12 w-12 items-center justify-center rounded-xl ${feature.accent} text-white shadow-md`}
+                >
+                  <Icon size={22} />
+                </div>
+                <h3 className="mt-4 text-lg font-bold text-ink-900 dark:text-white">{feature.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-500 dark:text-slate-400">
+                  {feature.desc}
+                </p>
+                <div className="mt-4 flex items-center text-xs font-medium text-brand-blue dark:text-primary-300">
+                  <span className="rounded-full bg-brand-blue/10 px-3 py-1 dark:bg-primary-500/10">
+                    Included
+                  </span>
+                </div>
+              </motion.div>
+            )
+          })}
+        </motion.div>
 
-          {rows.map((row, i) => (
-            <div
-              key={row.label}
-              className={`${ROW_GRID} items-center transition-colors duration-300 hover:bg-ink-900/[0.03] dark:hover:bg-white/[0.03] ${
-                i !== rows.length - 1 ? 'border-b border-ink-900/[0.06] dark:border-white/10' : ''
-              }`}
-            >
-              <div className="p-3 text-xs leading-snug text-ink-700 dark:text-slate-300 sm:p-5 sm:text-sm md:p-6">
-                {row.label}
-              </div>
-              <StatusCell status={row.us} highlighted />
-              <StatusCell status={row.others} />
-            </div>
-          ))}
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-12 text-center"
+        >
+          <Link
+            to="/upskill-program"
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#085FA7] to-[#5CA347] px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-2xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#085FA7]"
+          >
+            Explore Programs →
+          </Link>
         </motion.div>
       </div>
     </section>
-  )
-}
-
-function StatusCell({ status, highlighted }) {
-  const { icon: Icon, className } = statusMap[status]
-  return (
-    <div
-      className={`flex justify-center p-3 sm:p-5 md:p-6 ${
-        highlighted ? 'bg-brand-blue/[0.09]' : ''
-      }`}
-    >
-      <Icon className={`h-4 w-4 sm:h-5 sm:w-5 ${className}`} />
-    </div>
   )
 }

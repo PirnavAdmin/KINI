@@ -120,12 +120,7 @@ export default function CardFlip({
           </div>
 
           <div className="relative z-10 mt-2 flex justify-end">
-            <button
-              onClick={handleEnroll}
-              className="flex items-center gap-1 text-[10px] font-medium transition-colors text-[#5CA347] hover:text-[#7ED67E] dark:text-[#60A5FA] dark:hover:text-[#93C5FD]"
-            >
-              Enroll now <FaArrowRight className="w-2.5 h-2.5" />
-            </button>
+         
           </div>
         </div>
       </div>

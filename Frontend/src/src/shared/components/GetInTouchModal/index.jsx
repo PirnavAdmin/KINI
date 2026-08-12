@@ -2,22 +2,69 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { AnimatePresence, motion } from "framer-motion";
 import { toast } from "sonner";
-import {
-  Award,
-  CheckCircle2,
-  Loader2,
-  Star,
-  Users,
-  X,
-} from "lucide-react";
-import useFocusTrap from "@shared/components/navbar/useFocusTrap";
-import { useThemeContext } from "@shared/context/ThemeContext";
-import { EASE_PREMIUM } from "@shared/hooks/useScrollAnimation";
-import { getInTouchDefaultValues, getInTouchSchema, SUBJECT_OPTIONS } from "@shared/schemas/getInTouchSchema";
-import { submitGetInTouch } from "@shared/services/getInTouchService";
-import Button from "@shared/components/ui/Button";
+import { Award, CheckCircle2, Loader2, Star, Users, X } from "lucide-react";
+import { useThemeContext } from "@shared/context/ThemeContext"; // adjust path if needed
+
+// ─── Schema ───────────────────────────────────────────────────────────────────
+
+const SUBJECT_OPTIONS = [
+  { value: "career_counselling", label: "Career Counselling" },
+  { value: "course_roadmap", label: "Course Roadmap" },
+  { value: "scholarship", label: "Scholarship Information" },
+  { value: "placement", label: "Placement Guidance" },
+  { value: "other", label: "Other" },
+];
+
+const getInTouchSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(2, "Name must be at least 2 characters")
+    .max(60, "Name must be under 60 characters")
+    .regex(/^[A-Za-z\s'\-\.]+$/, {
+      message: "Name can only contain letters, spaces, hyphens, periods, or apostrophes"
+    })
+    .refine((val) => /[A-Za-z]/.test(val), {
+      message: "Name must contain at least one letter"
+    }),
+
+  email: z
+    .string()
+    .trim()
+    .min(1, "Email is required")
+    .email("Please enter a valid email address (e.g. you@example.com)"),
+
+  mobileNumber: z
+    .string()
+    .trim()
+    .min(1, "Mobile number is required")
+    .regex(/^\d{10}$/, "Enter exactly 10 digits")
+    .refine(
+      (val) => /^[6-9]\d{9}$/.test(val),
+      "Mobile number must start with 6, 7, 8, or 9"
+    ),
+
+  subject: z.string().optional(),
+
+  message: z
+    .string()
+    .trim()
+    .min(20, "Message must be at least 20 characters")
+    .max(500, "Message must be under 500 characters"),
+});
+
+const defaultValues = {
+  name: "",
+  email: "",
+  mobileNumber: "",
+  subject: "",
+  message: "",
+};
+
+// ─── Static data ─────────────────────────────────────────────────────────────
 
 const benefits = [
   "Free Career Counselling",
@@ -32,6 +79,10 @@ const trustStats = [
   { icon: Award, value: "500+", label: "Hiring Partners" },
 ];
 
+// ─── Animation variants ─────────────────────────────────────────────────────
+
+const EASE_PREMIUM = [0.25, 0.1, 0.25, 1];
+
 const backdropVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
@@ -43,18 +94,74 @@ const modalVariants = {
   exit: { opacity: 0, scale: 0.96, y: 8, transition: { duration: 0.2, ease: EASE_PREMIUM } },
 };
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
 function FieldError({ id, message }) {
   if (!message) return null;
   return (
-    <p id={id} role="alert" className="mt-1 text-xs font-medium text-red-500">
+    <p id={id} role="alert" className="mt-1 text-xs font-medium text-red-400">
       {message}
     </p>
   );
 }
 
-export default function GetInTouchModal({ isOpen, onClose, onSubmitted }) {
-  const { isDark } = useThemeContext();
-  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+function useFocusTrap(active) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!active || !ref.current) return;
+    const el = ref.current;
+    const focusable = el.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    first?.focus();
+    const trap = (e) => {
+      if (e.key !== "Tab") return;
+      if (e.shiftKey ? document.activeElement === first : document.activeElement === last) {
+        e.preventDefault();
+        (e.shiftKey ? last : first)?.focus();
+      }
+    };
+    el.addEventListener("keydown", trap);
+    return () => el.removeEventListener("keydown", trap);
+  }, [active]);
+  return ref;
+}
+
+async function submitGetInTouch(values) {
+  await new Promise((r) => setTimeout(r, 1200));
+  console.log("Submitted:", values);
+}
+
+// ─── Gradient button ──────────────────────────────────────────────────────
+
+const GRADIENT = "linear-gradient(135deg, #1F76BD 0%, #2D99AE 50%, #53B255 100%)";
+
+function GradientButton({ children, disabled, type = "button", onClick, className = "" }) {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`relative flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 disabled:opacity-60 disabled:cursor-not-allowed ${className}`}
+      style={{
+        backgroundImage: GRADIENT,
+        backgroundColor: "#1F76BD",
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
+// ─── Main component ───────────────────────────────────────────────────────
+
+export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: propIsDark }) {
+  const { isDark: contextIsDark } = useThemeContext();
+  const isDark = propIsDark !== undefined ? propIsDark : contextIsDark;
+
+  const [status, setStatus] = useState("idle");
   const previousFocusRef = useRef(null);
   const focusTrapRef = useFocusTrap(isOpen);
 
@@ -66,7 +173,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted }) {
     formState: { errors, isSubmitting },
   } = useForm({
     resolver: zodResolver(getInTouchSchema),
-    defaultValues: getInTouchDefaultValues,
+    defaultValues,
     mode: "onBlur",
   });
 
@@ -80,7 +187,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted }) {
       try {
         await submitGetInTouch(values);
         setStatus("success");
-        toast.success("Thank you for contacting us. Our team will reach out shortly.");
+        toast.success("Thank you! Our team will reach out shortly.");
         window.setTimeout(() => {
           onSubmitted?.();
           reset();
@@ -91,7 +198,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted }) {
         toast.error("Something went wrong. Please try again.");
       }
     },
-    [onSubmitted, reset],
+    [onSubmitted, reset]
   );
 
   const onSubmit = handleSubmit(submitValues);
@@ -99,11 +206,9 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted }) {
 
   // Body scroll lock
   useEffect(() => {
-    if (!isOpen) return undefined;
+    if (!isOpen) return;
     document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
   // Focus save / restore
@@ -118,121 +223,124 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted }) {
 
   // ESC closes
   useEffect(() => {
-    if (!isOpen) return undefined;
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") handleClose();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    if (!isOpen) return;
+    const handler = (e) => { if (e.key === "Escape") handleClose(); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, [isOpen, handleClose]);
 
-  // Reset transient submit state whenever the modal is reopened
   useEffect(() => {
     if (isOpen) setStatus("idle");
   }, [isOpen]);
 
-  const inputClass = (hasError) =>
-    `w-full rounded-xl border px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 ${
-      hasError
-        ? "border-red-400"
-        : isDark
-          ? "border-white/10 bg-white/5 text-white placeholder:text-slate-500"
-          : "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400"
-    }`;
+  // ── Styles ──────────────────────────────────────────────────────────────────
+
+  const inputBase =
+    "w-full rounded-xl border px-3.5 py-2 text-sm outline-none transition-colors focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20";
+
+  const inputTheme = (hasError) =>
+    hasError
+      ? "border-red-400 bg-red-500/5"
+      : isDark
+      ? "border-white/10 bg-white/5 text-white placeholder:text-slate-500"
+      : "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400";
+
+  const inputClass = (hasError) => `${inputBase} ${inputTheme(hasError)}`;
+
+  const labelClass = `mb-1 block text-xs font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`;
+
+  // ── Render ──────────────────────────────────────────────────────────────────
 
   return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[9999]">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6">
+          {/* Backdrop – adapt to theme */}
           <motion.div
             variants={backdropVariants}
             initial="hidden"
             animate="visible"
             exit="hidden"
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm"
+            className={`absolute inset-0 ${isDark ? "bg-slate-950/75" : "bg-slate-900/40"} backdrop-blur-sm`}
             onClick={handleClose}
             aria-hidden="true"
           />
 
-          {/* Scroll lives on this wrapper (not the flex-centered dialog
-              itself) so a dialog taller than the viewport can still be
-              scrolled to from the top — centering an overflowing flex
-              item clips its leading edge with no way to reach it. */}
-          <div className="fixed inset-0 overflow-y-auto p-4">
-            <div className="flex min-h-screen items-center justify-center">
-              <motion.div
-                ref={focusTrapRef}
-                variants={modalVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                role="dialog"
-                aria-modal="true"
-                aria-labelledby="get-in-touch-heading"
-                className={`relative grid w-full sm:max-w-[680px] grid-cols-1 rounded-3xl shadow-elevated sm:grid-cols-[0.9fr_1.1fr] ${
-                  isDark ? "bg-slate-900 text-white" : "bg-white text-slate-900"
-                }`}
-              >
+          {/* Modal */}
+          <motion.div
+            ref={focusTrapRef}
+            variants={modalVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="git-heading"
+            className={`relative z-10 w-full max-w-[700px] grid grid-cols-1 sm:grid-cols-[0.85fr_1.15fr] overflow-hidden rounded-3xl shadow-2xl ${isDark ? "bg-slate-900 text-white" : "bg-white text-slate-900"}`}
+          >
+            {/* Close button */}
             <button
               type="button"
               onClick={handleClose}
-              aria-label="Close"
-              className={`absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
-                isDark ? "bg-white/10 text-white hover:bg-white/20" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-              }`}
+              aria-label="Close dialog"
+              className={`
+                absolute right-3 top-3 z-20
+                flex h-8 w-8 items-center justify-center rounded-full transition-colors
+                ${isDark ? "bg-white/10 text-white hover:bg-white/20" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}
+              `}
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
 
-            {/* LEFT — benefits panel */}
-            <div className="relative overflow-hidden bg-gradient-to-br from-primary-500 to-secondary-500 p-6 text-white sm:p-7">
+            {/* ── LEFT panel ── */}
+            <div
+              className="relative overflow-hidden p-5 text-white sm:p-6"
+              style={{ background: GRADIENT }}
+            >
               <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" aria-hidden="true" />
               <div className="pointer-events-none absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-black/10 blur-2xl" aria-hidden="true" />
 
               <div className="relative">
-                <h2 id="get-in-touch-heading" className="text-xl font-extrabold leading-tight sm:text-2xl">
+                <h2 id="git-heading" className="text-xl font-extrabold leading-tight sm:text-2xl">
                   🚀 Ready to Start Your Tech Career?
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed text-white/85">
+                <p className="mt-1.5 text-sm leading-relaxed text-white/85">
                   Speak with our career experts and receive personalized guidance.
                 </p>
 
-                <ul className="mt-5 space-y-2.5">
-                  {benefits.map((benefit) => (
-                    <li key={benefit} className="flex items-center gap-2 text-sm font-medium">
-                      <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-white" aria-hidden="true" />
-                      {benefit}
+                <ul className="mt-4 space-y-2">
+                  {benefits.map((b) => (
+                    <li key={b} className="flex items-center gap-2 text-sm font-medium">
+                      <CheckCircle2 className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+                      {b}
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-6 grid grid-cols-3 gap-2 border-t border-white/20 pt-4">
-                  {trustStats.map((stat) => {
-                    const Icon = stat.icon;
-                    return (
-                      <div key={stat.label} className="text-center">
-                        <Icon className="mx-auto h-3.5 w-3.5 text-white/80" aria-hidden="true" />
-                        <p className="mt-1 text-sm font-extrabold">{stat.value}</p>
-                        <p className="text-[10px] text-white/70">{stat.label}</p>
-                      </div>
-                    );
-                  })}
+                <div className="mt-4 grid grid-cols-3 gap-2 border-t border-white/20 pt-3">
+                  {trustStats.map(({ icon: Icon, value, label }) => (
+                    <div key={label} className="text-center">
+                      <Icon className="mx-auto h-3.5 w-3.5 text-white/80" aria-hidden="true" />
+                      <p className="mt-1 text-sm font-extrabold">{value}</p>
+                      <p className="text-[10px] text-white/70">{label}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* RIGHT — form / status */}
-            <div className="p-6 sm:p-7">
+            {/* ── RIGHT panel ── */}
+            <div className="p-5 sm:p-6">
               {status === "success" ? (
                 <div className="flex h-full min-h-[320px] flex-col items-center justify-center text-center">
                   <motion.div
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 260, damping: 18 }}
-                    className="flex h-16 w-16 items-center justify-center rounded-full bg-secondary-500/15"
+                    className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/15"
                   >
-                    <CheckCircle2 className="h-9 w-9 text-secondary-500" aria-hidden="true" />
+                    <CheckCircle2 className="h-9 w-9 text-emerald-400" aria-hidden="true" />
                   </motion.div>
                   <h3 className={`mt-4 text-lg font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
                     Thank you!
@@ -243,11 +351,14 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted }) {
                 </div>
               ) : (
                 <form onSubmit={onSubmit} noValidate>
-                  <h3 className={`text-base font-bold ${isDark ? "text-white" : "text-slate-900"}`}>Get In Touch</h3>
+                  <h3 className={`text-base font-bold ${isDark ? "text-white" : "text-slate-900"}`}>
+                    Get In Touch
+                  </h3>
 
-                  <div className="mt-4 space-y-3.5">
+                  <div className="mt-3 space-y-3">
+                    {/* Full Name */}
                     <div>
-                      <label htmlFor="git-name" className={`mb-1.5 block text-xs font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+                      <label htmlFor="git-name" className={labelClass}>
                         Full Name <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -255,16 +366,17 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted }) {
                         type="text"
                         autoComplete="name"
                         aria-invalid={!!errors.name}
-                        aria-describedby={errors.name ? "git-name-error" : undefined}
+                        aria-describedby={errors.name ? "git-name-err" : undefined}
                         className={inputClass(!!errors.name)}
                         placeholder="Your full name"
                         {...register("name")}
                       />
-                      <FieldError id="git-name-error" message={errors.name?.message} />
+                      <FieldError id="git-name-err" message={errors.name?.message} />
                     </div>
 
+                    {/* Email */}
                     <div>
-                      <label htmlFor="git-email" className={`mb-1.5 block text-xs font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+                      <label htmlFor="git-email" className={labelClass}>
                         Email <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -272,16 +384,17 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted }) {
                         type="email"
                         autoComplete="email"
                         aria-invalid={!!errors.email}
-                        aria-describedby={errors.email ? "git-email-error" : undefined}
+                        aria-describedby={errors.email ? "git-email-err" : undefined}
                         className={inputClass(!!errors.email)}
                         placeholder="you@example.com"
                         {...register("email")}
                       />
-                      <FieldError id="git-email-error" message={errors.email?.message} />
+                      <FieldError id="git-email-err" message={errors.email?.message} />
                     </div>
 
+                    {/* Mobile */}
                     <div>
-                      <label htmlFor="git-mobile" className={`mb-1.5 block text-xs font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+                      <label htmlFor="git-mobile" className={labelClass}>
                         Mobile Number <span className="text-red-500">*</span>
                       </label>
                       <input
@@ -291,56 +404,61 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted }) {
                         maxLength={10}
                         autoComplete="tel"
                         aria-invalid={!!errors.mobileNumber}
-                        aria-describedby={errors.mobileNumber ? "git-mobile-error" : undefined}
+                        aria-describedby={errors.mobileNumber ? "git-mobile-err" : undefined}
                         className={inputClass(!!errors.mobileNumber)}
                         placeholder="10-digit mobile number"
+                        onKeyDown={(e) => {
+                          const allowed = ["Backspace","Delete","Tab","ArrowLeft","ArrowRight","Home","End"];
+                          if (!allowed.includes(e.key) && !/^\d$/.test(e.key)) e.preventDefault();
+                        }}
                         {...register("mobileNumber")}
                       />
-                      <FieldError id="git-mobile-error" message={errors.mobileNumber?.message} />
+                      <FieldError id="git-mobile-err" message={errors.mobileNumber?.message} />
                     </div>
 
+                    {/* Subject */}
                     <div>
-                      <label htmlFor="git-subject" className={`mb-1.5 block text-xs font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+                      <label htmlFor="git-subject" className={labelClass}>
                         Subject
                       </label>
                       <select
                         id="git-subject"
                         aria-invalid={!!errors.subject}
-                        aria-describedby={errors.subject ? "git-subject-error" : undefined}
-                        className={inputClass(!!errors.subject)}
+                        aria-describedby={errors.subject ? "git-subject-err" : undefined}
+                        className={`${inputClass(!!errors.subject)} ${isDark ? "bg-slate-800" : ""}`}
                         defaultValue=""
                         {...register("subject")}
                       >
-                        <option value="" disabled>
-                          Select a subject
-                        </option>
-                        {SUBJECT_OPTIONS.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
+                        <option value="" disabled>Select a subject</option>
+                        {SUBJECT_OPTIONS.map(({ value, label }) => (
+                          <option key={value} value={value}>{label}</option>
                         ))}
                       </select>
-                      <FieldError id="git-subject-error" message={errors.subject?.message} />
+                      <FieldError id="git-subject-err" message={errors.subject?.message} />
                     </div>
 
+                    {/* Message */}
                     <div>
-                      <label htmlFor="git-message" className={`mb-1.5 block text-xs font-semibold ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+                      <label htmlFor="git-message" className={labelClass}>
                         Message <span className="text-red-500">*</span>
                       </label>
                       <textarea
                         id="git-message"
-                        rows={3}
+                        rows={2}
                         aria-invalid={!!errors.message}
-                        aria-describedby={errors.message ? "git-message-error" : undefined}
+                        aria-describedby={errors.message ? "git-message-err" : undefined}
                         className={`${inputClass(!!errors.message)} resize-none`}
                         placeholder="Tell us what you're looking for (min. 20 characters)"
                         {...register("message")}
                       />
-                      <FieldError id="git-message-error" message={errors.message?.message} />
+                      <FieldError id="git-message-err" message={errors.message?.message} />
                     </div>
 
                     {status === "error" && (
-                      <div role="alert" className="rounded-xl border border-red-300 bg-red-50 px-3.5 py-2.5 text-xs font-medium text-red-600 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400">
+                      <div
+                        role="alert"
+                        className="rounded-xl border border-red-500/30 bg-red-500/10 px-3.5 py-2.5 text-xs font-medium text-red-400"
+                      >
                         <p>We couldn&apos;t submit your request. Please try again.</p>
                         <button
                           type="button"
@@ -353,34 +471,39 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted }) {
                     )}
                   </div>
 
-                  <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-                    <Button
+                  <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                    <GradientButton
                       type="submit"
                       disabled={isSubmitting || status === "submitting"}
                       className="flex-1"
                     >
                       {status === "submitting" ? (
-                        <span className="flex items-center gap-2">
+                        <>
                           <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-                          Sending...
-                        </span>
+                          Sending…
+                        </>
                       ) : (
                         "Submit"
                       )}
-                    </Button>
-                    <Button type="button" variant="ghost" onClick={handleClose} disabled={status === "submitting"}>
+                    </GradientButton>
+
+                    <button
+                      type="button"
+                      onClick={handleClose}
+                      disabled={status === "submitting"}
+                      className="flex-1 rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 disabled:opacity-50
+                        text-sky-400 hover:bg-sky-400/10 hover:text-sky-300 sm:flex-none"
+                    >
                       Maybe Later
-                    </Button>
+                    </button>
                   </div>
                 </form>
               )}
             </div>
-              </motion.div>
-            </div>
-          </div>
+          </motion.div>
         </div>
       )}
     </AnimatePresence>,
-    document.body,
+    document.body
   );
 }

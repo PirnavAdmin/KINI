@@ -2,7 +2,6 @@ import { Suspense, lazy, useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 
 import Navbar from "@shared/components/navbar";
-import WhatsAppButton from "@shared/components/WhatsAppButton";
 import useLeadPopup from "@shared/hooks/useLeadPopup";
 
 import Hero from "../components/Hero";
@@ -207,7 +206,7 @@ function Home() {
          <GetInTouchModal isOpen={leadPopup.isOpen} onClose={leadPopup.close} />
         </Suspense>
       )}
-      <WhatsAppButton />
+      
     </>
   );
 }
