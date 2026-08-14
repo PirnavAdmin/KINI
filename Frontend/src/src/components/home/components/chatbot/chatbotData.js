@@ -38,7 +38,7 @@ export const kiniKnowledgeBase = {
       },
       {
         icon: "💼",
-        title: "Placement Support",
+        title: "Placement Assistance",
         description:
           "Resume guidance, interview preparation, LinkedIn optimization, and career support.",
       },
@@ -225,7 +225,7 @@ export const kiniKnowledgeBase = {
     {
       step: "06",
       title: "Career Support",
-      description: "Resume help, LinkedIn optimization, and ongoing placement support.",
+      description: "Resume help, LinkedIn optimization, and ongoing placement assistance.",
     },
   ],
 

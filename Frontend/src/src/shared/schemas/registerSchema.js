@@ -1,20 +1,45 @@
-// NOTE: registerSchema.js itself wasn't shared with me — this is a
-// reconstruction based on what RegisterModal.jsx implies about validation
-// (required name/email, 10-digit mobile, required qualification). Diff
-// this against your real file and keep whatever rules already exist;
-// the one change that actually matters is the key rename:
-// `degreeDetails` -> `qualification`, to match the API request body.
-
 import { z } from "zod";
 
 export const registerSchema = z.object({
-  name: z.string().trim().min(2, "Enter your full name"),
-  email: z.string().trim().email("Enter a valid email address"),
+  name: z
+    .string()
+    .trim()
+    .min(2, "Name must be at least 2 characters")
+    .max(60, "Name must be under 60 characters")
+    .regex(/^[A-Za-z\s'\-.]*$/, {
+      message: "Name can only contain letters, spaces, hyphens, apostrophes, or periods",
+    })
+    .refine((val) => !/\d/.test(val), {
+      message: "Name should not contain numbers",
+    })
+    .refine((val) => /[A-Za-z]/.test(val), {
+      message: "Name must contain at least one letter",
+    }),
+
+  email: z
+    .string()
+    .trim()
+    .min(1, "Email is required")
+    .email("Please enter a valid email address (e.g. you@example.com)"),
+
   mobileNumber: z
     .string()
     .trim()
-    .regex(/^\d{10}$/, "Enter a valid 10-digit mobile number"),
-  qualification: z.string().trim().min(2, "Enter your degree details"),
+    .min(1, "Mobile number is required")
+    .regex(/^\d{10}$/, "Enter exactly 10 digits")
+    .refine(
+      (val) => /^[6-9]\d{9}$/.test(val),
+      "Mobile number must start with 6, 7, 8, or 9"
+    ),
+
+  qualification: z
+    .string()
+    .trim()
+    .min(2, "Degree details must be at least 2 characters")
+    .max(100, "Degree details must be under 100 characters")
+    .refine((val) => /[A-Za-z]/.test(val), {
+      message: "Degree details must contain at least one letter",
+    }),
 });
 
 export const registerDefaultValues = {

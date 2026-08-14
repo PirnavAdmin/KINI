@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { CheckCircle2, Clock, RotateCcw, Search, Users2, X } from "lucide-react";
 import { useThemeContext } from "@shared/context/ThemeContext";
 import { useEnrollment } from "@shared/context/ModalProvider";
@@ -13,6 +12,7 @@ import { featuredCourses } from "../data/homeData";
 const BADGE_TONE = {
   Hot: "bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-300",
   New: "bg-secondary-50 text-secondary-600 dark:bg-secondary-500/10 dark:text-secondary-300",
+  // Add others if needed
 };
 const DEFAULT_BADGE_TONE = "bg-ink-900/5 text-ink-900/60 dark:bg-white/10 dark:text-white/70";
 
@@ -78,7 +78,7 @@ function CourseCard({ course, isFlipped, onFlip, isDark }) {
           </div>
         </button>
 
-        {/* BACK — "View Curriculum" removed */}
+        {/* BACK */}
         <div
           aria-hidden={!isFlipped}
           className={`absolute inset-0 flex h-full w-full flex-col rounded-3xl border border-white/20 p-5 text-white shadow-2xl [backface-visibility:hidden] bg-gradient-to-br ${course.gradient}`}
@@ -87,7 +87,8 @@ function CourseCard({ course, isFlipped, onFlip, isDark }) {
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/70">Program outcomes</p>
           <h3 className="mt-2 line-clamp-2 text-base font-bold leading-snug">{course.title}</h3>
 
-          <ul className="mt-3 flex-1 space-y-2 overflow-y-auto">
+          {/* ✅ Removed overflow-y-auto – no scroll, full content visible */}
+          <ul className="mt-3 flex-1 space-y-2">
             {course.outcomes.map((outcome) => (
               <li key={outcome} className="flex items-start gap-2 text-sm font-medium text-white/90">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" aria-hidden="true" />
@@ -105,7 +106,6 @@ function CourseCard({ course, isFlipped, onFlip, isDark }) {
             >
               Enroll Now
             </button>
-            {/* "View Curriculum" link is removed; only the flip‑back button remains */}
             <div className="flex justify-end">
               <button
                 type="button"
@@ -130,16 +130,19 @@ export default function FeaturedCourses() {
   const [flippedSlug, setFlippedSlug] = useState(null);
   const [search, setSearch] = useState("");
 
-  // Filter courses – trimmed search
+  // Filter by search, then limit to 6 cards
   const filtered = useMemo(() => {
     const term = search.trim().toLowerCase();
-    if (!term) return featuredCourses;
-    return featuredCourses.filter((course) =>
-      [course.title, course.desc].join(" ").toLowerCase().includes(term)
-    );
+    let courses = featuredCourses;
+    if (term) {
+      courses = courses.filter((c) =>
+        [c.title, c.desc].join(" ").toLowerCase().includes(term)
+      );
+    }
+    // ─── Show only the first 6 ────────────────────────────────
+    return courses.slice(0, 6);
   }, [search]);
 
-  // Handlers
   const handleSearchChange = (value) => {
     setSearch(value);
     setFlippedSlug(null);
@@ -165,7 +168,7 @@ export default function FeaturedCourses() {
         subheading="Every track ships real projects, live mentorship, and a placement target, not just a syllabus."
       />
 
-      {/* Search Bar with Clear Button */}
+      {/* Search Bar */}
       <div className="mx-auto mt-8 max-w-md">
         <label htmlFor="course-search" className="sr-only">
           Search programs
@@ -201,7 +204,7 @@ export default function FeaturedCourses() {
         </div>
       </div>
 
-      {/* Course Grid */}
+      {/* Course Grid – up to 6 cards */}
       <motion.div
         variants={staggerContainer}
         initial="hidden"

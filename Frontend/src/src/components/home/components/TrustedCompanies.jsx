@@ -150,20 +150,7 @@ export default function Partners() {
           </div>
         </div>
 
-        {/* Bottom Stats */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mt-6"
-        >
-          <p className={`text-xs ${isDark ? "text-slate-400" : "text-slate-400"}`}>
-            <span className="font-semibold text-[#4F46E5]">500+</span> hiring
-            partners •{" "}
-            <span className="font-semibold text-[#4F46E5]">95%</span> placement
-            rate
-          </p>
-        </motion.div>
+        {/* ✅ Bottom stats removed – no more "500+ hiring partners" line */}
       </div>
     </section>
   );

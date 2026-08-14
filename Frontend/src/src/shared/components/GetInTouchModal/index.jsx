@@ -73,10 +73,11 @@ const benefits = [
   "Placement Guidance",
 ];
 
+// ✅ Updated trust stats – removed "500+ Hiring Partners"
 const trustStats = [
-  { icon: Star, value: "4.9", label: "Rating" },
-  { icon: Users, value: "20,000+", label: "Students" },
-  { icon: Award, value: "500+", label: "Hiring Partners" },
+  { icon: Users, value: "10,000+", label: "Students Trained" },
+  { icon: Award, value: "2,200+", label: "Successful Placements" },
+  { icon: Star, value: "50+", label: "Mentors" },
 ];
 
 // ─── Animation variants ─────────────────────────────────────────────────────
@@ -318,6 +319,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: 
                   ))}
                 </ul>
 
+                {/* ── Updated trust stats ── */}
                 <div className="mt-4 grid grid-cols-3 gap-2 border-t border-white/20 pt-3">
                   {trustStats.map(({ icon: Icon, value, label }) => (
                     <div key={label} className="text-center">

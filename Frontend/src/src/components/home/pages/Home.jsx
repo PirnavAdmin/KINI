@@ -1,13 +1,16 @@
 import { Suspense, lazy, useEffect, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import Navbar from "@shared/components/navbar";
-import useLeadPopup from "@shared/hooks/useLeadPopup";
 
 import Hero from "../components/Hero";
 import CardFlip from "../components/CardFlip";
 import { FaCode, FaServer, FaBrain } from "react-icons/fa";
 import CareerRoadmapGenerator from "../components/Careerroadmapgenerator";
+
+// ─── Import the video intro and form components ──────────────
+import VideoIntro from "@shared/components/GetInTouchModal/VideoIntro";   // adjust path
+// adjust path
 
 const Footer = lazy(() => import("@shared/components/Footer"));
 const ProjectNew = lazy(() => import("./ProjectNew"));
@@ -24,6 +27,7 @@ const Testimonials = lazy(() => import("../components/Testimonials"));
 const Newsletter = lazy(() => import("../components/Newsletter"));
 const CTA = lazy(() => import("../components/CTA"));
 const EnquiryWidget = lazy(() => import("./EnquiryWidget"));
+
 const GetInTouchModal = lazy(() => import("@shared/components/GetInTouchModal"));
 
 const sectionVariants = {
@@ -53,10 +57,57 @@ function Home() {
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const [loadRest, setLoadRest] = useState(false);
   const [loadWidgets, setLoadWidgets] = useState(false);
-  const leadPopup = useLeadPopup();
+
+  // ─── Get In Touch → Intro Video flow ──────────────────────────────
+  const [showGetInTouch, setShowGetInTouch] = useState(false);
+  const [showIntroVideo, setShowIntroVideo] = useState(false);
 
   const handleOpenEnquiry = useCallback(() => setIsEnquiryOpen(true), []);
   const handleCloseEnquiry = useCallback(() => setIsEnquiryOpen(false), []);
+
+  // Auto-open Get In Touch 5s after load, once per browser session.
+  useEffect(() => {
+    if (sessionStorage.getItem("kini_intro_flow_seen")) return;
+
+    const timer = window.setTimeout(() => {
+      sessionStorage.setItem("kini_intro_flow_seen", "true");
+      setShowGetInTouch(true);
+    }, 5000);
+
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  // Lock body scroll while the blocking Get In Touch modal is open. The
+  // intro video is now a small non-blocking floating card (bottom-left),
+  // so it no longer locks scroll.
+  useEffect(() => {
+    document.body.style.overflow = showGetInTouch ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showGetInTouch]);
+
+  // Submitting or closing Get In Touch both continue on to the intro video.
+  const handleGetInTouchAdvance = useCallback(() => {
+    setShowGetInTouch(false);
+    setShowIntroVideo(true);
+  }, []);
+
+  const handleVideoClose = useCallback(() => {
+    setShowIntroVideo(false);
+  }, []);
+
+  // VideoIntro has no built-in Escape handling (unlike GetInTouchModal),
+  // so it's added here without touching its UI.
+  useEffect(() => {
+    if (!showIntroVideo) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") handleVideoClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showIntroVideo, handleVideoClose]);
 
   useEffect(() => {
     const contentTimer = window.setTimeout(() => setLoadRest(true), 50);
@@ -203,7 +254,29 @@ function Home() {
       {loadWidgets && (
         <Suspense fallback={null}>
           <EnquiryWidget isOpen={isEnquiryOpen} onClose={handleCloseEnquiry} />
-         <GetInTouchModal isOpen={leadPopup.isOpen} onClose={leadPopup.close} />
+
+          {/* ─── Get In Touch modal (self-contained: own backdrop/portal/scroll-lock) ── */}
+          <GetInTouchModal
+            isOpen={showGetInTouch}
+            onClose={handleGetInTouchAdvance}
+            onSubmitted={handleGetInTouchAdvance}
+          />
+
+          {/* ─── Intro Video: floating card, bottom-left, autoplay with sound ── */}
+          <AnimatePresence>
+            {showIntroVideo && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.92, y: 20 }}
+                transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+                className="fixed bottom-6 left-6 z-[9998] w-[190px] sm:w-[250px] md:w-[300px]"
+                style={{ maxWidth: "calc(100vw - 32px)" }}
+              >
+                <VideoIntro variant="floating" onSkip={handleVideoClose} />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </Suspense>
       )}
       

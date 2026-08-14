@@ -35,7 +35,7 @@ const benefits = [
   },
   {
     icon: BriefcaseBusiness,
-    title: "Placement Support",
+    title: "Placement Assistance",
     desc: "Resume guidance, interview preparation, LinkedIn optimization, and dedicated career support.",
   },
   {

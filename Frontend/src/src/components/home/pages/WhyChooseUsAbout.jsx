@@ -24,7 +24,7 @@ const features = [
     others: false,
   },
   {
-    title: "Placement Support",
+    title: "Placement Assistance",
     academy: true,
     others: false,
   },
@@ -61,7 +61,7 @@ export default function WhyChooseUs() {
 
           <p className="text-slate-400 mt-5 max-w-2xl mx-auto">
             Learn from industry experts, build real projects,
-            receive mentorship and get complete placement support.
+            receive mentorship and get complete placement assistance.
           </p>
 
         </div>

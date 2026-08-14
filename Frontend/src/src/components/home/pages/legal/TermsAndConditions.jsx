@@ -3,6 +3,7 @@ import {
   ShieldAlert, XOctagon, RefreshCw, Scale, Mail,
 } from 'lucide-react'
 import { LegalLayout, LegalList, LegalCallout, TODOPlaceholder } from './LegalLayout.jsx'
+import { useThemeContext } from '@shared/context/ThemeContext' // adjust path if needed
 
 const sections = [
   {
@@ -137,7 +138,7 @@ const sections = [
     content: (
       <p>
         These Terms and Conditions are governed by the laws of{' '}
-        <TODOPlaceholder>[Jurisdiction — fill in before publishing]</TODOPlaceholder>.
+        <TODOPlaceholder className="text-brand-blue dark:text-primary-300" />
       </p>
     ),
   },
@@ -145,18 +146,22 @@ const sections = [
     id: 'contact',
     title: 'Contact Us',
     icon: Mail,
-    content: (
+    content: ({ isDark }) => (
       <>
         <p>For any questions regarding these Terms, contact us at:</p>
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm">
-          <p className="font-medium text-slate-900">Kini EdX Hub Pvt Ltd</p>
+        <div className={`rounded-2xl border p-5 text-sm ${
+          isDark
+            ? 'border-white/10 bg-white/[0.03] text-white'
+            : 'border-slate-200 bg-slate-50 text-slate-900'
+        }`}>
+          <p className="font-medium">Kini EdX Hub Pvt Ltd</p>
           <p className="mt-3">
-            <a href="mailto:contact@kiniedx.com" className="text-brand-blue hover:underline">
+            <a href="mailto:contact@kiniedx.com" className="text-brand-blue hover:underline dark:text-primary-300">
               contact@kiniedx.com
             </a>
           </p>
           <p className="mt-1">
-            <a href="tel:+919000198239" className="text-brand-blue hover:underline">
+            <a href="tel:+919000198239" className="text-brand-blue hover:underline dark:text-primary-300">
               +91 90001 98239
             </a>
           </p>
@@ -167,12 +172,21 @@ const sections = [
 ]
 
 export default function TermsAndConditions() {
+  const { isDark } = useThemeContext()
+
+  // Process each section: if content is a function, call it with isDark
+  const processedSections = sections.map((section) => ({
+    ...section,
+    content: typeof section.content === 'function' ? section.content({ isDark }) : section.content,
+  }))
+
   return (
     <LegalLayout
       eyebrow="Legal · Terms"
       title="Terms and Conditions"
       intro="The terms that apply when you enroll in courses or use services provided by Kini EdX Hub Pvt Ltd."
-      sections={sections}
+      sections={processedSections}
+      className={isDark ? 'dark' : ''}
     />
   )
 }

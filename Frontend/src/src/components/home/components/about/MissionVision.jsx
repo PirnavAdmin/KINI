@@ -2,6 +2,11 @@ import { motion } from 'framer-motion'
 import { Target, Eye } from 'lucide-react'
 import { useThemeContext } from '@shared/context/ThemeContext'
 
+// Files in /public are served from the site root, so these are plain
+// absolute paths rather than imports (Vite does not bundle /public assets).
+const MISSION_IMAGE_URL = '/OUR MISSION.png'
+const VISION_IMAGE_URL = '/vestion.png'
+
 const cards = [
   {
     key: 'mission',
@@ -11,9 +16,10 @@ const cards = [
     chip: 'bg-brand-blue/10',
     bar: 'bg-gradient-to-r from-brand-blue to-sky-400',
     glow: 'hover:shadow-[0_24px_48px_-12px_rgba(37,99,235,0.28)]',
-    heading: 'Turn potential into practical skills.',
-    copy: "We help learners build strong technical foundations, work on real-world projects, and develop the confidence to apply their skills in the technology industry.",
-    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&auto=format&fit=crop&q=80',
+    heading: 'Turn Potential into Job-Ready Skills.',
+    copy: 'At Kini Edx Hub, we provide practical, industry-focused technology training through real-world projects, expert mentorship, and hands-on learning. We help students gain the skills and internship experience needed to become job-ready technology professionals.',
+    tagline: 'Learn. Build. Intern. Get Job-Ready.',
+    image: MISSION_IMAGE_URL,
     alt: 'Students collaborating and learning together',
   },
   {
@@ -24,9 +30,10 @@ const cards = [
     chip: 'bg-brand-green/10',
     bar: 'bg-gradient-to-r from-brand-green to-emerald-400',
     glow: 'hover:shadow-[0_24px_48px_-12px_rgba(5,150,105,0.24)]',
-    heading: 'Build the next generation of job-ready technology talent.',
-    copy: "We aim to create a learning environment where practical skills, mentorship, and continuous learning help students grow from beginners into confident technology professionals.",
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&auto=format&fit=crop&q=80',
+    heading: 'Build the Next Generation of Technology Talent.',
+    copy: 'Our vision is to bridge the gap between education and industry by providing practical training, internships, career guidance, and placement assistance. We empower students to build strong technology skills and pursue successful careers in the IT industry.',
+    tagline: 'Learn Skills. Gain Experience. Build Your Career.',
+    image: VISION_IMAGE_URL,
     alt: 'Future technology and innovation',
   },
 ]
@@ -77,7 +84,6 @@ export default function MissionVision() {
                   alt={c.alt}
                   className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                 />
-                {/* More subtle overlay in both modes */}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/80 via-white/0 to-transparent dark:from-ink-900/80 dark:via-ink-900/0" />
                 <span className="absolute left-3.5 top-3.5 inline-flex items-center gap-1.5 rounded-full bg-white/80 px-3 py-1.5 pl-1.5 shadow-sm backdrop-blur-sm dark:bg-ink-900/80">
                   <span className={`flex h-6 w-6 items-center justify-center rounded-lg ${c.chip} ${c.accent}`}>
@@ -89,11 +95,20 @@ export default function MissionVision() {
                 </span>
               </div>
 
-              <div className="relative -mt-7 flex flex-1 flex-col gap-2.5 px-6 pb-7 pt-0 sm:px-7">
+              <div className="relative -mt-7 flex flex-1 flex-col gap-3 px-6 pb-7 pt-0 sm:px-7">
                 <h3 className="font-display text-xl font-bold leading-snug text-ink-900 dark:text-white sm:text-[22px]">
                   {c.heading}
                 </h3>
-                <p className="text-[14.5px] leading-relaxed text-slate-600 dark:text-slate-400">{c.copy}</p>
+                <p className="text-[14.5px] leading-relaxed text-slate-600 dark:text-slate-400">
+                  {c.copy}
+                </p>
+                {/* Tagline pill */}
+                <div className="mt-1">
+                  <span className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider ${c.chip} ${c.accent}`}>
+                    <span className={`h-1.5 w-1.5 rounded-full ${c.key === 'mission' ? 'bg-brand-blue' : 'bg-brand-green'}`} />
+                    {c.tagline}
+                  </span>
+                </div>
               </div>
             </motion.article>
           ))}

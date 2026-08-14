@@ -5,7 +5,7 @@ import { useThemeContext } from "@shared/context/ThemeContext";
 
 const faqDB = [
   { q: "What is this platform?", a: "It is a modern learning platform for AI, development, and job-ready skills." },
-  { q: "Do you provide placement support?", a: "Yes, we provide resume building, mock interviews, and job referrals." },
+  { q: "Do you provide placement assistance?", a: "Yes, we provide resume building, mock interviews, and job referrals." },
   { q: "Do I need coding experience?", a: "No, we start from basics and gradually move to advanced topics." },
   { q: "Are real projects included?", a: "Yes, every course includes real-world industry projects." },
 ];

@@ -51,7 +51,7 @@ const defaultValues = {
 const SUBJECT_OPTIONS = [
   { value: 'general', label: 'General Inquiry' },
   { value: 'career', label: 'Career Guidance' },
-  { value: 'placement', label: 'Placement Support' },
+  { value: 'placement', label: 'Placement Assistance' },
   { value: 'course', label: 'Course Details' },
   { value: 'other', label: 'Other' },
 ]

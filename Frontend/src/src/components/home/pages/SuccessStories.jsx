@@ -116,7 +116,7 @@ const TRUST_METRICS = [
   { value: "4.9", label: "Average Rating", icon: "★" },
   { value: "5,000+", label: "Students Trained", icon: "👩‍💻" },
   { value: "300+", label: "Hiring Partners", icon: "🤝" },
-  { value: "92%", label: "Placement Support", icon: "🚀" },
+  { value: "92%", label: "Placement Assistance", icon: "🚀" },
 ];
 
 const COMPANIES = [

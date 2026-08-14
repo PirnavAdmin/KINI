@@ -33,9 +33,12 @@ const FAQS = [
   },
 ];
 
-const OFFICE_ADDRESS = "407, 4th Floor, Capital Park, Madhapur, Hyderabad, 500081";
+const OFFICE_ADDRESS = "Kini Edx Hub";
+
+// ─── Updated map embed — from the provided iframe src ────────────────────────
 const MAP_SRC =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.267013004733!2d78.3863243!3d17.4469296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb910d8d1c4f8b%3A0x6ef1b184af90fa3f!2sCapital%20Park!5e0!3m2!1sen!2sin!4v1786012520819!5m2!1sen!2sin";
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15224.502453297702!2d78.36597487093385!3d17.453700905058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb91bdc55868d5%3A0xaf7031e24e2af1c!2sKini%20Edx%20Hub!5e0!3m2!1sen!2sin!4v1786613077461!5m2!1sen!2sin";
+
 const DIRECTIONS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(OFFICE_ADDRESS)}`;
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -57,65 +60,63 @@ export default function Contact() {
     <>
       <Navbar />
 
-      {/* ─── HERO ─── Reduced spacing ───────────────────── */}
-<section
-  className="relative overflow-hidden pt-16 pb-10 text-slate-900 dark:text-white sm:pt-20 sm:pb-12
-             bg-[linear-gradient(135deg,#B5DBFF_0%,#C4EFF6_55%,#D8FBF5_100%)]
-             dark:bg-[linear-gradient(135deg,#0F172A_0%,#111827_50%,#0B1120_100%)]"
->
-  {/* Background grid pattern – lower opacity in dark mode */}
-  <div
-    className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.08]"
-    style={{
-      backgroundImage: "radial-gradient(rgba(15,23,42,0.14) 1px, transparent 1px)",
-      backgroundSize: "22px 22px",
-      maskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 90%)",
-      WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 90%)",
-    }}
-  />
+      {/* ─── HERO ─── */}
+      <section
+        className="relative overflow-hidden pt-16 pb-10 text-slate-900 dark:text-white sm:pt-20 sm:pb-12
+                   bg-[linear-gradient(135deg,#B5DBFF_0%,#C4EFF6_55%,#D8FBF5_100%)]
+                   dark:bg-[linear-gradient(135deg,#0F172A_0%,#111827_50%,#0B1120_100%)]"
+      >
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.08]"
+          style={{
+            backgroundImage: "radial-gradient(rgba(15,23,42,0.14) 1px, transparent 1px)",
+            backgroundSize: "22px 22px",
+            maskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 90%)",
+            WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 90%)",
+          }}
+        />
+        <div className="pointer-events-none absolute -top-24 -left-20 h-96 w-96 rounded-full bg-blue-400/25 blur-3xl dark:bg-blue-500/10" />
+        <div className="pointer-events-none absolute -bottom-24 -right-16 h-96 w-96 rounded-full bg-indigo-300/25 blur-3xl dark:bg-indigo-500/10" />
+        <div className="pointer-events-none absolute top-1/3 right-1/4 h-40 w-40 rounded-full bg-purple-300/20 blur-2xl dark:bg-purple-500/10" />
 
-  {/* Decorative blobs – darker, more subtle in dark mode */}
-  <div className="pointer-events-none absolute -top-24 -left-20 h-96 w-96 rounded-full bg-blue-400/25 blur-3xl dark:bg-blue-500/10" />
-  <div className="pointer-events-none absolute -bottom-24 -right-16 h-96 w-96 rounded-full bg-indigo-300/25 blur-3xl dark:bg-indigo-500/10" />
-  <div className="pointer-events-none absolute top-1/3 right-1/4 h-40 w-40 rounded-full bg-purple-300/20 blur-2xl dark:bg-purple-500/10" />
+        <div className="relative mx-auto max-w-7xl px-5 text-center">
+          <motion.span
+            {...rise(0)}
+            className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/70 px-4 py-1.5 text-xs font-semibold tracking-wide text-slate-700 shadow-sm backdrop-blur-xl
+                       dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
+          >
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            </span>
+            Get in Touch
+          </motion.span>
 
-  <div className="relative mx-auto max-w-7xl px-5 text-center">
-    <motion.span
-      {...rise(0)}
-      className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/70 px-4 py-1.5 text-xs font-semibold tracking-wide text-slate-700 shadow-sm backdrop-blur-xl
-                 dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
-    >
-      <span className="relative flex h-1.5 w-1.5">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-      </span>
-      Get in Touch
-    </motion.span>
+          <motion.h1
+            {...rise(0.08)}
+            className="mx-auto mb-3 max-w-3xl text-[2.2rem] font-extrabold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl"
+          >
+            We'd Love to
+            <span className="block bg-gradient-to-r from-[#2563EB] to-[#7C3AED] bg-clip-text text-transparent">
+              Hear From You
+            </span>
+          </motion.h1>
 
-    <motion.h1
-      {...rise(0.08)}
-      className="mx-auto mb-3 max-w-3xl text-[2.2rem] font-extrabold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl"
-    >
-      We'd Love to
-      <span className="block bg-gradient-to-r from-[#2563EB] to-[#7C3AED] bg-clip-text text-transparent">
-        Hear From You
-      </span>
-    </motion.h1>
+          <motion.p
+            {...rise(0.16)}
+            className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg"
+          >
+            Have a question, need support, or want to discuss enterprise plans? Our team is here to help.
+          </motion.p>
+        </div>
+      </section>
 
-    <motion.p
-      {...rise(0.16)}
-      className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg"
-    >
-      Have a question, need support, or want to discuss enterprise plans? Our team is here to help.
-    </motion.p>
-  </div>
-</section>
-
-      {/* ─── STICKY FORM SIDEBAR + SCROLLING CONTENT ───────── */}
+      {/* ─── FORM + CONTENT ── */}
       <section className={`py-16 sm:py-20 ${isDark ? "bg-app-dark-gradient" : "bg-slate-50"}`}>
         <div className="mx-auto max-w-7xl px-5">
           <div className="grid gap-10 lg:grid-cols-[440px_1fr] lg:gap-12">
-            {/* ── LEFT: sticky — just the form ── */}
+
+            {/* ── LEFT: sticky form ── */}
             <aside className="lg:sticky lg:top-[110px] lg:h-fit">
               <motion.div
                 initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 24 }}
@@ -132,15 +133,15 @@ export default function Contact() {
               >
                 <div className="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl" />
                 <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/40" />
-
                 <div className={`relative p-6 backdrop-blur-xl sm:p-7 ${isDark ? "bg-slate-950/60" : "bg-white/70"}`}>
                   <GetInTouchFormFields heading="Get In Touch" />
                 </div>
               </motion.div>
             </aside>
 
-            {/* ── RIGHT: normally-scrolling content ── */}
+            {/* ── RIGHT: map + FAQ ── */}
             <div className="min-w-0 space-y-12 lg:space-y-16">
+
               {/* Map */}
               <motion.div
                 initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
@@ -166,21 +167,26 @@ export default function Contact() {
                   </a>
                 </div>
 
+                {/* Map container — updated iframe matching the provided embed code */}
                 <div
-                  className={`relative min-h-[280px] overflow-hidden rounded-[28px] border shadow-lg transition-shadow duration-300 hover:shadow-xl ${
+                  className={`relative overflow-hidden rounded-[28px] border shadow-lg transition-shadow duration-300 hover:shadow-xl ${
                     isDark ? "border-white/[0.08]" : "border-slate-200"
                   }`}
+                  style={{ paddingBottom: "56.25%", height: 0 }} /* 16:9 responsive ratio */
                 >
                   <iframe
-                    title="Kini EduHub office location"
+                    title="Kini Edx Hub office location"
                     src={MAP_SRC}
-                    className="absolute inset-0 h-full w-full grayscale-[15%]"
+                    width="600"
+                    height="450"
                     style={{ border: 0 }}
+                    className="absolute inset-0 h-full w-full grayscale-[15%]"
                     loading="lazy"
                     allowFullScreen
                     referrerPolicy="strict-origin-when-cross-origin"
                   />
 
+                  {/* Address overlay */}
                   <div
                     className={`absolute bottom-4 left-4 right-4 flex items-center gap-3 rounded-2xl border p-4 shadow-lg backdrop-blur-xl sm:right-auto sm:max-w-xs ${
                       isDark ? "border-white/10 bg-slate-950/85" : "border-slate-200 bg-white/90"
@@ -266,7 +272,6 @@ export default function Contact() {
                           >
                             <Icon className="h-3.5 w-3.5" />
                           </span>
-
                           <span
                             className={`flex-1 text-sm font-semibold sm:text-base ${
                               isDark ? "text-white" : "text-slate-900"
@@ -274,7 +279,6 @@ export default function Contact() {
                           >
                             {faq.q}
                           </span>
-
                           <ArrowUpRight
                             className={`h-4 w-4 shrink-0 transition-transform duration-300 ${
                               isOpen ? "rotate-45" : "rotate-0"

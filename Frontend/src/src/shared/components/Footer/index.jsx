@@ -340,7 +340,7 @@ export default function Footer() {
           <p className={`text-xs ${isDark ? "text-white/40" : "text-slate-400"}`}>
             &copy; {new Date().getFullYear()} KiniEdXHub. All Rights Reserved.
           </p>
-          <p className={`text-xs ${isDark ? "text-white/40" : "text-slate-400"}`}>Made with ❤️ in India</p>
+         
           <div className="flex items-center gap-5">
             {bottomLinks.map((link) => (
               <Link

@@ -115,7 +115,7 @@ export default function StudentJourney() {
             </span>
           </>
         }
-        subheading="Every student follows the same proven path — live learning, real projects, a guaranteed internship, and dedicated placement support until you're hired."
+        subheading="Every student follows the same proven path — live learning, real projects, a guaranteed internship, and dedicated placement assistance until you're hired."
       />
 
       <div className="relative mt-12">

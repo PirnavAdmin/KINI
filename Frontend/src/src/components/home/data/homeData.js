@@ -1,8 +1,9 @@
+// ─── Statistics ──────────────────────────────────────────────────────────────
 export const statData = [
-  { value: 20000, suffix: "+", label: "Students Trained", color: "#085FA7" },
+  { value: 10000, suffix: "+", label: "Students Trained", color: "#085FA7" },
   { value: 2200, suffix: "+", label: "Placements", color: "#5CA347" },
   { value: 95, suffix: "%", label: "Success Rate", color: "#085FA7" },
-  { value: 500, suffix: "+", label: "Hiring Partners", color: "#5CA347" },
+  { value: 50, suffix: "+", label: "Hiring Partners", color: "#5CA347" },
 ];
 
 export const trustedCompanies = [
@@ -11,40 +12,175 @@ export const trustedCompanies = [
   "Salesforce", "Razorpay", "PhonePe", "CRED",
 ];
 
+// ─── Categories (for UI filtering) ────────────────────────────────────────
 export const categories = [
-  {
-    id: "fullstack",
-    label: "Full Stack",
-    gradient: "from-primary-500 to-secondary-500",
-  },
-  {
-    id: "dotnet",
-    label: ".NET Engineering",
-    gradient: "from-primary-500 to-primary-400",
-  },
-  {
-    id: "ai",
-    label: "AI & GenAI",
-    gradient: "from-primary-500 to-secondary-500",
-  },
-  {
-    id: "cloud",
-    label: "Cloud & DevOps",
-    gradient: "from-secondary-500 to-secondary-400",
-  },
-  {
-    id: "datascience",
-    label: "Data Science",
-    gradient: "from-primary-500 to-primary-400",
-  },
-  {
-    id: "leadership",
-    label: "Leadership",
-    gradient: "from-primary-400 to-secondary-500",
-  },
+  { id: "fullstack", label: "Full Stack", gradient: "from-primary-500 to-secondary-500" },
+  { id: "dotnet", label: ".NET Engineering", gradient: "from-primary-500 to-primary-400" },
+  { id: "ai", label: "AI & GenAI", gradient: "from-primary-500 to-secondary-500" },
+  { id: "cloud", label: "Cloud & DevOps", gradient: "from-secondary-500 to-secondary-400" },
+  { id: "datascience", label: "Data Science", gradient: "from-primary-500 to-primary-400" },
+  { id: "leadership", label: "Leadership", gradient: "from-primary-400 to-secondary-500" },
 ];
 
+// ─── Featured Courses – combined list (8 older + 6 newer) ───────────────
 export const featuredCourses = [
+  // ========== 1. Python Programming ==========
+  {
+    slug: "python-programming",
+    title: "Python Programming",
+    badge: "Hot",
+    desc: "Build a strong foundation in Python with practical exercises, OOP, and real-world projects.",
+    duration: "12 Weeks",
+    sessions: "3 sessions/week",
+    category: "Python",
+    gradient: "from-blue-500 to-cyan-500",
+    image: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&q=80&w=800&h=600",
+    outcomes: [
+      "Python fundamentals & OOP",
+      "APIs & backend basics",
+      "Practical projects",
+      "Git & GitHub",
+    ],
+    salary: "₹6–15 LPA",
+  },
+  // ========== 2. Web Development ==========
+  {
+    slug: "web-development",
+    title: "Web Development — React, Node.js & Laravel",
+    badge: "Popular",
+    desc: "Master full‑stack web development with React, Node.js, and Laravel, building responsive apps.",
+    duration: "16 Weeks",
+    sessions: "3 sessions/week",
+    category: "Web Development",
+    gradient: "from-purple-500 to-pink-500",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800&h=600",
+    outcomes: [
+      "HTML, CSS & JavaScript",
+      "React & modern frontend",
+      "Node.js & Express APIs",
+      "Laravel fundamentals",
+      "Full‑stack projects",
+    ],
+    salary: "₹7–18 LPA",
+  },
+  // ========== 3. Cloud Computing ==========
+  {
+    slug: "cloud-computing",
+    title: "Cloud Computing — AWS, Azure & GCP",
+    badge: "New",
+    desc: "Learn cloud fundamentals and deployment across AWS, Azure, and Google Cloud Platform.",
+    duration: "14 Weeks",
+    sessions: "2 sessions/week",
+    category: "Cloud Computing",
+    gradient: "from-orange-500 to-amber-500",
+    image: "https://images.unsplash.com/photo-1695668548342-c0c1ad479aee?auto=format&fit=crop&q=80&w=800&h=600",
+    outcomes: [
+      "Cloud fundamentals",
+      "AWS services & deployment",
+      "Azure basics",
+      "Google Cloud essentials",
+      "Architecture patterns",
+    ],
+    salary: "₹10–25 LPA",
+  },
+  // ========== 4. Cybersecurity ==========
+  {
+    slug: "cybersecurity",
+    title: "Cybersecurity",
+    badge: "Trending",
+    desc: "Understand network security, ethical hacking, and how to protect systems from cyber threats.",
+    duration: "14 Weeks",
+    sessions: "3 sessions/week",
+    category: "Cybersecurity",
+    gradient: "from-red-500 to-rose-500",
+    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800&h=600",
+    outcomes: [
+      "Network security fundamentals",
+      "Ethical hacking & penetration testing",
+      "Security best practices",
+      "Incident response",
+    ],
+    salary: "₹8–20 LPA",
+  },
+  // ========== 5. Data Analytics & Power BI ==========
+  {
+    slug: "data-analytics",
+    title: "Data Analytics & Power BI",
+    badge: "New",
+    desc: "Turn data into insights using SQL, Python, and Power BI – from cleaning to dashboarding.",
+    duration: "12 Weeks",
+    sessions: "2 sessions/week",
+    category: "Data Analytics",
+    gradient: "from-teal-500 to-emerald-500",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800&h=600",
+    outcomes: [
+      "SQL & data extraction",
+      "Python for data analysis",
+      "Power BI dashboards",
+      "Data storytelling",
+    ],
+    salary: "₹6–14 LPA",
+  },
+  // ========== 6. AI & Machine Learning ==========
+  {
+    slug: "ai-ml",
+    title: "AI & Machine Learning",
+    badge: "Popular",
+    desc: "Explore machine learning, deep learning, and AI with Python – build intelligent applications.",
+    duration: "16 Weeks",
+    sessions: "3 sessions/week",
+    category: "AI & Machine Learning",
+    gradient: "from-indigo-500 to-violet-500",
+    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800&h=600",
+    outcomes: [
+      "Python for AI",
+      "ML fundamentals",
+      "Data preparation & model building",
+      "Deep learning basics",
+      "Practical AI projects",
+    ],
+    salary: "₹10–25 LPA",
+  },
+  // ========== 7. DevOps ==========
+  {
+    slug: "devops",
+    title: "DevOps — Docker & Kubernetes",
+    badge: "New",
+    desc: "Automate, containerize, and orchestrate applications with Docker and Kubernetes.",
+    duration: "12 Weeks",
+    sessions: "2 sessions/week",
+    category: "DevOps",
+    gradient: "from-cyan-500 to-blue-500",
+    image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&q=80&w=800&h=600",
+    outcomes: [
+      "Docker containers",
+      "Kubernetes orchestration",
+      "CI/CD pipelines",
+      "Infrastructure as Code",
+    ],
+    salary: "₹12–30 LPA",
+  },
+  // ========== 8. QA Automation ==========
+  {
+    slug: "qa-automation",
+    title: "QA Automation",
+    badge: "New",
+    desc: "Learn automated testing frameworks, tools, and best practices for delivering quality software.",
+    duration: "10 Weeks",
+    sessions: "2 sessions/week",
+    category: "QA Automation",
+    gradient: "from-lime-500 to-green-500",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800&h=600",
+    outcomes: [
+      "Testing fundamentals",
+      "Selenium & automation",
+      "API testing",
+      "Performance testing",
+    ],
+    salary: "₹6–15 LPA",
+  },
+
+  // ========== 9. MERN & Next.js (new) ==========
   {
     title: "MERN & Next.js Engineering",
     slug: "mern-nextjs-engineering",
@@ -52,10 +188,13 @@ export const featuredCourses = [
     badge: "Hot",
     duration: "22 weeks",
     sessions: "3 sessions/week",
+    category: "Full Stack",
     salary: "₹8–22 LPA",
     outcomes: ["3 live deployed projects", "Median 45 days to placement", "Portfolio ready"],
     gradient: "from-primary-500 to-secondary-500",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800&h=600",
   },
+  // ========== 10. Full Stack .NET ==========
   {
     title: "Full Stack .NET — C# to Enterprise",
     slug: "fullstack-dotnet",
@@ -63,10 +202,13 @@ export const featuredCourses = [
     badge: "Hot",
     duration: "20 weeks",
     sessions: "4 sessions/week",
+    category: ".NET Engineering",
     salary: "₹10–28 LPA",
     outcomes: ["Azure-deployed capstone", "Median 35 days to placement", "Enterprise patterns"],
     gradient: "from-primary-500 to-primary-400",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800&h=600",
   },
+  // ========== 11. AI & Generative AI ==========
   {
     title: "AI & Generative AI Engineering",
     slug: "ai-genai-engineering",
@@ -74,10 +216,13 @@ export const featuredCourses = [
     badge: "New",
     duration: "24 weeks",
     sessions: "3 sessions/week",
+    category: "AI & GenAI",
     salary: "₹18–40 LPA",
     outcomes: ["RAG chatbot project", "Fine-tuned LLM deployment", "Median 30 days to placement"],
     gradient: "from-primary-500 to-secondary-500",
+    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800&h=600",
   },
+  // ========== 12. Cloud & DevOps ==========
   {
     title: "AWS, Azure, Docker & Kubernetes",
     slug: "cloud-devops",
@@ -85,10 +230,13 @@ export const featuredCourses = [
     badge: "In Demand",
     duration: "18 weeks",
     sessions: "3 sessions/week",
+    category: "Cloud & DevOps",
     salary: "₹12–30 LPA",
     outcomes: ["Production AWS infra project", "GitOps pipelines", "Median 40 days to placement"],
     gradient: "from-secondary-500 to-secondary-400",
+    image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&q=80&w=800&h=600",
   },
+  // ========== 13. Data Science & ML ==========
   {
     title: "Data Science & Machine Learning",
     slug: "data-science-ml",
@@ -96,10 +244,13 @@ export const featuredCourses = [
     badge: "In Demand",
     duration: "20 weeks",
     sessions: "3 sessions/week",
+    category: "Data Science",
     salary: "₹8–24 LPA",
     outcomes: ["3 end-to-end ML pipelines", "Real business datasets", "Median 50 days to placement"],
     gradient: "from-primary-500 to-primary-400",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800&h=600",
   },
+  // ========== 14. Engineering Leadership ==========
   {
     title: "Engineering Leadership",
     slug: "engineering-leadership",
@@ -107,12 +258,15 @@ export const featuredCourses = [
     badge: "In Demand",
     duration: "12 weeks",
     sessions: "2 sessions/week",
+    category: "Leadership",
     salary: "₹18–50+ LPA",
     outcomes: ["System design capstone", "Panel review", "Promotion in 3–6 months"],
     gradient: "from-primary-400 to-secondary-500",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800&h=600",
   },
 ];
 
+// ─── Learning Paths ──────────────────────────────────────────────────────────
 export const learningPaths = [
   {
     title: "Beginner to Job Ready",
@@ -137,6 +291,7 @@ export const learningPaths = [
   },
 ];
 
+// ─── Why Choose Us ──────────────────────────────────────────────────────────
 export const whyChooseUsFeatures = [
   {
     title: "100% Live Training",
@@ -149,7 +304,7 @@ export const whyChooseUsFeatures = [
     icon: "👨‍🏫",
   },
   {
-    title: "Placement Support",
+    title: "Placement Assistance",
     desc: "Resume rewriting, LinkedIn optimisation, unlimited mock interviews, and warm referrals through our alumni network.",
     icon: "💼",
   },
@@ -170,6 +325,7 @@ export const whyChooseUsFeatures = [
   },
 ];
 
+// ─── Learning Process Steps ────────────────────────────────────────────────
 export const learningProcessSteps = [
   {
     step: 1,
@@ -198,11 +354,12 @@ export const learningProcessSteps = [
   {
     step: 5,
     title: "Get Hired",
-    desc: "Connect with 500+ hiring partners through placements drives, warm referrals, and our alumni network.",
+    desc: "Connect with our extensive hiring network through placement drives, warm referrals, and our alumni network.",
     duration: "Until Hired",
   },
 ];
 
+// ─── Testimonials ───────────────────────────────────────────────────────────
 export const testimonials = [
   {
     name: "Sameer Vyas",
@@ -246,6 +403,7 @@ export const testimonials = [
   },
 ];
 
+// ─── FAQ ──────────────────────────────────────────────────────────────────
 export const faqData = [
   {
     q: "Do I need prior coding experience to join?",
@@ -256,7 +414,7 @@ export const faqData = [
     a: "All sessions are 100% live. Every session is recorded and uploaded to your dashboard within 6 hours. You get lifetime access to recordings even after the program ends. No one falls behind because of a missed class.",
   },
   {
-    q: "What does placement support include?",
+    q: "What does placement assistance include?",
     a: "ATS-optimised resume review and rewrite, LinkedIn profile optimisation, GitHub portfolio curation, unlimited 1:1 mock interviews, warm referrals through our 200+ company alumni network, salary negotiation coaching, and continued support until you receive and accept an offer letter.",
   },
   {
@@ -280,3 +438,9 @@ export const faqData = [
     a: "Most students join a live cohort within 7–14 days of their first consultation. Our counsellor calls within 24 hours of your form submission, walks through your options, and sends program details with batch schedule.",
   },
 ];
+
+// ─── Helper: get unique categories from featuredCourses ──────────────────
+export const getCourseCategories = () => {
+  const categories = new Set(featuredCourses.map((c) => c.category));
+  return ["All", ...categories];
+};

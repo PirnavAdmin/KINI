@@ -4,13 +4,26 @@ import Navbar from "@shared/components/navbar";
 import Footer from "@shared/components/Footer";
 import Badge from "@shared/components/ui/Badge";
 import { EASE_PREMIUM, fadeUp, staggerContainer } from "@shared/hooks/useScrollAnimation";
+import { useThemeContext } from "@shared/context/ThemeContext";
 
 export function LegalList({ items }) {
+  const { isDark } = useThemeContext();
+
   return (
     <ul className="mt-3 space-y-2">
       {items.map((item) => (
-        <li key={item} className="flex items-start gap-2.5 text-sm leading-relaxed text-slate-600">
-          <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary-500" aria-hidden="true" />
+        <li
+          key={item}
+          className={`flex items-start gap-2.5 text-sm leading-relaxed ${
+            isDark ? "text-slate-300" : "text-slate-600"
+          }`}
+        >
+          <span
+            className={`mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full ${
+              isDark ? "bg-primary-400" : "bg-primary-500"
+            }`}
+            aria-hidden="true"
+          />
           {item}
         </li>
       ))}
@@ -19,10 +32,22 @@ export function LegalList({ items }) {
 }
 
 export function LegalCallout({ title, children }) {
+  const { isDark } = useThemeContext();
+
   return (
-    <div className="mt-4 rounded-2xl border border-brand-coral/20 bg-brand-coral/5 p-4">
-      <p className="text-sm font-semibold text-ink-900">{title}</p>
-      <p className="mt-1 text-sm leading-relaxed text-slate-600">{children}</p>
+    <div
+      className={`mt-4 rounded-2xl border p-4 ${
+        isDark
+          ? "border-brand-coral/20 bg-brand-coral/5"
+          : "border-brand-coral/20 bg-brand-coral/5"
+      }`}
+    >
+      <p className={`text-sm font-semibold ${isDark ? "text-white" : "text-ink-900"}`}>
+        {title}
+      </p>
+      <p className={`mt-1 text-sm leading-relaxed ${isDark ? "text-slate-300" : "text-slate-600"}`}>
+        {children}
+      </p>
     </div>
   );
 }
@@ -30,8 +55,16 @@ export function LegalCallout({ title, children }) {
 // Deliberately loud — flags legal copy that must be reviewed/filled in
 // by counsel before the page goes live, so it can't be missed in a diff.
 export function TODOPlaceholder({ children }) {
+  const { isDark } = useThemeContext();
+
   return (
-    <span className="rounded-md border border-dashed border-amber-400 bg-amber-50 px-1.5 py-0.5 font-mono text-xs font-semibold text-amber-700">
+    <span
+      className={`rounded-md border border-dashed px-1.5 py-0.5 font-mono text-xs font-semibold ${
+        isDark
+          ? "border-amber-400/40 bg-amber-900/30 text-amber-300"
+          : "border-amber-400 bg-amber-50 text-amber-700"
+      }`}
+    >
       {children}
     </span>
   );
@@ -39,12 +72,10 @@ export function TODOPlaceholder({ children }) {
 
 /**
  * Shared chrome for legal/compliance pages (Terms, Privacy, Cookies).
- * Content area is intentionally plain light/white regardless of the
- * site's dark-mode toggle — long-form legal text prioritizes readability
- * over thematic consistency, the same reasoning that keeps the Footer
- * permanently dark rather than theme-toggling.
+ * Fully supports dark mode while keeping readability high.
  */
 export function LegalLayout({ eyebrow, title, intro, sections }) {
+  const { isDark } = useThemeContext();
   const [activeId, setActiveId] = useState(sections[0]?.id);
   const sectionRefs = useRef({});
 
@@ -68,19 +99,39 @@ export function LegalLayout({ eyebrow, title, intro, sections }) {
   return (
     <>
       <Navbar />
-      <main className="bg-white">
-        <div className="relative overflow-hidden bg-porcelain py-8 sm:py-10">
+      <main className={isDark ? "bg-slate-950" : "bg-white"}>
+        {/* Header */}
+        <div
+          className={`relative overflow-hidden py-8 sm:py-10 ${
+            isDark ? "bg-slate-900" : "bg-porcelain"
+          }`}
+        >
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-1/2 top-0 h-72 w-[720px] -translate-x-1/2 rounded-full bg-primary-500/10 blur-[140px]"
+            className={`pointer-events-none absolute left-1/2 top-0 h-72 w-[720px] -translate-x-1/2 rounded-full blur-[140px] ${
+              isDark ? "bg-primary-500/20" : "bg-primary-500/10"
+            }`}
           />
           <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6">
             <Badge tone="coral">{eyebrow}</Badge>
-            <h1 className="mt-3 font-display text-3xl font-bold text-ink-900 sm:text-4xl">{title}</h1>
-            <p className="mt-2 text-sm leading-relaxed text-ink-900/60 sm:text-base">{intro}</p>
+            <h1
+              className={`mt-3 font-display text-3xl font-bold sm:text-4xl ${
+                isDark ? "text-white" : "text-ink-900"
+              }`}
+            >
+              {title}
+            </h1>
+            <p
+              className={`mt-2 text-sm leading-relaxed sm:text-base ${
+                isDark ? "text-slate-400" : "text-ink-900/60"
+              }`}
+            >
+              {intro}
+            </p>
           </div>
         </div>
 
+        {/* Content */}
         <div className="mx-auto max-w-6xl gap-10 px-4 py-14 sm:px-6 lg:grid lg:grid-cols-[240px_1fr] lg:px-8">
           <aside className="hidden lg:block">
             <nav className="sticky top-24 flex flex-col gap-1" aria-label="Sections on this page">
@@ -91,7 +142,11 @@ export function LegalLayout({ eyebrow, title, intro, sections }) {
                   aria-current={activeId === section.id ? "true" : undefined}
                   className={`flex items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium transition-colors ${
                     activeId === section.id
-                      ? "bg-primary-50 text-primary-600"
+                      ? isDark
+                        ? "bg-primary-500/20 text-primary-300"
+                        : "bg-primary-50 text-primary-600"
+                      : isDark
+                      ? "text-slate-400 hover:bg-slate-800 hover:text-slate-200"
                       : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
                   }`}
                 >
@@ -124,9 +179,21 @@ export function LegalLayout({ eyebrow, title, intro, sections }) {
                   <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-secondary-500 text-white">
                     <section.icon className="h-4 w-4" aria-hidden="true" />
                   </span>
-                  <h2 className="font-display text-lg font-bold text-ink-900">{section.title}</h2>
+                  <h2
+                    className={`font-display text-lg font-bold ${
+                      isDark ? "text-white" : "text-ink-900"
+                    }`}
+                  >
+                    {section.title}
+                  </h2>
                 </div>
-                <div className="mt-4 space-y-3 text-sm leading-relaxed text-slate-600">{section.content}</div>
+                <div
+                  className={`mt-4 space-y-3 text-sm leading-relaxed ${
+                    isDark ? "text-slate-300" : "text-slate-600"
+                  }`}
+                >
+                  {section.content}
+                </div>
               </motion.section>
             ))}
           </motion.div>

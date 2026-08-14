@@ -22,7 +22,7 @@ function WhoWeAre() {
 
           <p className="text-2xl font-medium leading-relaxed">
             We build industry-ready engineers through structured
-            learning, mentorship and placement support.
+            learning, mentorship and placement assistance.
           </p>
 
         </div>
@@ -53,7 +53,7 @@ function WhoWeAre() {
           <div className="bg-blue-50 p-8 rounded-2xl">
             <FaBriefcase size={35} />
             <h3 className="font-bold mt-5">
-              Placement Support
+              Placement Assistance
             </h3>
           </div>
 

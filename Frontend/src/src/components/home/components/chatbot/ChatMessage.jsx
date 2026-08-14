@@ -385,7 +385,7 @@ function renderBotContent(data, isDark, onQuickAction) {
     case "placement":
       return (
         <BotBubble>
-          <p className="font-semibold mb-2">💼 Career & Placement Support</p>
+          <p className="font-semibold mb-2">💼 Career & Placement Assistance</p>
           <ul className="space-y-1">
             {data.items.map((item, i) => (
               <li key={i} className="text-xs text-slate-600 dark:text-slate-300 flex gap-1.5">

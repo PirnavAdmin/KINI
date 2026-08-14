@@ -241,7 +241,7 @@ const FAQS = [
   },
   {
     q: "How long is the full program?",
-    a: "Most learners complete the program, including placement support, in 6 to 9 months, depending on the track and how much time they can commit each week.",
+    a: "Most learners complete the program, including placement assistance, in 6 to 9 months, depending on the track and how much time they can commit each week.",
   },
   {
     q: "Which companies actually hire from here?",
@@ -638,7 +638,7 @@ function CareerRoadmapSection() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Placement Support                                                   */
+/*  Placement Assistance                                                   */
 /* ------------------------------------------------------------------ */
 
 function SupportSection() {
@@ -646,7 +646,7 @@ function SupportSection() {
     <section className="bg-slate-50 py-14 dark:bg-slate-900/40 sm:py-16">
       <div className="mx-auto max-w-7xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">Placement Support</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">Placement Assistance</p>
           <h2 className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">
             Everything You Need To Get Hired
           </h2>

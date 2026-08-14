@@ -10,9 +10,9 @@ const RegisterModal = lazy(() => import("../RegisterModal"));
 
 const navItems = [
   { label: "Home", to: ROUTES.PUBLIC.HOME },
-  { label: "AboutUs", to: ROUTES.PUBLIC.ABOUT },
-  { label: "Courses", to: ROUTES.PUBLIC.UPSKILL_PROGRAM },
-  { label: "ContactUs", to: ROUTES.PUBLIC.CONTACT },
+  { label: "About Us", to: ROUTES.PUBLIC.ABOUT },
+  { label: "Programs", to: ROUTES.PUBLIC.UPSKILL_PROGRAM },
+  { label: "Contact Us", to: ROUTES.PUBLIC.CONTACT },
 ];
 
 export default function Navbar() {

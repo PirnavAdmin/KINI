@@ -1,5 +1,6 @@
 import { Info, Globe, MapPin, Database, Mail, PhoneCall } from 'lucide-react'
 import { LegalLayout, LegalList, LegalCallout } from './LegalLayout.jsx'
+import { useThemeContext } from '@shared/context/ThemeContext'
 
 const sections = [
   {
@@ -55,7 +56,7 @@ const sections = [
     id: 'data-we-collect',
     title: 'What Personal Data We Collect',
     icon: Database,
-    content: (
+    content: ({ isDark }) => (
       <>
         <p>We may collect the following categories of personal data:</p>
         <LegalList
@@ -67,7 +68,7 @@ const sections = [
             'Communication Records — emails, feedback forms, and chat history for support and queries.',
           ]}
         />
-        <p className="text-sm text-slate-500">
+        <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
           Note: We do not collect sensitive data, such as religious beliefs,
           health details, or criminal records.
         </p>
@@ -122,24 +123,36 @@ const sections = [
     id: 'contact',
     title: 'Contact Information',
     icon: MapPin,
-    content: (
+    content: ({ isDark }) => (
       <>
         <p>
           For questions or requests related to this Privacy Policy, please
           contact us at:
         </p>
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 text-sm">
-          <p className="font-medium text-slate-900">Kini EdX Hub Pvt Ltd</p>
-          <p className="mt-1 text-slate-600">
+        <div
+          className={`rounded-2xl border p-5 text-sm ${
+            isDark
+              ? 'border-white/10 bg-white/[0.03] text-white'
+              : 'border-slate-200 bg-slate-50 text-slate-900'
+          }`}
+        >
+          <p className="font-medium">Kini EdX Hub Pvt Ltd</p>
+          <p className={`mt-1 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
             407, 4th Floor, Capital Park, Madhapur, Hyderabad, 500081
           </p>
           <p className="mt-3">
-            <a href="mailto:contact@kiniedx.com" className="text-brand-blue hover:underline">
+            <a
+              href="mailto:contact@kiniedx.com"
+              className={`${isDark ? 'text-primary-300' : 'text-brand-blue'} hover:underline`}
+            >
               contact@kiniedx.com
             </a>
           </p>
           <p className="mt-1">
-            <a href="tel:+919000198239" className="text-brand-blue hover:underline">
+            <a
+              href="tel:+919000198239"
+              className={`${isDark ? 'text-primary-300' : 'text-brand-blue'} hover:underline`}
+            >
               +91 90001 98239
             </a>
           </p>
@@ -150,12 +163,20 @@ const sections = [
 ]
 
 export default function PrivacyPolicy() {
+  const { isDark } = useThemeContext()
+
+  // Process each section: if content is a function, call it with isDark
+  const processedSections = sections.map((section) => ({
+    ...section,
+    content: typeof section.content === 'function' ? section.content({ isDark }) : section.content,
+  }))
+
   return (
     <LegalLayout
       eyebrow="Legal · Privacy"
       title="Privacy Policy"
       intro="How Kini EdX Hub Pvt Ltd collects, uses, stores, and protects your personal information."
-      sections={sections}
+      sections={processedSections}
     />
   )
 }

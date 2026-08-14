@@ -4,15 +4,19 @@ import {
   Star, Plus, BarChart3, Code2, Languages, Megaphone, DollarSign, Palette,
   PiggyBank, Users, Video, Gamepad2, Clock, BookOpen, ShieldCheck,
   Briefcase, Rocket, CheckCircle2, MessageCircle, ChevronDown, ChevronUp,
-  Coins
+  Coins, Award
 } from 'lucide-react';
 import Navbar from '@shared/components/navbar';
 import Footer from '@shared/components/Footer';
 import CareerRoadmapGenerator from '../components/Careerroadmapgenerator';
 import RegisterModal from '../../../shared/components/RegisterModal';
+import { useThemeContext } from '@shared/context/ThemeContext';
+
+// ─── Import real course data ──────────────────────────────────────────────
+import { featuredCourses } from "../data/homeData";
 
 // ---------------------------------------------------------------
-// Reveal-on-scroll
+// Reveal-on-scroll helpers
 // ---------------------------------------------------------------
 function useReveal(threshold = 0.2) {
   const ref = useRef(null);
@@ -54,20 +58,17 @@ function Hero({ onOpenModal }) {
 
   return (
     <section className="relative bg-gradient-to-br from-[#9ac7ff] via-[#b6e6fa] to-[#c7f5ee] pb-28 pt-12 dark:bg-app-dark-gradient sm:pb-36 sm:pt-20">
-      {/* Ambient glows — overflow-hidden lives HERE, not on the section */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-60 dark:opacity-20">
         <div className="absolute -top-32 left-1/4 h-96 w-96 rounded-full bg-white/70 blur-[100px] dark:bg-primary-500/20" />
         <div className="absolute right-10 top-44 h-80 w-80 rounded-full bg-indigo-300/40 blur-[90px] dark:bg-secondary-500/20" />
       </div>
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-12 lg:gap-12">
-        {/* Left — copy */}
         <div className="lg:col-span-7">
-          {/* Honest badge for a starting institute */}
           <Reveal className="inline-flex items-center gap-2.5 rounded-full border border-white/80 bg-white/90 px-4 py-1.5 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-            <span className="flex h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
+            <span className="flex h-2 w-2 rounded-full bg-brand animate-pulse" />
             <span className="usk-mono text-xs uppercase tracking-wider font-medium text-slate-700 dark:text-slate-300">
-              Founding Batch — Limited Seats
+              Limited Seats Available
             </span>
           </Reveal>
 
@@ -103,29 +104,42 @@ function Hero({ onOpenModal }) {
             </a>
           </Reveal>
 
-          {/* Honest stats for a new institute */}
+          {/* FIX: Added gap-y-4 for proper vertical spacing on mobile, ensured dividers are visible */}
           <Reveal
             delay={400}
-            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/50 pt-6 text-sm text-slate-700 dark:border-white/10"
+            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/50 pt-6 text-sm text-slate-700 dark:border-white/10"
           >
-            <div>
-              <strong className="usk-display font-bold text-slate-900 dark:text-white text-base">New Batch </strong>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Now Enrolling</p>
+            <div className="min-w-0">
+              <strong className="usk-display font-bold text-slate-900 dark:text-white text-base block">
+                Corporate Level Training
+              </strong>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Industry‑relevant curriculum
+              </p>
             </div>
-            <div className="h-8 w-px bg-slate-300/60 dark:bg-white/10" />
-            <div>
-              <strong className="usk-display font-bold text-slate-900 dark:text-white text-base">6+</strong>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Live Tracks</p>
+            <div className="hidden sm:block h-10 w-px bg-slate-300/60 dark:bg-white/10 shrink-0" />
+
+            <div className="min-w-0">
+              <strong className="usk-display font-bold text-slate-900 dark:text-white text-base block">
+                Guaranteed Internship
+              </strong>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Real‑world experience
+              </p>
             </div>
-            <div className="h-8 w-px bg-slate-300/60 dark:bg-white/10" />
-            <div>
-              <strong className="usk-display font-bold text-slate-900 dark:text-white text-base">100%</strong>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Placement Support</p>
+            <div className="hidden sm:block h-10 w-px bg-slate-300/60 dark:bg-white/10 shrink-0" />
+
+            <div className="min-w-0">
+              <strong className="usk-display font-bold text-slate-900 dark:text-white text-base block">
+                100% Placement Assistance
+              </strong>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Dedicated career support
+              </p>
             </div>
           </Reveal>
         </div>
 
-        {/* Right — image card */}
         <div ref={cardRef} className="lg:col-span-5 relative pt-4 sm:pt-2">
           <div
             className={`relative rounded-[2.5rem] border border-white/90 bg-white/40 p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.12)] backdrop-blur-xl transition-all duration-700 dark:border-white/10 dark:bg-white/5 sm:p-4 ${
@@ -134,7 +148,7 @@ function Hero({ onOpenModal }) {
           >
             <div className="relative overflow-hidden rounded-[2rem] aspect-[4/5] shadow-inner bg-slate-100">
               <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000"
+                src="https://i.pinimg.com/736x/7e/66/52/7e6652b5db5df7abd15a0438093627d2.jpg"
                 alt="Student learning on laptop"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
@@ -150,23 +164,22 @@ function Hero({ onOpenModal }) {
             </div>
           </div>
 
-          {/* Floating badge — Placement Support */}
+          {/* Floating card – brand colour */}
           <div
             className={`usk-float absolute -left-4 -top-3 flex items-center gap-3 rounded-2xl border border-white/90 bg-white/95 px-4 py-3 shadow-xl backdrop-blur-xl transition-all duration-500 hover:scale-105 dark:border-white/10 dark:bg-ink-900/90 sm:-left-6 sm:-top-5 ${
               cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
             style={{ transitionDelay: '500ms' }}
           >
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-orange-500 shadow-sm border border-orange-100 dark:border-orange-500/20 dark:bg-orange-500/10 dark:text-orange-400">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 text-brand shadow-sm border border-brand/20 dark:border-brand/30 dark:bg-brand/20 dark:text-brand-light">
               <TrendingUp size={18} />
             </span>
             <div>
               <p className="usk-display text-sm font-bold text-slate-900 dark:text-white">100%</p>
-              <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Placement support</p>
+              <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Placement assistance</p>
             </div>
           </div>
 
-          {/* Floating badge — Live cohorts */}
           <div
             className={`usk-float-slow absolute -right-3 -bottom-5 flex items-center gap-3 rounded-2xl border border-white/90 bg-white/95 px-4 py-3 shadow-xl backdrop-blur-xl transition-all duration-500 hover:scale-105 dark:border-white/10 dark:bg-ink-900/90 sm:-bottom-7 sm:-right-6 ${
               cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
@@ -209,13 +222,14 @@ const AUDIENCES = [
     icon: TrendingUp,
     title: 'Working Professionals',
     desc: 'Upskill on the side with live weekend sessions and self-paced content that fits around your current job.',
-    tint: 'bg-orange-50 text-orange-600 dark:bg-orange-500/10 dark:text-orange-400',
-    border: 'hover:border-orange-200 dark:hover:border-orange-500/30',
+    tint: 'bg-brand/10 text-brand dark:bg-brand/20 dark:text-brand-light',
+    border: 'hover:border-brand/30 dark:hover:border-brand/30',
   },
 ];
 
 function WhoThisIsFor() {
   return (
+    // FIX: Consistent vertical padding matching other sections
     <section className="bg-white py-20 dark:bg-app-dark-gradient sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal className="text-center">
@@ -230,7 +244,8 @@ function WhoThisIsFor() {
           </p>
         </Reveal>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-3">
+        {/* FIX: gap-6 for better card breathing room */}
+        <div className="mt-10 grid gap-6 sm:grid-cols-3">
           {AUDIENCES.map((a, i) => (
             <Reveal
               key={a.title}
@@ -240,6 +255,7 @@ function WhoThisIsFor() {
               <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${a.tint}`}>
                 <a.icon size={20} />
               </span>
+              {/* FIX: mt-4 consistent heading spacing */}
               <h3 className="mt-4 usk-display text-sm font-semibold text-slate-900 dark:text-white">{a.title}</h3>
               <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{a.desc}</p>
             </Reveal>
@@ -280,14 +296,15 @@ function CategoriesSection() {
           </p>
         </Reveal>
 
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        {/* FIX: gap-5 for consistent card grid spacing */}
+        <div className="mt-8 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
           {CATEGORIES.map((c, i) => (
             <Reveal
               as="a"
               href="#courses"
               key={c.label}
               delay={i * 50}
-              className="group flex flex-col items-start rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm transition-all duration-300 hover:border-indigo-200 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-indigo-500/30"
+              className="group flex flex-col items-start rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition-all duration-300 hover:border-indigo-200 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-indigo-500/30"
             >
               <span className={`flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${c.tint}`}>
                 <c.icon size={18} />
@@ -305,48 +322,14 @@ function CategoriesSection() {
 // ---------------------------------------------------------------
 // Featured Courses
 // ---------------------------------------------------------------
-const COURSES = [
-  {
-    title: 'Advanced UI/UX Design Patterns',
-    lessons: '24 Lessons',
-    duration: '12 Hours',
-    rating: 4.8,
-    reviews: '12',
-    badge: 'New',
-    badgeClass: 'bg-indigo-600',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=600&h=400',
-  },
-  {
-    title: 'Full-Stack Web Masterclass',
-    lessons: '42 Lessons',
-    duration: '28 Hours',
-    rating: 5.0,
-    reviews: '8',
-    badge: 'Popular',
-    badgeClass: 'bg-orange-500',
-    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=600&h=400',
-  },
-  {
-    title: 'Digital Marketing Strategy',
-    lessons: '18 Lessons',
-    duration: '8 Hours',
-    rating: 4.7,
-    reviews: '5',
-    badge: null,
-    badgeClass: '',
-    image: 'https://i.pinimg.com/736x/b0/41/ab/b041abab5f12ce21f693f0bf2e1f895b.jpg',
-  },
-  {
-    title: 'Personal Finance for Beginners',
-    lessons: '15 Lessons',
-    duration: '6 Hours',
-    rating: 4.9,
-    reviews: '11',
-    badge: 'Bestseller',
-    badgeClass: 'bg-emerald-500',
-    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=600&h=400',
-  },
-];
+const BADGE_COLOR_MAP = {
+  Hot: 'bg-brand',
+  New: 'bg-indigo-600',
+  Popular: 'bg-indigo-600',
+  'In Demand': 'bg-emerald-500',
+  Trending: 'bg-brand',
+};
+const DEFAULT_BADGE_COLOR = 'bg-slate-600';
 
 function CourseCard({ title, lessons, duration, rating, reviews, badge, badgeClass, image, index, onOpenModal }) {
   return (
@@ -354,7 +337,7 @@ function CourseCard({ title, lessons, duration, rating, reviews, badge, badgeCla
       delay={index * 80}
       className="group overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:shadow-md flex flex-col justify-between dark:border-white/10 dark:bg-white/[0.03]"
     >
-      <div className="relative h-36 w-full overflow-hidden bg-slate-100">
+      <div className="relative h-40 w-full overflow-hidden bg-slate-100">
         {image ? (
           <img
             src={image}
@@ -372,30 +355,36 @@ function CourseCard({ title, lessons, duration, rating, reviews, badge, badgeCla
         )}
       </div>
 
-      <div className="p-4">
+      {/* FIX: consistent p-5 padding on card body */}
+      <div className="p-5">
         <div className="flex items-center gap-1 text-xs">
-          <Star size={12} className="fill-orange-500 text-orange-500" />
+          {/* FIX: star color uses theme-aware brand variable */}
+          <Star size={12} className="fill-current text-amber-400" />
           <span className="font-semibold text-slate-900 dark:text-white">{rating}</span>
-          <span className="text-slate-400 dark:text-slate-500 text-[11px]">({reviews} reviews)</span>
+          {/* FIX: hide "N/A reviews" — show dash when not available */}
+          <span className="text-slate-400 dark:text-slate-500 text-[11px]">
+            {reviews && reviews !== 'N/A' ? `(${reviews} reviews)` : ''}
+          </span>
         </div>
-        <h3 className="mt-1.5 usk-display text-sm font-semibold leading-snug text-slate-900 dark:text-white">{title}</h3>
-        <div className="mt-3 flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
-          <span className="flex items-center gap-1">
+        <h3 className="mt-2 usk-display text-sm font-semibold leading-snug text-slate-900 dark:text-white">{title}</h3>
+        <div className="mt-3 flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
+          <span className="flex items-center gap-1.5">
             <BookOpen size={13} className="text-indigo-600 dark:text-indigo-400" />
             {lessons}
           </span>
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1.5">
             <Clock size={13} className="text-teal-600 dark:text-teal-400" />
             {duration}
           </span>
         </div>
       </div>
 
-      <div className="p-4 pt-0">
+      {/* FIX: px-5 pb-5 for consistent bottom padding */}
+      <div className="px-5 pb-5">
         <button
           type="button"
           onClick={() => onOpenModal({ title, lessons, duration })}
-          className="w-full inline-flex items-center justify-center gap-1 rounded-full bg-[linear-gradient(90deg,#1683D8_0%,#2FA9A8_50%,#4DBB5A_100%)] px-3.5 py-2 text-xs font-semibold text-white transition-transform duration-300 hover:brightness-110 hover:scale-[1.02]"
+          className="w-full inline-flex items-center justify-center gap-1.5 rounded-full bg-[linear-gradient(90deg,#1683D8_0%,#2FA9A8_50%,#4DBB5A_100%)] px-4 py-2.5 text-xs font-semibold text-white transition-transform duration-300 hover:brightness-110 hover:scale-[1.02]"
         >
           Enroll Now
           <Plus size={13} />
@@ -404,8 +393,28 @@ function CourseCard({ title, lessons, duration, rating, reviews, badge, badgeCla
     </Reveal>
   );
 }
+// ─── Course image map by title keyword ───────────────────────────────────────
+const COURSE_IMAGE_MAP = [
+  { key: "python",    url: "https://i.pinimg.com/736x/f9/0a/cb/f90acb224dfbb653ad778cee91217b78.jpg" },
+  { key: "react",     url: "https://i.pinimg.com/1200x/9f/4f/cf/9f4fcf5aa7766a03f042b1e15489b39f.jpg" },
+  { key: "node",      url: "https://i.pinimg.com/1200x/9f/4f/cf/9f4fcf5aa7766a03f042b1e15489b39f.jpg" },
+  { key: "laravel",   url: "https://i.pinimg.com/1200x/9f/4f/cf/9f4fcf5aa7766a03f042b1e15489b39f.jpg" },
+  { key: "web dev",   url: "https://i.pinimg.com/1200x/9f/4f/cf/9f4fcf5aa7766a03f042b1e15489b39f.jpg" },
+  { key: "cloud",     url: "https://i.pinimg.com/736x/6d/3b/2d/6d3b2d761f653056f9866cc1fa518f6e.jpg" },
+  { key: "aws",       url: "https://i.pinimg.com/736x/6d/3b/2d/6d3b2d761f653056f9866cc1fa518f6e.jpg" },
+  { key: "cyber",     url: "https://i.pinimg.com/1200x/e6/ec/86/e6ec86d140147e8dc72514dbd2af546f.jpg" },
+  { key: "security",  url: "https://i.pinimg.com/1200x/e6/ec/86/e6ec86d140147e8dc72514dbd2af546f.jpg" },
+];
+function getCourseImage(title = "") {
+  const t = title.toLowerCase();
+  const match = COURSE_IMAGE_MAP.find((m) => t.includes(m.key));
+  return match ? match.url : "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=600&h=400";
+}
+
 
 function FeaturedCourses({ onOpenModal }) {
+  const displayedCourses = featuredCourses.slice(0, 4);
+
   return (
     <section id="courses" className="bg-white py-20 dark:bg-app-dark-gradient sm:py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -418,12 +427,24 @@ function FeaturedCourses({ onOpenModal }) {
               Featured Courses
             </h2>
           </div>
-
         </Reveal>
 
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {COURSES.map((c, i) => (
-            <CourseCard key={c.title} {...c} index={i} onOpenModal={onOpenModal} />
+        {/* FIX: gap-6 for more breathing room between course cards */}
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {displayedCourses.map((course, i) => (
+            <CourseCard
+              key={course.slug}
+              title={course.title}
+              lessons={course.sessions}
+              duration={course.duration}
+              rating={4.8}
+              reviews={null}
+              badge={course.badge}
+              badgeClass={BADGE_COLOR_MAP[course.badge] || DEFAULT_BADGE_COLOR}
+              image={getCourseImage(course.title)}
+              index={i}
+              onOpenModal={onOpenModal}
+            />
           ))}
         </div>
       </div>
@@ -432,52 +453,118 @@ function FeaturedCourses({ onOpenModal }) {
 }
 
 // ---------------------------------------------------------------
-// Guaranteed Internship — Dedicated Section
+// Internship Section
 // ---------------------------------------------------------------
 function InternshipSection({ onOpenModal }) {
+  const { isDark } = useThemeContext();
+
   return (
-    <section className="relative bg-gradient-to-br from-indigo-600 to-teal-600 py-20 sm:py-24">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-20">
+    <section
+      className={`relative py-20 sm:py-24 ${
+        isDark
+          ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900'
+          : 'bg-gradient-to-br from-indigo-600 to-teal-600'
+      }`}
+    >
+      <div
+        className={`pointer-events-none absolute inset-0 overflow-hidden ${
+          isDark ? 'opacity-10' : 'opacity-20'
+        }`}
+      >
         <div className="absolute -top-20 right-1/4 h-80 w-80 rounded-full bg-white blur-[80px]" />
-        <div className="absolute bottom-0 left-10 h-64 w-64 rounded-full bg-teal-300 blur-[70px]" />
+        <div
+          className={`absolute bottom-0 left-10 h-64 w-64 rounded-full blur-[70px] ${
+            isDark ? 'bg-primary-500' : 'bg-teal-300'
+          }`}
+        />
       </div>
 
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 usk-mono text-[11px] font-semibold uppercase tracking-widest text-white border border-white/20">
+            <span
+              className={`inline-flex items-center gap-2 rounded-full px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-widest border ${
+                isDark
+                  ? 'border-white/10 bg-white/5 text-white/80'
+                  : 'border-white/20 bg-white/15 text-white'
+              }`}
+            >
               <ShieldCheck size={13} /> Our Core Promise
             </span>
-            <h2 className="mt-4 usk-display text-3xl font-bold text-white sm:text-4xl leading-tight">
-              Every learner gets a real, paid internship. Guaranteed.
+            <h2
+              className={`mt-4 font-display text-3xl font-bold sm:text-4xl leading-tight ${
+                isDark ? 'text-white' : 'text-white'
+              }`}
+            >
+              Every learner gets a real internship. Guaranteed.
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-white/80 max-w-md">
+            <p
+              className={`mt-4 text-sm leading-relaxed max-w-md ${
+                isDark ? 'text-slate-300' : 'text-white/80'
+              }`}
+            >
               We don't just hand you a certificate. Before you graduate, we place you in a paid internship with one of our hiring partners — hands-on experience that shows on your resume.
             </p>
             <button
               type="button"
               onClick={() => onOpenModal(null)}
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-indigo-700 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              className={`mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+                isDark
+                  ? 'bg-brand text-white hover:bg-brand/90'
+                  : 'bg-white text-indigo-700 hover:bg-indigo-50'
+              }`}
             >
               Claim Your Seat
               <ArrowRight size={15} />
             </button>
           </Reveal>
 
+          {/* FIX: gap-4 consistent card spacing */}
           <Reveal delay={150} className="grid grid-cols-1 gap-4">
             {[
-              { icon: CheckCircle2, title: 'Paid, not unpaid', desc: 'All internships through our network are compensated — your time has value.' },
-              { icon: Briefcase, title: 'Real companies, real work', desc: 'Partner companies give you actual projects, not busy work.' },
-              { icon: Rocket, title: 'Starts before you graduate', desc: 'Begin your internship while still completing your track.' },
-              { icon: Users, title: 'Dedicated placement team', desc: 'Our placement team prepares your resume, mock interviews, and referrals.' },
+              {
+                icon: Award,
+                title: 'Corporate Level Training',
+                desc: 'Get guaranteed internship and 100% placement assistance with our industry-aligned training programs.'
+              },
+              {
+                icon: Briefcase,
+                title: 'Real companies, real work',
+                desc: 'Partner companies give you actual projects, not busy work.'
+              },
+              {
+                icon: Rocket,
+                title: 'Starts before you graduate',
+                desc: 'Begin your internship while still completing your track.'
+              },
+              {
+                icon: Users,
+                title: 'Dedicated placement team',
+                desc: 'Our placement team prepares your resume, mock interviews, and referrals.'
+              },
             ].map((item, i) => (
-              <div key={item.title} className="flex items-start gap-4 rounded-2xl bg-white/10 border border-white/20 p-4 backdrop-blur-sm">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/20 text-white">
+              <div
+                key={item.title}
+                className={`flex items-start gap-4 rounded-2xl border p-4 backdrop-blur-sm ${
+                  isDark
+                    ? 'border-white/10 bg-white/5'
+                    : 'border-white/20 bg-white/10'
+                }`}
+              >
+                <span
+                  className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${
+                    isDark ? 'bg-white/10 text-white' : 'bg-white/20 text-white'
+                  }`}
+                >
                   <item.icon size={17} />
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-white">{item.title}</p>
-                  <p className="mt-0.5 text-xs leading-relaxed text-white/70">{item.desc}</p>
+                  <p className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-white'}`}>
+                    {item.title}
+                  </p>
+                  <p className={`mt-0.5 text-xs leading-relaxed ${isDark ? 'text-slate-300' : 'text-white/70'}`}>
+                    {item.desc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -522,7 +609,7 @@ function WhyChooseUs() {
     >
       <div className="relative mx-auto max-w-6xl px-6">
         <Reveal className="text-center">
-          <p className="usk-mono text-xs uppercase tracking-widest font-semibold text-orange-500 dark:text-orange-400">
+          <p className="usk-mono text-xs uppercase tracking-widest font-semibold text-brand dark:text-brand-light">
             Why choose Kini Edx Hub
           </p>
           <h2 className="mt-2 usk-display text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
@@ -533,18 +620,20 @@ function WhyChooseUs() {
           </p>
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {/* FIX: gap-6 for better card spacing; icon tint corrected to use brand color */}
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map((f, i) => (
             <Reveal
               key={f.title}
               delay={i * 80}
-              className="rounded-2xl border border-slate-200/80 bg-white/95 p-5 shadow-sm transition-all duration-300 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03]"
+              className="rounded-2xl border border-slate-200/80 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03]"
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-orange-500 dark:bg-orange-500/10 dark:text-orange-400">
-                <f.icon size={18} />
+              {/* FIX: Icon background uses brand color consistently in both light and dark */}
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand/10 text-brand dark:bg-brand/20 dark:text-brand-light">
+                <f.icon size={20} />
               </span>
               <h3 className="mt-4 usk-display text-sm font-semibold text-slate-900 dark:text-white">{f.title}</h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{f.desc}</p>
+              <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{f.desc}</p>
             </Reveal>
           ))}
         </div>
@@ -554,14 +643,14 @@ function WhyChooseUs() {
 }
 
 // ---------------------------------------------------------------
-// Founder / Instructor Section
+// Instructor Section
 // ---------------------------------------------------------------
 const INSTRUCTORS = [
   {
-    name: 'Arun ',
+    name: 'Srinivas',
     role: 'Lead Mentor',
     bio: '10+ years in product and tech. Previously at major startups. Teaches practical skills, not theory.',
-    initials: 'AK',
+    initials: 'SS',
     color: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300',
   },
   {
@@ -572,10 +661,10 @@ const INSTRUCTORS = [
     color: 'bg-pink-100 text-pink-700 dark:bg-pink-500/20 dark:text-pink-300',
   },
   {
-    name: 'Rahul Mehta',
+    name: 'Poorna Sai',
     role: 'Full-Stack Engineering',
     bio: 'Built and shipped products used by thousands. Passionate about teaching clean, production-ready code.',
-    initials: 'RM',
+    initials: 'PS',
     color: 'bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-300',
   },
 ];
@@ -596,6 +685,7 @@ function InstructorsSection() {
           </p>
         </Reveal>
 
+        {/* FIX: gap-6 for consistent card spacing */}
         <div className="mt-10 grid gap-6 sm:grid-cols-3">
           {INSTRUCTORS.map((ins, i) => (
             <Reveal
@@ -607,7 +697,7 @@ function InstructorsSection() {
                 {ins.initials}
               </span>
               <h3 className="mt-4 usk-display text-sm font-semibold text-slate-900 dark:text-white">{ins.name}</h3>
-              <p className="usk-mono text-[11px] text-indigo-600 dark:text-indigo-400 mt-0.5">{ins.role}</p>
+              <p className="usk-mono text-[11px] text-indigo-600 dark:text-indigo-400 mt-1">{ins.role}</p>
               <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{ins.bio}</p>
             </Reveal>
           ))}
@@ -618,26 +708,26 @@ function InstructorsSection() {
 }
 
 // ---------------------------------------------------------------
-// Testimonials (early cohort, honest framing)
+// Testimonials
 // ---------------------------------------------------------------
 const QUOTES = [
   {
-    name: 'Priya ',
+    name: 'Priya',
     role: 'UX Designer — Batch 1 preview student',
     text: 'The mentor feedback loop is what made it stick. I shipped a real portfolio piece in week 3, not week 12.',
     initials: 'PN',
   },
   {
-    name: 'Lahari lakshmi',
+    name: 'Lahari Lakshmi',
     role: 'Full-Stack Developer — Beta cohort',
     text: 'I compared four platforms before this one. This was the only one that felt built for finishing, not just starting.',
-    initials: 'DO',
+    initials: 'LL',
   },
   {
-    name: 'M.Narayana',
+    name: 'M. Narayana',
     role: 'Marketing Lead — Early access',
     text: 'The live sessions mean you actually stay on track. I finished the whole track in 6 weeks.',
-    initials: 'ML',
+    initials: 'MN',
   },
 ];
 
@@ -654,26 +744,28 @@ function Testimonials() {
           </h2>
         </Reveal>
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+        {/* FIX: gap-6 for consistent spacing */}
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {QUOTES.map((q, i) => (
             <Reveal
               key={q.name}
               delay={i * 80}
-              className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-white/[0.03]"
+              className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.03]"
             >
-              <div className="flex gap-0.5 text-orange-500">
+              {/* FIX: Stars now render as amber/yellow, matching brand star in CourseCard */}
+              <div className="flex gap-0.5 text-amber-400">
                 {Array.from({ length: 5 }).map((_, idx) => (
-                  <Star key={idx} size={13} className="fill-orange-500" />
+                  <Star key={idx} size={13} className="fill-current" />
                 ))}
               </div>
               <p className="mt-3 text-xs leading-relaxed text-slate-600 dark:text-slate-400">"{q.text}"</p>
-              <div className="mt-4 flex items-center gap-2.5">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-50 usk-mono text-[11px] font-medium text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300">
+              <div className="mt-5 flex items-center gap-3">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50 usk-mono text-[11px] font-medium text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300 shrink-0">
                   {q.initials}
                 </span>
                 <div>
                   <p className="text-xs font-semibold text-slate-900 dark:text-white">{q.name}</p>
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500">{q.role}</p>
+                  <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">{q.role}</p>
                 </div>
               </div>
             </Reveal>
@@ -685,7 +777,7 @@ function Testimonials() {
 }
 
 // ---------------------------------------------------------------
-// FAQ Section
+// FAQ
 // ---------------------------------------------------------------
 const FAQS = [
   {
@@ -725,24 +817,27 @@ function FAQ() {
           </h2>
         </Reveal>
 
-        <div className="mt-8 divide-y divide-slate-200/80 dark:divide-white/10">
+        {/* FIX: Reveal only wraps the question button, not the whole item + answer, preventing phantom height */}
+        <div className="mt-10 divide-y divide-slate-200/80 dark:divide-white/10">
           {FAQS.map((faq, i) => (
-            <Reveal key={faq.q} delay={i * 50}>
-              <button
-                type="button"
-                className="flex w-full items-center justify-between gap-4 py-4 text-left"
-                onClick={() => setOpen(open === i ? null : i)}
-              >
-                <span className="text-sm font-semibold text-slate-900 dark:text-white">{faq.q}</span>
-                {open === i
-                  ? <ChevronUp size={16} className="shrink-0 text-indigo-600 dark:text-indigo-400" />
-                  : <ChevronDown size={16} className="shrink-0 text-slate-400 dark:text-slate-500" />
-                }
-              </button>
+            <div key={faq.q}>
+              <Reveal delay={i * 50}>
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                  onClick={() => setOpen(open === i ? null : i)}
+                >
+                  <span className="text-sm font-semibold text-slate-900 dark:text-white">{faq.q}</span>
+                  {open === i
+                    ? <ChevronUp size={16} className="shrink-0 text-indigo-600 dark:text-indigo-400" />
+                    : <ChevronDown size={16} className="shrink-0 text-slate-400 dark:text-slate-500" />
+                  }
+                </button>
+              </Reveal>
               {open === i && (
-                <p className="pb-4 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{faq.a}</p>
+                <p className="pb-5 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{faq.a}</p>
               )}
-            </Reveal>
+            </div>
           ))}
         </div>
       </div>
@@ -751,62 +846,68 @@ function FAQ() {
 }
 
 // ---------------------------------------------------------------
-// Final CTA with batch urgency
+// Final CTA
 // ---------------------------------------------------------------
 function FinalCTA({ onOpenModal }) {
   return (
     <section className="relative bg-gradient-to-t from-[#BCEBFA]/30 to-white py-20 dark:bg-app-dark-gradient sm:py-24">
-      <Reveal className="relative mx-auto max-w-lg px-6 text-center">
-        {/* Urgency banner */}
-        <span className="inline-flex items-center gap-2 rounded-full bg-orange-50 border border-orange-200 px-4 py-1.5 usk-mono text-[11px] font-semibold text-orange-600 dark:bg-orange-500/10 dark:border-orange-500/20 dark:text-orange-400">
-          <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
-        New Batch  starts soon — seats are limited
-        </span>
-
-        <h2 className="mt-5 usk-display text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
-          Your next skill is{' '}
-          <span className="bg-gradient-to-r from-indigo-600 to-teal-700 bg-clip-text text-transparent dark:from-indigo-400 dark:to-teal-300">
-            one course away.
+      {/* FIX: section is always full-height; only inner content elements reveal individually */}
+      <div className="relative mx-auto max-w-lg px-6 text-center">
+        <Reveal>
+          <span className="inline-flex items-center gap-2 rounded-full bg-brand/10 border border-brand/20 px-4 py-1.5 usk-mono text-[11px] font-semibold text-brand dark:bg-brand/20 dark:border-brand/30 dark:text-brand-light">
+            <span className="h-2 w-2 rounded-full bg-brand animate-pulse" />
+            New Batch starts soon — seats are limited
           </span>
-        </h2>
-        <p className="mx-auto mt-3 max-w-sm text-xs leading-relaxed text-slate-600 dark:text-slate-400">
-          Join our founding batch and build something real from day one. Guaranteed internship placement included.
-        </p>
-        <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <button
-            type="button"
-            onClick={() => onOpenModal(null)}
-            className="group inline-flex items-center gap-2 rounded-full bg-[linear-gradient(90deg,#1683D8_0%,#2FA9A8_50%,#4DBB5A_100%)] px-6 py-3 text-xs font-semibold text-white shadow-lg transition-transform duration-300 hover:brightness-110 hover:scale-105"
-          >
-            Apply for New Batch
-            <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
-          </button>
-          <a
-            href="#courses"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-xs font-semibold text-slate-900 transition-colors duration-300 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
-          >
-            Browse Courses
-          </a>
-        </div>
+        </Reveal>
 
-        {/* WhatsApp CTA */}
-        <p className="mt-6 text-xs text-slate-500 dark:text-slate-400">
-          Have questions?{' '}
-          <a
-            href="https://wa.me/919000198239" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
-          >
-            <MessageCircle size={13} />
-            Chat with us on WhatsApp
-          </a>
-        </p>
-      </Reveal>
+        <Reveal delay={80}>
+          <h2 className="mt-6 usk-display text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
+            Your next skill is{' '}
+            <span className="bg-gradient-to-r from-indigo-600 to-teal-700 bg-clip-text text-transparent dark:from-indigo-400 dark:to-teal-300">
+              one course away.
+            </span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-sm text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+            Join our founding batch and build something real from day one. Guaranteed internship placement included.
+          </p>
+        </Reveal>
+
+        <Reveal delay={160}>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <button
+              type="button"
+              onClick={() => onOpenModal(null)}
+              className="group inline-flex items-center gap-2 rounded-full bg-[linear-gradient(90deg,#1683D8_0%,#2FA9A8_50%,#4DBB5A_100%)] px-6 py-3 text-xs font-semibold text-white shadow-lg transition-transform duration-300 hover:brightness-110 hover:scale-105"
+            >
+              Apply for New Batch
+              <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
+            </button>
+            <a
+              href="#courses"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-xs font-semibold text-slate-900 transition-colors duration-300 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+            >
+              Browse Courses
+            </a>
+          </div>
+
+          <p className="mt-6 text-xs text-slate-500 dark:text-slate-400">
+            Have questions?{' '}
+            <a
+              href="https://wa.me/919000198239" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
+            >
+              <MessageCircle size={13} />
+              Chat with us on WhatsApp
+            </a>
+          </p>
+        </Reveal>
+      </div>
     </section>
   );
 }
 
 // ---------------------------------------------------------------
-// Root — sticky navbar fix applied here
+// Root Component
 // ---------------------------------------------------------------
 export default function UpskillCourseProgram() {
   const [modalCourse, setModalCourse] = useState(null);
@@ -830,6 +931,30 @@ export default function UpskillCourseProgram() {
         .usk-display { font-family: 'Sora', ui-sans-serif, system-ui, sans-serif; }
         .usk-mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
 
+        /* ─── Brand colour variables ─── */
+        :root {
+          --color-brand: #1683D8;
+          --color-brand-light: #4DBB5A;
+        }
+        .dark {
+          --color-brand: #4DBB5A;
+          --color-brand-light: #1683D8;
+        }
+        .bg-brand { background-color: var(--color-brand); }
+        .text-brand { color: var(--color-brand); }
+        .border-brand { border-color: var(--color-brand); }
+        .bg-brand\\/10 { background-color: color-mix(in srgb, var(--color-brand) 10%, transparent); }
+        .bg-brand\\/20 { background-color: color-mix(in srgb, var(--color-brand) 20%, transparent); }
+        .text-brand-light { color: var(--color-brand-light); }
+        .dark\\:text-brand-light { color: var(--color-brand-light); }
+        .dark\\:bg-brand\\/20 { background-color: color-mix(in srgb, var(--color-brand) 20%, transparent); }
+        .dark\\:border-brand\\/30 { border-color: color-mix(in srgb, var(--color-brand) 30%, transparent); }
+
+        /* FIX: Enroll Now button always full gradient, no half-blue/half-green split */
+        .enroll-btn {
+          background: linear-gradient(90deg, #1683D8 0%, #2FA9A8 50%, #4DBB5A 100%);
+        }
+
         @keyframes usk-float-kf {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-7px); }
@@ -842,7 +967,6 @@ export default function UpskillCourseProgram() {
         }
         .usk-float-slow { animation: usk-float-kf-slow 8s ease-in-out infinite 1s; }
 
-        /* Sticky navbar */
         .sticky-nav-wrapper {
           position: sticky;
           top: 0;
@@ -865,17 +989,13 @@ export default function UpskillCourseProgram() {
         }
       `}</style>
 
-      {/* Sticky Navbar — must be OUTSIDE <main> and root must NOT have overflow-hidden */}
       <div className="sticky-nav-wrapper">
         <Navbar />
       </div>
 
-      {/* FIX: overflow-x-hidden moved here so it doesn't break sticky navbar above */}
       <main className="overflow-x-hidden">
         <Hero onOpenModal={handleOpenModal} />
-       
         <CareerRoadmapGenerator />
-        
         <FeaturedCourses onOpenModal={handleOpenModal} />
         <InternshipSection onOpenModal={handleOpenModal} />
         <WhyChooseUs />

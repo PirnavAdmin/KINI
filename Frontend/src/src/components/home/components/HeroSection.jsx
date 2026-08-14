@@ -21,7 +21,7 @@ const floatingCards = [
   },
   {
     icon: Users,
-    label: "Placement Support",
+    label: "Placement Assistance",
     value: "Until hired",
     position: "right-8 top-48",
     delay: 4,
@@ -218,7 +218,7 @@ export default function HeroSection({ onOpenEnquiry }) {
             className="mx-auto mt-6 max-w-[600px] text-body-lg text-text-secondary"
           >
             Live training, 1:1 mentorship from industry experts,
-            and placement support that doesn't stop until you're hired.
+            and placement assistance that doesn't stop until you're hired.
           </motion.p>
 
           {/* CTA */}
