@@ -14,22 +14,22 @@ const floatingStats = [
   {
     key: "rating",
     icon: Star,
-    label: "Avg Rating",
-    display: "4.8★",   // shown as raw string — no toLocaleString needed
+    label: "at your own pace",
+    display: " Live Classes",   // shown as raw string — no toLocaleString needed
     isRaw: true,
   },
   {
     key: "students",
     icon: Users,
-    label: "Students Trained",
-    display: "10,000+",
+    label: "Learn from experienced",
+    display: "Expert",
     isRaw: true,
   },
   {
     key: "partners",
     icon: Briefcase,
-    label: "Hiring Partners",
-    display: "50+",
+    label: " To professional world",
+    display: "Career Ready",
     isRaw: true,
   },
 ];
@@ -61,7 +61,7 @@ export default function Hero() {
         - gap tightened on mobile
       */}
       <div className="relative mx-auto grid w-full max-w-[1580px] grid-cols-1 items-center
-        gap-8 px-5 py-10
+        gap-8 px-5 pt-10 pb-24
         sm:px-8 sm:py-12
         lg:min-h-[calc(100svh-72px)] lg:grid-cols-2 lg:gap-6 lg:px-12 lg:py-5
         xl:px-16">
@@ -157,7 +157,7 @@ export default function Hero() {
               loading="eager"
               fetchPriority="high"
               decoding="async"
-              className="rounded-full object-cover object-top shadow-[0_40px_80px_rgba(0,0,0,.15)] h-[280px] w-[280px] sm:h-[340px] sm:w-[340px] lg:h-[400px] lg:w-[400px] xl:h-[460px] xl:w-[460px]"
+              className="rounded-full object-cover object-top shadow-[0_40px_80px_rgba(0,0,0,.15)] h-[min(80vw,300px)] w-[min(80vw,300px)] sm:h-[340px] sm:w-[340px] lg:h-[400px] lg:w-[400px] xl:h-[460px] xl:w-[460px]"
             />
           </motion.div>
 
@@ -172,11 +172,11 @@ export default function Hero() {
             */
             const positionClasses = [
               // Rating — top left
-              "top-4 left-0 sm:top-8 sm:left-2 lg:top-12 lg:-left-4",
+              "top-2 left-0 sm:top-8 sm:left-2 lg:top-12 lg:-left-4",
               // Students — top right
-              "top-4 right-0 sm:top-8 sm:right-2 lg:top-20 lg:-right-4",
-              // Partners — bottom left
-              "bottom-4 left-0 sm:bottom-8 sm:left-2 lg:bottom-16 lg:left-2",
+              "top-2 right-0 sm:top-8 sm:right-2 lg:top-20 lg:-right-4",
+              // Partners — below image on mobile, bottom left on sm+
+              "-bottom-4 left-1/2 -translate-x-1/2 sm:bottom-8 sm:left-2 sm:translate-x-0 lg:bottom-16 lg:left-2",
             ][i];
 
             const floatOffset = i % 2 === 0 ? -6 : 6;
@@ -189,25 +189,28 @@ export default function Hero() {
                 className={`absolute z-20 ${positionClasses}`}
               >
                 <div
-                  className={`flex items-center gap-2 rounded-2xl p-2.5 shadow-xl backdrop-blur-xl
+                  className={`flex items-center gap-1.5 rounded-2xl p-2 shadow-lg backdrop-blur-xl
                     transition-transform hover:scale-105
+                    sm:gap-2 sm:p-2.5 sm:shadow-xl
                     lg:rounded-3xl lg:p-3 lg:gap-3
                     ${isDark ? "bg-ink-900/85" : "bg-white/90"}`}
                 >
                   <span
-                    className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full
+                    className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full
+                      sm:h-8 sm:w-8
                       lg:h-10 lg:w-10
                       ${isDark ? "bg-primary-500/15 text-primary-300" : "bg-primary-50 text-primary-600"}`}
                   >
-                    <Icon className="h-4 w-4" aria-hidden="true" />
+                    <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
                   </span>
                   <span>
                     {/*
                       FONT SIZE FIX on badges:
-                      - Mobile: text-sm / text-xs
+                      - Mobile: text-xs / text-[10px]
+                      - sm+: text-sm / text-xs
                       - lg+: text-lg / text-sm
                     */}
-                    <span className={`block text-sm font-bold leading-none lg:text-lg
+                    <span className={`block text-xs font-bold leading-none sm:text-sm lg:text-lg
                       ${isDark ? "text-white" : "text-ink-900"}`}>
                       {stat.display}
                     </span>

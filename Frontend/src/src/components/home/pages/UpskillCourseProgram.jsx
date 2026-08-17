@@ -4,7 +4,7 @@ import {
   Star, Plus, BarChart3, Code2, Languages, Megaphone, DollarSign, Palette,
   PiggyBank, Users, Video, Gamepad2, Clock, BookOpen, ShieldCheck,
   Briefcase, Rocket, CheckCircle2, MessageCircle, ChevronDown, ChevronUp,
-  Coins, Award
+  Award
 } from 'lucide-react';
 import Navbar from '@shared/components/navbar';
 import Footer from '@shared/components/Footer';
@@ -142,7 +142,7 @@ function Hero({ onOpenModal }) {
 
         <div ref={cardRef} className="lg:col-span-5 relative pt-4 sm:pt-2">
           <div
-            className={`relative rounded-[2.5rem] border border-white/90 bg-white/40 p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.12)] backdrop-blur-xl transition-all duration-700 dark:border-white/10 dark:bg-white/5 sm:p-4 ${
+            className={`relative mx-auto max-w-md rounded-[2.5rem] border border-white/90 bg-white/40 p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.12)] backdrop-blur-xl transition-all duration-700 dark:border-white/10 dark:bg-white/5 sm:p-4 ${
               cardVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
             }`}
           >
@@ -150,7 +150,7 @@ function Hero({ onOpenModal }) {
               <img
                 src="https://i.pinimg.com/736x/7e/66/52/7e6652b5db5df7abd15a0438093627d2.jpg"
                 alt="Student learning on laptop"
-                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                className="h-full w-full object-cover object-[50%_75%] transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white">
@@ -162,10 +162,9 @@ function Hero({ onOpenModal }) {
                 </h3>
               </div>
             </div>
-          </div>
 
-          {/* Floating card – brand colour */}
-          <div
+            {/* Floating card – brand colour */}
+            <div
             className={`usk-float absolute -left-4 -top-3 flex items-center gap-3 rounded-2xl border border-white/90 bg-white/95 px-4 py-3 shadow-xl backdrop-blur-xl transition-all duration-500 hover:scale-105 dark:border-white/10 dark:bg-ink-900/90 sm:-left-6 sm:-top-5 ${
               cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
@@ -193,6 +192,7 @@ function Hero({ onOpenModal }) {
               <p className="usk-display text-sm font-bold text-slate-900 dark:text-white">Live</p>
               <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Expert-led cohorts</p>
             </div>
+          </div>
           </div>
         </div>
       </div>
@@ -580,9 +580,9 @@ function InternshipSection({ onOpenModal }) {
 // ---------------------------------------------------------------
 const FEATURES = [
   {
-    icon: Coins,
-    title: 'Affordable Pricing',
-    desc: "Quality education shouldn't break the bank. Flexible plans for everyone.",
+    icon: Code2,
+    title: 'Hands-On Learning',
+    desc: 'Learn by building, practicing, and applying skills to real scenarios.',
   },
   {
     icon: Users,

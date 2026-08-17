@@ -64,7 +64,6 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          {/* Desktop Register button with gradient */}
           <div className="hidden md:block">
             <Button
               type="button"
@@ -105,7 +104,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
       <div
         className={`overflow-hidden border-t transition-all duration-300 md:hidden ${
           isDark ? "border-white/10 bg-ink-950" : "border-ink-900/5 bg-porcelain"
@@ -122,7 +120,6 @@ export default function Navbar() {
               {item.label}
             </NavLink>
           ))}
-          {/* Mobile Register button with same gradient */}
           <Button
             type="button"
             onClick={openRegister}
@@ -140,7 +137,6 @@ export default function Navbar() {
         </Suspense>
       )}
 
-      {/* Global style to apply gradient to .register-btn */}
       <style>{`
         .register-btn {
           background: linear-gradient(90deg, #1E73BD 0%, #2890B8 35%, #35A89D 65%, #58B347 100%) !important;

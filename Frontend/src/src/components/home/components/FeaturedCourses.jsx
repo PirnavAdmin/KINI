@@ -45,7 +45,7 @@ function CourseCard({ course, isFlipped, onFlip, isDark }) {
                 className={`flex h-11 w-11 items-center justify-center rounded-2xl shadow-lg ring-4 ring-white/20 bg-gradient-to-br ${course.gradient} text-base font-bold text-white shadow-sm`}
                 aria-hidden="true"
               >
-                {course.title.charAt(0)}
+                {course.letter ?? course.title.charAt(0)}
               </div>
               <span className={`rounded-pill px-3 py-1 text-[11px] font-bold ${BADGE_TONE[course.badge] ?? DEFAULT_BADGE_TONE}`}>
                 {course.badge}

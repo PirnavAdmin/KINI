@@ -32,7 +32,7 @@ const tracks = [
     accent: "from-[#5CA347] via-[#7DD3B2] to-[#085FA7]",
     iconBg: "bg-[#5CA347]/10",
     iconColor: "text-[#5CA347]",
-    ctaLink: "/about",
+    ctaLink: "/upskill-program",
     ctaLabel: "Explore Offline Training",
   },
 ];

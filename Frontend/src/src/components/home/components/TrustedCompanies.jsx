@@ -19,7 +19,7 @@ const LOGOS = [
     url: "https://upload.wikimedia.org/wikipedia/commons/5/56/Deloitte.svg",
   },
   {
-    name: "MISTIMINDS",
+    name: "MISTI MINDS",
     url: "https://logo.clearbit.com/mistminds.com",
   },
   {

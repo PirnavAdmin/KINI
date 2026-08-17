@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const stats = [
-  { value: 20000, suffix: "+", label: "Students Trained" },
+  { value: 10000, suffix: "+", label: "Students Trained" },
   { value: 2200, suffix: "+", label: "Placed" },
-  { value: 95, suffix: "%", label: "Success Rate" },
-  { value: 50, suffix: "+", label: "Mentors" },
+  { value: 100, suffix: "%", label: "Expert Mentors" },
+  { value: 25, suffix: "+", label: "Skill Programs" },
 ];
 
 const containerVariants = {

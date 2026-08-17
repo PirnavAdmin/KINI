@@ -262,7 +262,7 @@ function Home() {
             onSubmitted={handleGetInTouchAdvance}
           />
 
-          {/* ─── Intro Video: floating card, bottom-left, autoplay with sound ── */}
+          {/* ─── Intro Video: floating card, bottom-left, autoplay muted ── */}
           <AnimatePresence>
             {showIntroVideo && (
               <motion.div

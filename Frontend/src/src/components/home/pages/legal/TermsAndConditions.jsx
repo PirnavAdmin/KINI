@@ -2,7 +2,7 @@ import {
   BookOpen, UserCheck, CreditCard, Users, Copyright,
   ShieldAlert, XOctagon, RefreshCw, Scale, Mail,
 } from 'lucide-react'
-import { LegalLayout, LegalList, LegalCallout, TODOPlaceholder } from './LegalLayout.jsx'
+import { LegalLayout, LegalList, LegalCallout } from './LegalLayout.jsx'
 import { useThemeContext } from '@shared/context/ThemeContext' // adjust path if needed
 
 const sections = [
@@ -133,12 +133,12 @@ const sections = [
   },
   {
     id: 'governing-law',
-    title: 'Governing Law',
+    title: ' Governing Law',
     icon: Scale,
     content: (
       <p>
-        These Terms and Conditions are governed by the laws of{' '}
-        <TODOPlaceholder className="text-brand-blue dark:text-primary-300" />
+        These Terms and Conditions are governed by the laws of Telangana,
+        India.
       </p>
     ),
   },

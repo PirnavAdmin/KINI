@@ -15,25 +15,20 @@ export default function VideoIntro({ onSkip, onEnded, variant = 'modal' }) {
   const videoRef = useRef(null)
   const [ended, setEnded] = useState(false)
 
-  // Floating video starts with audio on, played imperatively (rather than
-  // the `autoPlay` attribute) so a browser block surfaces as a catchable
-  // rejection instead of silently doing nothing. The element itself is only
-  // ever mounted once the Get In Touch modal closes/succeeds (see Home.jsx),
-  // so `preload="none"` plus this effect means the video is never fetched
-  // during the initial page load — only once it's actually shown. No manual
-  // teardown is needed on close: React unmounts the <video> node itself
-  // (Home.jsx stops rendering it), and browsers already abort the fetch and
-  // stop playback as soon as a media element leaves the document.
+  // Mounting with variant="floating" is itself the continuation of the Get
+  // In Touch close/submit click, so this counts as the same user gesture
+  // for the browser's unmuted-autoplay policy.
   useEffect(() => {
     if (variant !== 'floating') return
     const el = videoRef.current
     if (!el) return
 
     el.muted = false
+
     const playPromise = el.play()
     if (playPromise !== undefined) {
       playPromise.catch((error) => {
-        console.warn('Video autoplay with sound was blocked by the browser:', error)
+        console.warn("Video autoplay with sound was blocked by the browser:", error)
       })
     }
   }, [variant])
@@ -47,9 +42,7 @@ export default function VideoIntro({ onSkip, onEnded, variant = 'modal' }) {
     const el = videoRef.current
     if (!el) return
     el.currentTime = 0
-    el.play().catch((error) => {
-      console.warn('Video replay with sound was blocked by the browser:', error)
-    })
+    el.play()
     setEnded(false)
   }
 
@@ -59,7 +52,7 @@ export default function VideoIntro({ onSkip, onEnded, variant = 'modal' }) {
         <video
           ref={videoRef}
           src={INTRO_VIDEO_URL}
-          preload="none"
+          autoPlay
           playsInline
           onEnded={handleEnded}
           className="aspect-video w-full object-cover"

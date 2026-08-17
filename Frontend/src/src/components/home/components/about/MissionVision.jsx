@@ -30,7 +30,7 @@ const cards = [
     chip: 'bg-brand-green/10',
     bar: 'bg-gradient-to-r from-brand-green to-emerald-400',
     glow: 'hover:shadow-[0_24px_48px_-12px_rgba(5,150,105,0.24)]',
-    heading: 'Build the Next Generation of Technology Talent.',
+    heading: 'Build the Next Generation of Tech Talent.',
     copy: 'Our vision is to bridge the gap between education and industry by providing practical training, internships, career guidance, and placement assistance. We empower students to build strong technology skills and pursue successful careers in the IT industry.',
     tagline: 'Learn Skills. Gain Experience. Build Your Career.',
     image: VISION_IMAGE_URL,

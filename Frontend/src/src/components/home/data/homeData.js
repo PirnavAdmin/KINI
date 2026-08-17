@@ -2,8 +2,8 @@
 export const statData = [
   { value: 10000, suffix: "+", label: "Students Trained", color: "#085FA7" },
   { value: 2200, suffix: "+", label: "Placements", color: "#5CA347" },
-  { value: 95, suffix: "%", label: "Success Rate", color: "#085FA7" },
-  { value: 50, suffix: "+", label: "Hiring Partners", color: "#5CA347" },
+  { value: 50, suffix: "+", label: "Expert Mentors", color: "#085FA7" },
+  { value: 25, suffix: "+", label: "Skill Programs", color: "#5CA347" },
 ];
 
 export const trustedCompanies = [
@@ -63,23 +63,24 @@ export const featuredCourses = [
     ],
     salary: "₹7–18 LPA",
   },
-  // ========== 3. Cloud Computing ==========
+  // ========== 3. Full Stack Java ==========
   {
     slug: "cloud-computing",
-    title: "Cloud Computing — AWS, Azure & GCP",
-    badge: "New",
-    desc: "Learn cloud fundamentals and deployment across AWS, Azure, and Google Cloud Platform.",
-    duration: "14 Weeks",
-    sessions: "2 sessions/week",
+    title: "Full Stack Java",
+    letter: "J",
+    badge: "Popular",
+    desc: "Master full-stack Java development with Spring Boot, React, databases, REST APIs, and real-world application development.",
+    duration: "16 Weeks",
+    sessions: "3 sessions/week",
     category: "Cloud Computing",
     gradient: "from-orange-500 to-amber-500",
     image: "https://images.unsplash.com/photo-1695668548342-c0c1ad479aee?auto=format&fit=crop&q=80&w=800&h=600",
     outcomes: [
-      "Cloud fundamentals",
-      "AWS services & deployment",
-      "Azure basics",
-      "Google Cloud essentials",
-      "Architecture patterns",
+      "Spring Boot & REST APIs",
+      "React & modern frontend",
+      "SQL databases & JPA/Hibernate",
+      "Microservices architecture",
+      "Full-stack Java projects",
     ],
     salary: "₹10–25 LPA",
   },
