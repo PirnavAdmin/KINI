@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useThemeContext } from "@shared/context/ThemeContext";
 import { fadeUp } from "@shared/hooks/useScrollAnimation";
 import Badge from "./Badge";
 
@@ -16,14 +15,13 @@ export default function SectionHeader({
   align = "center",
   className = "",
 }) {
-  const { isDark } = useThemeContext();
   const alignClass = align === "center" ? "text-center mx-auto" : "text-left";
 
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       variants={fadeUp}
       className={`max-w-2xl ${alignClass} ${className}`}
     >
@@ -32,17 +30,9 @@ export default function SectionHeader({
           {eyebrow}
         </Badge>
       )}
-      <h2
-        className={`text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight ${
-          isDark ? "text-white" : "text-slate-900"
-        }`}
-      >
-        {heading}
-      </h2>
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground">{heading}</h2>
       {subheading && (
-        <p className={`mt-3 text-sm sm:text-base leading-relaxed ${isDark ? "text-slate-400" : "text-slate-500"}`}>
-          {subheading}
-        </p>
+        <p className="mt-3 text-sm sm:text-base leading-relaxed text-foreground-muted">{subheading}</p>
       )}
     </motion.div>
   );

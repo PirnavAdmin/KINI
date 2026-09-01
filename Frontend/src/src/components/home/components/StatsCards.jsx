@@ -83,14 +83,14 @@ export default function StatsCards() {
         <motion.div
           key={stat.label}
           variants={cardVariants}
-          className="relative border-b border-[#E5E7EB] px-4 py-6 text-center transition-all duration-300 hover:bg-gradient-to-b hover:from-[#085FA7]/[0.03] hover:to-transparent sm:border-b-0 sm:border-r last:border-r-0 group/card"
+          className="relative border-b border-[#E5E7EB] px-4 py-6 text-center transition-all duration-300 hover:bg-gradient-to-b hover:from-[#133B5D]/[0.03] hover:to-transparent sm:border-b-0 sm:border-r last:border-r-0 group/card"
         >
           {/* Hover glow */}
           <div className="absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover/card:opacity-100 pointer-events-none">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-[#085FA7]/5 blur-3xl rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-[#133B5D]/5 blur-3xl rounded-full" />
           </div>
 
-          <p className="relative bg-gradient-to-r from-[#085FA7] via-[#1A7ACA] to-[#5CA347] bg-clip-text text-3xl font-black text-transparent sm:text-4xl transition-transform duration-300 group-hover/card:scale-110">
+          <p className="relative bg-gradient-to-r from-[#133B5D] via-[#1A7ACA] to-[#F39924] bg-clip-text text-3xl font-black text-transparent sm:text-4xl transition-transform duration-300 group-hover/card:scale-110">
             {inView ? (
               <AnimatedCounter
                 end={stat.value}
@@ -101,7 +101,7 @@ export default function StatsCards() {
               <span>0{stat.suffix}</span>
             )}
           </p>
-          <p className="relative mt-2 text-sm font-semibold leading-snug text-[#64748B] transition-colors duration-300 group-hover/card:text-[#085FA7]">
+          <p className="relative mt-2 text-sm font-semibold leading-snug text-[#64748B] transition-colors duration-300 group-hover/card:text-[#133B5D]">
             {stat.label}
           </p>
         </motion.div>

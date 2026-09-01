@@ -113,7 +113,7 @@ export default function SuccessStats() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           className="text-center mb-12 sm:mb-16"
         >
           <span
@@ -152,7 +152,7 @@ export default function SuccessStats() {
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ delay: i * 0.1 }}
               whileHover={{ y: -4 }}
               className={`rounded-2xl p-5 sm:p-6 text-center border transition-all duration-300 ${
@@ -193,7 +193,7 @@ export default function SuccessStats() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             className="mt-10 sm:mt-14"
           >
             <div

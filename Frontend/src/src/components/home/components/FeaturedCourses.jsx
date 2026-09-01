@@ -209,7 +209,7 @@ export default function FeaturedCourses() {
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
+        viewport={{ once: false, margin: "-80px" }}
         className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
         key={search}
       >

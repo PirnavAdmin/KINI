@@ -139,7 +139,7 @@ const EnquiryWidget = ({ isOpen: controlledIsOpen, onClose: controlledOnClose })
             </button>
 
             {/* Left Panel */}
-            <div className="bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-600 p-8 flex flex-col justify-center">
+            <div className="bg-gradient-to-b from-primary-600 via-primary-800 to-secondary-600 p-8 flex flex-col justify-center">
               <h2 className="text-4xl font-bold text-white leading-tight">
                 Talk to our
                 <br />
@@ -197,7 +197,7 @@ const EnquiryWidget = ({ isOpen: controlledIsOpen, onClose: controlledOnClose })
                       border
                       border-slate-500
                       outline-none
-                      focus:border-cyan-400
+                      focus:border-secondary-400
                     "
                   />
                 </div>
@@ -221,7 +221,7 @@ const EnquiryWidget = ({ isOpen: controlledIsOpen, onClose: controlledOnClose })
                       border
                       border-slate-500
                       outline-none
-                      focus:border-cyan-400
+                      focus:border-secondary-400
                     "
                   />
                 </div>
@@ -245,7 +245,7 @@ const EnquiryWidget = ({ isOpen: controlledIsOpen, onClose: controlledOnClose })
                       border
                       border-slate-500
                       outline-none
-                      focus:border-cyan-400
+                      focus:border-secondary-400
                     "
                   />
                 </div>
@@ -267,7 +267,7 @@ const EnquiryWidget = ({ isOpen: controlledIsOpen, onClose: controlledOnClose })
                       border
                       border-slate-500
                       outline-none
-                      focus:border-cyan-400
+                      focus:border-secondary-400
                     "
                   >
                     <option className="text-black">Fresher</option>
@@ -294,7 +294,7 @@ const EnquiryWidget = ({ isOpen: controlledIsOpen, onClose: controlledOnClose })
                       border
                       border-slate-500
                       outline-none
-                      focus:border-cyan-400
+                      focus:border-secondary-400
                     "
                   >
                     <option className="text-black">Select City</option>
@@ -311,7 +311,7 @@ const EnquiryWidget = ({ isOpen: controlledIsOpen, onClose: controlledOnClose })
 
                 <span className="text-sm text-slate-300">
                   I agree to the{" "}
-                  <span className="text-cyan-400 cursor-pointer">
+                  <span className="text-secondary-400 cursor-pointer">
                     Terms and Conditions
                   </span>
                 </span>
@@ -324,10 +324,9 @@ const EnquiryWidget = ({ isOpen: controlledIsOpen, onClose: controlledOnClose })
                   mt-6
                   h-12
                   rounded-xl
-                  bg-gradient-to-r
-                  from-cyan-500
-                  to-blue-600
-                  text-white
+                  bg-secondary-500
+                  hover:bg-secondary-600
+                  text-primary-700
                   font-semibold
                   text-lg
                   hover:scale-[1.02]

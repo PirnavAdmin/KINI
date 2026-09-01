@@ -8,7 +8,12 @@ export function ThemeProvider({ children }) {
       return false;
     }
 
-    return window.localStorage.getItem("theme") === "dark";
+    const stored = window.localStorage.getItem("theme");
+    if (stored) {
+      return stored === "dark";
+    }
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
 
   useEffect(() => {

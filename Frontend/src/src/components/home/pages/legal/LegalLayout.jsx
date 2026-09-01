@@ -161,7 +161,7 @@ export function LegalLayout({ eyebrow, title, intro, sections }) {
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.05 }}
+            viewport={{ once: false, amount: 0.05 }}
             className="space-y-12"
           >
             {sections.map((section) => (

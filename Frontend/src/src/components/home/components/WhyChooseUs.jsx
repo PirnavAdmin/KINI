@@ -49,19 +49,13 @@ export default function WhyChooseUs() {
   const { isDark } = useThemeContext();
 
   return (
-    <Section
-      className={
-        isDark
-          ? "bg-app-dark-gradient"
-          : "bg-porcelain"
-      }
-    >
+    <Section style={{ background: isDark ? "#0B2237" : "#FFFFFF" }}>
       <SectionHeader
         eyebrow="WHY KINI EDX HUB"
         heading={
           <>
             Built for Skills.{" "}
-            <span className="bg-gradient-to-r from-[#0877B9] via-[#278F8D] to-[#58A94B] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-700 via-primary-400 to-secondary-500 bg-clip-text text-transparent">
               Designed for Careers.
             </span>
           </>
@@ -73,7 +67,7 @@ export default function WhyChooseUs() {
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: false, amount: 0.15 }}
         className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
         {benefits.map((benefit, index) => {
@@ -86,9 +80,9 @@ export default function WhyChooseUs() {
               className="group relative rounded-2xl border border-slate-200/70 dark:border-white/10 bg-white dark:bg-white/[0.04] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:hover:bg-white/[0.08]"
             >
               {/* Permanent top gradient border */}
-              <div className="absolute inset-x-0 top-0 h-0.5 rounded-t-2xl bg-gradient-to-r from-[#0877B9] via-[#278F8D] to-[#58A94B] opacity-100" />
+              <div className="absolute inset-x-0 top-0 h-0.5 rounded-t-2xl bg-gradient-to-r from-primary-700 via-primary-400 to-secondary-500 opacity-100" />
 
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-[#0877B9] via-[#278F8D] to-[#58A94B] text-white shadow-md">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-primary-700 via-primary-400 to-secondary-500 text-white shadow-md">
                 <Icon className="h-5 w-5" aria-hidden="true" />
               </div>
 

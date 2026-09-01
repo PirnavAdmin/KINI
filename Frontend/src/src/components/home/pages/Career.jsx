@@ -34,7 +34,7 @@ import Footer from "@shared/components/Footer";
 /*  Motion primitives                                                  */
 /* ------------------------------------------------------------------ */
 
-const VIEWPORT = { once: true, margin: "-80px" };
+const VIEWPORT = { once: false, margin: "-80px" };
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -51,12 +51,12 @@ const staggerContainer = {
 /* ------------------------------------------------------------------ */
 
 const CHIP_TONES = [
-  "from-blue-500 to-indigo-500",
-  "from-cyan-500 to-blue-500",
-  "from-violet-500 to-fuchsia-500",
-  "from-emerald-500 to-teal-500",
-  "from-amber-500 to-orange-500",
-  "from-rose-500 to-pink-500",
+  "from-primary-500 to-primary-700",
+  "from-secondary-400 to-secondary-600",
+  "from-primary-400 to-secondary-500",
+  "from-secondary-500 to-primary-600",
+  "from-primary-600 to-primary-800",
+  "from-secondary-600 to-secondary-800",
 ];
 
 function initialsOf(name) {
@@ -127,6 +127,7 @@ const SUPPORT_SERVICES = [
   { icon: Users2, title: "Mock Interviews", desc: "Unlimited practice rounds with real-time, actionable feedback." },
   { icon: Code2, title: "Technical Interviews", desc: "DSA, system design, and role-specific technical preparation." },
   { icon: MessageCircle, title: "HR Interviews", desc: "Behavioral rounds, salary conversations, and offer-stage confidence." },
+  { icon: Sparkles, title: "Soft Skills Training", desc: "Communication, presentation, and workplace etiquette coaching for interview and on-the-job readiness." },
   { icon: Handshake, title: "Job Referrals", desc: "Direct introductions into our hiring partner network." },
   { icon: IndianRupee, title: "Salary Negotiation", desc: "Real market benchmarks, so you never leave money on the table." },
   { icon: FileCheck, title: "Offer Support", desc: "Evaluating offers, comparing options, and closing with confidence." },
@@ -261,10 +262,10 @@ function SupportCard({ icon: Icon, title, desc }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="group relative rounded-3xl bg-gradient-to-br from-blue-500/40 via-cyan-400/40 to-blue-500/40 p-[1.5px] transition-transform duration-300 hover:-translate-y-1.5"
+      className="group relative rounded-3xl bg-gradient-to-br from-primary-500/40 via-secondary-400/40 to-primary-500/40 p-[1.5px] transition-transform duration-300 hover:-translate-y-1.5"
     >
       <div className="relative flex h-full flex-col rounded-[22px] bg-white p-6 dark:bg-slate-900">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 transition-colors duration-300 group-hover:bg-blue-600 group-hover:text-white dark:bg-blue-500/10 dark:text-blue-400">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary-50 text-primary-600 transition-colors duration-300 group-hover:bg-primary-600 group-hover:text-white dark:bg-primary-500/10 dark:text-primary-300">
           <Icon size={22} />
         </div>
         <h3 className="mt-5 text-base font-bold text-slate-900 dark:text-white">{title}</h3>
@@ -291,13 +292,13 @@ function MentorCard({ mentor }) {
         <div className="flex items-start justify-between gap-2">
           <div>
             <h3 className="text-base font-bold text-slate-900 dark:text-white">{mentor.name}</h3>
-            <p className="text-sm font-medium text-blue-600 dark:text-cyan-400">
+            <p className="text-sm font-medium text-primary-600 dark:text-primary-400">
               {mentor.role} · {mentor.company}
             </p>
           </div>
           <span
             aria-label={`${mentor.name} on LinkedIn`}
-            className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-colors group-hover:bg-blue-600 group-hover:text-white dark:bg-white/10 dark:text-slate-400"
+            className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-colors group-hover:bg-primary-600 group-hover:text-white dark:bg-white/10 dark:text-slate-400"
           >
             <ExternalLink size={14} />
           </span>
@@ -305,7 +306,7 @@ function MentorCard({ mentor }) {
         <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
           {mentor.experience} · {mentor.specialization}
         </p>
-        <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3 py-1 text-[11px] font-semibold text-blue-600 dark:bg-blue-500/10 dark:text-cyan-400">
+        <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1 text-[11px] font-semibold text-primary-600 dark:bg-primary-500/10 dark:text-primary-300">
           <Users2 size={12} /> {mentor.studentsMentored}
         </p>
       </div>
@@ -319,7 +320,7 @@ function StoryCard({ story }) {
       variants={fadeUp}
       className="flex flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-white/10 dark:bg-slate-900"
     >
-      <Quote className="h-6 w-6 text-blue-200 dark:text-blue-500/30" aria-hidden="true" />
+      <Quote className="h-6 w-6 text-primary-200 dark:text-primary-500/30" aria-hidden="true" />
       <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-300">&ldquo;{story.quote}&rdquo;</p>
 
       <div className="mt-5 flex items-center justify-between rounded-2xl bg-slate-50 p-3 dark:bg-white/5">
@@ -346,7 +347,7 @@ function StoryCard({ story }) {
           <div>
             <p className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-white">
               {story.name}
-              <ExternalLink size={12} className="text-blue-500" aria-label="Verified on LinkedIn" />
+              <ExternalLink size={12} className="text-primary-500" aria-label="Verified on LinkedIn" />
             </p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">
               {story.role} at {story.company}
@@ -356,7 +357,7 @@ function StoryCard({ story }) {
         <button
           type="button"
           aria-label={`Watch ${story.name}'s story`}
-          className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600 transition-colors hover:bg-blue-600 hover:text-white dark:bg-white/10 dark:text-cyan-400"
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-50 text-primary-600 transition-colors hover:bg-primary-600 hover:text-white dark:bg-white/10 dark:text-primary-300"
         >
           <PlayCircle size={16} />
         </button>
@@ -369,12 +370,12 @@ function StatCounter({ icon: Icon, value, decimals, suffix, label }) {
   const [ref, count] = useCountUp(value, { decimals });
   return (
     <div ref={ref} className="rounded-3xl border border-white/15 bg-white/10 p-6 text-center text-white backdrop-blur-xl">
-      <Icon className="mx-auto h-6 w-6 text-cyan-200" aria-hidden="true" />
+      <Icon className="mx-auto h-6 w-6 text-secondary-200" aria-hidden="true" />
       <p className="mt-3 text-3xl font-extrabold sm:text-4xl">
         {count}
         {suffix}
       </p>
-      <p className="mt-1 text-xs font-medium text-blue-100">{label}</p>
+      <p className="mt-1 text-xs font-medium text-primary-100">{label}</p>
     </div>
   );
 }
@@ -387,10 +388,10 @@ function Hero() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white">
+    <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-primary-950 to-slate-900 text-white">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-24 left-0 h-96 w-96 rounded-full bg-cyan-500/20 blur-[120px]" />
-        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-600/20 blur-[120px]" />
+        <div className="absolute -top-24 left-0 h-96 w-96 rounded-full bg-primary-500/20 blur-[120px]" />
+        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-secondary-600/20 blur-[120px]" />
       </div>
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 sm:py-16 lg:grid-cols-2 lg:gap-12 lg:py-20">
@@ -400,7 +401,7 @@ function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan-300 backdrop-blur-xl"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-secondary-300 backdrop-blur-xl"
           >
             <Sparkles size={14} /> Career Acceleration Program
           </motion.span>
@@ -412,7 +413,7 @@ function Hero() {
             className="mt-4 text-5xl font-extrabold leading-[1.05] sm:text-6xl lg:text-7xl"
           >
             Launch Your Tech Career
-            <span className="block bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-secondary-300 to-secondary-500 bg-clip-text text-transparent">
               With Confidence
             </span>
           </motion.h1>
@@ -498,15 +499,15 @@ function Hero() {
                 />
                 <defs>
                   <linearGradient id="journeyLine" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#22D3EE" />
-                    <stop offset="100%" stopColor="#3B82F6" />
+                    <stop offset="0%" stopColor="#5E82A8" />
+                    <stop offset="100%" stopColor="#F39924" />
                   </linearGradient>
                 </defs>
               </svg>
             </div>
 
             <div className="flex flex-col items-center gap-3">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/30">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-secondary-500 to-primary-600 text-white shadow-lg shadow-secondary-500/30">
                 <Code2 size={26} />
               </div>
               <p className="text-sm font-semibold text-white">Software Engineer</p>
@@ -547,7 +548,7 @@ function Hero() {
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               className="flex items-center gap-2.5 rounded-2xl border border-white/10 bg-slate-900/90 px-4 py-3 shadow-xl backdrop-blur-xl"
             >
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-500/15 text-blue-400">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-500/15 text-primary-400">
                 <FileCheck size={16} />
               </span>
               <div>
@@ -593,7 +594,7 @@ function CareerRoadmapSection() {
     <section id="career-roadmap" className="bg-white py-14 dark:bg-app-dark-gradient sm:py-16">
       <div className="mx-auto max-w-7xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">Your Path Forward</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary-600 dark:text-primary-400">Your Path Forward</p>
           <h2 className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">The Career Roadmap</h2>
           <p className="mx-auto mt-3 max-w-lg text-sm text-slate-500 dark:text-slate-400 sm:text-base">
             One connected path from your first line of code to your first offer letter.
@@ -614,7 +615,7 @@ function CareerRoadmapSection() {
               {index > 0 && (
                 <div className="relative mt-7 hidden h-0.5 w-8 flex-shrink-0 overflow-hidden bg-slate-200 dark:bg-white/10 lg:block xl:w-12">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-blue-600 to-cyan-500"
+                    className="h-full bg-gradient-to-r from-primary-600 to-secondary-500"
                     initial={{ scaleX: 0 }}
                     whileInView={{ scaleX: 1 }}
                     viewport={VIEWPORT}
@@ -624,7 +625,7 @@ function CareerRoadmapSection() {
                 </div>
               )}
               <motion.div variants={fadeUp} className="flex w-20 flex-shrink-0 flex-col items-center text-center sm:w-24 lg:w-20 xl:w-24">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-500/20">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-600 to-secondary-500 text-white shadow-lg shadow-primary-500/20">
                   <step.icon size={22} />
                 </div>
                 <p className="mt-2.5 text-xs font-bold text-slate-900 dark:text-white sm:text-sm">{step.label}</p>
@@ -646,7 +647,7 @@ function SupportSection() {
     <section className="bg-slate-50 py-14 dark:bg-slate-900/40 sm:py-16">
       <div className="mx-auto max-w-7xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">Placement Assistance</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary-600 dark:text-primary-400">Placement Assistance</p>
           <h2 className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">
             Everything You Need To Get Hired
           </h2>
@@ -677,7 +678,7 @@ function MentorsSection() {
     <section className="bg-white py-14 dark:bg-app-dark-gradient sm:py-16">
       <div className="mx-auto max-w-6xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">Your Guides</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary-600 dark:text-primary-400">Your Guides</p>
           <h2 className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">Meet Your Career Mentors</h2>
         </motion.div>
 
@@ -714,7 +715,7 @@ function PartnersSection() {
 
       <div className="mx-auto max-w-7xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">Hiring Partners</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary-600 dark:text-primary-400">Hiring Partners</p>
           <h2 className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">
             Companies Hiring Our Graduates
           </h2>
@@ -758,7 +759,7 @@ function StoriesSection() {
     <section className="bg-white py-14 dark:bg-app-dark-gradient sm:py-16">
       <div className="mx-auto max-w-7xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">Real Outcomes</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary-600 dark:text-primary-400">Real Outcomes</p>
           <h2 className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">Placement Success Stories</h2>
         </motion.div>
 
@@ -784,14 +785,14 @@ function StoriesSection() {
 
 function StatsSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-700 to-cyan-600 py-14 sm:py-16">
+    <section className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-800 to-secondary-600 py-14 sm:py-16">
       <div
         className="pointer-events-none absolute inset-0 opacity-20"
         style={{ backgroundImage: "radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px)", backgroundSize: "20px 20px" }}
       />
       <div className="relative mx-auto max-w-7xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center text-white">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-200">By The Numbers</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-secondary-200">By The Numbers</p>
           <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">Outcomes, Not Just Promises</h2>
         </motion.div>
 
@@ -822,12 +823,12 @@ function ProcessSection() {
     <section className="bg-white py-14 dark:bg-app-dark-gradient sm:py-16">
       <div className="mx-auto max-w-4xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">How It Works</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary-600 dark:text-primary-400">How It Works</p>
           <h2 className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">The Interview Process</h2>
         </motion.div>
 
         <div className="relative mt-10">
-          <div className="absolute left-6 top-0 h-full w-px bg-gradient-to-b from-blue-200 via-cyan-300 to-blue-200 dark:from-blue-500/20 dark:via-cyan-500/30 dark:to-blue-500/20 md:left-1/2 md:-translate-x-1/2" />
+          <div className="absolute left-6 top-0 h-full w-px bg-gradient-to-b from-primary-200 via-secondary-300 to-primary-200 dark:from-primary-500/20 dark:via-secondary-500/30 dark:to-primary-500/20 md:left-1/2 md:-translate-x-1/2" />
 
           <div className="space-y-6 md:space-y-0">
             {INTERVIEW_PROCESS.map((step, index) => {
@@ -841,7 +842,7 @@ function ProcessSection() {
                   viewport={VIEWPORT}
                   className="grid grid-cols-[auto_1fr] items-start gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-8 md:py-6"
                 >
-                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 text-white shadow-lg md:col-start-2 md:row-start-1">
+                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary-600 to-secondary-500 text-white shadow-lg md:col-start-2 md:row-start-1">
                     <step.icon size={18} />
                   </div>
                   <div
@@ -873,7 +874,7 @@ function FAQSection() {
     <section className="bg-slate-50 py-14 dark:bg-slate-900/40 sm:py-16">
       <div className="mx-auto max-w-3xl px-5">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={VIEWPORT} className="text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-cyan-400">FAQ</p>
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-primary-600 dark:text-primary-400">FAQ</p>
           <h2 className="mt-3 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">Questions, Answered</h2>
         </motion.div>
 
@@ -899,7 +900,7 @@ function FAQSection() {
                   <motion.span
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600 dark:bg-white/10 dark:text-cyan-400"
+                    className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary-50 text-primary-600 dark:bg-white/10 dark:text-primary-300"
                   >
                     <ChevronDown size={14} />
                   </motion.span>
@@ -934,7 +935,7 @@ function FinalCTASection() {
   return (
     <section
       id="final-cta"
-      className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-indigo-700 to-cyan-600 py-16 text-white sm:py-20"
+      className="relative overflow-hidden bg-gradient-to-br from-primary-600 via-primary-800 to-secondary-600 py-16 text-white sm:py-20"
     >
       <div className="pointer-events-none absolute -top-24 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-white/10 blur-[120px]" />
       <motion.div
@@ -945,14 +946,14 @@ function FinalCTASection() {
         className="relative mx-auto max-w-2xl px-5 text-center"
       >
         <h2 className="text-4xl font-extrabold sm:text-5xl">Your Dream Job Starts Here</h2>
-        <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-blue-100">
+        <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-primary-100">
           Talk to our placement team, get a personalized roadmap, and find out exactly what it takes to get you
           job-ready.
         </p>
         <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <a
             href="#"
-            className="group inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-4 text-sm font-bold text-blue-700 shadow-xl transition-transform duration-300 hover:scale-105"
+            className="group inline-flex items-center gap-2 rounded-2xl bg-white px-7 py-4 text-sm font-bold text-primary-700 shadow-xl transition-transform duration-300 hover:scale-105"
           >
             Book Free Career Consultation
             <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />

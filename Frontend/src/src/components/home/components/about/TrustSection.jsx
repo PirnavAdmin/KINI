@@ -31,7 +31,7 @@ function Stat({ value, label, description, index, isDark }) {
     <motion.div
       initial={{ opacity: 0, y: 28, scale: 0.94 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: '-40px' }}
+      viewport={{ once: false, margin: '-40px' }}
       transition={{ duration: 0.55, delay: index * 0.1, ease: EASE }}
       whileHover={{ y: -4, transition: { duration: 0.25, ease: EASE } }}
       className={`
@@ -52,24 +52,24 @@ function Stat({ value, label, description, index, isDark }) {
         aria-hidden="true"
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 0.4, delay: index * 0.1 + 0.3, ease: EASE }}
         className="mx-auto mb-2 block h-1 w-5 rounded-full"
         style={{
-          background: 'linear-gradient(90deg, #1F76BD 0%, #2D99AE 50%, #53B255 100%)',
+          background: 'linear-gradient(90deg, #133B5D 0%, #1F4A70 50%, #F39924 100%)',
         }}
       />
 
       <motion.p
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 0.45, delay: index * 0.1 + 0.18, ease: EASE }}
         className={`font-display text-2xl font-extrabold tracking-tight whitespace-nowrap sm:text-3xl ${
           isDark ? 'text-white' : 'text-slate-900'
         }`}
         style={{
-          backgroundImage: 'linear-gradient(135deg, #1F76BD 0%, #2D99AE 50%, #53B255 100%)',
+          backgroundImage: 'linear-gradient(135deg, #133B5D 0%, #1F4A70 50%, #F39924 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
@@ -101,7 +101,7 @@ function SkillPill({ skill, index, isDark }) {
     <motion.span
       initial={{ opacity: 0, scale: 0.8, y: 10 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       transition={{ duration: 0.4, delay: 0.15 + index * 0.06, ease: EASE }}
       whileHover={{ scale: 1.06, y: -2, transition: { duration: 0.18 } }}
       className={`
@@ -132,13 +132,13 @@ function GradientLine({ isDark }) {
     <motion.div
       initial={{ scaleX: 0, opacity: 0 }}
       whileInView={{ scaleX: 1, opacity: 1 }}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       transition={{ duration: 0.9, ease: EASE }}
       className="my-0 h-px origin-left"
       style={{
         background: isDark
-          ? 'linear-gradient(90deg, transparent 0%, rgba(45,153,174,0.4) 40%, rgba(83,178,85,0.4) 70%, transparent 100%)'
-          : 'linear-gradient(90deg, transparent 0%, #2D99AE55 40%, #53B25555 70%, transparent 100%)',
+          ? 'linear-gradient(90deg, transparent 0%, rgba(31,74,112,0.4) 40%, rgba(243,153,36,0.4) 70%, transparent 100%)'
+          : 'linear-gradient(90deg, transparent 0%, #1F4A7055 40%, #F3992455 70%, transparent 100%)',
       }}
     />
   )
@@ -150,11 +150,11 @@ export default function TrustSection() {
 
   return (
     <section
-      className="relative pb-28 pt-4"
+      className="relative pb-12 pt-4"
       style={{
         background: isDark
           ? 'linear-gradient(135deg, #0F172A 0%, #111827 50%, #0B1120 100%)'
-          : 'linear-gradient(135deg, #B5DBFF 0%, #C4EFF6 55%, #D8FBF5 100%)',
+          : 'linear-gradient(135deg, #EEF3F8 0%, #F7F5F1 55%, #FFF4E5 100%)',
       }}
     >
       {/* Top fade seam */}
@@ -173,9 +173,9 @@ export default function TrustSection() {
         <motion.p
           initial={{ opacity: 0, y: -8 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.5, ease: EASE }}
-          className={`pt-16 text-center text-[10px] font-bold uppercase tracking-[0.25em] ${
+          className={`pt-8 text-center text-[10px] font-bold uppercase tracking-[0.25em] ${
             isDark ? 'text-slate-500' : 'text-slate-400'
           }`}
         >
@@ -198,14 +198,14 @@ export default function TrustSection() {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="mt-10 text-center"
         >
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.45, ease: EASE }}
             className={`text-[10px] font-bold uppercase tracking-[0.25em] ${
               isDark ? 'text-slate-500' : 'text-slate-400'

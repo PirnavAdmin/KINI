@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Navbar from '@shared/components/navbar';
+import Footer from '@shared/components/Footer';
 
 const AIEngineeringImmersive = () => {
   const [activeTab, setActiveTab] = useState('module-1');
@@ -131,48 +133,49 @@ const AIEngineeringImmersive = () => {
   ];
 
   return (
-    <div className="bg-white text-gray-900 antialiased font-sans">
+    <div className="bg-background text-foreground antialiased font-sans">
+      <Navbar />
       {/* Hero Section */}
       <header className="pt-8 pb-8 px-4 md:px-8 max-w-7xl mx-auto relative overflow-hidden">
-        <div className="absolute top-0 right-0 -mr-32 -mt-32 w-[400px] h-[400px] bg-blue-100/20 rounded-full blur-3xl -z-10 hidden md:block"></div>
-        <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-[300px] h-[300px] bg-emerald-100/20 rounded-full blur-3xl -z-10 hidden md:block"></div>
+        <div className="absolute top-0 right-0 -mr-32 -mt-32 w-[400px] h-[400px] bg-primary-100/20 rounded-full blur-3xl -z-10 hidden md:block"></div>
+        <div className="absolute bottom-0 left-0 -ml-32 -mb-32 w-[300px] h-[300px] bg-secondary-100/20 rounded-full blur-3xl -z-10 hidden md:block"></div>
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           <div className="lg:col-span-7 flex flex-col items-start space-y-4 z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100/50">
-              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-              <span className="text-xs font-semibold text-gray-600 tracking-wider uppercase">AI Engineering Immersive</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 dark:bg-primary-500/10 border border-primary-100/50 dark:border-primary-500/20">
+              <span className="w-2 h-2 rounded-full bg-primary-600 animate-pulse"></span>
+              <span className="text-xs font-semibold text-foreground-secondary tracking-wider uppercase">AI Engineering Immersive</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              Master the Future of <span className="bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent">Intelligence</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+              Master the Future of <span className="bg-gradient-to-r from-primary-700 to-secondary-500 bg-clip-text text-transparent">Intelligence</span>
             </h1>
-            <p className="text-base sm:text-lg text-gray-600 max-w-2xl">
+            <p className="text-base sm:text-lg text-foreground-secondary max-w-2xl">
               A comprehensive 6-month journey from foundations to production-grade AI systems. Build real-world applications with guidance from industry leaders.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 pt-2 w-full sm:w-auto">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-full transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+              <button className="bg-secondary-500 hover:bg-secondary-600 text-primary-700 font-semibold px-6 py-3 rounded-full transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
                 Enroll Now <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </button>
-              <button className="bg-white border border-gray-200 hover:border-blue-300 text-gray-700 hover:bg-gray-50 font-medium px-6 py-3 rounded-full transition-all flex items-center justify-center gap-2">
+              <button className="bg-primary-700 border border-secondary-500 hover:bg-primary-600 text-secondary-500 font-semibold px-6 py-3 rounded-full transition-all flex items-center justify-center gap-2">
                 Download Syllabus <span className="material-symbols-outlined text-sm">download</span>
               </button>
             </div>
           </div>
           <div className="lg:col-span-5 mt-6 lg:mt-0 relative z-10">
-            <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border border-gray-200/50">
+            <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border border-border/50">
               <img 
                 className="w-full h-full object-cover" 
                 alt="AI engineering workspace with neural network hologram" 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwxh1xEwdef1m-w5cptf7R5U6qKXBi1NQbLqfxh_bxsbsIJ4HPk1vafeOH3pNshLqAvQErTlduYVM4HlZw6ZsFI8aEfNznkLUda6UmnnU0doF7jFzkZRCN5jOh6sFDo-c2c9lvXb16kwfcNsKhoRkKWOQHHrnSgN8v9xKZFs03c1KcphzRtCTrxrIkqqqKCxGwv9gTT3yKfq4H5alg3GQG51-a7rzJrfrxmT0M0DvbWXRhiIiZ99uoKEWHWfLHZtQ0tzv1in1zEHx9"
               />
             </div>
-            <div className="absolute -bottom-4 -left-4 bg-white/90 backdrop-blur-xl p-3 rounded-xl shadow-lg border border-white/50 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center">
+            <div className="absolute -bottom-4 -left-4 bg-surface/90 backdrop-blur-xl p-3 rounded-xl shadow-lg border border-white/50 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-secondary-600 text-white flex items-center justify-center">
                 <span className="material-symbols-outlined text-sm">school</span>
               </div>
               <div>
-                <div className="text-xs text-gray-500">Next Cohort</div>
-                <div className="text-sm font-semibold text-gray-900">Starts Oct 15</div>
+                <div className="text-xs text-foreground-muted">Next Cohort</div>
+                <div className="text-sm font-semibold text-foreground">Starts Oct 15</div>
               </div>
             </div>
           </div>
@@ -180,11 +183,11 @@ const AIEngineeringImmersive = () => {
       </header>
 
       {/* Program Overview */}
-      <section className="py-8 bg-gray-50/50">
+      <section className="py-8 bg-background-secondary/50">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Program Overview</h2>
-            <p className="text-gray-600 mt-1">Everything you need to succeed in the AI industry.</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">Program Overview</h2>
+            <p className="text-foreground-secondary mt-1">Everything you need to succeed in the AI industry.</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {overviewItems.map((item, index) => (
@@ -192,18 +195,18 @@ const AIEngineeringImmersive = () => {
                 key={index}
                 className={`rounded-xl p-4 md:p-6 flex flex-col justify-between min-h-[140px] md:min-h-[160px] transition-all hover:-translate-y-1 ${
                   item.isPrimary 
-                    ? 'col-span-2 md:col-span-1 bg-blue-600 text-white shadow-lg shadow-blue-600/20' 
-                    : 'bg-white border border-gray-200 shadow-sm hover:shadow-md'
+                    ? 'col-span-2 md:col-span-1 bg-primary-600 text-white shadow-lg shadow-primary-600/20'
+                    : 'bg-surface border border-border shadow-sm hover:shadow-md'
                 }`}
               >
-                <span className={`material-symbols-outlined text-2xl ${item.isPrimary ? '' : 'text-blue-600'} mb-2`}>
+                <span className={`material-symbols-outlined text-2xl ${item.isPrimary ? '' : 'text-primary-600'} mb-2`}>
                   {item.icon}
                 </span>
                 <div>
-                  <div className={`text-xs font-semibold ${item.isPrimary ? 'text-blue-100' : 'text-gray-500'} uppercase tracking-wider mb-0.5`}>
+                  <div className={`text-xs font-semibold ${item.isPrimary ? 'text-primary-100' : 'text-foreground-muted'} uppercase tracking-wider mb-0.5`}>
                     {item.label}
                   </div>
-                  <div className={`text-xl font-bold ${item.isPrimary ? 'text-white' : 'text-gray-900'}`}>
+                  <div className={`text-xl font-bold ${item.isPrimary ? 'text-white' : 'text-foreground'}`}>
                     {item.value}
                   </div>
                 </div>
@@ -216,14 +219,14 @@ const AIEngineeringImmersive = () => {
       {/* Curriculum Section */}
       <section className="py-10 max-w-7xl mx-auto px-4 md:px-8">
         <div className="mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Curriculum</h2>
-          <p className="text-gray-600 max-w-3xl">A rigorous, structured path designed to take you from foundational math to deploying state-of-the-art models.</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Curriculum</h2>
+          <p className="text-foreground-secondary max-w-3xl">A rigorous, structured path designed to take you from foundational math to deploying state-of-the-art models.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
           <div className="md:col-span-4 flex flex-col gap-1.5 relative">
-            <div className="hidden md:block absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200/50 rounded-full"></div>
+            <div className="hidden md:block absolute left-0 top-0 bottom-0 w-0.5 bg-border-strong rounded-full"></div>
             <div 
-              className="hidden md:block absolute left-0 w-0.5 bg-blue-600 rounded-full transition-all duration-300 ease-out" 
+              className="hidden md:block absolute left-0 w-0.5 bg-primary-600 rounded-full transition-all duration-300 ease-out"
               style={{ top: 0, height: '48px', transform: `translateY(${indicatorTop}px)` }}
             ></div>
             {tabs.map((tab) => (
@@ -232,13 +235,13 @@ const AIEngineeringImmersive = () => {
                 ref={(el) => tabRefs.current[tab.id] = el}
                 className={`text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 relative ${
                   activeTab === tab.id 
-                    ? 'bg-blue-50 text-gray-900' 
-                    : 'hover:bg-gray-50 text-gray-600 hover:text-gray-900'
+                    ? 'bg-primary-50 dark:bg-primary-500/10 text-foreground'
+                    : 'hover:bg-background-secondary text-foreground-secondary hover:text-foreground'
                 }`}
                 data-target={tab.id}
                 onClick={(e) => handleTabClick(e, tab.id)}
               >
-                <span className="text-xs text-gray-400 font-mono mr-2">{tab.short}</span> {tab.label}
+                <span className="text-xs text-foreground-disabled font-mono mr-2">{tab.short}</span> {tab.label}
               </button>
             ))}
           </div>
@@ -252,25 +255,25 @@ const AIEngineeringImmersive = () => {
                   className={`${activeTab === tab.id ? 'block' : 'hidden'}`}
                   id={tab.id}
                 >
-                  <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+                  <div className="bg-surface rounded-2xl p-6 border border-border shadow-sm">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                      <div className="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-500/10 flex items-center justify-center text-primary-600">
                         <span className="material-symbols-outlined">{content.icon}</span>
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900">{content.title}</h3>
-                        <p className="text-xs text-gray-500 uppercase tracking-wider">{content.subtitle}</p>
+                        <h3 className="text-xl font-bold text-foreground">{content.title}</h3>
+                        <p className="text-xs text-foreground-muted uppercase tracking-wider">{content.subtitle}</p>
                       </div>
                     </div>
-                    <p className="text-gray-600 mb-6">{content.description}</p>
+                    <p className="text-foreground-secondary mb-6">{content.description}</p>
                     {content.items.length > 0 && (
                       <div className="space-y-3">
                         {content.items.map((item, idx) => (
-                          <div key={idx} className="flex items-start gap-3 p-3 rounded-lg bg-gray-50/50 hover:bg-gray-50 transition-colors">
-                            <span className="material-symbols-outlined text-blue-600 text-lg mt-0.5">check_circle</span>
+                          <div key={idx} className="flex items-start gap-3 p-3 rounded-lg bg-background-secondary/50 hover:bg-background-secondary transition-colors">
+                            <span className="material-symbols-outlined text-primary-600 text-lg mt-0.5">check_circle</span>
                             <div>
-                              <h4 className="font-medium text-gray-900">{item.title}</h4>
-                              <p className="text-sm text-gray-600 mt-0.5">{item.description}</p>
+                              <h4 className="font-medium text-foreground">{item.title}</h4>
+                              <p className="text-sm text-foreground-secondary mt-0.5">{item.description}</p>
                             </div>
                           </div>
                         ))}
@@ -285,31 +288,31 @@ const AIEngineeringImmersive = () => {
       </section>
 
       {/* Mentors Section */}
-      <section className="py-10 bg-gray-50/50 border-t border-gray-200/50">
+      <section className="py-10 bg-background-secondary/50 border-t border-border/50">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Learn from the Best</h2>
-              <p className="text-gray-600 mt-1 max-w-2xl">Your instructors are active practitioners building AI at the world's most innovative companies.</p>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">Learn from the Best</h2>
+              <p className="text-foreground-secondary mt-1 max-w-2xl">Your instructors are active practitioners building AI at the world's most innovative companies.</p>
             </div>
-            <button className="text-blue-600 font-medium flex items-center gap-1 hover:underline text-sm">
+            <button className="text-primary-600 font-medium flex items-center gap-1 hover:underline text-sm">
               View all mentors <span className="material-symbols-outlined text-sm">arrow_forward</span>
             </button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {mentors.map((mentor, index) => (
-              <div key={index} className="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group">
+              <div key={index} className="bg-surface rounded-2xl p-5 border border-border shadow-sm hover:shadow-md transition-all hover:-translate-y-1 group">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-gray-100">
+                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-border-subtle">
                     <img className="w-full h-full object-cover" alt={mentor.name} src={mentor.image} />
                   </div>
-                  <div className="px-2.5 py-1 rounded-full bg-gray-50 text-xs font-semibold text-gray-700 flex items-center gap-1 border border-gray-200">
+                  <div className="px-2.5 py-1 rounded-full bg-background-secondary text-xs font-semibold text-foreground-secondary flex items-center gap-1 border border-border">
                     <span className="material-symbols-outlined text-xs">work</span> {mentor.company}
                   </div>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-0.5 group-hover:text-blue-600 transition-colors">{mentor.name}</h3>
-                <p className="text-sm text-gray-600 mb-3">{mentor.title}</p>
-                <p className="text-sm text-gray-600 border-t border-gray-200/50 pt-3">{mentor.bio}</p>
+                <h3 className="text-lg font-bold text-foreground mb-0.5 group-hover:text-primary-600 transition-colors">{mentor.name}</h3>
+                <p className="text-sm text-foreground-secondary mb-3">{mentor.title}</p>
+                <p className="text-sm text-foreground-secondary border-t border-border/50 pt-3">{mentor.bio}</p>
               </div>
             ))}
           </div>
@@ -325,32 +328,32 @@ const AIEngineeringImmersive = () => {
               backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuD8u_Yk5WejLemzuCyqno0-KPoOesNf41MlFBnEJ7YRtEyLoCY473Wgt7CRu_7ULbO3g1JVzPJRzmwf453YRkv8bTWx-7KX-ZocWqPDLy5ch0v2GWrxPk3NAP9llJJRwEGRqwO6NbqnaDK1_5JHiMvaSzSJTxoZ1X-WnqAnqRVLLbfq3Y3lQ6QaQ_JaOfZ6-KoBpTkFBaOf9c8N5i6RlmqllPL8prVZ7OE0ZlyG7DBskUSBY8BiHRgHXjbADvfmXttEJmDyoOdkrACA')" 
             }}
           ></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-white/80 to-white"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background"></div>
         </div>
         <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Career Outcomes</h2>
-            <p className="text-gray-600 mt-2 max-w-2xl mx-auto">Graduates of the AI Engineering Immersive step into high-impact roles at top technology companies.</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground">Career Outcomes</h2>
+            <p className="text-foreground-secondary mt-2 max-w-2xl mx-auto">Graduates of the AI Engineering Immersive step into high-impact roles at top technology companies.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 shadow-sm flex flex-col items-center text-center hover:shadow-md transition-shadow">
+            <div className="bg-surface/80 backdrop-blur-xl p-6 rounded-2xl border border-border/50 shadow-sm flex flex-col items-center text-center hover:shadow-md transition-shadow">
               <span className="material-symbols-outlined text-3xl text-emerald-600 mb-3">trending_up</span>
-              <div className="text-3xl font-bold text-gray-900 mb-1">+$42K</div>
-              <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Average Salary Increase</p>
+              <div className="text-3xl font-bold text-foreground mb-1">+$42K</div>
+              <p className="text-xs font-semibold text-foreground-secondary uppercase tracking-wide">Average Salary Increase</p>
             </div>
-            <div className="bg-white/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 shadow-sm flex flex-col items-center text-center hover:shadow-md transition-shadow">
-              <span className="material-symbols-outlined text-3xl text-blue-600 mb-3">business_center</span>
-              <div className="text-3xl font-bold text-gray-900 mb-1">94%</div>
-              <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Hired within 6 months</p>
+            <div className="bg-surface/80 backdrop-blur-xl p-6 rounded-2xl border border-border/50 shadow-sm flex flex-col items-center text-center hover:shadow-md transition-shadow">
+              <span className="material-symbols-outlined text-3xl text-secondary-600 mb-3">business_center</span>
+              <div className="text-3xl font-bold text-foreground mb-1">94%</div>
+              <p className="text-xs font-semibold text-foreground-secondary uppercase tracking-wide">Hired within 6 months</p>
             </div>
-            <div className="bg-white/80 backdrop-blur-xl p-6 rounded-2xl border border-gray-200/50 shadow-sm flex flex-col items-center text-center hover:shadow-md transition-shadow">
-              <span className="material-symbols-outlined text-3xl text-blue-600 mb-3">badge</span>
+            <div className="bg-surface/80 backdrop-blur-xl p-6 rounded-2xl border border-border/50 shadow-sm flex flex-col items-center text-center hover:shadow-md transition-shadow">
+              <span className="material-symbols-outlined text-3xl text-primary-600 mb-3">badge</span>
               <div className="flex flex-wrap justify-center gap-1.5 mt-1">
-                <span className="px-2.5 py-1 bg-white rounded-full text-xs font-semibold text-gray-700 shadow-sm border border-gray-100">Machine Learning Engineer</span>
-                <span className="px-2.5 py-1 bg-white rounded-full text-xs font-semibold text-gray-700 shadow-sm border border-gray-100">AI Researcher</span>
-                <span className="px-2.5 py-1 bg-white rounded-full text-xs font-semibold text-gray-700 shadow-sm border border-gray-100">Data Scientist</span>
+                <span className="px-2.5 py-1 bg-surface rounded-full text-xs font-semibold text-foreground-secondary shadow-sm border border-border-subtle">Machine Learning Engineer</span>
+                <span className="px-2.5 py-1 bg-surface rounded-full text-xs font-semibold text-foreground-secondary shadow-sm border border-border-subtle">AI Researcher</span>
+                <span className="px-2.5 py-1 bg-surface rounded-full text-xs font-semibold text-foreground-secondary shadow-sm border border-border-subtle">Data Scientist</span>
               </div>
-              <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide mt-4">Top Alumni Roles</p>
+              <p className="text-xs font-semibold text-foreground-secondary uppercase tracking-wide mt-4">Top Alumni Roles</p>
             </div>
           </div>
         </div>
@@ -358,22 +361,23 @@ const AIEngineeringImmersive = () => {
 
       {/* CTA Section */}
       <section className="py-10 bg-gray-900 text-white relative overflow-hidden mx-4 md:mx-8 rounded-2xl shadow-2xl">
-        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-500/20 rounded-full blur-[100px] -z-0 pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-emerald-500/20 rounded-full blur-[100px] -z-0 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-primary-500/20 rounded-full blur-[100px] -z-0 pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-secondary-500/20 rounded-full blur-[100px] -z-0 pointer-events-none"></div>
         <div className="max-w-4xl mx-auto text-center relative z-10 px-6">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">Ready to start your AI journey?</h2>
           <p className="text-gray-300 mb-6 max-w-2xl mx-auto">Join the next cohort of AI Engineering Immersive. Seats are strictly limited to ensure a 1:10 mentorship ratio.</p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3.5 rounded-full transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+            <button className="bg-secondary-500 hover:bg-secondary-600 text-primary-700 font-semibold px-8 py-3.5 rounded-full transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
               Apply for Next Cohort <span className="material-symbols-outlined text-sm">arrow_forward</span>
             </button>
-            <button className="bg-transparent border border-gray-600 hover:bg-white/10 text-white font-medium px-8 py-3.5 rounded-full transition-all flex items-center justify-center gap-2">
+            <button className="bg-primary-700 border border-secondary-500 hover:bg-primary-600 text-secondary-500 font-semibold px-8 py-3.5 rounded-full transition-all flex items-center justify-center gap-2">
               Schedule a Call <span className="material-symbols-outlined text-sm">calendar_month</span>
             </button>
           </div>
-          <p className="text-xs text-gray-400 mt-4">Next cohort begins October 15th. Applications close October 1st.</p>
+          <p className="text-xs text-foreground-disabled mt-4">Next cohort begins October 15th. Applications close October 1st.</p>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

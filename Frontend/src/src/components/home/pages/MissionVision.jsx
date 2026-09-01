@@ -1,19 +1,23 @@
 import { useThemeContext } from "@shared/context/ThemeContext";
+import Navbar from "@shared/components/navbar";
+import Footer from "@shared/components/Footer";
 
 function MissionVision() {
   const { isDark } = useThemeContext();
   return (
-    <section className={`py-24 transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient' : 'bg-slate-50'}`}>
+    <>
+      <Navbar />
+      <section className={`py-24 transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient' : 'bg-slate-50'}`}>
 
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center px-6">
 
-        <div className="text-white">
+        <div className="text-foreground">
 
           <h2 className="text-5xl font-bold mb-8">
             Our Mission
           </h2>
 
-          <p className="text-lg leading-relaxed text-slate-300">
+          <p className="text-lg leading-relaxed text-foreground-secondary">
             Help learners gain strong fundamentals,
             real-world skills and confidence to
             succeed in top technology companies.
@@ -23,7 +27,7 @@ function MissionVision() {
             Our Vision
           </h2>
 
-          <p className="text-lg leading-relaxed text-slate-300">
+          <p className="text-lg leading-relaxed text-foreground-secondary">
             Empower students to become the top 1%
             professionals in technology through
             world-class education and mentorship.
@@ -41,7 +45,9 @@ function MissionVision() {
 
       </div>
 
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 }
 

@@ -1,150 +1,408 @@
-import { Suspense, lazy, useCallback, useState } from "react";
+
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { Menu, Moon, Sun, UserPlus, X } from "lucide-react";
+import { ChevronDown, Menu, UserPlus, X } from "lucide-react";
 import { ROUTES } from "@shared/constants/routeConstants";
 import { useThemeContext } from "@shared/context/ThemeContext";
-import Button from "@shared/components/ui/Button";
-import kiniLogo from "../../../assets/Kini (7).svg";
+import kiniLogo from "../../../assets/kini-logo.png";
 
 const RegisterModal = lazy(() => import("../RegisterModal"));
 
 const navItems = [
   { label: "Home", to: ROUTES.PUBLIC.HOME },
   { label: "About Us", to: ROUTES.PUBLIC.ABOUT },
-  { label: "Programs", to: ROUTES.PUBLIC.UPSKILL_PROGRAM },
+  {
+    label: "Programs",
+    to: ROUTES.PUBLIC.PROGRAMS,
+    children: [
+      { label: "Corporate Training", to: ROUTES.PUBLIC.CORPORATE_TRAINING },
+      { label: "Internships", to: ROUTES.PUBLIC.INTERNSHIPS },
+      { label: "Placements", to: ROUTES.PUBLIC.PLACEMENTS },
+    ],
+  },
   { label: "Contact Us", to: ROUTES.PUBLIC.CONTACT },
 ];
 
+/* ── Desktop "Programs" dropdown ──────────────────────────────────────── */
+function NavDropdown({ label, to, children, linkClass, isDark }) {
+  const [open, setOpen] = useState(false);
+  const closeTimerRef = useRef(null);
+  const wrapperRef = useRef(null);
+
+  const openNow = useCallback(() => {
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    setOpen(true);
+  }, []);
+
+  const closeSoon = useCallback(() => {
+    closeTimerRef.current = window.setTimeout(() => setOpen(false), 150);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const handleClickOutside = (e) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
+
+  useEffect(() => () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+  }, []);
+
+  return (
+    <div
+      ref={wrapperRef}
+      className="relative flex items-center"
+      onMouseEnter={openNow}
+      onMouseLeave={closeSoon}
+    >
+      <NavLink to={to} className={linkClass} onClick={() => setOpen(false)}>
+        {({ isActive }) => (
+          <>
+            {label}
+            {isActive && (
+              <span className="absolute bottom-0 left-1/2 h-[2px] w-[55%] -translate-x-1/2 rounded-full bg-secondary-500" />
+            )}
+          </>
+        )}
+      </NavLink>
+
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-label={`${open ? "Close" : "Open"} ${label} submenu`}
+        onClick={() => setOpen((v) => !v)}
+        className="flex h-6 w-6 shrink-0 items-center justify-center text-white/70 transition-colors hover:text-white"
+      >
+        <ChevronDown
+          className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          aria-hidden="true"
+        />
+      </button>
+
+      <div
+        className={`absolute left-0 top-full z-40 w-56 origin-top overflow-hidden rounded-xl border shadow-xl transition-all duration-150 ${
+          open ? "mt-1 max-h-80 opacity-100" : "mt-0 max-h-0 opacity-0"
+        } ${isDark ? "border-white/10 bg-ink-950" : "border-white/10 bg-[#0B3554]"}`}
+      >
+        <div className="py-1.5">
+          {children.map((child) => (
+            <NavLink
+              key={child.to}
+              to={child.to}
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `block px-4 py-2.5 text-[14px] transition-colors ${
+                  isActive ? "bg-white/10 text-white" : "text-white/80 hover:bg-white/10 hover:text-white"
+                }`
+              }
+            >
+              {child.label}
+            </NavLink>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileProgramsOpen, setMobileProgramsOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [hasOpenedRegister, setHasOpenedRegister] = useState(false);
-  const { isDark, toggleTheme } = useThemeContext();
+
+  const { isDark } = useThemeContext();
 
   const openRegister = useCallback(() => {
     setHasOpenedRegister(true);
     setIsRegisterOpen(true);
     setMenuOpen(false);
   }, []);
-  const closeRegister = useCallback(() => setIsRegisterOpen(false), []);
+
+  const closeRegister = useCallback(() => {
+    setIsRegisterOpen(false);
+  }, []);
 
   const linkClass = ({ isActive }) =>
     [
-      "rounded-full px-4 py-2 text-sm font-medium transition-colors",
-      isActive
-        ? isDark
-          ? "bg-primary-500/15 text-primary-300"
-          : "bg-primary-50 text-primary-700"
-        : isDark
-          ? "text-white/70 hover:bg-white/10 hover:text-white"
-          : "text-ink-900/70 hover:bg-primary-50/60 hover:text-primary-700",
+      "relative whitespace-nowrap px-2.5 py-2",
+      "text-[15px] font-medium",
+      "transition-colors duration-200",
+      isActive ? "text-white" : "text-white/80 hover:text-white",
     ].join(" ");
 
-  const iconButtonClass = isDark
-    ? "border-white/10 text-white/80 hover:bg-white/10"
-    : "border-ink-900/10 text-ink-900/70 hover:border-primary-200 hover:bg-primary-50 hover:text-primary-700";
+  const iconButtonClass =
+    "border-white/15 text-white/70 hover:bg-white/10 hover:text-white";
 
   return (
-    <header className={`sticky top-0 z-50 border-b backdrop-blur-xl ${isDark ? "border-white/5 bg-ink-950/85" : "border-ink-900/5 bg-porcelain/85"}`}>
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link to={ROUTES.PUBLIC.HOME} className="flex shrink-0 items-center gap-3">
-          <img
-            src={kiniLogo}
-            alt="Kini Edu Hub logo"
-            className="block h-9 w-auto max-w-none object-contain object-left sm:h-10 lg:h-11"
-          />
-        </Link>
+    <>
+      <header
+        className="sticky top-0 z-50 w-full border-b border-white/[0.12]"
+        style={{
+          background: "linear-gradient(90deg, #0e2d47 0%, #133b5d 48%, #174d72 100%)",
+        }}
+      >
+        {/* =====================================================
+            DESKTOP HEADER — curved KINI brand panel
+        ====================================================== */}
+        <nav
+          className="relative hidden w-full items-center lg:flex"
+          style={{
+            minHeight: "72px",
+            padding: "0 32px 0 190px",
+            gap: "32px",
+          }}
+          aria-label="Primary"
+        >
+          {/* The curve belongs to the panel; the image stays intact inside it. */}
+          <Link
+            to={ROUTES.PUBLIC.HOME}
+            aria-label="KINI — Learn. Innovate. Lead."
+            className="absolute left-0 top-0 z-20 flex items-start justify-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-inset"
+            style={{
+              width: "170px",
+              height: "84px",
+              padding: "8px 12px",
+              background: "#ffffff",
+              border: "0",
+              borderBottomRightRadius: "100% 72%",
+              boxShadow: "none",
+              boxSizing: "border-box",
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src={kiniLogo}
+              alt="KINI — Learn. Innovate. Lead."
+              className="relative z-10 block object-contain object-left-top"
+              style={{
+                width: "88px",
+                maxWidth: "88px",
+                height: "auto",
+                maxHeight: "54px",
+                opacity: 1,
+                filter: "none",
+                mixBlendMode: "normal",
+                transform: "none",
+              }}
+            />
+          </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
-          {navItems.map((item) => (
-            <NavLink key={item.to} to={item.to} className={linkClass}>
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
+          {/* Spacer keeps navigation aligned to the right */}
+          <div className="min-w-0 flex-1" />
 
-        <div className="flex items-center gap-2">
-          <div className="hidden md:block">
-            <Button
+          {/* Navigation links */}
+          <nav className="flex items-center gap-1 xl:gap-2">
+            {navItems.map((item) =>
+              item.children ? (
+                <NavDropdown
+                  key={item.to}
+                  label={item.label}
+                  to={item.to}
+                  children={item.children}
+                  linkClass={linkClass}
+                  isDark={isDark}
+                />
+              ) : (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.to === ROUTES.PUBLIC.HOME}
+                  className={linkClass}
+                >
+                  {({ isActive }) => (
+                    <>
+                      {item.label}
+                      {isActive && (
+                        <span className="absolute bottom-0 left-1/2 h-[2px] w-[55%] -translate-x-1/2 rounded-full bg-secondary-500" />
+                      )}
+                    </>
+                  )}
+                </NavLink>
+              )
+            )}
+          </nav>
+
+          {/* Right controls — Register only */}
+          <div className="flex shrink-0 items-center gap-3">
+            <button
               type="button"
               onClick={openRegister}
-              className="register-btn !h-11 !px-5 !rounded-full !border-0 !text-white shadow-[0_12px_30px_rgba(30,115,189,0.25)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_18px_40px_rgba(30,115,189,0.35)]"
+              className="inline-flex items-center gap-2 px-6 py-2.5 text-[13px] font-semibold transition-all duration-200 hover:brightness-110"
+              style={{
+                color: "#133b5d",
+                background: "linear-gradient(135deg, #f39924 0%, #ffad27 100%)",
+                border: "1px solid rgba(255, 183, 70, 0.5)",
+                borderRadius: "999px",
+                boxShadow: "0 5px 14px rgba(8, 35, 58, 0.2)",
+                minHeight: "46px",
+              }}
             >
-              <UserPlus className="h-[18px] w-[18px]" aria-hidden="true" />
+              <UserPlus className="h-4 w-4" aria-hidden="true" />
               Register
-            </Button>
+            </button>
           </div>
+        </nav>
 
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors ${iconButtonClass}`}
+        {/* =====================================================
+            MOBILE / TABLET HEADER — single compact row
+        ====================================================== */}
+        <div className="relative flex w-full items-center lg:hidden" style={{ minHeight: "72px", padding: "0 20px" }}>
+          {/* Logo — compact white card (mobile) */}
+          <Link
+            to={ROUTES.PUBLIC.HOME}
+            aria-label="KINI — Learn. Innovate. Lead."
+            className="z-10 flex shrink-0 items-center justify-center"
+            style={{
+              width: "clamp(170px, 46vw, 200px)",
+              height: "56px",
+              padding: "6px 12px",
+              background: "#ffffff",
+              border: "1px solid rgba(19, 59, 93, 0.14)",
+              borderRadius: "10px",
+              boxShadow: "0 4px 14px rgba(5, 30, 52, 0.16)",
+              boxSizing: "border-box",
+              overflow: "visible",
+            }}
           >
-            {isDark ? (
-              <Sun className="h-[18px] w-[18px]" aria-hidden="true" />
-            ) : (
-              <Moon className="h-[18px] w-[18px]" aria-hidden="true" />
-            )}
-          </button>
+            <img
+              src={kiniLogo}
+              alt="KINI — Learn. Innovate. Lead."
+              className="block object-contain object-center"
+              style={{
+                width: "100%",
+                height: "auto",
+                maxHeight: "42px",
+                opacity: 1,
+                filter: "none",
+                mixBlendMode: "normal",
+              }}
+            />
+          </Link>
 
-          <button
-            type="button"
-            onClick={() => setMenuOpen((value) => !value)}
-            className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors md:hidden ${iconButtonClass}`}
-            aria-expanded={menuOpen}
-            aria-label="Toggle navigation menu"
-          >
-            {menuOpen ? (
-              <X className="h-[18px] w-[18px]" aria-hidden="true" />
-            ) : (
-              <Menu className="h-[18px] w-[18px]" aria-hidden="true" />
-            )}
-          </button>
-        </div>
-      </div>
+          {/* Spacer */}
+          <div className="flex-1" />
 
-      <div
-        className={`overflow-hidden border-t transition-all duration-300 md:hidden ${
-          isDark ? "border-white/10 bg-ink-950" : "border-ink-900/5 bg-porcelain"
-        } ${menuOpen ? "max-h-96 opacity-100" : "max-h-0 border-t-0 opacity-0"}`}
-      >
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-3">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={linkClass}
-              onClick={() => setMenuOpen(false)}
+          {/* Mobile actions — hamburger */}
+          <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setMenuOpen((v) => !v)}
+              className={`flex h-[40px] w-[40px] items-center justify-center rounded-full border transition-colors ${iconButtonClass}`}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav-menu"
+              aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
             >
-              {item.label}
-            </NavLink>
-          ))}
-          <Button
-            type="button"
-            onClick={openRegister}
-            className="register-btn mt-2 w-full justify-center !h-11 !px-5 !rounded-full !border-0 !text-white shadow-[0_12px_30px_rgba(30,115,189,0.25)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_18px_40px_rgba(30,115,189,0.35)]"
-          >
-            <UserPlus className="h-[18px] w-[18px]" aria-hidden="true" />
-            Register
-          </Button>
+              {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
-      </div>
 
+        {/* =====================================================
+            MOBILE MENU DROPDOWN
+        ====================================================== */}
+        <div
+          id="mobile-nav-menu"
+          className={`overflow-y-auto transition-all duration-300 lg:hidden ${
+            isDark ? "bg-ink-950" : "bg-[#133b5d]"
+          } ${menuOpen ? "max-h-[calc(100vh-4.5rem)] opacity-100" : "max-h-0 overflow-hidden opacity-0"}`}
+        >
+          <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3">
+            {navItems.map((item) =>
+              item.children ? (
+                <div key={item.to} className="flex flex-col">
+                  <div className="flex items-center justify-between">
+                    <NavLink to={item.to} className={linkClass} onClick={() => setMenuOpen(false)}>
+                      {item.label}
+                    </NavLink>
+                    <button
+                      type="button"
+                      aria-expanded={mobileProgramsOpen}
+                      aria-controls="mobile-programs-submenu"
+                      aria-label={mobileProgramsOpen ? `Collapse ${item.label}` : `Expand ${item.label}`}
+                      onClick={() => setMobileProgramsOpen((v) => !v)}
+                      className="flex h-9 w-9 shrink-0 items-center justify-center text-white/70 transition-colors hover:text-white"
+                    >
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform duration-200 ${mobileProgramsOpen ? "rotate-180" : ""}`}
+                        aria-hidden="true"
+                      />
+                    </button>
+                  </div>
+                  <div
+                    id="mobile-programs-submenu"
+                    className={`overflow-hidden pl-4 transition-all duration-300 ${
+                      mobileProgramsOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <div className="flex flex-col gap-1 py-1">
+                      {item.children.map((child) => (
+                        <NavLink
+                          key={child.to}
+                          to={child.to}
+                          className={linkClass}
+                          onClick={() => setMenuOpen(false)}
+                        >
+                          {child.label}
+                        </NavLink>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.to === ROUTES.PUBLIC.HOME}
+                  className={linkClass}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </NavLink>
+              )
+            )}
+            <button
+              type="button"
+              onClick={openRegister}
+              className="mt-2 flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-all duration-200 hover:brightness-110"
+              style={{
+                color: "#133b5d",
+                background: "linear-gradient(135deg, #f39924 0%, #ffad27 100%)",
+                border: "1px solid rgba(255, 183, 70, 0.5)",
+              }}
+            >
+              <UserPlus className="h-4 w-4" aria-hidden="true" />
+              Register
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      {/* =====================================================
+          REGISTER MODAL
+      ====================================================== */}
       {hasOpenedRegister && (
         <Suspense fallback={null}>
           <RegisterModal isOpen={isRegisterOpen} onClose={closeRegister} />
         </Suspense>
       )}
-
-      <style>{`
-        .register-btn {
-          background: linear-gradient(90deg, #1E73BD 0%, #2890B8 35%, #35A89D 65%, #58B347 100%) !important;
-        }
-        .register-btn:hover {
-          background: linear-gradient(90deg, #1A65A8 0%, #2382A5 35%, #2E9A8C 65%, #4D9E3F 100%) !important;
-        }
-      `}</style>
-    </header>
+    </>
   );
 }

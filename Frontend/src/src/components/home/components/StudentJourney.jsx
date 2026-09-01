@@ -100,9 +100,14 @@ export default function StudentJourney() {
 
   return (
     <Section
-      className={isDark ? "bg-app-dark-gradient" : "bg-slate-50"}
+      className=""
+      style={{
+        background: isDark
+          ? "#0B2237"
+          : "radial-gradient(circle at 50% 50%, rgba(243,153,36,0.07), transparent 45%), #FFFCF8",
+      }}
       decoration={
-        <div className="absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-primary-500/[0.05] blur-[160px]" />
+        <div className="absolute left-1/2 top-0 h-[400px] w-[800px] -translate-x-1/2 rounded-full bg-secondary-500/[0.05] blur-[160px]" />
       }
     >
       <SectionHeader
@@ -129,7 +134,7 @@ export default function StudentJourney() {
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           className={`grid grid-cols-1 gap-8 md:gap-4 ${GRID_COLS_BY_COUNT[steps.length] || "md:grid-cols-5"}`}
         >
           {steps.map((step) => (

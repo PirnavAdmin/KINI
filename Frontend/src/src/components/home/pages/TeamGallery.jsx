@@ -1,11 +1,15 @@
 import { motion } from "framer-motion";
+import Navbar from "@shared/components/navbar";
+import Footer from "@shared/components/Footer";
 
 function TeamGallery() {
   return (
-    <section className="py-24 bg-grid">
+    <>
+      <Navbar />
+      <section className="py-24 bg-background bg-grid">
       <div className="max-w-7xl mx-auto px-6">
 
-        <h2 className="text-center text-5xl font-bold text-slate-900 mb-16">
+        <h2 className="text-center text-5xl font-bold text-foreground mb-16">
           Meet The Team
         </h2>
 
@@ -41,7 +45,9 @@ function TeamGallery() {
 
         </div>
       </div>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 }
 

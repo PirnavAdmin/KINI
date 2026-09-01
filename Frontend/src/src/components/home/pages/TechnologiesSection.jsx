@@ -17,13 +17,8 @@ import { useEffect } from "react";
 function TechnologiesSection() {
 
   useEffect(() => {
-
-    AOS.init({
-      duration: 1200,
-      once: true,
-      easing: "ease-in-out",
-    });
-
+    const raf = requestAnimationFrame(() => AOS.refresh());
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   const skills = [
@@ -50,12 +45,12 @@ function TechnologiesSection() {
   ];
 
   return (
-    <section className="relative overflow-hidden py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <section className="relative overflow-hidden py-24 bg-gradient-to-br from-slate-50 via-white to-primary-50">
 
       {/* Background Glow */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/10 blur-3xl rounded-full"></div>
+      <div className="absolute top-0 left-0 w-96 h-96 bg-primary-500/10 blur-3xl rounded-full"></div>
 
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/10 blur-3xl rounded-full"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary-500/10 blur-3xl rounded-full"></div>
 
       <div className="max-w-7xl mx-auto px-5">
 
@@ -64,7 +59,7 @@ function TechnologiesSection() {
           {/* ================= LEFT ================= */}
           <div data-aos="fade-right">
 
-            <span className="inline-block bg-blue-100 text-blue-700 font-semibold px-5 py-2 rounded-full mb-6">
+            <span className="inline-block bg-primary-100 text-primary-700 font-semibold px-5 py-2 rounded-full mb-6">
 
               Technologies
 
@@ -73,7 +68,7 @@ function TechnologiesSection() {
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-8">
 
               Master
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary-500 to-primary-600">
                 {" "}The Modern
               </span>
               <br />
@@ -90,7 +85,7 @@ function TechnologiesSection() {
                   className="flex items-center gap-4"
                 >
 
-                  <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center">
 
                     <FaCheck />
 
@@ -120,10 +115,10 @@ function TechnologiesSection() {
 
               <div
                 key={index}
-                className="group bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:shadow-[0_20px_60px_rgba(59,130,246,0.15)] hover:-translate-y-3 transition-all duration-500"
+                className="group bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:shadow-[0_20px_60px_rgba(19,59,93,0.15)] hover:-translate-y-3 transition-all duration-500"
               >
 
-                <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r from-cyan-100 to-blue-100 flex items-center justify-center text-3xl text-blue-600 group-hover:scale-110 transition duration-300">
+                <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r from-primary-100 to-secondary-100 flex items-center justify-center text-3xl text-primary-600 group-hover:scale-110 transition duration-300">
 
                   {tech.icon}
 

@@ -101,7 +101,7 @@ export default function Partners() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           className="mb-12 text-center sm:mb-16"
         >
           <span
@@ -165,7 +165,7 @@ export default function Partners() {
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           className="mt-6 text-center"
         >
           <p className={`text-xs ${isDark ? "text-slate-500" : "text-slate-400"}`}>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight, PlayCircle, TrendingUp, Radio,
   Star, Plus, BarChart3, Code2, Languages, Megaphone, DollarSign, Palette,
@@ -51,151 +51,224 @@ function Reveal({ as: Tag = 'div', delay = 0, className = '', children, ...rest 
 }
 
 // ---------------------------------------------------------------
-// Hero Section
+// Hero slide content — cycles automatically, background stays constant
+// ---------------------------------------------------------------
+const HERO_SLIDES = [
+  {
+    eyebrow: "Limited Seats Available",
+    headlineLead: "Learn skills that",
+    headlineAccent: "actually compound.",
+    paragraph:
+      "Structured tracks, live expert sessions, and guaranteed internship placement — designed to help you build real-world capabilities and land your first role.",
+  },
+  {
+    eyebrow: "Hands-On From Day One",
+    headlineLead: "Build real projects,",
+    headlineAccent: "not busywork.",
+    paragraph:
+      "Every track pairs you with a mentor and ships something you can point to — a portfolio built while you learn, not after.",
+  },
+  {
+    eyebrow: "Guaranteed Internship",
+    headlineLead: "Launch your career,",
+    headlineAccent: "with real support.",
+    paragraph:
+      "100% placement assistance, mock interviews, and a dedicated team behind you from day one to your first offer.",
+  },
+  {
+    eyebrow: "Every Skill Level Welcome",
+    headlineLead: "Whether you're starting fresh",
+    headlineAccent: "or leveling up.",
+    paragraph:
+      "Students, career switchers, and working professionals all find a structured path here — built around finishing, not just starting.",
+  },
+  {
+    eyebrow: "Six Learning Paths",
+    headlineLead: "Business. Development. Design.",
+    headlineAccent: "One platform.",
+    paragraph:
+      "Six tracks built by working practitioners — pick your domain and go deep with live sessions and real projects.",
+  },
+  {
+    eyebrow: "Learners Who Finish",
+    headlineLead: "Not just another course",
+    headlineAccent: "you never complete.",
+    paragraph:
+      "A platform built around actually finishing what you start — with live sessions, mentor check-ins, and a track record to prove it.",
+  },
+];
+
+// ---------------------------------------------------------------
+// Hero Section (dark image banner + overlapping trust-points card)
 // ---------------------------------------------------------------
 function Hero({ onOpenModal }) {
-  const [cardRef, cardVisible] = useReveal(0.15);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || paused) return undefined;
+    const timer = setInterval(() => {
+      setActiveSlide((i) => (i + 1) % HERO_SLIDES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [paused]);
+
+  const slide = HERO_SLIDES[activeSlide];
 
   return (
-    <section className="relative bg-gradient-to-br from-[#9ac7ff] via-[#b6e6fa] to-[#c7f5ee] pb-28 pt-12 dark:bg-app-dark-gradient sm:pb-36 sm:pt-20">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-60 dark:opacity-20">
-        <div className="absolute -top-32 left-1/4 h-96 w-96 rounded-full bg-white/70 blur-[100px] dark:bg-primary-500/20" />
-        <div className="absolute right-10 top-44 h-80 w-80 rounded-full bg-indigo-300/40 blur-[90px] dark:bg-secondary-500/20" />
-      </div>
+    <section
+      className="relative"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {/* Dark generated-background hero (gradient + dot-grid + glow + network motif, no photo needed) */}
+      <div
+        className="relative min-h-[400px] w-full overflow-hidden"
+        style={{
+          background: "linear-gradient(160deg, #133B5D 0%, #123F60 35%, #0B3554 65%, #0F2E49 100%)",
+        }}
+      >
+        {/* Dot-grid texture */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.35]"
+          aria-hidden="true"
+          style={{
+            backgroundImage: "radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px)",
+            backgroundSize: "22px 22px",
+            maskImage: "radial-gradient(ellipse 70% 60% at 65% 40%, black 40%, transparent 90%)",
+            WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 65% 40%, black 40%, transparent 90%)",
+          }}
+        />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-6 lg:grid-cols-12 lg:gap-12">
-        <div className="lg:col-span-7">
-          <Reveal className="inline-flex items-center gap-2.5 rounded-full border border-white/80 bg-white/90 px-4 py-1.5 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
-            <span className="flex h-2 w-2 rounded-full bg-brand animate-pulse" />
-            <span className="usk-mono text-xs uppercase tracking-wider font-medium text-slate-700 dark:text-slate-300">
-              Limited Seats Available
+        {/* Glow accents */}
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute -top-24 right-1/4 h-80 w-80 rounded-full bg-secondary-400 opacity-30 blur-[110px]" />
+          <div className="absolute -bottom-24 right-10 h-80 w-80 rounded-full bg-white/10 blur-[120px]" />
+        </div>
+
+        {/* Faint network / node motif, right side */}
+        <svg
+          className="pointer-events-none absolute right-[6%] top-1/2 hidden h-56 w-56 -translate-y-1/2 opacity-[0.16] sm:block lg:h-72 lg:w-72"
+          viewBox="0 0 100 100"
+          fill="none"
+          aria-hidden="true"
+        >
+          <circle cx="50" cy="50" r="4" fill="white" />
+          <circle cx="22" cy="30" r="2.5" fill="white" />
+          <circle cx="78" cy="28" r="2.5" fill="white" />
+          <circle cx="20" cy="72" r="2.5" fill="white" />
+          <circle cx="80" cy="74" r="2.5" fill="white" />
+          <circle cx="50" cy="14" r="2.5" fill="white" />
+          <circle cx="50" cy="86" r="2.5" fill="white" />
+          <line x1="50" y1="50" x2="22" y2="30" stroke="white" strokeWidth="1" />
+          <line x1="50" y1="50" x2="78" y2="28" stroke="white" strokeWidth="1" />
+          <line x1="50" y1="50" x2="20" y2="72" stroke="white" strokeWidth="1" />
+          <line x1="50" y1="50" x2="80" y2="74" stroke="white" strokeWidth="1" />
+          <line x1="50" y1="50" x2="50" y2="14" stroke="white" strokeWidth="1" />
+          <line x1="50" y1="50" x2="50" y2="86" stroke="white" strokeWidth="1" />
+          <line x1="22" y1="30" x2="50" y2="14" stroke="white" strokeWidth="0.6" strokeDasharray="2 3" />
+          <line x1="78" y1="28" x2="50" y2="14" stroke="white" strokeWidth="0.6" strokeDasharray="2 3" />
+          <line x1="20" y1="72" x2="50" y2="86" stroke="white" strokeWidth="0.6" strokeDasharray="2 3" />
+          <line x1="80" y1="74" x2="50" y2="86" stroke="white" strokeWidth="0.6" strokeDasharray="2 3" />
+        </svg>
+
+        <div className="relative mx-auto flex max-w-7xl flex-col justify-start px-6 pt-4 pb-24 sm:pt-6 lg:pt-8">
+          <Reveal
+            key={`eyebrow-${activeSlide}`}
+            className="inline-flex w-fit items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 backdrop-blur-xl"
+          >
+            <span className="flex h-2 w-2 rounded-full bg-secondary-400 animate-pulse" />
+            <span className="usk-mono text-xs uppercase tracking-wider font-medium text-white">
+              {slide.eyebrow}
             </span>
           </Reveal>
 
           <Reveal
+            key={`headline-${activeSlide}`}
             delay={100}
-            className="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl lg:text-6xl lg:leading-[1.1]"
+            className="mt-3 max-w-4xl text-2xl font-extrabold tracking-tight text-white sm:text-3xl lg:text-4xl lg:leading-[1.15]"
           >
-            Learn skills that{' '}
-            <span className="bg-gradient-to-r from-indigo-700 via-indigo-600 to-teal-700 bg-clip-text text-transparent dark:from-indigo-400 dark:via-indigo-300 dark:to-teal-300">
-              actually compound.
+            {slide.headlineLead}{" "}
+            <span className="bg-gradient-to-r from-secondary-300 to-secondary-500 bg-clip-text text-transparent">
+              {slide.headlineAccent}
             </span>
           </Reveal>
 
-          <Reveal delay={200} className="mt-6 max-w-lg text-base leading-relaxed text-slate-700 dark:text-slate-400 sm:text-lg">
-            Structured tracks, live expert sessions, and guaranteed internship placement — designed to help you build real-world capabilities and land your first role.
+          <Reveal
+            key={`paragraph-${activeSlide}`}
+            delay={200}
+            className="mt-3 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base"
+          >
+            {slide.paragraph}
           </Reveal>
 
-          <Reveal delay={300} className="mt-8 flex flex-col gap-3.5 sm:flex-row">
+          <Reveal delay={300} className="mt-5 flex flex-col gap-3.5 sm:flex-row">
             <button
               type="button"
               onClick={() => onOpenModal(null)}
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-[linear-gradient(90deg,#1683D8_0%,#2FA9A8_50%,#4DBB5A_100%)] px-7 py-4 text-sm font-semibold text-white shadow-xl shadow-slate-900/15 transition-all duration-300 hover:brightness-110 hover:scale-[1.02]"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-secondary-500 text-primary-700 border border-secondary-500 px-7 py-3 text-sm font-semibold shadow-xl shadow-slate-900/15 transition-all duration-300 hover:bg-secondary-600 hover:scale-[1.02]"
             >
               Apply for New Batch
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
             </button>
             <a
               href="#courses"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/90 bg-white/80 px-7 py-4 text-sm font-semibold text-slate-900 backdrop-blur-md transition-all duration-300 hover:bg-white hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:bg-white/20"
             >
-              <PlayCircle size={16} className="text-indigo-600 dark:text-indigo-400" />
+              <PlayCircle size={16} className="text-secondary-400" />
               Browse Courses
             </a>
           </Reveal>
-
-          {/* FIX: Added gap-y-4 for proper vertical spacing on mobile, ensured dividers are visible */}
-          <Reveal
-            delay={400}
-            className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-white/50 pt-6 text-sm text-slate-700 dark:border-white/10"
-          >
-            <div className="min-w-0">
-              <strong className="usk-display font-bold text-slate-900 dark:text-white text-base block">
-                Corporate Level Training
-              </strong>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Industry‑relevant curriculum
-              </p>
-            </div>
-            <div className="hidden sm:block h-10 w-px bg-slate-300/60 dark:bg-white/10 shrink-0" />
-
-            <div className="min-w-0">
-              <strong className="usk-display font-bold text-slate-900 dark:text-white text-base block">
-                Guaranteed Internship
-              </strong>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Real‑world experience
-              </p>
-            </div>
-            <div className="hidden sm:block h-10 w-px bg-slate-300/60 dark:bg-white/10 shrink-0" />
-
-            <div className="min-w-0">
-              <strong className="usk-display font-bold text-slate-900 dark:text-white text-base block">
-                100% Placement Assistance
-              </strong>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Dedicated career support
-              </p>
-            </div>
-          </Reveal>
         </div>
 
-        <div ref={cardRef} className="lg:col-span-5 relative pt-4 sm:pt-2">
-          <div
-            className={`relative mx-auto max-w-md rounded-[2.5rem] border border-white/90 bg-white/40 p-3 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.12)] backdrop-blur-xl transition-all duration-700 dark:border-white/10 dark:bg-white/5 sm:p-4 ${
-              cardVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
-            }`}
-          >
-            <div className="relative overflow-hidden rounded-[2rem] aspect-[4/5] shadow-inner bg-slate-100">
-              <img
-                src="https://i.pinimg.com/736x/7e/66/52/7e6652b5db5df7abd15a0438093627d2.jpg"
-                alt="Student learning on laptop"
-                className="h-full w-full object-cover object-[50%_75%] transition-transform duration-700 hover:scale-105"
+        {/* Slide indicators — pinned above the overlap card's reach, not in the centered flow */}
+        <div
+          className="absolute bottom-16 left-6 z-10 flex items-center gap-2 sm:bottom-20 lg:bottom-24"
+          role="tablist"
+          aria-label="Hero slides"
+        >
+          {HERO_SLIDES.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              role="tab"
+              aria-selected={i === activeSlide}
+              aria-label={`Show slide ${i + 1} of ${HERO_SLIDES.length}`}
+              onClick={() => setActiveSlide(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === activeSlide ? "w-8 bg-secondary-400" : "w-1.5 bg-white/30 hover:bg-white/50"
+              }`}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 usk-mono text-[11px] font-bold text-white backdrop-blur-md border border-white/30 mb-2">
-                  <Radio size={12} className="text-emerald-400 animate-pulse" /> LIVE COHORT SESSION
-                </span>
-                <h3 className="usk-display text-lg font-bold tracking-tight text-white">
-                  Real Skills, Real Projects
-                </h3>
+            ))}
+          </div>
+      </div>
+
+      {/* Overlapping trust-points card */}
+      <div className="relative z-10 mx-auto -mt-14 max-w-7xl px-6 sm:-mt-16 lg:-mt-20">
+        <Reveal
+          delay={400}
+          className="grid gap-4 rounded-3xl border border-[#CFE1EF] bg-white p-5 shadow-xl dark:border-white/10 dark:bg-ink-900 sm:grid-cols-3 sm:p-6 lg:p-7"
+        >
+          {[
+            { icon: Award, title: 'Corporate Level Training', desc: 'Industry-relevant curriculum' },
+            { icon: Briefcase, title: 'Guaranteed Internship', desc: 'Real-world experience' },
+            { icon: ShieldCheck, title: '100% Placement Assistance', desc: 'Dedicated career support' },
+          ].map((item) => (
+            <div key={item.title} className="flex items-start gap-3 rounded-2xl p-3">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-300">
+                <item.icon size={18} />
+              </span>
+              <div className="min-w-0">
+                <p className="usk-display text-sm font-bold text-slate-900 dark:text-white">{item.title}</p>
+                <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">{item.desc}</p>
               </div>
             </div>
-
-            {/* Floating card – brand colour */}
-            <div
-            className={`usk-float absolute -left-4 -top-3 flex items-center gap-3 rounded-2xl border border-white/90 bg-white/95 px-4 py-3 shadow-xl backdrop-blur-xl transition-all duration-500 hover:scale-105 dark:border-white/10 dark:bg-ink-900/90 sm:-left-6 sm:-top-5 ${
-              cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-            style={{ transitionDelay: '500ms' }}
-          >
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 text-brand shadow-sm border border-brand/20 dark:border-brand/30 dark:bg-brand/20 dark:text-brand-light">
-              <TrendingUp size={18} />
-            </span>
-            <div>
-              <p className="usk-display text-sm font-bold text-slate-900 dark:text-white">100%</p>
-              <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Placement assistance</p>
-            </div>
-          </div>
-
-          <div
-            className={`usk-float-slow absolute -right-3 -bottom-5 flex items-center gap-3 rounded-2xl border border-white/90 bg-white/95 px-4 py-3 shadow-xl backdrop-blur-xl transition-all duration-500 hover:scale-105 dark:border-white/10 dark:bg-ink-900/90 sm:-bottom-7 sm:-right-6 ${
-              cardVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            }`}
-            style={{ transitionDelay: '700ms' }}
-          >
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 shadow-sm border border-indigo-100 dark:border-indigo-500/20 dark:bg-indigo-500/10 dark:text-indigo-300">
-              <Radio size={18} className="text-indigo-600 dark:text-indigo-300" />
-            </span>
-            <div>
-              <p className="usk-display text-sm font-bold text-slate-900 dark:text-white">Live</p>
-              <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400">Expert-led cohorts</p>
-            </div>
-          </div>
-          </div>
-        </div>
+          ))}
+        </Reveal>
       </div>
+
+      <div className="h-8 sm:h-10 lg:h-12" aria-hidden="true" />
     </section>
   );
 }
@@ -208,15 +281,15 @@ const AUDIENCES = [
     icon: BookOpen,
     title: 'Students & Freshers',
     desc: 'No experience? Perfect starting point. Build portfolio projects and land your first role with our guaranteed internship placement.',
-    tint: 'bg-indigo-50 text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-400',
-    border: 'hover:border-indigo-200 dark:hover:border-indigo-500/30',
+    tint: 'bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400',
+    border: 'hover:border-primary-200 dark:hover:border-primary-500/30',
   },
   {
     icon: Briefcase,
     title: 'Career Switchers',
     desc: 'Transitioning from another field? Our structured tracks get you job-ready in your new domain within months, not years.',
-    tint: 'bg-teal-50 text-teal-600 dark:bg-teal-500/10 dark:text-teal-400',
-    border: 'hover:border-teal-200 dark:hover:border-teal-500/30',
+    tint: 'bg-secondary-50 text-secondary-600 dark:bg-secondary-500/10 dark:text-secondary-400',
+    border: 'hover:border-secondary-200 dark:hover:border-secondary-500/30',
   },
   {
     icon: TrendingUp,
@@ -230,10 +303,10 @@ const AUDIENCES = [
 function WhoThisIsFor() {
   return (
     // FIX: Consistent vertical padding matching other sections
-    <section className="bg-white py-20 dark:bg-app-dark-gradient sm:py-24">
+    <section className="bg-[#EEF5FB] py-10 dark:bg-app-dark-gradient sm:py-12">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal className="text-center">
-          <p className="usk-mono text-xs uppercase tracking-widest text-indigo-600 font-semibold dark:text-indigo-400">
+          <p className="usk-mono text-xs uppercase tracking-widest text-primary-600 font-semibold dark:text-primary-400">
             Who this is for
           </p>
           <h2 className="mt-2 usk-display text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
@@ -245,12 +318,12 @@ function WhoThisIsFor() {
         </Reveal>
 
         {/* FIX: gap-6 for better card breathing room */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+        <div className="mt-8 grid gap-6 sm:grid-cols-3">
           {AUDIENCES.map((a, i) => (
             <Reveal
               key={a.title}
               delay={i * 80}
-              className={`rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03] ${a.border}`}
+              className={`rounded-2xl border border-[#CFE1EF] bg-white p-6 shadow-[0_2px_8px_rgba(19,59,93,0.06)] transition-all duration-300 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03] ${a.border}`}
             >
               <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${a.tint}`}>
                 <a.icon size={20} />
@@ -270,21 +343,21 @@ function WhoThisIsFor() {
 // Categories
 // ---------------------------------------------------------------
 const CATEGORIES = [
-  { icon: BarChart3, label: 'Business', count: '12 courses', tint: 'bg-blue-50 text-blue-600 dark:bg-blue-500/10 dark:text-blue-400' },
-  { icon: Code2, label: 'Development', count: '18 courses', tint: 'bg-violet-50 text-violet-600 dark:bg-violet-500/10 dark:text-violet-400' },
-  { icon: Languages, label: 'Language', count: '8 courses', tint: 'bg-amber-50 text-amber-600 dark:bg-amber-500/10 dark:text-amber-400' },
-  { icon: Megaphone, label: 'Marketing', count: '10 courses', tint: 'bg-rose-50 text-rose-600 dark:bg-rose-500/10 dark:text-rose-400' },
-  { icon: DollarSign, label: 'Finance', count: '9 courses', tint: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400' },
-  { icon: Palette, label: 'Design', count: '14 courses', tint: 'bg-pink-50 text-pink-600 dark:bg-pink-500/10 dark:text-pink-400' },
+  { icon: BarChart3, label: 'Business', count: '12 courses', tint: 'bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400' },
+  { icon: Code2, label: 'Development', count: '18 courses', tint: 'bg-secondary-50 text-secondary-600 dark:bg-secondary-500/10 dark:text-secondary-400' },
+  { icon: Languages, label: 'Language', count: '8 courses', tint: 'bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400' },
+  { icon: Megaphone, label: 'Marketing', count: '10 courses', tint: 'bg-secondary-50 text-secondary-600 dark:bg-secondary-500/10 dark:text-secondary-400' },
+  { icon: DollarSign, label: 'Finance', count: '9 courses', tint: 'bg-primary-50 text-primary-600 dark:bg-primary-500/10 dark:text-primary-400' },
+  { icon: Palette, label: 'Design', count: '14 courses', tint: 'bg-secondary-50 text-secondary-600 dark:bg-secondary-500/10 dark:text-secondary-400' },
 ];
 
 function CategoriesSection() {
   return (
-    <section id="categories" className="bg-slate-50/50 py-20 dark:bg-app-dark-gradient sm:py-24">
+    <section id="categories" className="bg-slate-50/50 py-10 dark:bg-app-dark-gradient sm:py-12">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end">
           <div>
-            <p className="usk-mono text-xs uppercase tracking-widest text-indigo-600 font-semibold dark:text-indigo-400">
+            <p className="usk-mono text-xs uppercase tracking-widest text-primary-600 font-semibold dark:text-primary-400">
               Browse by category
             </p>
             <h2 className="mt-2 usk-display text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
@@ -297,14 +370,14 @@ function CategoriesSection() {
         </Reveal>
 
         {/* FIX: gap-5 for consistent card grid spacing */}
-        <div className="mt-8 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="mt-6 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
           {CATEGORIES.map((c, i) => (
             <Reveal
               as="a"
               href="#courses"
               key={c.label}
               delay={i * 50}
-              className="group flex flex-col items-start rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition-all duration-300 hover:border-indigo-200 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-indigo-500/30"
+              className="group flex flex-col items-start rounded-2xl border border-[#CFE1EF] bg-white p-5 shadow-[0_2px_8px_rgba(19,59,93,0.06)] transition-all duration-300 hover:border-primary-200 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03] dark:hover:border-primary-500/30"
             >
               <span className={`flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${c.tint}`}>
                 <c.icon size={18} />
@@ -324,8 +397,8 @@ function CategoriesSection() {
 // ---------------------------------------------------------------
 const BADGE_COLOR_MAP = {
   Hot: 'bg-brand',
-  New: 'bg-indigo-600',
-  Popular: 'bg-indigo-600',
+  New: 'bg-primary-600',
+  Popular: 'bg-primary-600',
   'In Demand': 'bg-emerald-500',
   Trending: 'bg-brand',
 };
@@ -335,7 +408,7 @@ function CourseCard({ title, lessons, duration, rating, reviews, badge, badgeCla
   return (
     <Reveal
       delay={index * 80}
-      className="group overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:shadow-md flex flex-col justify-between dark:border-white/10 dark:bg-white/[0.03]"
+      className="group overflow-hidden rounded-2xl border border-[#CFE1EF] bg-white shadow-[0_2px_8px_rgba(19,59,93,0.06)] transition-all duration-300 hover:shadow-md flex flex-col justify-between dark:border-white/10 dark:bg-white/[0.03]"
     >
       <div className="relative h-40 w-full overflow-hidden bg-slate-100">
         {image ? (
@@ -346,7 +419,7 @@ function CourseCard({ title, lessons, duration, rating, reviews, badge, badgeCla
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="h-full w-full bg-gradient-to-br from-indigo-200 to-blue-200" />
+          <div className="h-full w-full bg-gradient-to-br from-primary-200 to-secondary-200" />
         )}
         {badge && (
           <span className={`absolute left-2.5 top-2.5 rounded-full ${badgeClass} px-2.5 py-0.5 usk-mono text-[10px] font-semibold uppercase tracking-wide text-white shadow-sm`}>
@@ -369,11 +442,11 @@ function CourseCard({ title, lessons, duration, rating, reviews, badge, badgeCla
         <h3 className="mt-2 usk-display text-sm font-semibold leading-snug text-slate-900 dark:text-white">{title}</h3>
         <div className="mt-3 flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
           <span className="flex items-center gap-1.5">
-            <BookOpen size={13} className="text-indigo-600 dark:text-indigo-400" />
+            <BookOpen size={13} className="text-primary-600 dark:text-primary-400" />
             {lessons}
           </span>
           <span className="flex items-center gap-1.5">
-            <Clock size={13} className="text-teal-600 dark:text-teal-400" />
+            <Clock size={13} className="text-secondary-600 dark:text-secondary-400" />
             {duration}
           </span>
         </div>
@@ -384,7 +457,7 @@ function CourseCard({ title, lessons, duration, rating, reviews, badge, badgeCla
         <button
           type="button"
           onClick={() => onOpenModal({ title, lessons, duration })}
-          className="w-full inline-flex items-center justify-center gap-1.5 rounded-full bg-[linear-gradient(90deg,#1683D8_0%,#2FA9A8_50%,#4DBB5A_100%)] px-4 py-2.5 text-xs font-semibold text-white transition-transform duration-300 hover:brightness-110 hover:scale-[1.02]"
+          className="w-full inline-flex items-center justify-center gap-1.5 rounded-full bg-secondary-500 text-primary-700 border border-secondary-500 px-4 py-2.5 text-xs font-semibold transition-all duration-300 hover:bg-secondary-600 hover:scale-[1.02]"
         >
           Enroll Now
           <Plus size={13} />
@@ -416,11 +489,11 @@ function FeaturedCourses({ onOpenModal }) {
   const displayedCourses = featuredCourses.slice(0, 4);
 
   return (
-    <section id="courses" className="bg-white py-20 dark:bg-app-dark-gradient sm:py-24">
+    <section id="courses" className="bg-white py-10 dark:bg-app-dark-gradient sm:py-12">
       <div className="mx-auto max-w-7xl px-6">
         <Reveal className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end">
           <div>
-            <p className="usk-mono text-xs uppercase tracking-widest text-indigo-600 font-semibold dark:text-indigo-400">
+            <p className="usk-mono text-xs uppercase tracking-widest text-primary-600 font-semibold dark:text-primary-400">
               Handpicked for you
             </p>
             <h2 className="mt-2 usk-display text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
@@ -430,7 +503,7 @@ function FeaturedCourses({ onOpenModal }) {
         </Reveal>
 
         {/* FIX: gap-6 for more breathing room between course cards */}
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {displayedCourses.map((course, i) => (
             <CourseCard
               key={course.slug}
@@ -460,10 +533,10 @@ function InternshipSection({ onOpenModal }) {
 
   return (
     <section
-      className={`relative py-20 sm:py-24 ${
+      className={`relative py-10 sm:py-12 ${
         isDark
           ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900'
-          : 'bg-gradient-to-br from-indigo-600 to-teal-600'
+          : 'bg-gradient-to-br from-primary-600 to-secondary-600'
       }`}
     >
       <div
@@ -474,7 +547,7 @@ function InternshipSection({ onOpenModal }) {
         <div className="absolute -top-20 right-1/4 h-80 w-80 rounded-full bg-white blur-[80px]" />
         <div
           className={`absolute bottom-0 left-10 h-64 w-64 rounded-full blur-[70px] ${
-            isDark ? 'bg-primary-500' : 'bg-teal-300'
+            isDark ? 'bg-primary-500' : 'bg-secondary-300'
           }`}
         />
       </div>
@@ -511,7 +584,7 @@ function InternshipSection({ onOpenModal }) {
               className={`mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl ${
                 isDark
                   ? 'bg-brand text-white hover:bg-brand/90'
-                  : 'bg-white text-indigo-700 hover:bg-indigo-50'
+                  : 'bg-white text-primary-700 hover:bg-primary-50'
               }`}
             >
               Claim Your Seat
@@ -605,7 +678,7 @@ function WhyChooseUs() {
   return (
     <section
       id="why"
-      className="relative bg-gradient-to-br from-[#D2F9F3]/40 via-[#BCEBFA]/30 to-slate-50 py-20 dark:bg-app-dark-gradient sm:py-24"
+      className="relative bg-gradient-to-br from-secondary-50/40 via-primary-50/30 to-slate-50 py-10 dark:bg-app-dark-gradient sm:py-12"
     >
       <div className="relative mx-auto max-w-6xl px-6">
         <Reveal className="text-center">
@@ -621,12 +694,12 @@ function WhyChooseUs() {
         </Reveal>
 
         {/* FIX: gap-6 for better card spacing; icon tint corrected to use brand color */}
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map((f, i) => (
             <Reveal
               key={f.title}
               delay={i * 80}
-              className="rounded-2xl border border-slate-200/80 bg-white/95 p-6 shadow-sm transition-all duration-300 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03]"
+              className="rounded-2xl border border-[#CFE1EF] bg-white/95 p-6 shadow-[0_2px_8px_rgba(19,59,93,0.06)] transition-all duration-300 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03]"
             >
               {/* FIX: Icon background uses brand color consistently in both light and dark */}
               <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand/10 text-brand dark:bg-brand/20 dark:text-brand-light">
@@ -651,30 +724,30 @@ const INSTRUCTORS = [
     role: 'Lead Mentor',
     bio: '10+ years in product and tech. Previously at major startups. Teaches practical skills, not theory.',
     initials: 'SS',
-    color: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300',
+    color: 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-300',
   },
   {
     name: 'Sneha Reddy',
     role: 'Design & UX Lead',
     bio: 'Ex-senior designer with work at top product companies. Mentors students on building real portfolios.',
     initials: 'SR',
-    color: 'bg-pink-100 text-pink-700 dark:bg-pink-500/20 dark:text-pink-300',
+    color: 'bg-secondary-100 text-secondary-700 dark:bg-secondary-500/20 dark:text-secondary-300',
   },
   {
     name: 'Poorna Sai',
     role: 'Full-Stack Engineering',
     bio: 'Built and shipped products used by thousands. Passionate about teaching clean, production-ready code.',
     initials: 'PS',
-    color: 'bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-300',
+    color: 'bg-primary-100 text-primary-700 dark:bg-primary-500/20 dark:text-primary-300',
   },
 ];
 
 function InstructorsSection() {
   return (
-    <section className="bg-white py-20 dark:bg-app-dark-gradient sm:py-24">
+    <section className="bg-[#EFFBF7] py-10 dark:bg-app-dark-gradient sm:py-12">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal className="text-center">
-          <p className="usk-mono text-xs uppercase tracking-widest text-indigo-600 font-semibold dark:text-indigo-400">
+          <p className="usk-mono text-xs uppercase tracking-widest text-primary-600 font-semibold dark:text-primary-400">
             Your mentors
           </p>
           <h2 className="mt-2 usk-display text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
@@ -686,18 +759,18 @@ function InstructorsSection() {
         </Reveal>
 
         {/* FIX: gap-6 for consistent card spacing */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+        <div className="mt-8 grid gap-6 sm:grid-cols-3">
           {INSTRUCTORS.map((ins, i) => (
             <Reveal
               key={ins.name}
               delay={i * 80}
-              className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03]"
+              className="rounded-2xl border border-[#CFE1EF] bg-white p-6 shadow-[0_2px_8px_rgba(19,59,93,0.06)] transition-all duration-300 hover:shadow-md dark:border-white/10 dark:bg-white/[0.03]"
             >
               <span className={`flex h-14 w-14 items-center justify-center rounded-2xl usk-mono text-lg font-bold ${ins.color}`}>
                 {ins.initials}
               </span>
               <h3 className="mt-4 usk-display text-sm font-semibold text-slate-900 dark:text-white">{ins.name}</h3>
-              <p className="usk-mono text-[11px] text-indigo-600 dark:text-indigo-400 mt-1">{ins.role}</p>
+              <p className="usk-mono text-[11px] text-primary-600 dark:text-primary-400 mt-1">{ins.role}</p>
               <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">{ins.bio}</p>
             </Reveal>
           ))}
@@ -733,10 +806,10 @@ const QUOTES = [
 
 function Testimonials() {
   return (
-    <section id="reviews" className="bg-slate-50/50 py-20 dark:bg-app-dark-gradient sm:py-24">
+    <section id="reviews" className="bg-[#FFF9F1] py-10 dark:bg-app-dark-gradient sm:py-12">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal className="text-center">
-          <p className="usk-mono text-xs uppercase tracking-widest text-indigo-600 font-semibold dark:text-indigo-400">
+          <p className="usk-mono text-xs uppercase tracking-widest text-primary-600 font-semibold dark:text-primary-400">
             From early learners
           </p>
           <h2 className="mt-2 usk-display text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
@@ -745,12 +818,12 @@ function Testimonials() {
         </Reveal>
 
         {/* FIX: gap-6 for consistent spacing */}
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 lg:grid-cols-3">
           {QUOTES.map((q, i) => (
             <Reveal
               key={q.name}
               delay={i * 80}
-              className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.03]"
+              className="rounded-2xl border border-[#FFF4E5] bg-white p-6 shadow-[0_2px_8px_rgba(19,59,93,0.06)] dark:border-white/10 dark:bg-white/[0.03]"
             >
               {/* FIX: Stars now render as amber/yellow, matching brand star in CourseCard */}
               <div className="flex gap-0.5 text-amber-400">
@@ -760,7 +833,7 @@ function Testimonials() {
               </div>
               <p className="mt-3 text-xs leading-relaxed text-slate-600 dark:text-slate-400">"{q.text}"</p>
               <div className="mt-5 flex items-center gap-3">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50 usk-mono text-[11px] font-medium text-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300 shrink-0">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-50 usk-mono text-[11px] font-medium text-primary-600 dark:bg-primary-500/10 dark:text-primary-300 shrink-0">
                   {q.initials}
                 </span>
                 <div>
@@ -806,10 +879,10 @@ function FAQ() {
   const [open, setOpen] = useState(null);
 
   return (
-    <section className="bg-white py-20 dark:bg-app-dark-gradient sm:py-24">
+    <section className="bg-[#F2FBF8] py-10 dark:bg-app-dark-gradient sm:py-12">
       <div className="mx-auto max-w-2xl px-6">
         <Reveal className="text-center">
-          <p className="usk-mono text-xs uppercase tracking-widest text-indigo-600 font-semibold dark:text-indigo-400">
+          <p className="usk-mono text-xs uppercase tracking-widest text-primary-600 font-semibold dark:text-primary-400">
             Questions
           </p>
           <h2 className="mt-2 usk-display text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
@@ -818,7 +891,7 @@ function FAQ() {
         </Reveal>
 
         {/* FIX: Reveal only wraps the question button, not the whole item + answer, preventing phantom height */}
-        <div className="mt-10 divide-y divide-slate-200/80 dark:divide-white/10">
+        <div className="mt-8 divide-y divide-slate-200/80 dark:divide-white/10">
           {FAQS.map((faq, i) => (
             <div key={faq.q}>
               <Reveal delay={i * 50}>
@@ -829,7 +902,7 @@ function FAQ() {
                 >
                   <span className="text-sm font-semibold text-slate-900 dark:text-white">{faq.q}</span>
                   {open === i
-                    ? <ChevronUp size={16} className="shrink-0 text-indigo-600 dark:text-indigo-400" />
+                    ? <ChevronUp size={16} className="shrink-0 text-primary-600 dark:text-primary-400" />
                     : <ChevronDown size={16} className="shrink-0 text-slate-400 dark:text-slate-500" />
                   }
                 </button>
@@ -850,7 +923,7 @@ function FAQ() {
 // ---------------------------------------------------------------
 function FinalCTA({ onOpenModal }) {
   return (
-    <section className="relative bg-gradient-to-t from-[#BCEBFA]/30 to-white py-20 dark:bg-app-dark-gradient sm:py-24">
+    <section className="relative bg-gradient-to-t from-primary-50/30 to-white py-10 dark:bg-app-dark-gradient sm:py-12">
       {/* FIX: section is always full-height; only inner content elements reveal individually */}
       <div className="relative mx-auto max-w-lg px-6 text-center">
         <Reveal>
@@ -863,7 +936,7 @@ function FinalCTA({ onOpenModal }) {
         <Reveal delay={80}>
           <h2 className="mt-6 usk-display text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
             Your next skill is{' '}
-            <span className="bg-gradient-to-r from-indigo-600 to-teal-700 bg-clip-text text-transparent dark:from-indigo-400 dark:to-teal-300">
+            <span className="bg-gradient-to-r from-primary-600 to-secondary-700 bg-clip-text text-transparent dark:from-primary-400 dark:to-secondary-300">
               one course away.
             </span>
           </h2>
@@ -877,14 +950,14 @@ function FinalCTA({ onOpenModal }) {
             <button
               type="button"
               onClick={() => onOpenModal(null)}
-              className="group inline-flex items-center gap-2 rounded-full bg-[linear-gradient(90deg,#1683D8_0%,#2FA9A8_50%,#4DBB5A_100%)] px-6 py-3 text-xs font-semibold text-white shadow-lg transition-transform duration-300 hover:brightness-110 hover:scale-105"
+              className="group inline-flex items-center gap-2 rounded-full bg-secondary-500 text-primary-700 border border-secondary-500 px-6 py-3 text-xs font-semibold shadow-lg transition-all duration-300 hover:bg-secondary-600 hover:scale-105"
             >
               Apply for New Batch
               <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" />
             </button>
             <a
               href="#courses"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3 text-xs font-semibold text-slate-900 transition-colors duration-300 hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-full bg-primary-700 text-secondary-500 border border-secondary-500 px-6 py-3 text-xs font-semibold transition-all duration-300 hover:bg-primary-600"
             >
               Browse Courses
             </a>
@@ -933,12 +1006,12 @@ export default function UpskillCourseProgram() {
 
         /* ─── Brand colour variables ─── */
         :root {
-          --color-brand: #1683D8;
-          --color-brand-light: #4DBB5A;
+          --color-brand: #133B5D;
+          --color-brand-light: #F39924;
         }
         .dark {
-          --color-brand: #4DBB5A;
-          --color-brand-light: #1683D8;
+          --color-brand: #F39924;
+          --color-brand-light: #133B5D;
         }
         .bg-brand { background-color: var(--color-brand); }
         .text-brand { color: var(--color-brand); }
@@ -950,10 +1023,7 @@ export default function UpskillCourseProgram() {
         .dark\\:bg-brand\\/20 { background-color: color-mix(in srgb, var(--color-brand) 20%, transparent); }
         .dark\\:border-brand\\/30 { border-color: color-mix(in srgb, var(--color-brand) 30%, transparent); }
 
-        /* FIX: Enroll Now button always full gradient, no half-blue/half-green split */
-        .enroll-btn {
-          background: linear-gradient(90deg, #1683D8 0%, #2FA9A8 50%, #4DBB5A 100%);
-        }
+        /* Enroll Now button uses solid orange (see component classes) */
 
         @keyframes usk-float-kf {
           0%, 100% { transform: translateY(0px); }
@@ -1004,7 +1074,7 @@ export default function UpskillCourseProgram() {
         <FAQ />
         <FinalCTA onOpenModal={handleOpenModal} />
       </main>
-      <Footer />
+      <Footer compact />
       <RegisterModal
         isOpen={modalOpen}
         onClose={handleCloseModal}

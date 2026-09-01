@@ -9,6 +9,10 @@ import { useThemeContext } from "@shared/context/ThemeContext";
 // ─── Design tokens ───────────────────────────────────────────────────────────
 const EASE = [0.16, 0.8, 0.3, 1];
 
+// Swap for a real office/team photo when available.
+const HERO_IMAGE =
+  "https://i.pinimg.com/1200x/df/d8/da/dfd8daa35cd2985d221f17dd5512c43c.jpg";
+
 // ─── FAQ Data ────────────────────────────────────────────────────────────────
 const FAQS = [
   {
@@ -60,59 +64,106 @@ export default function Contact() {
     <>
       <Navbar />
 
-      {/* ─── HERO ─── */}
-      <section
-        className="relative overflow-hidden pt-16 pb-10 text-slate-900 dark:text-white sm:pt-20 sm:pb-12
-                   bg-[linear-gradient(135deg,#B5DBFF_0%,#C4EFF6_55%,#D8FBF5_100%)]
-                   dark:bg-[linear-gradient(135deg,#0F172A_0%,#111827_50%,#0B1120_100%)]"
-      >
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.08]"
-          style={{
-            backgroundImage: "radial-gradient(rgba(15,23,42,0.14) 1px, transparent 1px)",
-            backgroundSize: "22px 22px",
-            maskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 90%)",
-            WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 90%)",
-          }}
-        />
-        <div className="pointer-events-none absolute -top-24 -left-20 h-96 w-96 rounded-full bg-blue-400/25 blur-3xl dark:bg-blue-500/10" />
-        <div className="pointer-events-none absolute -bottom-24 -right-16 h-96 w-96 rounded-full bg-indigo-300/25 blur-3xl dark:bg-indigo-500/10" />
-        <div className="pointer-events-none absolute top-1/3 right-1/4 h-40 w-40 rounded-full bg-purple-300/20 blur-2xl dark:bg-purple-500/10" />
+      {/* ─── HERO (dark image banner + overlapping intro card) ─── */}
+      <section className="relative">
+        {/* Dark image hero */}
+        <div className="relative min-h-[300px] w-full overflow-hidden sm:min-h-[340px] lg:min-h-[380px]">
+          <img
+            src={HERO_IMAGE}
+            alt="Kini team ready to help"
+            className="absolute inset-0 h-full w-full object-cover object-top"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(100deg, rgba(11,53,84,0.90) 0%, rgba(11,53,84,0.62) 45%, rgba(11,53,84,0.32) 100%)",
+            }}
+          />
 
-        <div className="relative mx-auto max-w-7xl px-5 text-center">
-          <motion.span
-            {...rise(0)}
-            className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/70 px-4 py-1.5 text-xs font-semibold tracking-wide text-slate-700 shadow-sm backdrop-blur-xl
-                       dark:border-white/10 dark:bg-white/5 dark:text-slate-300"
-          >
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            </span>
-            Get in Touch
-          </motion.span>
+          <div className="relative mx-auto flex max-w-7xl flex-col justify-start px-5 pt-8 pb-20 sm:pt-10 sm:pb-24 lg:pt-12 lg:pb-28">
+            <motion.span
+              {...rise(0)}
+              className="mb-3 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-white backdrop-blur-xl"
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              </span>
+              Get in Touch
+            </motion.span>
 
-          <motion.h1
-            {...rise(0.08)}
-            className="mx-auto mb-3 max-w-3xl text-[2.2rem] font-extrabold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl"
-          >
-            We'd Love to
-            <span className="block bg-gradient-to-r from-[#2563EB] to-[#7C3AED] bg-clip-text text-transparent">
-              Hear From You
-            </span>
-          </motion.h1>
+            <motion.h1
+              {...rise(0.08)}
+              className="max-w-2xl text-[2.2rem] font-extrabold leading-[1.05] tracking-tight text-white sm:text-4xl md:text-5xl"
+            >
+              We'd Love to
+              <span className="block bg-gradient-to-r from-secondary-400 to-secondary-500 bg-clip-text text-transparent">
+                Hear From You
+              </span>
+            </motion.h1>
 
-          <motion.p
-            {...rise(0.16)}
-            className="mx-auto max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-lg"
+            <motion.p
+              {...rise(0.16)}
+              className="mt-3 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg"
+            >
+              Have a question, need support, or want to discuss enterprise plans? Our team is here to help.
+            </motion.p>
+          </div>
+        </div>
+
+        {/* Overlapping intro card */}
+        <div className="relative z-10 mx-auto -mt-14 max-w-7xl px-5 sm:-mt-16 lg:-mt-20">
+          <motion.div
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.5, ease: EASE }}
+            className={`grid gap-4 rounded-3xl border p-5 shadow-xl sm:grid-cols-2 sm:p-6 lg:gap-6 lg:p-7 ${
+              isDark ? "border-white/10 bg-slate-900" : "border-[#CFE1EF] bg-white"
+            }`}
           >
-            Have a question, need support, or want to discuss enterprise plans? Our team is here to help.
-          </motion.p>
+            <div className="flex items-start gap-3 rounded-2xl p-4">
+              <span
+                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
+                  isDark ? "bg-primary-500/15 text-primary-300" : "bg-primary-100 text-primary-600"
+                }`}
+              >
+                <MapPin className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <div>
+                <p className={`text-xs font-semibold uppercase tracking-wide ${isDark ? "text-white/40" : "text-slate-400"}`}>
+                  Visit us
+                </p>
+                <p className={`mt-0.5 text-sm font-medium ${isDark ? "text-white" : "text-slate-900"}`}>
+                  {OFFICE_ADDRESS}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 rounded-2xl p-4">
+              <span
+                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
+                  isDark ? "bg-secondary-500/15 text-secondary-300" : "bg-secondary-50 text-secondary-600"
+                }`}
+              >
+                <Zap className="h-4 w-4" aria-hidden="true" />
+              </span>
+              <div>
+                <p className={`text-xs font-semibold uppercase tracking-wide ${isDark ? "text-white/40" : "text-slate-400"}`}>
+                  Fast response
+                </p>
+                <p className={`mt-0.5 text-sm font-medium ${isDark ? "text-white" : "text-slate-900"}`}>
+                  We usually reply within 24 hours
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ─── FORM + CONTENT ── */}
-      <section className={`py-16 sm:py-20 ${isDark ? "bg-app-dark-gradient" : "bg-slate-50"}`}>
+      <section className={`py-10 sm:py-12 ${isDark ? "bg-app-dark-gradient" : "bg-slate-50"}`}>
         <div className="mx-auto max-w-7xl px-5">
           <div className="grid gap-10 lg:grid-cols-[440px_1fr] lg:gap-12">
 
@@ -121,17 +172,17 @@ export default function Contact() {
               <motion.div
                 initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 0.6, ease: EASE }}
                 className="relative overflow-hidden rounded-[28px] border shadow-elevated"
                 style={{
-                  borderColor: isDark ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.7)",
+                  borderColor: isDark ? "rgba(255,255,255,0.1)" : "#CFE1EF",
                   boxShadow: isDark
                     ? "0 24px 60px -20px rgba(0,0,0,0.6)"
-                    : "0 24px 60px -20px rgba(37,99,235,0.25)",
+                    : "0 24px 60px -20px rgba(19,59,93,0.25)",
                 }}
               >
-                <div className="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl" />
+                <div className="pointer-events-none absolute -top-16 -right-16 h-64 w-64 rounded-full bg-primary-500/20 blur-3xl" />
                 <div className="pointer-events-none absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/40" />
                 <div className={`relative p-6 backdrop-blur-xl sm:p-7 ${isDark ? "bg-slate-950/60" : "bg-white/70"}`}>
                   <GetInTouchFormFields heading="Get In Touch" />
@@ -146,7 +197,7 @@ export default function Contact() {
               <motion.div
                 initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 0.5, ease: EASE }}
               >
                 <div className="mb-4 flex items-end justify-between gap-4">
@@ -157,10 +208,7 @@ export default function Contact() {
                     href={DIRECTIONS_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex shrink-0 items-center gap-1 rounded-full px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2"
-                    style={{
-                      background: "linear-gradient(90deg, #1E73BD 0%, #2890B8 35%, #35A89D 65%, #58B347 100%)",
-                    }}
+                    className="group inline-flex shrink-0 items-center gap-1 rounded-full bg-secondary-500 text-primary-700 border border-secondary-500 px-4 py-2 text-sm font-semibold shadow-md transition-all duration-300 hover:bg-secondary-600 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2"
                   >
                     Get directions
                     <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -170,7 +218,7 @@ export default function Contact() {
                 {/* Map container — updated iframe matching the provided embed code */}
                 <div
                   className={`relative overflow-hidden rounded-[28px] border shadow-lg transition-shadow duration-300 hover:shadow-xl ${
-                    isDark ? "border-white/[0.08]" : "border-slate-200"
+                    isDark ? "border-white/[0.08]" : "border-[#CFE1EF]"
                   }`}
                   style={{ paddingBottom: "56.25%", height: 0 }} /* 16:9 responsive ratio */
                 >
@@ -189,12 +237,12 @@ export default function Contact() {
                   {/* Address overlay */}
                   <div
                     className={`absolute bottom-4 left-4 right-4 flex items-center gap-3 rounded-2xl border p-4 shadow-lg backdrop-blur-xl sm:right-auto sm:max-w-xs ${
-                      isDark ? "border-white/10 bg-slate-950/85" : "border-slate-200 bg-white/90"
+                      isDark ? "border-white/10 bg-slate-950/85" : "border-[#CFE1EF] bg-white/90"
                     }`}
                   >
                     <span
                       className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
-                        isDark ? "bg-blue-500/15 text-blue-400" : "bg-blue-100 text-blue-600"
+                        isDark ? "bg-primary-500/15 text-primary-300" : "bg-primary-100 text-primary-600"
                       }`}
                     >
                       <MapPin className="h-4 w-4" />
@@ -208,7 +256,7 @@ export default function Contact() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`mt-1 inline-flex items-center gap-1 text-xs font-semibold sm:hidden ${
-                          isDark ? "text-blue-400" : "text-blue-600"
+                          isDark ? "text-primary-300" : "text-primary-600"
                         }`}
                       >
                         Get directions <ArrowUpRight className="h-3 w-3" />
@@ -223,7 +271,7 @@ export default function Contact() {
                 <motion.div
                   initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
+                  viewport={{ once: false, amount: 0.3 }}
                   transition={{ duration: 0.5, ease: EASE }}
                   className="mb-5"
                 >
@@ -244,12 +292,12 @@ export default function Contact() {
                         key={faq.q}
                         initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 12 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
+                        viewport={{ once: false, amount: 0.3 }}
                         transition={{ duration: 0.4, ease: EASE, delay: i * 0.06 }}
                         className={`overflow-hidden rounded-2xl border transition-colors duration-200 ${
                           isDark
-                            ? `bg-white/[0.03] ${isOpen ? "border-blue-500/30" : "border-white/[0.06]"}`
-                            : `bg-white shadow-sm ${isOpen ? "border-blue-300" : "border-slate-200"}`
+                            ? `bg-white/[0.03] ${isOpen ? "border-primary-500/30" : "border-white/[0.06]"}`
+                            : `bg-white shadow-[0_2px_8px_rgba(19,59,93,0.06)] ${isOpen ? "border-primary-300" : "border-[#CFE1EF]"}`
                         }`}
                       >
                         <button
@@ -257,14 +305,14 @@ export default function Contact() {
                           onClick={() => setOpenFaq(isOpen ? null : i)}
                           aria-expanded={isOpen}
                           aria-controls={`faq-panel-${i}`}
-                          className="flex w-full items-center gap-4 rounded-2xl p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60 focus-visible:ring-offset-2"
+                          className="flex w-full items-center gap-4 rounded-2xl p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/60 focus-visible:ring-offset-2"
                         >
                           <span
                             className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl transition-colors duration-200 ${
                               isOpen
                                 ? isDark
-                                  ? "bg-blue-500/20 text-blue-400"
-                                  : "bg-blue-100 text-blue-600"
+                                  ? "bg-primary-500/20 text-primary-300"
+                                  : "bg-primary-100 text-primary-600"
                                 : isDark
                                 ? "bg-white/5 text-white/40"
                                 : "bg-slate-100 text-slate-400"
@@ -317,32 +365,9 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ─── GRADIENT BUTTON OVERRIDE ─── */}
-      <style>{`
-        .GetInTouchFormFields button[type="submit"],
-        .GetInTouchFormFields .submit-button {
-          background: linear-gradient(90deg, #1E73BD 0%, #2890B8 35%, #35A89D 65%, #58B347 100%) !important;
-          border: none !important;
-          color: white !important;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .GetInTouchFormFields button[type="submit"]:hover,
-        .GetInTouchFormFields .submit-button:hover {
-          transform: scale(1.02);
-          box-shadow: 0 8px 25px rgba(30,115,189,0.35);
-        }
-        .GetInTouchFormFields .btn-primary {
-          background: linear-gradient(90deg, #1E73BD 0%, #2890B8 35%, #35A89D 65%, #58B347 100%) !important;
-          border: none !important;
-          color: white !important;
-        }
-        .GetInTouchFormFields .btn-primary:hover {
-          transform: scale(1.02);
-          box-shadow: 0 8px 25px rgba(30,115,189,0.35);
-        }
-      `}</style>
 
-      <Footer />
+
+      <Footer compact />
     </>
   );
 }

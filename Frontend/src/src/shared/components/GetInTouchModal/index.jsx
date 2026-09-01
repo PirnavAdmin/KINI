@@ -81,6 +81,11 @@ const trustStats = [
   { icon: Star, value: "50+", label: "Mentors" },
 ];
 
+// Left-panel background. No shared gradient token was available in this
+// file, so this is a brand-consistent navy gradient placeholder — swap in
+// the real design-token value if one already exists elsewhere in the app.
+const GRADIENT = "linear-gradient(135deg, #0D2C47 0%, #133B5D 55%, #1B4C74 100%)";
+
 // ─── Animation variants ─────────────────────────────────────────────────────
 
 const EASE_PREMIUM = [0.25, 0.1, 0.25, 1];
@@ -136,9 +141,7 @@ async function submitGetInTouch(values) {
   console.log("Submitted:", values);
 }
 
-// ─── Gradient button ──────────────────────────────────────────────────────
-
-const GRADIENT = "linear-gradient(135deg, #1F76BD 0%, #2D99AE 50%, #53B255 100%)";
+// ─── Primary button (solid orange + navy text) ──────────────────────────
 
 function GradientButton({ children, disabled, type = "button", onClick, className = "" }) {
   return (
@@ -146,11 +149,7 @@ function GradientButton({ children, disabled, type = "button", onClick, classNam
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`relative flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 disabled:opacity-60 disabled:cursor-not-allowed ${className}`}
-      style={{
-        backgroundImage: GRADIENT,
-        backgroundColor: "#1F76BD",
-      }}
+      className={`relative flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold bg-secondary-500 text-primary-700 border border-secondary-500 transition-all duration-300 hover:bg-secondary-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-secondary-500 ${className}`}
     >
       {children}
     </button>
@@ -247,7 +246,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: 
     "w-full min-w-0 rounded-xl border px-3.5 py-2 text-sm outline-none transition-colors focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20";
 
   // 44px+ tap target on mobile; textarea uses min-h instead so `rows` still works.
-  const controlHeight = "h-11 sm:h-12";
+  const controlHeight = "h-10 sm:h-11";
 
   const inputTheme = (hasError) =>
     hasError
@@ -266,7 +265,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: 
   const selectClassNames = {
     container: () => "w-full min-w-0 max-w-full",
     control: (state) =>
-      `flex w-full min-w-0 min-h-11 items-center gap-1 rounded-xl border px-3.5 text-sm outline-none transition-colors sm:min-h-12 ${
+      `flex w-full min-w-0 min-h-10 items-center gap-1 rounded-xl border px-3.5 text-sm outline-none transition-colors sm:min-h-11 ${
         state.isFocused
           ? "border-sky-500 ring-2 ring-sky-500/20"
           : isDark
@@ -289,7 +288,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: 
     option: (state) =>
       `cursor-pointer break-words px-3.5 py-2.5 text-sm ${
         state.isSelected
-          ? "bg-sky-500/10 font-semibold text-sky-500"
+          ? "bg-primary-500/10 font-semibold text-primary-500"
           : state.isFocused
           ? isDark
             ? "bg-white/10 text-white"
@@ -351,21 +350,21 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: 
 
             {/* ── LEFT panel ── */}
             <div
-              className="relative overflow-hidden p-5 text-white sm:p-6"
+              className="relative overflow-hidden p-4 text-white sm:p-5"
               style={{ background: GRADIENT }}
             >
               <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" aria-hidden="true" />
               <div className="pointer-events-none absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-black/10 blur-2xl" aria-hidden="true" />
 
               <div className="relative">
-                <h2 id="git-heading" className="pr-10 text-xl font-extrabold leading-tight sm:pr-0 sm:text-2xl">
+                <h2 id="git-heading" className="pr-10 text-lg font-extrabold leading-tight sm:pr-0 sm:text-xl">
                   🚀 Ready to Start Your Tech Career?
                 </h2>
                 <p className="mt-1.5 text-sm leading-relaxed text-white/85">
                   Speak with our career experts and receive personalized guidance.
                 </p>
 
-                <ul className="mt-4 space-y-2">
+                <ul className="mt-3 space-y-1.5">
                   {benefits.map((b) => (
                     <li key={b} className="flex items-center gap-2 text-sm font-medium">
                       <CheckCircle2 className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
@@ -375,7 +374,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: 
                 </ul>
 
                 {/* ── Updated trust stats ── */}
-                <div className="mt-4 grid grid-cols-3 gap-2 border-t border-white/20 pt-3 sm:gap-4">
+                <div className="mt-3 grid grid-cols-3 gap-2 border-t border-white/20 pt-2.5 sm:gap-4">
                   {trustStats.map(({ icon: Icon, value, label }) => (
                     <div key={label} className="min-w-0 text-center">
                       <Icon className="mx-auto h-3.5 w-3.5 text-white/80" aria-hidden="true" />
@@ -388,7 +387,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: 
             </div>
 
             {/* ── RIGHT panel ── */}
-            <div className="p-5 sm:p-6">
+            <div className="p-4 sm:p-5">
               {status === "success" ? (
                 <div className="flex h-full min-h-[320px] flex-col items-center justify-center text-center">
                   <motion.div
@@ -412,7 +411,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: 
                     Get In Touch
                   </h3>
 
-                  <div className="mt-3 space-y-3">
+                  <div className="mt-2.5 space-y-2">
                     {/* Full Name */}
                     <div>
                       <label htmlFor="git-name" className={labelClass}>
@@ -525,10 +524,10 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: 
                       </label>
                       <textarea
                         id="git-message"
-                        rows={3}
+                        rows={2}
                         aria-invalid={!!errors.message}
                         aria-describedby={errors.message ? "git-message-err" : undefined}
-                        className={`${inputClass(!!errors.message)} min-h-[100px] resize-none sm:min-h-[120px]`}
+                        className={`${inputClass(!!errors.message)} min-h-[64px] resize-none sm:min-h-[72px]`}
                         placeholder="Tell us what you're looking for (min. 20 characters)"
                         {...register("message")}
                       />
@@ -552,7 +551,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: 
                     )}
                   </div>
 
-                  <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                  <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                     <GradientButton
                       type="submit"
                       disabled={isSubmitting || status === "submitting"}
@@ -572,8 +571,7 @@ export default function GetInTouchModal({ isOpen, onClose, onSubmitted, isDark: 
                       type="button"
                       onClick={handleClose}
                       disabled={status === "submitting"}
-                      className="flex-1 rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50 disabled:opacity-50
-                        text-sky-400 hover:bg-sky-400/10 hover:text-sky-300 sm:flex-none"
+                      className="flex-1 rounded-xl px-5 py-2.5 text-sm font-semibold bg-primary-700 text-secondary-500 border border-secondary-500 transition-all duration-300 hover:bg-primary-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:opacity-50 sm:flex-none"
                     >
                       Maybe Later
                     </button>

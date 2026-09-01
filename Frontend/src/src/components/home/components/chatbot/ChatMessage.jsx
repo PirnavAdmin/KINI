@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ExternalLink, MessageCircle } from "lucide-react";
 import { kiniKnowledgeBase as KB } from "./chatbotData";
 
-const GRAD = "linear-gradient(135deg, #0877B9 0%, #278F8D 50%, #58A94B 100%)";
+const GRAD = "linear-gradient(135deg, #133B5D 0%, #35608A 50%, #F39924 100%)";
 
 // Simple markdown-lite: **bold** and \n→<br>
 function RichText({ text }) {
@@ -37,8 +37,7 @@ function ContactBtn() {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg text-xs font-semibold text-white"
-      style={{ background: GRAD }}
+      className="inline-flex items-center gap-1.5 mt-3 px-3 py-1.5 rounded-lg text-xs font-semibold bg-secondary-500 text-primary-700 border border-secondary-500 transition-all duration-300 hover:bg-secondary-600"
     >
       <MessageCircle size={13} />
       Talk to Kini Edx Hub
@@ -56,7 +55,7 @@ function CourseCard({ course, compact = false }) {
           </p>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{course.description}</p>
         </div>
-        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 shrink-0">
+        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-primary-50 dark:bg-primary-500/10 text-primary-700 dark:text-primary-300 shrink-0">
           {course.level}
         </span>
       </div>
@@ -78,8 +77,7 @@ function CourseCard({ course, compact = false }) {
       {course.enrollUrl && (
         <a
           href={course.enrollUrl}
-          className="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-white px-3 py-1.5 rounded-lg"
-          style={{ background: GRAD }}
+          className="inline-flex items-center gap-1 mt-2 text-xs font-semibold bg-secondary-500 text-primary-700 border border-secondary-500 px-3 py-1.5 rounded-lg transition-all duration-300 hover:bg-secondary-600"
         >
           Enroll <ExternalLink size={11} />
         </a>
@@ -247,7 +245,7 @@ function renderBotContent(data, isDark, onQuickAction) {
             <ul className="mt-2 space-y-0.5">
               {data.modeInfo.points.map((p, i) => (
                 <li key={i} className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1">
-                  <span className="text-blue-400">•</span> {p}
+                  <span className="text-primary-400">•</span> {p}
                 </li>
               ))}
             </ul>
@@ -307,7 +305,7 @@ function renderBotContent(data, isDark, onQuickAction) {
               <ul className="space-y-0.5">
                 {m.points.map((p, i) => (
                   <li key={i} className="text-xs text-slate-600 dark:text-slate-300 flex gap-1">
-                    <span className="text-blue-400 shrink-0">•</span> {p}
+                    <span className="text-primary-400 shrink-0">•</span> {p}
                   </li>
                 ))}
               </ul>
@@ -462,7 +460,7 @@ function renderBotContent(data, isDark, onQuickAction) {
                 <button
                   key={i}
                   onClick={() => onQuickAction({ text: opt, recommendState: data.nextState })}
-                  className="text-xs px-2.5 py-1 rounded-full border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-blue-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+                  className="text-xs px-2.5 py-1 rounded-full border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-primary-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                 >
                   {opt}
                 </button>
@@ -558,7 +556,7 @@ function QuickActionGrid({ onQuickAction, mini }) {
         <button
           key={i}
           onClick={() => onQuickAction({ text: a.text })}
-          className="text-xs px-2.5 py-1 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
+          className="text-xs px-2.5 py-1 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-primary-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
         >
           {a.label}
         </button>

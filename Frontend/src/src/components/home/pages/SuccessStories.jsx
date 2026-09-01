@@ -1,4 +1,4 @@
-/**
+﻿/**
  * StudentReviews.jsx — Premium Redesign
  *
  * Preserved:
@@ -34,6 +34,8 @@ import {
 import { FiArrowRight, FiCheckCircle, FiAward } from "react-icons/fi";
 import { motion, useReducedMotion } from "framer-motion";
 import { useThemeContext } from "@shared/context/ThemeContext";
+import Navbar from "@shared/components/navbar";
+import Footer from "@shared/components/Footer";
 
 // ─── DATA (unchanged shape; enriched optional fields) ─────────────────────────
 const TESTIMONIALS_DATA = [
@@ -154,7 +156,7 @@ const TrustMetric = memo(({ metric, isDark, shouldReduceMotion }) => (
       }`}
   >
     <span className="text-base" aria-hidden="true">{metric.icon}</span>
-    <span className="text-cyan-400">{metric.value}</span>
+    <span className="text-secondary-400">{metric.value}</span>
     <span className={isDark ? "text-slate-400" : "text-slate-500"}>{metric.label}</span>
   </motion.div>
 ));
@@ -165,8 +167,8 @@ const CompanyChip = memo(({ name, isDark }) => (
     className={`flex items-center justify-center rounded-xl px-5 py-3 text-sm font-bold tracking-wide transition-all duration-200
       hover:-translate-y-0.5
       ${isDark
-        ? "border border-white/8 bg-white/[0.04] text-slate-300 hover:border-cyan-400/20 hover:text-white"
-        : "border border-slate-200 bg-white text-slate-600 hover:border-cyan-400/40 hover:text-slate-900 shadow-sm"
+        ? "border border-white/8 bg-white/[0.04] text-slate-300 hover:border-secondary-400/20 hover:text-white"
+        : "border border-slate-200 bg-white text-slate-600 hover:border-secondary-400/40 hover:text-slate-900 shadow-sm"
       }`}
   >
     {name}
@@ -190,8 +192,8 @@ const ReviewCard = memo(({ item, isDark, shouldReduceMotion }) => {
       whileHover={shouldReduceMotion ? {} : { y: -6, transition: { duration: 0.25 } }}
       className={`group relative flex flex-col overflow-hidden rounded-2xl transition-shadow duration-300
         ${isDark
-          ? "border border-white/10 bg-[#0a1628] hover:border-cyan-400/30 hover:shadow-[0_24px_64px_rgba(6,182,212,0.12)]"
-          : "border border-slate-200 bg-white hover:border-cyan-300 hover:shadow-[0_24px_64px_rgba(6,182,212,0.10)] shadow-sm"
+          ? "border border-white/10 bg-[#0a1628] hover:border-secondary-400/30 hover:shadow-[0_24px_64px_rgba(243,153,36,0.12)]"
+          : "border border-slate-200 bg-white hover:border-secondary-300 hover:shadow-[0_24px_64px_rgba(243,153,36,0.10)] shadow-sm"
         }`}
       aria-label={`Video testimonial from ${item.name}`}
     >
@@ -214,8 +216,8 @@ const ReviewCard = memo(({ item, isDark, shouldReduceMotion }) => {
             {/* Course badge — top left */}
             {item.course && (
               <div className="absolute top-3 left-3 z-10">
-                <span className="inline-flex items-center gap-1 rounded-full bg-cyan-500/20 border border-cyan-400/30
-                                 px-2.5 py-1 text-[10px] font-semibold text-cyan-300 backdrop-blur-sm">
+                <span className="inline-flex items-center gap-1 rounded-full bg-secondary-500/20 border border-secondary-400/30
+                                 px-2.5 py-1 text-[10px] font-semibold text-secondary-300 backdrop-blur-sm">
                   <FaGraduationCap aria-hidden="true" className="text-[9px]" />
                   {item.course}
                 </span>
@@ -236,7 +238,7 @@ const ReviewCard = memo(({ item, isDark, shouldReduceMotion }) => {
             {/* Centered avatar + glow */}
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
               <div className="relative">
-                <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-xl scale-150" aria-hidden="true" />
+                <div className="absolute inset-0 rounded-full bg-secondary-400/20 blur-xl scale-150" aria-hidden="true" />
                 <img
                   src={item.avatar}
                   alt=""
@@ -255,17 +257,17 @@ const ReviewCard = memo(({ item, isDark, shouldReduceMotion }) => {
               onKeyDown={handleKeyPlay}
               aria-label={`Play video review by ${item.name}`}
               className="absolute inset-0 flex items-center justify-center group/play focus-visible:outline-none
-                         focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                         focus-visible:ring-2 focus-visible:ring-secondary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
             >
               <motion.div
                 whileHover={shouldReduceMotion ? {} : { scale: 1.12 }}
                 whileTap={shouldReduceMotion ? {} : { scale: 0.96 }}
                 className="relative flex h-14 w-14 items-center justify-center rounded-full
-                           bg-gradient-to-br from-cyan-400 to-blue-500 shadow-[0_0_32px_rgba(6,182,212,0.5)]
-                           transition-shadow duration-300 group-hover/play:shadow-[0_0_48px_rgba(6,182,212,0.7)]"
+                           bg-gradient-to-br from-secondary-400 to-primary-500 shadow-[0_0_32px_rgba(243,153,36,0.5)]
+                           transition-shadow duration-300 group-hover/play:shadow-[0_0_48px_rgba(243,153,36,0.7)]"
               >
                 {/* Pulse ring */}
-                <span className="absolute inset-0 rounded-full animate-ping bg-cyan-400/30 group-hover/play:bg-cyan-400/50" aria-hidden="true" />
+                <span className="absolute inset-0 rounded-full animate-ping bg-secondary-400/30 group-hover/play:bg-secondary-400/50" aria-hidden="true" />
                 <FaPlay className="relative text-white text-sm ml-0.5" aria-hidden="true" />
               </motion.div>
             </button>
@@ -294,7 +296,7 @@ const ReviewCard = memo(({ item, isDark, shouldReduceMotion }) => {
           )}
           {item.batch && (
             <span className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-semibold
-                             bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                             bg-primary-500/10 border border-primary-500/20 text-primary-400">
               <FiAward aria-hidden="true" className="text-[9px]" />
               {item.batch}
             </span>
@@ -340,14 +342,14 @@ const ReviewCard = memo(({ item, isDark, shouldReduceMotion }) => {
             <div className="min-w-0">
               <h3 className={`truncate text-sm font-bold transition-colors duration-200
                 ${isDark
-                  ? "text-white group-hover:text-cyan-300"
-                  : "text-slate-900 group-hover:text-cyan-600"
+                  ? "text-white group-hover:text-secondary-300"
+                  : "text-slate-900 group-hover:text-secondary-600"
                 }`}>
                 {item.name}
               </h3>
               <p className="truncate text-xs text-slate-400 mt-0.5">
                 {item.role}{" "}
-                <span className={`font-semibold ${isDark ? "text-cyan-400" : "text-cyan-600"}`}>
+                <span className={`font-semibold ${isDark ? "text-secondary-400" : "text-secondary-600"}`}>
                   @ {item.company}
                 </span>
               </p>
@@ -362,7 +364,7 @@ const ReviewCard = memo(({ item, isDark, shouldReduceMotion }) => {
               rel="noopener noreferrer"
               aria-label={`View ${item.name}'s LinkedIn profile`}
               className={`flex h-8 w-8 items-center justify-center rounded-xl border transition-all duration-200
-                focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400
+                focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary-400
                 ${isDark
                   ? "border-white/10 bg-white/[0.04] text-slate-400 hover:border-[#0077B5] hover:bg-[#0077B5] hover:text-white"
                   : "border-slate-200 bg-slate-50 text-slate-500 hover:border-[#0077B5] hover:bg-[#0077B5] hover:text-white"
@@ -375,10 +377,10 @@ const ReviewCard = memo(({ item, isDark, shouldReduceMotion }) => {
               type="button"
               onClick={handlePlayClick}
               aria-label={`Watch ${item.name}'s story`}
-              className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600
-                         px-3 py-1.5 text-[11px] font-semibold text-white shadow-md
-                         transition-all duration-200 hover:shadow-cyan-500/30 hover:shadow-lg
-                         focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400"
+              className="flex items-center gap-1.5 rounded-xl bg-secondary-500 text-primary-700 border border-secondary-500
+                         px-3 py-1.5 text-[11px] font-semibold shadow-md
+                         transition-all duration-200 hover:bg-secondary-600 hover:shadow-lg
+                         focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary-400"
             >
               <FaPlay className="text-[8px]" aria-hidden="true" />
               Watch Story
@@ -396,7 +398,9 @@ export default function StudentReviews() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section
+    <>
+      <Navbar />
+      <section
       id="reviews"
       aria-labelledby="reviews-heading"
       className={`relative w-full overflow-hidden py-20 md:py-28 font-sans transition-colors duration-300
@@ -408,11 +412,11 @@ export default function StudentReviews() {
           <>
             {/* Orbs */}
             <div className="absolute left-1/2 top-0 h-[600px] w-[900px] -translate-x-1/2 rounded-full
-                            bg-cyan-500/[0.06] blur-[180px]" />
+                            bg-secondary-500/[0.06] blur-[180px]" />
             <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full
-                            bg-blue-600/[0.07] blur-[160px]" />
+                            bg-primary-600/[0.07] blur-[160px]" />
             <div className="absolute left-0 top-1/3 h-[400px] w-[400px] rounded-full
-                            bg-cyan-400/[0.05] blur-[140px]" />
+                            bg-secondary-400/[0.05] blur-[140px]" />
           </>
         )}
         {/* Grid */}
@@ -429,10 +433,10 @@ export default function StudentReviews() {
 
       {/* Floating dots */}
       <div aria-hidden="true" className="pointer-events-none">
-        <span className="absolute left-[8%]  top-24 h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400/40" />
-        <span className="absolute right-[12%] top-1/4 h-1 w-1 animate-ping  rounded-full bg-blue-400/40" />
+        <span className="absolute left-[8%]  top-24 h-1.5 w-1.5 animate-pulse rounded-full bg-secondary-400/40" />
+        <span className="absolute right-[12%] top-1/4 h-1 w-1 animate-ping  rounded-full bg-primary-400/40" />
         <span className="absolute bottom-1/3 left-[18%] h-1 w-1 animate-pulse rounded-full bg-white/20" />
-        <span className="absolute right-[25%] bottom-1/4 h-1.5 w-1.5 animate-ping rounded-full bg-cyan-300/30" />
+        <span className="absolute right-[25%] bottom-1/4 h-1.5 w-1.5 animate-ping rounded-full bg-secondary-300/30" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -442,7 +446,7 @@ export default function StudentReviews() {
           variants={staggerContainer}
           initial={shouldReduceMotion ? "visible" : "hidden"}
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: false, amount: 0.2 }}
           className="mb-16 text-center"
         >
           {/* Badge */}
@@ -450,8 +454,8 @@ export default function StudentReviews() {
             <span className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold
               border backdrop-blur-sm
               ${isDark
-                ? "border-cyan-400/20 bg-cyan-400/10 text-cyan-400"
-                : "border-cyan-500/20 bg-cyan-50 text-cyan-600"
+                ? "border-secondary-400/20 bg-secondary-400/10 text-secondary-400"
+                : "border-secondary-500/20 bg-secondary-50 text-secondary-600"
               }`}>
               🎥 Student Success Stories
             </span>
@@ -466,7 +470,7 @@ export default function StudentReviews() {
             <span className={isDark ? "text-white" : "text-slate-900"}>
               Hear From Students Who{" "}
             </span>
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-secondary-400 to-primary-500 bg-clip-text text-transparent">
               Built Their Careers
             </span>
             <br />
@@ -499,7 +503,7 @@ export default function StudentReviews() {
         <motion.div
           initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.5 }}
           className="mb-14"
         >
@@ -519,7 +523,7 @@ export default function StudentReviews() {
           variants={staggerContainer}
           initial={shouldReduceMotion ? "visible" : "hidden"}
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: false, amount: 0.1 }}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
         >
           {TESTIMONIALS_DATA.map((item) => (
@@ -536,12 +540,12 @@ export default function StudentReviews() {
         <motion.div
           initial={shouldReduceMotion ? {} : { opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className={`mt-20 rounded-3xl border p-10 text-center
             ${isDark
-              ? "border-white/10 bg-gradient-to-br from-[#0a1628] via-[#0c1f3d] to-[#061020] shadow-[0_32px_80px_rgba(6,182,212,0.08)]"
-              : "border-slate-200 bg-gradient-to-br from-white via-slate-50 to-cyan-50/50 shadow-xl"
+              ? "border-white/10 bg-gradient-to-br from-[#0a1628] via-[#0c1f3d] to-[#061020] shadow-[0_32px_80px_rgba(243,153,36,0.08)]"
+              : "border-slate-200 bg-gradient-to-br from-white via-slate-50 to-secondary-50/50 shadow-xl"
             }`}
         >
           {/* Stars */}
@@ -565,10 +569,10 @@ export default function StudentReviews() {
               type="button"
               whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
               whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
-              className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600
-                         px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-cyan-500/25
-                         transition-shadow hover:shadow-xl hover:shadow-cyan-500/30
-                         focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400"
+              className="group flex items-center gap-2 rounded-full bg-secondary-500 text-primary-700 border border-secondary-500
+                         px-7 py-3.5 text-sm font-bold shadow-lg shadow-secondary-500/25
+                         transition-all duration-300 hover:bg-secondary-600 hover:shadow-xl
+                         focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary-400"
             >
               Book Free Career Consultation
               <FiArrowRight
@@ -581,21 +585,19 @@ export default function StudentReviews() {
               type="button"
               whileHover={shouldReduceMotion ? {} : { scale: 1.03 }}
               whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
-              className={`flex items-center gap-2 rounded-full border px-7 py-3.5 text-sm font-bold
-                transition-all duration-200
-                focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan-400
-                ${isDark
-                  ? "border-white/15 bg-white/5 text-white hover:border-cyan-400/40 hover:bg-white/10"
-                  : "border-slate-200 bg-white text-slate-800 hover:border-cyan-400/40 hover:bg-cyan-50 shadow-sm"
-                }`}
+              className="flex items-center gap-2 rounded-full bg-primary-700 text-secondary-500 border border-secondary-500 px-7 py-3.5 text-sm font-bold
+                transition-all duration-300 hover:bg-primary-600
+                focus-visible:outline focus-visible:outline-2 focus-visible:outline-secondary-400"
             >
-              <FaBriefcase aria-hidden="true" className="text-xs text-cyan-500" />
+              <FaBriefcase aria-hidden="true" className="text-xs text-secondary-500" />
               Start Learning Today
             </motion.button>
           </div>
         </motion.div>
 
       </div>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 }

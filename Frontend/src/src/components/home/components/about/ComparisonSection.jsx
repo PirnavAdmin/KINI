@@ -8,15 +8,15 @@ const features = [
     icon: Video,
     title: 'Live Mentor-Led Learning',
     desc: 'Learn from industry professionals through interactive live sessions, not just pre-recorded videos.',
-    accent: 'bg-[#085FA7]',
-    shadow: 'shadow-[#085FA7]/20',
+    accent: 'bg-[#133B5D]',
+    shadow: 'shadow-[#133B5D]/20',
   },
   {
     icon: Layers,
     title: 'Career-Focused Curriculum',
     desc: 'A structured path from fundamentals to advanced job-ready skills, designed for real tech roles.',
-    accent: 'bg-[#5CA347]',
-    shadow: 'shadow-[#5CA347]/20',
+    accent: 'bg-[#F39924]',
+    shadow: 'shadow-[#F39924]/20',
   },
   {
     icon: Code2,
@@ -43,8 +43,8 @@ const features = [
     icon: Award,
     title: 'Portfolio & Skill Validation',
     desc: 'Finish with a strong GitHub portfolio and verified project outcomes to showcase to employers.',
-    accent: 'bg-[#085FA7]',
-    shadow: 'shadow-[#085FA7]/20',
+    accent: 'bg-[#133B5D]',
+    shadow: 'shadow-[#133B5D]/20',
   },
 ]
 
@@ -62,7 +62,7 @@ export default function ComparisonSection() {
 
   return (
     <section
-      className="relative overflow-hidden py-20 sm:py-36"
+      className="relative overflow-hidden py-12 sm:py-16"
       style={{
         background: isDark
           ? 'linear-gradient(135deg, #0F172A 0%, #111827 50%, #0B1120 100%)'
@@ -77,7 +77,7 @@ export default function ComparisonSection() {
         <motion.div
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           className="text-center"
         >
           <motion.p variants={fadeUp} custom={0} className="eyebrow text-brand-blue dark:text-primary-300">
@@ -104,7 +104,7 @@ export default function ComparisonSection() {
         <motion.div
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: false, amount: 0.1 }}
           className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {features.map((feature, index) => {
@@ -144,13 +144,13 @@ export default function ComparisonSection() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-12 text-center"
         >
           <Link
             to="/upskill-program"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#085FA7] to-[#5CA347] px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all hover:scale-[1.02] hover:shadow-2xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#085FA7]"
+            className="inline-flex items-center gap-2 rounded-full bg-secondary-500 text-primary-700 border border-secondary-500 px-6 py-3 text-sm font-semibold shadow-lg transition-all duration-300 hover:bg-secondary-600 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-secondary-500"
           >
             Explore Programs →
           </Link>

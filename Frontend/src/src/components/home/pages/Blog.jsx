@@ -53,20 +53,20 @@ function Blog() {
     <>
       <Navbar />
 
-      <section className="bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 text-white pt-32 pb-24">
+      <section className="bg-gradient-to-br from-slate-950 via-primary-950 to-primary-900 text-white pt-32 pb-24">
 
         <div className="max-w-7xl mx-auto px-5">
 
           {/* Hero */}
           <div className="text-center mb-20">
 
-            <span className="uppercase tracking-[4px] text-cyan-400 font-semibold">
+            <span className="uppercase tracking-[4px] text-secondary-400 font-semibold">
               Knowledge Hub
             </span>
 
             <h1 className="text-5xl md:text-7xl font-extrabold mt-5 leading-tight">
               Insights, Trends &
-              <span className="text-cyan-400">
+              <span className="text-secondary-400">
                 {" "}Tech Blogs
               </span>
             </h1>
@@ -90,7 +90,7 @@ function Blog() {
 
             <div className="p-10">
 
-              <span className="inline-flex items-center gap-2 bg-red-500 px-4 py-2 rounded-full text-sm font-semibold">
+              <span className="inline-flex items-center gap-2 bg-secondary-500 px-4 py-2 rounded-full text-sm font-semibold">
 
                 <FaFire />
 
@@ -113,7 +113,7 @@ function Blog() {
 
               </p>
 
-              <button className="mt-8 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-8 py-4 rounded-2xl transition">
+              <button className="mt-8 bg-secondary-500 hover:bg-secondary-400 text-slate-950 font-bold px-8 py-4 rounded-2xl transition">
 
                 Read Article
 
@@ -139,7 +139,7 @@ function Blog() {
 
             </h2>
 
-            <button className="text-blue-600 font-semibold">
+            <button className="text-primary-600 font-semibold">
 
               View All
 
@@ -168,7 +168,7 @@ function Blog() {
 
                 <div className="p-6">
 
-                  <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-semibold">
+                  <span className="text-sm bg-primary-100 text-primary-700 px-3 py-1 rounded-full font-semibold">
 
                     {blog.category}
 
@@ -190,7 +190,7 @@ function Blog() {
 
                     </span>
 
-                    <button className="text-blue-600 flex items-center gap-2 font-semibold">
+                    <button className="text-primary-600 flex items-center gap-2 font-semibold">
 
                       Read
 
@@ -237,7 +237,7 @@ function Blog() {
               className="flex-1 px-6 py-4 rounded-2xl bg-slate-900 border border-slate-700 outline-none"
             />
 
-            <button className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-8 py-4 rounded-2xl font-bold transition">
+            <button className="bg-secondary-500 hover:bg-secondary-400 text-slate-950 px-8 py-4 rounded-2xl font-bold transition">
 
               Subscribe
 

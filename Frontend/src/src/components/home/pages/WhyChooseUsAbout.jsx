@@ -4,6 +4,8 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { useThemeContext } from "@shared/context/ThemeContext";
+import Navbar from "@shared/components/navbar";
+import Footer from "@shared/components/Footer";
 
 const features = [
   {
@@ -43,15 +45,17 @@ const features = [
 export default function WhyChooseUs() {
   const { isDark } = useThemeContext();
   return (
-    <section className={`py-24 relative overflow-hidden transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient text-white' : 'bg-slate-50 text-slate-900'}`}>
+    <>
+      <Navbar />
+      <section className={`py-24 relative overflow-hidden transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient text-white' : 'bg-slate-50 text-slate-900'}`}>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-transparent to-cyan-900/20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary-900/20 via-transparent to-secondary-900/20" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
         <div className="text-center mb-16">
 
-          <span className="text-blue-400 uppercase tracking-widest">
+          <span className="text-primary-400 uppercase tracking-widest">
             Why Choose Us
           </span>
 
@@ -68,7 +72,7 @@ export default function WhyChooseUs() {
 
         <div className="rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl">
 
-          <div className="grid grid-cols-3 bg-gradient-to-r from-blue-700 to-indigo-700 p-6 font-bold text-lg">
+          <div className="grid grid-cols-3 bg-gradient-to-r from-primary-700 to-primary-900 p-6 font-bold text-lg">
 
             <div>Features</div>
             <div className="text-center">
@@ -122,6 +126,8 @@ export default function WhyChooseUs() {
 
       </div>
 
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 }

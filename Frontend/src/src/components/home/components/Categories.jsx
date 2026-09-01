@@ -96,7 +96,7 @@ export default function Categories() {
 
   return (
     <Section
-      className={isDark ? "bg-app-dark-gradient" : "bg-porcelain"}
+      className={isDark ? "bg-app-dark-gradient" : "bg-[#F3F8FC]"}
       decoration={
         <>
           <div className="absolute top-0 right-0 h-[400px] w-[400px] rounded-full bg-primary-500/5 blur-[150px] dark:bg-primary-500/10" />
@@ -127,7 +127,7 @@ export default function Categories() {
             onClick={() => setActiveTab(i)}
             className={`rounded-pill border px-4 py-2 text-xs font-semibold transition-all duration-300 ${
               activeTab === i
-                ? "border-transparent bg-gradient-to-br from-primary-500 to-secondary-500 text-white shadow-lg"
+                ? "border-transparent bg-secondary-500 text-primary-700 shadow-lg"
                 : isDark
                 ? "border-white/10 bg-white/[0.03] text-white/60 hover:border-white/20 hover:text-white"
                 : "border-ink-900/10 bg-white text-ink-900/60 hover:border-primary-500/30 hover:text-ink-900"
@@ -157,7 +157,7 @@ export default function Categories() {
             className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl"
             style={{
               background:
-                "linear-gradient(90deg, #1E73BD 0%, #2890B8 35%, #35A89D 65%, #58B347 100%)",
+                "linear-gradient(90deg, #133B5D 0%, #1F4A70 35%, #B6630F 65%, #F39924 100%)",
             }}
           />
 
@@ -261,19 +261,16 @@ export default function Categories() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 className="
                   group self-start inline-flex items-center justify-center gap-2
-                  rounded-full px-5 py-2 text-xs font-semibold text-white
-                  transition-all duration-300 relative overflow-hidden
-                  shadow-[0_6px_16px_rgba(30,115,189,0.2)]
-                  hover:shadow-[0_8px_24px_rgba(30,115,189,0.3)]
-                  active:shadow-[0_4px_12px_rgba(30,115,189,0.15)]
+                  rounded-full px-5 py-2 text-xs font-semibold text-primary-700
+                  bg-secondary-500 border border-secondary-500
+                  transition-all duration-300
+                  hover:bg-secondary-600
+                  shadow-[0_6px_16px_rgba(243,153,36,0.2)]
+                  hover:shadow-[0_8px_24px_rgba(243,153,36,0.3)]
+                  active:shadow-[0_4px_12px_rgba(243,153,36,0.15)]
                 "
-                style={{
-                  background:
-                    "linear-gradient(90deg, #1E73BD 0%, #2890B8 35%, #35A89D 65%, #58B347 100%)",
-                }}
               >
-                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                <span className="relative z-10 flex items-center gap-2">
+                <span className="flex items-center gap-2">
                   Enroll Now
                   <FaArrowRight className="text-[10px] transition-transform duration-300 group-hover:translate-x-1" />
                 </span>

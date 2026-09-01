@@ -32,7 +32,7 @@ function LearningProcess() {
                   key={step.label}
                   initial={{ opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   transition={{ duration: 0.42, delay: index * 0.06 }}
                   className="relative z-10 flex flex-col items-center text-center"
                 >

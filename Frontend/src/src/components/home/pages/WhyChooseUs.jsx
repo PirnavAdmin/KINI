@@ -5,6 +5,8 @@ import { fadeUp, staggerContainer } from "@shared/hooks/useScrollAnimation";
 import Section from "@shared/components/ui/Section";
 import SectionHeader from "@shared/components/ui/SectionHeader";
 import { whyChooseUsFeatures } from "../data/homeData";
+import Navbar from "@shared/components/navbar";
+import Footer from "@shared/components/Footer";
 
 const ICONS = [Radio, GraduationCap, Briefcase, Code2, Users, InfinityIcon];
 
@@ -12,26 +14,26 @@ const ICONS = [Radio, GraduationCap, Briefcase, Code2, Users, InfinityIcon];
 const BORDER_CONFIG = {
   featured: {
     light: [
-      { border: "border-blue-500/40", hover: "hover:border-blue-500/60", bg: "bg-blue-500" },
-      { border: "border-purple-500/40", hover: "hover:border-purple-500/60", bg: "bg-purple-500" },
+      { border: "border-primary-500/40", hover: "hover:border-primary-500/60", bg: "bg-primary-500" },
+      { border: "border-secondary-500/40", hover: "hover:border-secondary-500/60", bg: "bg-secondary-500" },
     ],
     dark: [
-      { border: "border-blue-400/40", hover: "hover:border-blue-400/60", bg: "bg-blue-400" },
-      { border: "border-purple-400/40", hover: "hover:border-purple-400/60", bg: "bg-purple-400" },
+      { border: "border-primary-400/40", hover: "hover:border-primary-400/60", bg: "bg-primary-400" },
+      { border: "border-secondary-400/40", hover: "hover:border-secondary-400/60", bg: "bg-secondary-400" },
     ]
   },
   regular: {
     light: [
-      { border: "border-emerald-500/30", hover: "hover:border-emerald-500/50", bg: "bg-emerald-500" },
-      { border: "border-orange-500/30", hover: "hover:border-orange-500/50", bg: "bg-orange-500" },
-      { border: "border-pink-500/30", hover: "hover:border-pink-500/50", bg: "bg-pink-500" },
-      { border: "border-cyan-500/30", hover: "hover:border-cyan-500/50", bg: "bg-cyan-500" },
+      { border: "border-primary-500/30", hover: "hover:border-primary-500/50", bg: "bg-primary-500" },
+      { border: "border-secondary-500/30", hover: "hover:border-secondary-500/50", bg: "bg-secondary-500" },
+      { border: "border-primary-700/30", hover: "hover:border-primary-700/50", bg: "bg-primary-700" },
+      { border: "border-secondary-700/30", hover: "hover:border-secondary-700/50", bg: "bg-secondary-700" },
     ],
     dark: [
-      { border: "border-emerald-400/30", hover: "hover:border-emerald-400/50", bg: "bg-emerald-400" },
-      { border: "border-orange-400/30", hover: "hover:border-orange-400/50", bg: "bg-orange-400" },
-      { border: "border-pink-400/30", hover: "hover:border-pink-400/50", bg: "bg-pink-400" },
-      { border: "border-cyan-400/30", hover: "hover:border-cyan-400/50", bg: "bg-cyan-400" },
+      { border: "border-primary-400/30", hover: "hover:border-primary-400/50", bg: "bg-primary-400" },
+      { border: "border-secondary-400/30", hover: "hover:border-secondary-400/50", bg: "bg-secondary-400" },
+      { border: "border-primary-300/30", hover: "hover:border-primary-300/50", bg: "bg-primary-300" },
+      { border: "border-secondary-300/30", hover: "hover:border-secondary-300/50", bg: "bg-secondary-300" },
     ]
   }
 };
@@ -94,7 +96,9 @@ export default function WhyChooseUs() {
   const [first, second, ...rest] = whyChooseUsFeatures;
 
   return (
-    <Section className={isDark ? "bg-app-dark-gradient" : "bg-porcelain"}>
+    <>
+      <Navbar />
+      <Section className={isDark ? "bg-app-dark-gradient" : "bg-porcelain"}>
       <SectionHeader
         eyebrow="Why Choose Us"
         heading={
@@ -112,7 +116,7 @@ export default function WhyChooseUs() {
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: false, amount: 0.15 }}
         className="mt-10"
       >
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
@@ -145,6 +149,8 @@ export default function WhyChooseUs() {
           ))}
         </div>
       </motion.div>
-    </Section>
+      </Section>
+      <Footer />
+    </>
   );
 }

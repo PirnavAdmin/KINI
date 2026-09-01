@@ -47,7 +47,7 @@ export default function StorySection() {
   return (
     <section
       id="story"
-      className="relative py-24 sm:py-32 bg-[linear-gradient(135deg,#A9D5F7_0%,#BCEAF2_52%,#D2F7EF_100%)] dark:bg-[linear-gradient(135deg,#0F172A_0%,#111827_50%,#0B1120_100%)]"
+      className="relative py-12 sm:py-16 bg-[linear-gradient(135deg,#A9D5F7_0%,#BCEAF2_52%,#D2F7EF_100%)] dark:bg-[linear-gradient(135deg,#0F172A_0%,#111827_50%,#0B1120_100%)]"
     >
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.02]">
@@ -99,27 +99,27 @@ function StoryStep({ icon: Icon, tag, title, desc, metric, index, onActivate, to
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.4 }}
+      viewport={{ once: false, amount: 0.4 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className={`relative rounded-[28px] border p-7 sm:p-8 lg:p-9 backdrop-blur-sm transition-all duration-500 ${
         inView
-          ? 'border-[#085FA7]/20 dark:border-primary-500/20 bg-white/80 dark:bg-ink-900/80 shadow-card-lg'
+          ? 'border-[#133B5D]/20 dark:border-primary-500/20 bg-white/80 dark:bg-ink-900/80 shadow-card-lg'
           : 'border-white/30 dark:border-white/10 bg-white/40 dark:bg-ink-900/40 shadow-card'
       }`}
     >
       {/* Subtle left accent for active card */}
       <div
-        className={`absolute left-0 top-0 w-1 h-full rounded-l-[28px] bg-gradient-to-b from-[#085FA7] via-[#2EA7E0] to-[#5CA347] transition-opacity duration-500 ${
+        className={`absolute left-0 top-0 w-1 h-full rounded-l-[28px] bg-gradient-to-b from-[#133B5D] via-[#2EA7E0] to-[#F39924] transition-opacity duration-500 ${
           inView ? 'opacity-100' : 'opacity-0'
         }`}
       />
 
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-r from-[#085FA7] to-[#5CA347] text-white shadow-glow">
+          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-r from-[#133B5D] to-[#F39924] text-white shadow-glow">
             <Icon size={19} />
           </span>
-          <span className="eyebrow text-[#085FA7] dark:text-primary-300 lg:hidden">
+          <span className="eyebrow text-[#133B5D] dark:text-primary-300 lg:hidden">
             {tag}
           </span>
         </div>
@@ -148,11 +148,11 @@ function SectionHeading({ eyebrow, title, subtitle }) {
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       transition={{ duration: 0.6 }}
       className="mx-auto max-w-2xl text-center"
     >
-      <p className="eyebrow text-[#085FA7] dark:text-primary-300">{eyebrow}</p>
+      <p className="eyebrow text-[#133B5D] dark:text-primary-300">{eyebrow}</p>
       <h2 className="mt-3 font-display text-3xl font-semibold text-slate-900 dark:text-white sm:text-4xl">
         {title}
       </h2>

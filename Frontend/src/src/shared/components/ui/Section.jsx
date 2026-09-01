@@ -25,6 +25,7 @@ export default function Section({
   padding = "md",
   className = "",
   containerClassName = "",
+  style,
   decoration,
   children,
 }) {
@@ -35,6 +36,7 @@ export default function Section({
       id={id}
       data-theme={isDark ? "dark" : "light"}
       className={`relative overflow-hidden ${PADDING[padding]} ${className}`}
+      style={style}
     >
       {decoration && (
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">

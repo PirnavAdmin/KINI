@@ -153,7 +153,7 @@ export default function PremiumDashboard() {
 
           <div className="hidden md:flex items-center gap-4">
             <button className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Sign In</button>
-            <button className="px-4 py-2 rounded-xl text-sm font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-[0_4px_20px_rgba(6,182,212,0.25)] hover:shadow-[0_4px_25px_rgba(6,182,212,0.4)] transition-all duration-300 hover:-translate-y-0.5">
+            <button className="px-4 py-2 rounded-xl text-sm font-bold bg-secondary-500 hover:bg-secondary-600 text-primary-700 shadow-[0_4px_12px_rgba(19,59,93,0.10)] transition-all duration-300 hover:-translate-y-0.5">
               Get Started
             </button>
           </div>
@@ -199,7 +199,7 @@ export default function PremiumDashboard() {
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: false, margin: "-100px" }}
             >
               {TESTIMONIALS_DATA.map((item) => (
                 <ReviewCard key={item.id} item={item} />
@@ -298,7 +298,7 @@ function MegaMenuContainer({ activeTab, setActiveTab }) {
               <h5 className="text-xs font-bold text-white mb-0.5">{NAVIGATION_DATA.promoBanner.headline}</h5>
               <p className="text-[10px] text-slate-400 line-clamp-1">{NAVIGATION_DATA.promoBanner.subtext}</p>
             </div>
-            <button className="z-10 px-4 py-2 rounded-lg text-xs font-extrabold text-slate-950 bg-white hover:bg-cyan-400 transition-all duration-300">{NAVIGATION_DATA.promoBanner.ctaText}</button>
+            <button className="z-10 px-4 py-2 rounded-lg text-xs font-extrabold text-primary-700 bg-secondary-500 hover:bg-secondary-600 transition-all duration-300">{NAVIGATION_DATA.promoBanner.ctaText}</button>
           </footer>
         </div>
       </div>

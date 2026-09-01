@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import Navbar from "@shared/components/navbar";
+import Footer from "@shared/components/Footer";
 
 // Your 4 Lottie URLs
 const LOTTIE_1 = "https://lottie.host/7dffc81e-cd4a-4dd5-a7b8-f3051d0de370/KW4ucR2SjZ.lottie";
@@ -129,14 +131,14 @@ function FeatureCard({ icon, title, align, cardRef }) {
       ref={cardRef}
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8% 0px" }}
+      viewport={{ once: false, margin: "-8% 0px" }}
       whileHover={{ y: -5 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
       className={`flex flex-col items-center gap-3 ${
         isRight ? "items-end" : "items-start"
       }`}
     >
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#085FA7]/20 to-[#5CA347]/20 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:from-[#085FA7]/30 hover:to-[#5CA347]/30">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#133B5D]/20 to-[#F39924]/20 p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:from-[#133B5D]/30 hover:to-[#F39924]/30">
         <CardLottie src={icon} />
       </div>
 
@@ -157,10 +159,10 @@ function AiCore({ coreRef }) {
       ref={coreRef}
       className="relative flex h-96 w-96 items-center justify-center sm:h-[28rem] sm:w-[28rem] lg:h-[32rem] lg:w-[32rem]"
     >
-      <div className="absolute inset-0 rounded-full bg-[#085FA7]/10 blur-2xl animate-pulse" />
+      <div className="absolute inset-0 rounded-full bg-[#133B5D]/10 blur-2xl animate-pulse" />
       <div className="absolute inset-6 rounded-full border border-white/[0.07]" />
       <div className="absolute inset-12 rounded-full border border-white/[0.04]" />
-      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#085FA7]/5 to-[#5CA347]/5 animate-spin-slow" />
+      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#133B5D]/5 to-[#F39924]/5 animate-spin-slow" />
       <div className="relative h-72 w-72 sm:h-80 sm:w-80 lg:h-96 lg:w-96">
         <DotLottieReact src={LOTTIE_CORE} loop autoplay />
       </div>
@@ -254,14 +256,14 @@ function ConnectorLines({ paths, reduceMotion }) {
     <svg className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
       <defs>
         <linearGradient id="wg" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#085FA7" />
-          <stop offset="50%" stopColor="#2EA7E0" />
-          <stop offset="100%" stopColor="#5CA347" />
+          <stop offset="0%" stopColor="#133B5D" />
+          <stop offset="50%" stopColor="#1F4A70" />
+          <stop offset="100%" stopColor="#F39924" />
         </linearGradient>
 
         <linearGradient id="bubbleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#2EA7E0" />
-          <stop offset="100%" stopColor="#5CA347" />
+          <stop offset="0%" stopColor="#1F4A70" />
+          <stop offset="100%" stopColor="#F39924" />
         </linearGradient>
 
         <filter id="glow">
@@ -273,8 +275,8 @@ function ConnectorLines({ paths, reduceMotion }) {
         </filter>
 
         <radialGradient id="pulseGrad">
-          <stop offset="0%" stopColor="#2EA7E0" stopOpacity="0.8" />
-          <stop offset="100%" stopColor="#5CA347" stopOpacity="0" />
+          <stop offset="0%" stopColor="#1F4A70" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#F39924" stopOpacity="0" />
         </radialGradient>
       </defs>
 
@@ -289,7 +291,7 @@ function ConnectorLines({ paths, reduceMotion }) {
             strokeOpacity="0.6"
             initial={reduceMotion ? false : { pathLength: 0, opacity: 0 }}
             whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 1.2, delay: i * 0.15, ease: "easeInOut" }}
           />
 
@@ -302,7 +304,7 @@ function ConnectorLines({ paths, reduceMotion }) {
             strokeOpacity="0.08"
             initial={reduceMotion ? false : { pathLength: 0 }}
             whileInView={{ pathLength: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 1.5, delay: i * 0.15, ease: "easeInOut" }}
           />
 
@@ -340,7 +342,7 @@ function ConnectorLines({ paths, reduceMotion }) {
 
               <motion.circle
                 r="2.5"
-                fill="#2EA7E0"
+                fill="#1F4A70"
                 opacity="0.7"
                 initial={{ offsetDistance: "0%" }}
                 animate={{ offsetDistance: "100%" }}
@@ -421,7 +423,9 @@ export default function PremiumELearning() {
   const paths = useConnectorPaths({ containerRef, coreRef, leftRefs, rightRefs });
 
   return (
-    <section
+    <>
+      <Navbar />
+      <section
       className="relative flex min-h-screen flex-col justify-center overflow-hidden"
       style={{ backgroundColor: "#071226" }}
     >
@@ -448,22 +452,22 @@ export default function PremiumELearning() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.55 }}
           className="mx-auto mb-16 max-w-2xl text-center sm:mb-20"
         >
-          <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#5CA347] sm:text-xs">
+          <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-[#F39924] sm:text-xs">
             Interactive learning
           </p>
 
           <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
             E learning{" "}
-            <span className="bg-gradient-to-r from-[#085FA7] via-[#2EA7E0] to-[#5CA347] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#133B5D] via-[#1F4A70] to-[#F39924] bg-clip-text text-transparent">
               ecosystem
             </span>
           </h2>
 
-          <div className="mx-auto mt-4 h-px w-24 bg-gradient-to-r from-[#085FA7] to-[#5CA347] opacity-60" />
+          <div className="mx-auto mt-4 h-px w-24 bg-gradient-to-r from-[#133B5D] to-[#F39924] opacity-60" />
         </motion.div>
 
         <div
@@ -503,6 +507,8 @@ export default function PremiumELearning() {
           animation: spin-slow 8s linear infinite;
         }
       `}</style>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 }

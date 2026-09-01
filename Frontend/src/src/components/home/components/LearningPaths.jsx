@@ -5,8 +5,8 @@ import { FaArrowRight } from "react-icons/fa";
 
 // Define distinct border colors for each card
 const CARD_COLORS = [
-  { border: "#085FA7", light: "border-[#085FA7]/30", dark: "border-[#085FA7]/40", hover: "hover:border-[#085FA7]/60" },
-  { border: "#5CA347", light: "border-[#5CA347]/30", dark: "border-[#5CA347]/40", hover: "hover:border-[#5CA347]/60" },
+  { border: "#133B5D", light: "border-[#133B5D]/30", dark: "border-[#133B5D]/40", hover: "hover:border-[#133B5D]/60" },
+  { border: "#F39924", light: "border-[#F39924]/30", dark: "border-[#F39924]/40", hover: "hover:border-[#F39924]/60" },
   { border: "#F59E0B", light: "border-[#F59E0B]/30", dark: "border-[#F59E0B]/40", hover: "hover:border-[#F59E0B]/60" },
 ];
 
@@ -14,20 +14,23 @@ export default function LearningPaths() {
   const { isDark } = useThemeContext();
 
   return (
-    <section className={`relative overflow-hidden py-16 md:py-20 transition-colors duration-500 ${isDark ? "bg-app-dark-gradient" : "bg-white"}`}>
-      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-[#085FA7]/5 dark:bg-[#085FA7]/10 blur-[150px] rounded-full" />
+    <section
+      className="relative overflow-hidden py-16 md:py-20 transition-colors duration-500"
+      style={{ background: isDark ? "#0B2237" : "#FFFFFF" }}
+    >
+      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-[#133B5D]/5 dark:bg-[#133B5D]/10 blur-[150px] rounded-full" />
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-6">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} className="text-center mb-6">
           <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-semibold ${
-            isDark ? "border-[#085FA7]/30 bg-[#085FA7]/10 text-[#4A9EE0]" : "border-[#085FA7]/20 bg-[#EDF4FC] text-[#085FA7]"
+            isDark ? "border-[#133B5D]/30 bg-[#133B5D]/10 text-[#4A9EE0]" : "border-[#133B5D]/20 bg-[#EDF4FC] text-[#133B5D]"
           }`}>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#085FA7] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#133B5D] animate-pulse" />
             Learning Paths
           </span>
           <h2 className={`mt-3 text-2xl sm:text-3xl lg:text-4xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             Find Your{" "}
-            <span className="bg-gradient-to-r from-[#085FA7] to-[#5CA347] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#133B5D] to-[#F39924] bg-clip-text text-transparent">
               Starting Point
             </span>
           </h2>
@@ -48,7 +51,7 @@ export default function LearningPaths() {
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -6 }}
                 className={`relative rounded-2xl p-6 border-2 backdrop-blur-xl transition-all duration-300 ${
@@ -68,7 +71,7 @@ export default function LearningPaths() {
                 <div className="flex items-center justify-between mb-2">
                   <h3 className={`text-base font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{path.title}</h3>
                   {isPopular && (
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gradient-to-r from-[#085FA7] to-[#5CA347] text-white">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gradient-to-r from-[#133B5D] to-[#F39924] text-white">
                       Popular
                     </span>
                   )}
@@ -78,17 +81,17 @@ export default function LearningPaths() {
                 <div className={`mt-4 pt-4 border-t ${isDark ? "border-white/5" : "border-[#E5E7EB]"}`}>
                   <div className="flex items-center justify-between text-xs">
                     <span className={`${isDark ? "text-slate-400" : "text-[#64748B]"}`}>
-                      <span className="font-semibold text-[#085FA7]">{path.steps}</span> steps
+                      <span className="font-semibold text-[#133B5D]">{path.steps}</span> steps
                     </span>
                     <span className={`${isDark ? "text-slate-400" : "text-[#64748B]"}`}>
-                      <span className="font-semibold text-[#5CA347]">{path.duration}</span>
+                      <span className="font-semibold text-[#F39924]">{path.duration}</span>
                     </span>
                   </div>
                 </div>
 
                 <motion.button
                   whileHover={{ x: 4 }}
-                  className={`mt-4 inline-flex items-center gap-1.5 text-xs font-semibold transition-colors text-[#085FA7] hover:text-[#5CA347]`}
+                  className={`mt-4 inline-flex items-center gap-1.5 text-xs font-semibold transition-colors text-[#133B5D] hover:text-[#F39924]`}
                 >
                   Learn More <FaArrowRight className="text-[10px]" />
                 </motion.button>

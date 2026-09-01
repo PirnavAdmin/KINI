@@ -160,7 +160,7 @@ const Testimonials = memo(function Testimonials() {
 
   return (
     <Section
-      className={isDark ? "bg-app-dark-gradient" : "bg-porcelain"}
+      className={isDark ? "bg-app-dark-gradient" : "bg-white"}
       decoration={
         <>
           {/* Primary glow */}

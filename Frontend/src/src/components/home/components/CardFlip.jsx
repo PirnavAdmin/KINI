@@ -40,12 +40,12 @@ export default function CardFlip({
       >
         {/* ── FRONT ── */}
         <div
-          className="absolute inset-0 rounded-2xl overflow-hidden bg-gradient-to-br from-[#085FA7] to-[#5CA347] dark:from-[#1E293B] dark:to-[#0F172A] flex flex-col items-center justify-center p-6 text-center"
+          className="absolute inset-0 rounded-2xl overflow-hidden bg-gradient-to-br from-[#133B5D] to-[#F39924] dark:from-[#1E293B] dark:to-[#0F172A] flex flex-col items-center justify-center p-6 text-center"
           style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
           {/* Glow blobs */}
-          <div className="absolute -top-10 -right-10 w-32 h-32 blur-[40px] rounded-full pointer-events-none bg-[#085FA7]/30 dark:bg-[#4F46E5]/30" />
-          <div className="absolute -bottom-10 -left-10 w-32 h-32 blur-[40px] rounded-full pointer-events-none bg-[#5CA347]/30 dark:bg-[#06B6D4]/30" />
+          <div className="absolute -top-10 -right-10 w-32 h-32 blur-[40px] rounded-full pointer-events-none bg-[#133B5D]/30 dark:bg-[#35608A]/30" />
+          <div className="absolute -bottom-10 -left-10 w-32 h-32 blur-[40px] rounded-full pointer-events-none bg-[#F39924]/30 dark:bg-[#F7A62E]/30" />
 
           <div className="relative z-10 w-12 h-12 rounded-full border flex items-center justify-center mb-4 flex-shrink-0 bg-white/15 border-white/25 text-white dark:bg-white/10 dark:border-white/15">
             {Icon ? <Icon className="w-6 h-6" /> : null}
@@ -74,7 +74,7 @@ export default function CardFlip({
 
         {/* ── BACK ── */}
         <div
-          className="absolute inset-0 rounded-2xl overflow-hidden flex flex-col p-5 bg-[#0f172a] border border-[#085FA7]/20 dark:border-[#4F46E5]/30"
+          className="absolute inset-0 rounded-2xl overflow-hidden flex flex-col p-5 bg-[#0f172a] border border-[#133B5D]/20 dark:border-[#35608A]/30"
           style={{
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
@@ -83,10 +83,10 @@ export default function CardFlip({
           }}
         >
           {/* Glow blobs */}
-          <div className="absolute -top-8 -right-8 w-24 h-24 blur-[30px] rounded-full pointer-events-none bg-[#085FA7]/15 dark:bg-[#4F46E5]/20" />
-          <div className="absolute -bottom-8 -left-8 w-24 h-24 blur-[30px] rounded-full pointer-events-none bg-[#5CA347]/15 dark:bg-[#06B6D4]/20" />
+          <div className="absolute -top-8 -right-8 w-24 h-24 blur-[30px] rounded-full pointer-events-none bg-[#133B5D]/15 dark:bg-[#35608A]/20" />
+          <div className="absolute -bottom-8 -left-8 w-24 h-24 blur-[30px] rounded-full pointer-events-none bg-[#F39924]/15 dark:bg-[#F7A62E]/20" />
 
-          <div className="relative z-10 h-[3px] w-full rounded-full mb-3.5 bg-gradient-to-r from-[#085FA7] to-[#5CA347] dark:from-[#4F46E5] dark:to-[#06B6D4]" />
+          <div className="relative z-10 h-[3px] w-full rounded-full mb-3.5 bg-gradient-to-r from-[#133B5D] to-[#F39924] dark:from-[#35608A] dark:to-[#F7A62E]" />
 
           <h3 className="relative z-10 text-[13px] font-semibold mb-3 text-slate-100">
             {title}
@@ -104,7 +104,7 @@ export default function CardFlip({
                     transitionDelay: `${i * 60 + 80}ms`,
                   }}
                 >
-                  <span className="flex-shrink-0 w-4 h-4 rounded-full bg-gradient-to-br from-[#085FA7] to-[#5CA347] dark:from-[#4F46E5] dark:to-[#06B6D4] flex items-center justify-center">
+                  <span className="flex-shrink-0 w-4 h-4 rounded-full bg-gradient-to-br from-[#133B5D] to-[#F39924] dark:from-[#35608A] dark:to-[#F7A62E] flex items-center justify-center">
                     <FaCheck className="text-white text-[6px]" />
                   </span>
                   <span className="text-[11px] text-slate-400 dark:text-slate-300">

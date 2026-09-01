@@ -43,25 +43,25 @@ function DesktopFeatureCard({ icon, title, align, cardRef, isDark }) {
       ref={cardRef}
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8% 0px" }}
+      viewport={{ once: false, margin: "-8% 0px" }}
       whileHover={{ y: -5, scale: 1.02 }}
       transition={{ duration: 0.35, ease: "easeOut" }}
       className={`flex flex-col items-center gap-3 ${isRight ? "items-end" : "items-start"}`}
     >
       <div className={`relative overflow-hidden rounded-2xl p-3 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-lg ${
         isDark
-          ? "bg-gradient-to-br from-[#1E293B]/80 to-[#0F172A]/80 hover:from-[#334155]/90 hover:to-[#1E293B]/90 hover:shadow-[#085FA7]/30"
-          : "bg-gradient-to-br from-[#E3F2FD]/80 to-[#E8F5E9]/80 hover:from-[#BBDEFB]/90 hover:to-[#C8E6C9]/90 hover:shadow-[#085FA7]/20"
+          ? "bg-gradient-to-br from-[#1E293B]/80 to-[#0F172A]/80 hover:from-[#334155]/90 hover:to-[#1E293B]/90 hover:shadow-[#133B5D]/30"
+          : "bg-gradient-to-br from-[#EEF3F8]/80 to-[#FFF4E5]/80 hover:from-[#D9E3EE]/90 hover:to-[#FEE6C2]/90 hover:shadow-[#133B5D]/20"
       }`}>
         <div className="h-28 w-28 lg:h-32 lg:w-32">
           <CardLottie src={icon} />
         </div>
         <div className={`absolute inset-0 rounded-2xl border-2 transition-opacity duration-300 ${
-          isDark ? "border-[#4F46E5]/20 opacity-0 hover:opacity-100" : "border-[#085FA7]/20 opacity-0 hover:opacity-100"
+          isDark ? "border-[#35608A]/20 opacity-0 hover:opacity-100" : "border-[#133B5D]/20 opacity-0 hover:opacity-100"
         }`} />
       </div>
       <h3 className={`text-sm font-bold lg:text-base ${isRight ? "text-right" : "text-left"} ${
-        isDark ? "text-white" : "text-[#1A237E]"
+        isDark ? "text-white" : "text-[#133B5D]"
       }`}>
         {title}
       </h3>
@@ -77,7 +77,7 @@ function MobileFeatureCard({ icon, title, desc, index, isDark, reduceMotion }) {
     <motion.div
       initial={reduceMotion ? false : { opacity: 0, x: isEven ? -28 : 28 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-10px" }}
+      viewport={{ once: false, margin: "-10px" }}
       transition={{ duration: 0.5, delay: index * 0.1, ease: EASE }}
       whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
       whileTap={{ scale: 0.98 }}
@@ -100,17 +100,17 @@ function MobileFeatureCard({ icon, title, desc, index, isDark, reduceMotion }) {
         aria-hidden="true"
         initial={reduceMotion ? false : { scaleY: 0 }}
         whileInView={{ scaleY: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 0.4, delay: index * 0.1 + 0.25, ease: EASE }}
         className="absolute left-0 top-4 bottom-4 w-[3px] origin-top rounded-r-full"
-        style={{ background: "linear-gradient(180deg, #085FA7, #5CA347)" }}
+        style={{ background: "linear-gradient(180deg, #133B5D, #F39924)" }}
       />
 
       {/* Icon with pulse ring */}
       <motion.div
         initial={reduceMotion ? false : { scale: 0.7, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 0.4, delay: index * 0.1 + 0.15, type: "spring", stiffness: 260, damping: 18 }}
         className="relative h-14 w-14 flex-shrink-0"
       >
@@ -121,11 +121,11 @@ function MobileFeatureCard({ icon, title, desc, index, isDark, reduceMotion }) {
             animate={{ scale: [1, 1.35, 1], opacity: [0.4, 0, 0.4] }}
             transition={{ duration: 2.5, delay: index * 0.3, repeat: Infinity, ease: "easeInOut" }}
             className="absolute inset-0 rounded-xl"
-            style={{ background: "linear-gradient(135deg, rgba(8,95,167,0.25), rgba(92,163,71,0.25))" }}
+            style={{ background: "linear-gradient(135deg, rgba(19,59,93,0.25), rgba(243,153,36,0.25))" }}
           />
         )}
         <div className={`relative h-full w-full overflow-hidden rounded-xl ${
-          isDark ? "bg-white/5" : "bg-blue-50/80"
+          isDark ? "bg-white/5" : "bg-primary-50/80"
         }`}>
           <CardLottie src={icon} />
         </div>
@@ -136,10 +136,10 @@ function MobileFeatureCard({ icon, title, desc, index, isDark, reduceMotion }) {
         <motion.p
           initial={reduceMotion ? false : { opacity: 0, y: 6 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.35, delay: index * 0.1 + 0.2, ease: EASE }}
           className={`text-sm font-bold leading-tight ${
-            isDark ? "text-white" : "text-[#1A237E]"
+            isDark ? "text-white" : "text-[#133B5D]"
           }`}
         >
           {title}
@@ -147,7 +147,7 @@ function MobileFeatureCard({ icon, title, desc, index, isDark, reduceMotion }) {
         <motion.p
           initial={reduceMotion ? false : { opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.35, delay: index * 0.1 + 0.3, ease: EASE }}
           className={`mt-0.5 text-xs leading-relaxed ${
             isDark ? "text-slate-400" : "text-slate-500"
@@ -163,7 +163,7 @@ function MobileFeatureCard({ icon, title, desc, index, isDark, reduceMotion }) {
         animate={reduceMotion ? undefined : { scale: [1, 1.4, 1], opacity: [0.7, 1, 0.7] }}
         transition={{ duration: 2 + index * 0.4, repeat: Infinity, ease: "easeInOut" }}
         className="h-2.5 w-2.5 flex-shrink-0 rounded-full"
-        style={{ background: "linear-gradient(135deg, #085FA7, #5CA347)" }}
+        style={{ background: "linear-gradient(135deg, #133B5D, #F39924)" }}
       />
     </motion.div>
   );
@@ -177,22 +177,22 @@ function AiCoreDesktop({ coreRef, isDark }) {
       className="relative flex h-56 w-56 items-center justify-center sm:h-72 sm:w-72 lg:h-96 lg:w-96"
     >
       <div className={`absolute inset-0 rounded-full blur-2xl animate-pulse ${
-        isDark ? "bg-[#4F46E5]/20" : "bg-[#085FA7]/10"
+        isDark ? "bg-[#35608A]/20" : "bg-[#133B5D]/10"
       }`} />
       <div className={`absolute inset-6 rounded-full border ${
-        isDark ? "border-[#4F46E5]/30" : "border-[#085FA7]/20"
+        isDark ? "border-[#35608A]/30" : "border-[#133B5D]/20"
       }`} />
       <div className={`absolute inset-12 rounded-full border ${
-        isDark ? "border-[#4F46E5]/20" : "border-[#085FA7]/10"
+        isDark ? "border-[#35608A]/20" : "border-[#133B5D]/10"
       }`} />
       <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${
-        isDark ? "from-[#4F46E5]/20 to-[#06B6D4]/20" : "from-[#085FA7]/10 to-[#5CA347]/10"
+        isDark ? "from-[#35608A]/20 to-[#F7A62E]/20" : "from-[#133B5D]/10 to-[#F39924]/10"
       } animate-spin-slow`} />
       <div className={`absolute inset-[-20%] rounded-full border ${
-        isDark ? "border-[#4F46E5]/30" : "border-[#085FA7]/20"
+        isDark ? "border-[#35608A]/30" : "border-[#133B5D]/20"
       } animate-ping-slow`} />
       <div className={`absolute inset-[-40%] rounded-full border ${
-        isDark ? "border-[#06B6D4]/20" : "border-[#5CA347]/15"
+        isDark ? "border-[#F7A62E]/20" : "border-[#F39924]/15"
       } animate-ping-slower`} />
 
       <div className="relative h-40 w-40 sm:h-56 sm:w-56 lg:h-72 lg:w-72">
@@ -204,8 +204,8 @@ function AiCoreDesktop({ coreRef, isDark }) {
         transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         className={`absolute bottom-2 sm:bottom-3 lg:bottom-4 flex items-center gap-1.5 rounded-full px-2.5 py-1 sm:px-3.5 sm:py-1.5 ${
           isDark
-            ? "bg-[#4F46E5]/40 border border-[#4F46E5]/50 text-[#A5B4FC] backdrop-blur-sm"
-            : "bg-white/60 backdrop-blur-sm border border-white/70 text-[#085FA7] shadow-lg"
+            ? "bg-[#35608A]/40 border border-[#35608A]/50 text-[#B3C7DD] backdrop-blur-sm"
+            : "bg-white/60 backdrop-blur-sm border border-white/70 text-[#133B5D] shadow-lg"
         }`}
       >
         <FaRobot className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5" />
@@ -223,7 +223,7 @@ function AiCoreMobile({ isDark, reduceMotion }) {
     <motion.div
       initial={reduceMotion ? false : { opacity: 0, y: -16, scale: 0.88 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       transition={{ duration: 0.7, ease: EASE }}
       className="flex flex-col items-center"
     >
@@ -235,7 +235,7 @@ function AiCoreMobile({ isDark, reduceMotion }) {
             animate={{ scale: [1, 1.18, 1], opacity: [0.15, 0.05, 0.15] }}
             transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
             className="absolute inset-0 rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(8,95,167,0.25) 0%, transparent 70%)" }}
+            style={{ background: "radial-gradient(circle, rgba(19,59,93,0.25) 0%, transparent 70%)" }}
           />
         )}
 
@@ -245,7 +245,7 @@ function AiCoreMobile({ isDark, reduceMotion }) {
           animate={reduceMotion ? undefined : { opacity: [0.3, 0.6, 0.3] }}
           transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
           className="absolute inset-4 rounded-full blur-2xl"
-          style={{ background: "radial-gradient(circle, rgba(8,95,167,0.35) 0%, rgba(92,163,71,0.15) 60%, transparent 100%)" }}
+          style={{ background: "radial-gradient(circle, rgba(19,59,93,0.35) 0%, rgba(243,153,36,0.15) 60%, transparent 100%)" }}
         />
 
         {/* Floating lottie */}
@@ -262,13 +262,13 @@ function AiCoreMobile({ isDark, reduceMotion }) {
       <motion.div
         initial={reduceMotion ? false : { opacity: 0, y: 8 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 0.4, delay: 0.4, ease: EASE }}
         animate={reduceMotion ? undefined : { y: [0, -3, 0] }}
         className={`mt-1 flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
           isDark
-            ? "bg-[#4F46E5]/30 border border-[#4F46E5]/40 text-[#A5B4FC]"
-            : "bg-white/90 border border-[#085FA7]/25 text-[#085FA7] shadow-md"
+            ? "bg-[#35608A]/30 border border-[#35608A]/40 text-[#B3C7DD]"
+            : "bg-white/90 border border-[#133B5D]/25 text-[#133B5D] shadow-md"
         }`}
         style={reduceMotion ? undefined : { animation: "badgeFloat 3.5s ease-in-out infinite" }}
       >
@@ -292,16 +292,16 @@ function VerticalConnector({ isDark, reduceMotion }) {
       <motion.div
         initial={reduceMotion ? false : { scaleY: 0, opacity: 0 }}
         whileInView={{ scaleY: 1, opacity: 1 }}
-        viewport={{ once: true }}
+        viewport={{ once: false }}
         transition={{ duration: 0.6, ease: EASE }}
         className="h-8 w-px origin-top"
-        style={{ background: `linear-gradient(180deg, ${isDark ? "rgba(129,140,248,0.6)" : "rgba(8,95,167,0.5)"}, ${isDark ? "rgba(6,182,212,0.3)" : "rgba(92,163,71,0.3)"})` }}
+        style={{ background: `linear-gradient(180deg, ${isDark ? "rgba(140,169,201,0.6)" : "rgba(19,59,93,0.5)"}, ${isDark ? "rgba(247,166,46,0.3)" : "rgba(243,153,36,0.3)"})` }}
       />
       {/* Travelling dot */}
       {!reduceMotion && (
         <motion.div
           className="absolute top-0 h-1.5 w-1.5 rounded-full"
-          style={{ background: "linear-gradient(135deg, #085FA7, #5CA347)" }}
+          style={{ background: "linear-gradient(135deg, #133B5D, #F39924)" }}
           animate={{ y: [0, 28, 0], opacity: [0, 1, 0] }}
           transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
         />
@@ -366,8 +366,8 @@ function ConnectorLines({ paths, reduceMotion, isDark }) {
   if (!paths.length) return null;
 
   const c = isDark
-    ? { g1: ["#4F46E5","#818CF8","#06B6D4"], g2: ["#06B6D4","#818CF8","#4F46E5"], bubble: "#818CF8", glow: "#4F46E5" }
-    : { g1: ["#085FA7","#2EA7E0","#5CA347"], g2: ["#5CA347","#2EA7E0","#085FA7"], bubble: "#2EA7E0", glow: "#085FA7" };
+    ? { g1: ["#35608A","#8CA9C9","#F7A62E"], g2: ["#F7A62E","#8CA9C9","#35608A"], bubble: "#8CA9C9", glow: "#35608A" }
+    : { g1: ["#133B5D","#5E82A8","#F39924"], g2: ["#F39924","#5E82A8","#133B5D"], bubble: "#5E82A8", glow: "#133B5D" };
 
   return (
     // hidden on mobile/tablet — only visible lg+
@@ -403,13 +403,13 @@ function ConnectorLines({ paths, reduceMotion, isDark }) {
           <g key={i}>
             <motion.path d={p.d} stroke={grad} strokeWidth="3" fill="none" strokeLinecap="round" strokeOpacity="0.6"
               initial={reduceMotion ? false : { pathLength: 0, opacity: 0 }}
-              whileInView={{ pathLength: 1, opacity: 1 }} viewport={{ once: true }}
+              whileInView={{ pathLength: 1, opacity: 1 }} viewport={{ once: false }}
               transition={{ duration: 1.5, delay: i * 0.15, ease: "easeInOut" }}
             />
             <motion.path d={p.d} stroke={grad} strokeWidth="12" fill="none" strokeLinecap="round" strokeOpacity="0.06"
               filter="url(#glowStrong)"
               initial={reduceMotion ? false : { pathLength: 0 }}
-              whileInView={{ pathLength: 1 }} viewport={{ once: true }}
+              whileInView={{ pathLength: 1 }} viewport={{ once: false }}
               transition={{ duration: 1.8, delay: i * 0.15, ease: "easeInOut" }}
             />
 
@@ -456,22 +456,22 @@ export default function PremiumELearning() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: false }}
       transition={{ duration: 0.55 }}
       className="mx-auto max-w-2xl text-center"
     >
       <p className={`text-[10px] font-bold uppercase tracking-[0.35em] sm:text-xs ${
-        isDark ? "text-[#818CF8]" : "text-[#085FA7]"
+        isDark ? "text-[#8CA9C9]" : "text-[#133B5D]"
       }`}>
         Interactive learning
       </p>
       <h2 className={`mt-3 font-extrabold tracking-tight text-[1.75rem] sm:text-3xl lg:text-4xl xl:text-5xl ${
-        isDark ? "text-white" : "text-[#1A237E]"
+        isDark ? "text-white" : "text-[#133B5D]"
       }`}>
         E-learning{" "}
         <span
           className="bg-clip-text text-transparent"
-          style={{ backgroundImage: "linear-gradient(90deg, #085FA7, #2EA7E0, #5CA347)" }}
+          style={{ backgroundImage: "linear-gradient(90deg, #133B5D, #5E82A8, #F39924)" }}
         >
           ecosystem
         </span>
@@ -481,7 +481,7 @@ export default function PremiumELearning() {
       </p>
       <div
         className="mx-auto mt-4 h-px w-20 opacity-60"
-        style={{ backgroundImage: "linear-gradient(90deg, #085FA7, #5CA347)" }}
+        style={{ backgroundImage: "linear-gradient(90deg, #133B5D, #F39924)" }}
       />
     </motion.div>
   );
@@ -489,7 +489,7 @@ export default function PremiumELearning() {
   return (
     <section
       className={`relative overflow-hidden transition-colors duration-500 ${
-        isDark ? "bg-app-dark-gradient" : "bg-gradient-to-br from-[#F5F9FF] via-[#E8F4FD] to-[#F0F7F1]"
+        isDark ? "bg-app-dark-gradient" : "bg-white"
       }`}
     >
       {/* Background glow */}
@@ -498,8 +498,8 @@ export default function PremiumELearning() {
         aria-hidden="true"
         style={{
           background: isDark
-            ? "radial-gradient(ellipse at 20% 50%, rgba(79,70,229,0.15), transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(6,182,212,0.10), transparent 50%)"
-            : "radial-gradient(ellipse at 20% 50%, rgba(8,95,167,0.08), transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(92,163,71,0.06), transparent 50%)",
+            ? "radial-gradient(ellipse at 20% 50%, rgba(53,96,138,0.15), transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(247,166,46,0.10), transparent 50%)"
+            : "radial-gradient(ellipse at 20% 50%, rgba(19,59,93,0.08), transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(243,153,36,0.06), transparent 50%)",
         }}
       />
       {/* Grid pattern — reduced opacity on mobile */}
@@ -507,7 +507,7 @@ export default function PremiumELearning() {
         className="pointer-events-none absolute inset-0 opacity-[0.015] sm:opacity-[0.03]"
         aria-hidden="true"
         style={{
-          backgroundImage: `linear-gradient(${isDark ? "rgba(79,70,229,0.1)" : "rgba(8,95,167,0.1)"} 1px, transparent 1px), linear-gradient(90deg, ${isDark ? "rgba(79,70,229,0.1)" : "rgba(8,95,167,0.1)"} 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(${isDark ? "rgba(53,96,138,0.1)" : "rgba(19,59,93,0.1)"} 1px, transparent 1px), linear-gradient(90deg, ${isDark ? "rgba(53,96,138,0.1)" : "rgba(19,59,93,0.1)"} 1px, transparent 1px)`,
           backgroundSize: "60px 60px",
         }}
       />

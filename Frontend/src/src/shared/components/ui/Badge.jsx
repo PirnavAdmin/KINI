@@ -1,19 +1,14 @@
-import { useThemeContext } from "@shared/context/ThemeContext";
-
 const TONES = {
   primary: {
-    light: "border-primary-500/20 bg-primary-50 text-primary-500",
-    dark: "border-primary-500/30 bg-primary-500/10 text-primary-300",
+    classes: "border-primary-500/20 bg-primary-50 text-primary-500 dark:border-primary-500/30 dark:bg-primary-500/10 dark:text-primary-300",
     dot: "bg-primary-500",
   },
   secondary: {
-    light: "border-secondary-500/20 bg-secondary-50 text-secondary-600",
-    dark: "border-secondary-500/30 bg-secondary-500/10 text-secondary-300",
+    classes: "border-secondary-500/20 bg-secondary-50 text-secondary-600 dark:border-secondary-500/30 dark:bg-secondary-500/10 dark:text-secondary-300",
     dot: "bg-secondary-500",
   },
   coral: {
-    light: "border-brand-coral/20 bg-brand-coral/5 text-brand-coral",
-    dark: "border-brand-coral/30 bg-brand-coral/10 text-brand-coral",
+    classes: "border-brand-coral/20 bg-brand-coral/5 text-brand-coral dark:border-brand-coral/30 dark:bg-brand-coral/10",
     dot: "bg-brand-coral",
   },
 };
@@ -24,15 +19,10 @@ const TONES = {
  * copy-pasted with slightly different values in every section.
  */
 export default function Badge({ children, tone = "primary", icon: Icon, pulse = true, className = "" }) {
-  const { isDark } = useThemeContext();
   const t = TONES[tone];
 
   return (
-    <span
-      className={`inline-flex items-center gap-2 rounded-pill border px-4 py-1.5 text-xs font-semibold ${
-        isDark ? t.dark : t.light
-      } ${className}`}
-    >
+    <span className={`inline-flex items-center gap-2 rounded-pill border px-4 py-1.5 text-xs font-semibold ${t.classes} ${className}`}>
       {Icon ? (
         <Icon className="h-3 w-3" aria-hidden="true" />
       ) : (

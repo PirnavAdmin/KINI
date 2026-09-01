@@ -19,12 +19,15 @@ const Stats = memo(function Stats() {
   const { isDark } = useThemeContext();
 
   return (
-    <section className={`relative overflow-hidden py-16 md:py-20 transition-colors duration-500 ${isDark ? "bg-app-dark-gradient" : "bg-porcelain"}`}>
+    <section
+      className="relative overflow-hidden py-16 md:py-20 transition-colors duration-500"
+      style={{ background: isDark ? "linear-gradient(180deg, #0B2237 0%, #071A2B 100%)" : "#F3F8FC" }}
+    >
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-brand-indigo/5 dark:bg-brand-indigo/10 blur-[150px] rounded-full" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-secondary-500/5 dark:bg-secondary-500/10 blur-[150px] rounded-full" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-6">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} className="text-center mb-6">
           <span className={`eyebrow inline-flex items-center gap-2 rounded-full border px-3 py-1 ${
             isDark ? "border-brand-coral/30 bg-brand-coral/10 text-brand-coral" : "border-brand-coral/20 bg-brand-coral/5 text-brand-coral"
           }`}>
@@ -47,7 +50,7 @@ const Stats = memo(function Stats() {
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               whileHover={{ y: -5 }}
               className={`relative rounded-2.5xl p-5 sm:p-6 text-center border backdrop-blur-xl transition-shadow duration-300 ${

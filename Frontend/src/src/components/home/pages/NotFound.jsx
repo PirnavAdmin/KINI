@@ -15,22 +15,22 @@ function NotFound() {
       justify-center
       bg-gradient-to-br
       from-[#0F172A]
-      via-[#12367D]
-      to-[#0F766E]
+      via-[#133B5D]
+      to-[#764212]
       overflow-hidden
       relative
       px-6
       "
     >
       {/* Background Effects */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/20 rounded-full blur-[120px]" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-primary-500/20 rounded-full blur-[120px]" />
 
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary-500/20 rounded-full blur-[120px]" />
 
       {/* Floating Circles */}
-      <div className="absolute top-20 left-20 w-8 h-8 bg-cyan-400 rounded-full animate-bounce" />
+      <div className="absolute top-20 left-20 w-8 h-8 bg-primary-400 rounded-full animate-bounce" />
 
-      <div className="absolute bottom-24 right-32 w-6 h-6 bg-pink-500 rounded-full animate-pulse" />
+      <div className="absolute bottom-24 right-32 w-6 h-6 bg-secondary-500 rounded-full animate-pulse" />
 
       <motion.div
         initial={{
@@ -66,8 +66,8 @@ function NotFound() {
           font-black
           text-transparent
           bg-gradient-to-r
-          from-cyan-400
-          to-blue-500
+          from-primary-400
+          to-secondary-500
           bg-clip-text
           leading-none
           "
@@ -96,12 +96,12 @@ function NotFound() {
               flex items-center gap-3
               px-8 py-4
               rounded-2xl
-              bg-gradient-to-r
-              from-blue-500
-              to-cyan-500
-              text-white
+              bg-secondary-500
+              text-primary-700
+              border border-secondary-500
               font-semibold
               shadow-xl
+              hover:bg-secondary-600
               hover:scale-105
               transition-all
               duration-300
@@ -120,11 +120,10 @@ function NotFound() {
               px-8 py-4
               rounded-2xl
               border
-              border-white/20
-              bg-white/10
-              backdrop-blur-xl
-              text-white
-              hover:bg-white/20
+              border-secondary-500
+              bg-primary-700
+              text-secondary-500
+              hover:bg-primary-600
               transition-all
               duration-300
               cursor-pointer

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Mail, MapPin, Phone } from "lucide-react";
 import {
@@ -13,10 +13,13 @@ import {
 import { ROUTES } from "@shared/constants/routeConstants";
 import { fadeUp, staggerContainer } from "@shared/hooks/useScrollAnimation";
 import { useThemeContext } from "@shared/context/ThemeContext";
-import kiniLogo from "../../../assets/Kini (7).svg";
+import kiniLogo from "../../../assets/kini-logo.png";
 
 // ─── Brand gradient ──────────────────────────────────────────────────────────
-const BRAND_GRADIENT = "linear-gradient(135deg, #1F76BD 0%, #2D99AE 50%, #53B255 100%)";
+const BRAND_GRADIENT = "linear-gradient(135deg, #133B5D 0%, #1F4A70 50%, #F39924 100%)";
+
+// ─── Icon badge color — all footer icon badges (social + contact) share this ──
+const ICON_ORANGE = "#F39924";
 
 // ─── Email validation ────────────────────────────────────────────────────────
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -28,6 +31,13 @@ const quickLinks = [
   { label: "Courses", to: ROUTES.PUBLIC.UPSKILL_PROGRAM },
   { label: "About Us", to: ROUTES.PUBLIC.ABOUT },
   { label: "Contact", to: ROUTES.PUBLIC.CONTACT },
+];
+
+const highlightsLinks = [
+  { label: "Corporate Training", to: "/corporate-training" },
+  { label: "Internships", to: "/internships" },
+  { label: "Placements", to: "/placements" },
+  { label: "Blog", to: "/blog" },
 ];
 
 const socialLinks = [
@@ -44,7 +54,7 @@ const socialLinks = [
 ];
 
 const contactDetails = [
-  { icon: Mail, label: "Email", value: "kiniedxhub@gmail.com", href: "mailto:kiniedxhub@gmail.com" },
+  { icon: Mail, label: "Email", value: "contact@kiniedx.com", href: "mailto:contact@kiniedx.com" },
   { icon: Phone, label: "Phone", value: "+91 90001 98239", href: "tel:+919000198239" },
   {
     icon: MapPin,
@@ -87,13 +97,13 @@ function SocialIcon({ icon: Icon, label, href }) {
       aria-label={label}
       whileHover={{ scale: 1.15, y: -3 }}
       whileTap={{ scale: 0.94 }}
-      className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-white transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-shadow duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
       style={{
-        backgroundImage: BRAND_GRADIENT,
-        boxShadow: "0 6px 18px rgba(29,114,190,0.28)",
+        backgroundColor: ICON_ORANGE,
+        boxShadow: "0 6px 18px rgba(19,59,93,0.28)",
       }}
     >
-      <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+      <Icon className="h-4 w-4" aria-hidden="true" />
     </motion.a>
   );
 }
@@ -101,13 +111,13 @@ function SocialIcon({ icon: Icon, label, href }) {
 function ContactIconBadge({ icon: Icon }) {
   return (
     <span
-      className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-white"
+      className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg text-white"
       style={{
-        backgroundImage: BRAND_GRADIENT,
-        boxShadow: "0 4px 12px rgba(29,114,190,0.22)",
+        backgroundColor: ICON_ORANGE,
+        boxShadow: "0 4px 12px rgba(19,59,93,0.22)",
       }}
     >
-      <Icon className="h-4 w-4" aria-hidden="true" />
+      <Icon className="h-3.5 w-3.5" aria-hidden="true" />
     </span>
   );
 }
@@ -148,14 +158,14 @@ function FooterNewsletter({ isDark }) {
 
   return (
     <div>
-      <h3 className={`text-base font-semibold ${isDark ? "text-white" : "text-slate-900"}`}>
+      <h3 className={`text-sm font-semibold ${isDark ? "text-white" : "text-slate-900"}`}>
         Stay Updated
       </h3>
-      <p className={`mt-1.5 max-w-sm text-sm leading-relaxed ${isDark ? "text-white/50" : "text-slate-600"}`}>
-        Subscribe to receive course updates, career tips, and special offers.
+      <p className={`mt-1 max-w-xs text-xs leading-relaxed ${isDark ? "text-white/50" : "text-slate-600"}`}>
+        Course updates, career tips, and special offers.
       </p>
 
-      <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-2.5 sm:flex-row sm:max-w-md">
+      <form onSubmit={handleSubmit} className="mt-3 flex flex-col gap-2 sm:flex-row">
         <div className="flex-1">
           <label htmlFor="footer-email" className="sr-only">Email address</label>
           <input
@@ -167,11 +177,11 @@ function FooterNewsletter({ isDark }) {
             placeholder="Enter your email"
             aria-invalid={!!error}
             aria-describedby={error ? "footer-email-error" : undefined}
-            className={`w-full rounded-full border px-4 py-2.5 text-sm outline-none transition-colors ${
+            className={`w-full rounded-full border px-4 py-2 text-xs outline-none transition-colors ${
               error
                 ? "border-red-500 bg-red-50 text-slate-900 placeholder:text-slate-400"
                 : isDark
-                  ? "border-white/10 bg-white/5 text-white placeholder:text-white/30 focus:border-blue-400/50"
+                  ? "border-white/10 bg-white/5 text-white placeholder:text-white/30 focus:border-secondary-400/50"
                   : "border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 shadow-sm"
             }`}
           />
@@ -182,7 +192,7 @@ function FooterNewsletter({ isDark }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4 }}
                 id="footer-email-error"
-                className="mt-1.5 text-xs font-medium text-red-500"
+                className="mt-1 text-[11px] font-medium text-red-500"
                 role="alert"
               >
                 {error}
@@ -195,14 +205,9 @@ function FooterNewsletter({ isDark }) {
           type="submit"
           whileHover={{ scale: 1.03, y: -2 }}
           whileTap={{ scale: 0.96 }}
-          className="group relative flex-shrink-0 overflow-hidden rounded-full px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300"
-          style={{
-            backgroundImage: BRAND_GRADIENT,
-            boxShadow: "0 12px 30px rgba(29,114,190,0.28)",
-          }}
+          className="group flex-shrink-0 rounded-full bg-secondary-500 text-primary-700 border border-secondary-500 px-5 py-2 text-xs font-semibold transition-all duration-300 hover:bg-secondary-600"
         >
-          <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-          <span className="relative z-10">Subscribe</span>
+          <span>Subscribe</span>
 
           <AnimatePresence>
             {pulseKey > 0 && (
@@ -225,7 +230,7 @@ function FooterNewsletter({ isDark }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             role="status"
-            className="mt-2.5 text-xs font-medium text-emerald-500"
+            className="mt-2 text-[11px] font-medium text-emerald-500"
           >
             ✓ Subscribed! Check your inbox for updates.
           </motion.p>
@@ -235,17 +240,15 @@ function FooterNewsletter({ isDark }) {
   );
 }
 
-// ─── Footer ──────────────────────────────────────────────────────────────────
+// ─── Compact Footer (non-Home pages) ────────────────────────────────────────
 
-export default function Footer() {
-  const { isDark } = useThemeContext();
-
+function CompactFooter({ isDark }) {
   return (
     <footer
       className={`relative overflow-hidden transition-colors duration-500 ${
         isDark
           ? "bg-app-dark-gradient text-white"
-          : "bg-slate-50 text-slate-900 border-t border-slate-200"
+          : "bg-[#F8FBFD] text-slate-900 border-t border-[#DCE7EF]"
       }`}
     >
       {/* Top accent bar */}
@@ -255,7 +258,133 @@ export default function Footer() {
       <div
         aria-hidden="true"
         className={`pointer-events-none absolute -top-32 left-1/2 h-72 w-[720px] -translate-x-1/2 rounded-full blur-[140px] ${
-          isDark ? "bg-blue-500/10" : "bg-blue-500/5"
+          isDark ? "bg-primary-500/10" : "bg-primary-500/5"
+        }`}
+      />
+
+      {/* Main 4-column grid */}
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-8 sm:px-6 md:grid-cols-2 md:gap-8 md:py-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1.2fr] lg:gap-10 lg:px-8">
+
+        {/* Column 1 – Brand */}
+        <div>
+          <Link to={ROUTES.PUBLIC.HOME} className="inline-block">
+            <img src={kiniLogo} alt="Kini - Learn. Innovate. Lead." className="block h-12 w-auto object-contain object-left sm:h-14" />
+          </Link>
+          <p className={`mt-3 max-w-[260px] text-xs leading-relaxed ${isDark ? "text-white/50" : "text-slate-600"}`}>
+            Empowering students with industry-ready skills, expert mentorship, and AI-powered learning experiences.
+          </p>
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            {socialLinks.map((s) => (
+              <SocialIcon key={s.label} {...s} />
+            ))}
+          </div>
+        </div>
+
+        {/* Column 2 – Quick Links */}
+        <div>
+          <h3 className={`text-[11px] font-bold uppercase tracking-[0.2em] ${isDark ? "text-white/40" : "text-slate-400"}`}>
+            Quick Links
+          </h3>
+          <nav className="mt-3 flex flex-col gap-2" aria-label="Quick links">
+            {quickLinks.map((link) => (
+              <FooterLink key={link.label} to={link.to} isDark={isDark}>
+                {link.label}
+              </FooterLink>
+            ))}
+          </nav>
+        </div>
+
+        {/* Column 3 – Highlights / Secondary Links */}
+        <div>
+          <h3 className={`text-[11px] font-bold uppercase tracking-[0.2em] ${isDark ? "text-white/40" : "text-slate-400"}`}>
+            Programs
+          </h3>
+          <nav className="mt-3 flex flex-col gap-2" aria-label="Programs links">
+            {highlightsLinks.map((link) => (
+              <FooterLink key={link.label} to={link.to} isDark={isDark}>
+                {link.label}
+              </FooterLink>
+            ))}
+          </nav>
+        </div>
+
+        {/* Column 4 – Contact + Newsletter */}
+        <div>
+          <h3 className={`text-[11px] font-bold uppercase tracking-[0.2em] ${isDark ? "text-white/40" : "text-slate-400"}`}>
+            Contact
+          </h3>
+          <ul className="mt-3 flex flex-col gap-3">
+            {contactDetails.map(({ icon: Icon, label, value, href, lines }) => (
+              <li key={label} className="flex items-start gap-2.5">
+                <ContactIconBadge icon={Icon} />
+                <div className={`text-xs ${isDark ? "text-white/55" : "text-slate-600"}`}>
+                  {href ? (
+                    <a href={href} className={`transition-colors ${isDark ? "hover:text-white" : "hover:text-slate-900"}`}>
+                      {value}
+                    </a>
+                  ) : (
+                    <p className="leading-relaxed">
+                      {lines.map((line, i) => (
+                        <span key={line}>{line}{i < lines.length - 1 && <br />}</span>
+                      ))}
+                    </p>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {/* Newsletter inline */}
+          <div className="mt-4">
+            <FooterNewsletter isDark={isDark} />
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className={`relative border-t ${isDark ? "border-white/10" : "border-slate-200"}`}>
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-4 py-3 text-center sm:flex-row sm:justify-between sm:px-6 sm:text-left lg:px-8">
+          <p className={`text-[11px] ${isDark ? "text-white/40" : "text-slate-400"}`}>
+            &copy; {new Date().getFullYear()} KiniEdXHub. All Rights Reserved.
+          </p>
+          <div className="flex items-center gap-4">
+            {bottomLinks.map((link) => (
+              <Link
+                key={link.label}
+                to={link.to}
+                className={`text-[11px] transition-colors duration-300 ${
+                  isDark ? "text-white/40 hover:text-white" : "text-slate-400 hover:text-slate-900"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+// ─── Home Footer (original layout) ──────────────────────────────────────────
+
+function HomeFooter({ isDark }) {
+  return (
+    <footer
+      className={`relative overflow-hidden transition-colors duration-500 ${
+        isDark
+          ? "bg-app-dark-gradient text-white"
+          : "bg-[#F8FBFD] text-slate-900 border-t border-[#DCE7EF]"
+      }`}
+    >
+      {/* Top accent bar */}
+      <div aria-hidden="true" className="h-[3px] w-full" style={{ backgroundImage: BRAND_GRADIENT }} />
+
+      {/* Ambient glow */}
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute -top-32 left-1/2 h-72 w-[720px] -translate-x-1/2 rounded-full blur-[140px] ${
+          isDark ? "bg-primary-500/10" : "bg-primary-500/5"
         }`}
       />
 
@@ -264,13 +393,13 @@ export default function Footer() {
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
+        viewport={{ once: false, amount: 0.15 }}
         className="relative mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[1.4fr_1fr_1.3fr] lg:gap-10 lg:px-8"
       >
         {/* Column 1 – Brand */}
         <motion.div variants={fadeUp}>
           <Link to={ROUTES.PUBLIC.HOME} className="inline-block">
-            <img src={kiniLogo} alt="KiniEdXHub logo" className="block h-9 w-auto object-contain object-left sm:h-10" />
+            <img src={kiniLogo} alt="Kini - Learn. Innovate. Lead." className="block h-14 w-auto object-contain object-left sm:h-16" />
           </Link>
           <p className={`mt-4 max-w-xs text-sm leading-relaxed ${isDark ? "text-white/50" : "text-slate-600"}`}>
             Empowering students with industry-ready skills, expert mentorship, and AI-powered learning experiences.
@@ -340,7 +469,6 @@ export default function Footer() {
           <p className={`text-xs ${isDark ? "text-white/40" : "text-slate-400"}`}>
             &copy; {new Date().getFullYear()} KiniEdXHub. All Rights Reserved.
           </p>
-         
           <div className="flex items-center gap-5">
             {bottomLinks.map((link) => (
               <Link
@@ -358,4 +486,15 @@ export default function Footer() {
       </div>
     </footer>
   );
+}
+
+// ─── Footer ──────────────────────────────────────────────────────────────────
+
+export default function Footer({ compact }) {
+  const { isDark } = useThemeContext();
+  const location = useLocation();
+  const isHome = location.pathname === "/" || location.pathname === "";
+  const compactMode = compact !== undefined ? compact : !isHome;
+
+  return compactMode ? <CompactFooter isDark={isDark} /> : <HomeFooter isDark={isDark} />;
 }

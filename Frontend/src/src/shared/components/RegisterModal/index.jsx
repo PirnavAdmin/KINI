@@ -282,15 +282,11 @@ export default function RegisterModal({ isOpen, onClose, course, onSuccess }) {
               )}
             </div>
 
-            {/* Submit button with gradient */}
+            {/* Submit button */}
             <Button
               type="submit"
               disabled={isSubmitting || status === "submitting"}
-              className="mt-5 w-full rounded-lg py-2.5 text-xs font-semibold tracking-wide text-white shadow-[0_12px_30px_rgba(30,115,189,0.25)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_18px_40px_rgba(30,115,189,0.35)] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
-              style={{
-                background: "linear-gradient(90deg, #1E73BD 0%, #2890B8 35%, #35A89D 65%, #58B347 100%)",
-                border: "none",
-              }}
+              className="mt-5 w-full rounded-lg py-2.5 text-xs font-semibold tracking-wide disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               {status === "submitting" ? (
                 <span className="flex items-center justify-center gap-1.5">

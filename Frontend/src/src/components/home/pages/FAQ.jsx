@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, ChevronDown } from "lucide-react";
 import { useThemeContext } from "@shared/context/ThemeContext";
+import Navbar from "@shared/components/navbar";
+import Footer from "@shared/components/Footer";
 
 const faqDB = [
   { q: "What is this platform?", a: "It is a modern learning platform for AI, development, and job-ready skills." },
@@ -15,11 +17,13 @@ export default function FAQSection() {
   const { isDark } = useThemeContext();
 
   return (
-    <section className={`relative px-4 py-12 md:py-16 lg:py-20 overflow-hidden transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient text-white' : 'bg-[#F8FAFC] text-[#0F172A]'}`}>
+    <>
+      <Navbar />
+      <section className={`relative px-4 py-12 md:py-16 lg:py-20 overflow-hidden transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient text-white' : 'bg-[#F8FAFC] text-[#0F172A]'}`}>
       {/* Glow Background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className={`absolute w-[400px] h-[400px] ${isDark ? 'bg-[#085FA7]/10' : 'bg-[#085FA7]/5'} blur-[140px] top-0 left-0`} />
-        <div className={`absolute w-[400px] h-[400px] ${isDark ? 'bg-[#5CA347]/10' : 'bg-[#5CA347]/5'} blur-[140px] bottom-0 right-0`} />
+        <div className={`absolute w-[400px] h-[400px] ${isDark ? 'bg-[#133B5D]/10' : 'bg-[#133B5D]/5'} blur-[140px] top-0 left-0`} />
+        <div className={`absolute w-[400px] h-[400px] ${isDark ? 'bg-[#F39924]/10' : 'bg-[#F39924]/5'} blur-[140px] bottom-0 right-0`} />
       </div>
 
       <div className="relative max-w-3xl mx-auto">
@@ -30,7 +34,7 @@ export default function FAQSection() {
           className="text-center mb-8"
         >
           <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-semibold ${
-            isDark ? "border-[#085FA7]/30 bg-[#085FA7]/10 text-[#4A9EE0]" : "border-[#085FA7]/20 bg-[#EDF4FC] text-[#085FA7]"
+            isDark ? "border-[#133B5D]/30 bg-[#133B5D]/10 text-[#4A9EE0]" : "border-[#133B5D]/20 bg-[#EDF4FC] text-[#133B5D]"
           }`}>
             <Sparkles size={14} />
             FAQs
@@ -38,7 +42,7 @@ export default function FAQSection() {
 
           <h2 className={`text-3xl md:text-4xl font-bold mt-4 ${isDark ? 'text-white' : 'text-[#0F172A]'}`}>
             Frequently Asked{" "}
-            <span className="bg-gradient-to-r from-[#085FA7] to-[#5CA347] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#133B5D] to-[#F39924] bg-clip-text text-transparent">
               Questions
             </span>
           </h2>
@@ -60,7 +64,7 @@ export default function FAQSection() {
                   isDark
                     ? "border-white/10 bg-white/[0.03]"
                     : "border-[#E5E7EB] bg-white/80 shadow-sm"
-                } ${isOpen ? (isDark ? 'border-[#085FA7]/30' : 'border-[#085FA7]/20') : ''}`}
+                } ${isOpen ? (isDark ? 'border-[#133B5D]/30' : 'border-[#133B5D]/20') : ''}`}
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
@@ -68,9 +72,9 @@ export default function FAQSection() {
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      isDark ? 'bg-[#085FA7]/20' : 'bg-[#EDF4FC]'
+                      isDark ? 'bg-[#133B5D]/20' : 'bg-[#EDF4FC]'
                     }`}>
-                      <div className="w-4 h-4 rounded-full bg-gradient-to-r from-[#085FA7] to-[#5CA347]" />
+                      <div className="w-4 h-4 rounded-full bg-gradient-to-r from-[#133B5D] to-[#F39924]" />
                     </div>
                     <span className={`text-sm md:text-base font-medium ${isDark ? 'text-slate-200' : 'text-[#0F172A]'}`}>
                       {item.q}
@@ -80,7 +84,7 @@ export default function FAQSection() {
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
-                    <ChevronDown size={18} className="text-[#085FA7] flex-shrink-0" />
+                    <ChevronDown size={18} className="text-[#133B5D] flex-shrink-0" />
                   </motion.div>
                 </button>
 
@@ -102,6 +106,8 @@ export default function FAQSection() {
           })}
         </div>
       </div>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 }

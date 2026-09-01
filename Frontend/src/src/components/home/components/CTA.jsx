@@ -28,7 +28,7 @@ const CTA = memo(function CTA({ onOpenEnquiry }) {
       </div>
 
       <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }}>
           <div className="inline-flex items-center gap-2 rounded-pill border border-white/30 bg-white/15 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
             <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
             Enrolling now for the next cohort

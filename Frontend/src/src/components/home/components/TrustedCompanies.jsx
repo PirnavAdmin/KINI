@@ -2,10 +2,7 @@ import { motion } from "framer-motion";
 import { useThemeContext } from "@shared/context/ThemeContext";
 
 const LOGOS = [
-  {
-    name: "Pirnav Software Solutions",
-    url: "https://pirnav.com/assets/logo-DrIy_Kr9.png",
-  },
+  
   {
     name: "IBM",
     url: "https://www.ibm.com/brand/experience-guides/developer/8f4e3cc2b5d52354a6d43c8edba1e3c9/02_8-bar-reverse.svg",
@@ -26,6 +23,10 @@ const LOGOS = [
     name: "HONEYWELL",
     url: "https://logos-world.net/wp-content/uploads/2021/02/Honeywell-Logo.png",
   },
+  {
+    name: "Pirnav Software Solutions",
+    url: "https://pirnav.com/assets/logo-DrIy_Kr9.png",
+  },
 ];
 
 export default function Partners() {
@@ -42,16 +43,23 @@ export default function Partners() {
     }
   };
 
+  // Prevent retry loops on failed images
+  const handleImageLoad = (e) => {
+    // If the image loaded but has zero dimensions (SVG placeholder), treat as error
+    if (e.target.naturalWidth === 0 || e.target.naturalHeight === 0) {
+      handleImageError(e);
+    }
+  };
+
   return (
     <section
-      className={`relative overflow-hidden py-12 md:py-16 lg:py-20 transition-colors duration-500 ${
-        isDark ? "bg-app-dark-gradient" : "bg-gradient-to-b from-white to-slate-50"
-      }`}
+      className="relative overflow-hidden py-12 md:py-16 lg:py-20 transition-colors duration-500"
+      style={{ background: isDark ? "#0B2237" : "#EAF2F7" }}
     >
       {/* Background glow */}
       <div
         className={`absolute top-0 left-1/2 w-[500px] h-[500px] rounded-full -translate-x-1/2 pointer-events-none blur-[150px] ${
-          isDark ? "bg-[#4F46E5]/20" : "bg-[#4F46E5]/5"
+          isDark ? "bg-primary-500/20" : "bg-primary-500/5"
         }`}
       />
 
@@ -60,17 +68,17 @@ export default function Partners() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           className="text-center mb-12 sm:mb-16"
         >
           <span
             className={`inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-semibold ${
               isDark
-                ? "border-[#4F46E5]/40 bg-[#4F46E5]/15 text-[#A5B4FC]"
-                : "border-[#4F46E5]/20 bg-[#4F46E5]/5 text-[#4F46E5]"
+                ? "border-primary-500/40 bg-primary-500/15 text-primary-300"
+                : "border-primary-500/20 bg-primary-500/5 text-primary-700"
             }`}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#4F46E5] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-500 animate-pulse" />
             Our Partners
           </span>
 
@@ -80,7 +88,7 @@ export default function Partners() {
             }`}
           >
             Trusted by Industry{" "}
-            <span className="bg-gradient-to-r from-[#4F46E5] to-[#06B6D4] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">
               Leaders
             </span>
           </h2>
@@ -106,12 +114,12 @@ export default function Partners() {
           {/* Fade Edges */}
           <div
             className={`absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r ${
-              isDark ? "from-[#0F172A]/90" : "from-white"
+              isDark ? "from-[#0B2237]/90"              : "from-[#EAF2F7]"
             } to-transparent pointer-events-none`}
           />
           <div
             className={`absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l ${
-              isDark ? "from-[#0F172A]/90" : "from-white"
+              isDark ? "from-[#0B2237]/90" : "from-[#EAF2F7]"
             } to-transparent pointer-events-none`}
           />
 
@@ -138,6 +146,7 @@ export default function Partners() {
                     alt={company.name}
                     loading="lazy"
                     onError={handleImageError}
+                    onLoad={handleImageLoad}
                     className={`h-7 sm:h-9 w-auto object-contain transition-all duration-300 ${
                       isDark
                         ? "opacity-80 hover:opacity-100 brightness-110"

@@ -20,16 +20,11 @@ import { useEffect } from "react";
 
 function Mentors() {
 
-  // ================= AOS =================
+  // AOS itself is initialized once, app-wide, in App.jsx — this just makes
+  // sure it re-scans the DOM once this page's own elements have mounted.
   useEffect(() => {
-
-    AOS.init({
-      duration: 1200,
-      once: true,
-      easing: "ease-in-out",
-      offset: 80,
-    });
-
+    const raf = requestAnimationFrame(() => AOS.refresh());
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   return (
@@ -37,12 +32,12 @@ function Mentors() {
       <Navbar />
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-primary-950 to-slate-900 text-white">
 
         {/* Background Glow */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-cyan-500/20 blur-3xl rounded-full"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-secondary-500/20 blur-3xl rounded-full"></div>
 
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/20 blur-3xl rounded-full"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary-500/20 blur-3xl rounded-full"></div>
 
         {/* Grid Overlay */}
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
@@ -70,7 +65,7 @@ function Mentors() {
 
             Learn From
 
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 animate-gradient">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-secondary-400 via-primary-500 to-primary-700 animate-gradient">
 
               Industry Experts
 
@@ -92,7 +87,7 @@ function Mentors() {
       </section>
 
       {/* ================= MENTORS SECTION ================= */}
-      <section className="bg-gradient-to-b from-slate-50 to-white py-20 md:py-28">
+      <section className="bg-background py-20 md:py-28">
 
         <div className="max-w-7xl mx-auto px-5">
 
@@ -102,19 +97,19 @@ function Mentors() {
             className="text-center mb-20"
           >
 
-            <p className="text-blue-600 font-semibold uppercase tracking-[5px] mb-4">
+            <p className="text-primary-500 font-semibold uppercase tracking-[5px] mb-4">
 
               Top Mentors
 
             </p>
 
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground mb-6">
 
               Meet Our Professional Team
 
             </h2>
 
-            <div className="w-32 h-1.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 rounded-full mx-auto"></div>
+            <div className="w-32 h-1.5 bg-gradient-to-r from-secondary-500 via-primary-500 to-primary-700 rounded-full mx-auto"></div>
 
           </div>
 
@@ -134,12 +129,12 @@ function Mentors() {
                   duration: 0.6,
                   ease: "easeOut",
                 }}
-                viewport={{ once: true }}
-                className="group relative bg-white/90 backdrop-blur-xl rounded-[32px] overflow-hidden border border-white/20 shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_25px_80px_rgba(59,130,246,0.18)] transition-all duration-700"
+                viewport={{ once: false }}
+                className="group relative bg-surface backdrop-blur-xl rounded-[32px] overflow-hidden border border-border shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_25px_80px_rgba(19,59,93,0.18)] transition-all duration-700"
               >
 
                 {/* Gradient Top Border */}
-                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600"></div>
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-secondary-500 via-primary-500 to-primary-700"></div>
 
                 {/* ================= IMAGE ================= */}
                 <div className="relative overflow-hidden">
@@ -179,14 +174,14 @@ function Mentors() {
                 <div className="p-7">
 
                   {/* Name */}
-                  <h2 className="text-2xl font-extrabold text-gray-900 mb-3 group-hover:text-blue-600 transition duration-300">
+                  <h2 className="text-2xl font-extrabold text-foreground mb-3 group-hover:text-primary-600 transition duration-300">
 
                     {mentor.name}
 
                   </h2>
 
                   {/* Role */}
-                  <p className="text-gray-500 leading-relaxed mb-6 min-h-[60px]">
+                  <p className="text-foreground-muted leading-relaxed mb-6 min-h-[60px]">
 
                     {mentor.title}
 
@@ -195,9 +190,9 @@ function Mentors() {
                   {/* Students */}
                   <div className="flex items-center justify-between mb-7">
 
-                    <div className="flex items-center gap-2 text-gray-500">
+                    <div className="flex items-center gap-2 text-foreground-muted">
 
-                      <FaUsers className="text-blue-500" />
+                      <FaUsers className="text-primary-500" />
 
                       <span className="font-medium">
 
@@ -210,13 +205,13 @@ function Mentors() {
                     {/* Social Icons */}
                     <div className="flex items-center gap-3">
 
-                      <button className="w-10 h-10 rounded-full bg-slate-100 hover:bg-blue-600 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110">
+                      <button className="w-10 h-10 rounded-full bg-primary-700 text-secondary-500 hover:bg-primary-600 flex items-center justify-center transition-all duration-300 hover:scale-110">
 
                         <FaLinkedin />
 
                       </button>
 
-                      <button className="w-10 h-10 rounded-full bg-slate-100 hover:bg-sky-500 hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110">
+                      <button className="w-10 h-10 rounded-full bg-primary-700 text-secondary-500 hover:bg-primary-600 flex items-center justify-center transition-all duration-300 hover:scale-110">
 
                         <FaTwitter />
 
@@ -227,7 +222,7 @@ function Mentors() {
                   </div>
 
                   {/* Button */}
-                  <button className="group/btn w-full flex items-center justify-center gap-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-blue-700 text-white py-4 rounded-2xl font-bold shadow-[0_15px_40px_rgba(59,130,246,0.3)] hover:scale-[1.02] transition-all duration-500">
+                  <button className="group/btn w-full flex items-center justify-center gap-3 bg-secondary-500 hover:bg-secondary-600 text-primary-700 py-4 rounded-2xl font-bold shadow-[0_4px_12px_rgba(19,59,93,0.10)] hover:scale-[1.02] transition-all duration-500">
 
                     View Profile
 

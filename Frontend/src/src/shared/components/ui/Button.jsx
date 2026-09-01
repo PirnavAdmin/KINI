@@ -8,16 +8,25 @@ const SIZES = {
 };
 
 const VARIANTS = {
+  // Style A — Orange primary button: orange bg, navy text
   primary:
-    "bg-ink-900 text-white font-semibold shadow-glow dark:bg-white dark:text-ink-900",
+    "bg-secondary-500 text-primary-700 font-semibold border border-secondary-500 hover:bg-secondary-600 dark:bg-secondary-500 dark:text-primary-950 dark:border-secondary-500 dark:hover:bg-secondary-600",
+  // Style B — Navy secondary button: navy bg, orange text, orange border
   secondary:
-    "border border-ink-900/15 bg-white text-ink-900 font-semibold hover:bg-ink-900/[0.03] dark:bg-white/5 dark:text-white dark:border-white/15 dark:hover:bg-white/10",
+    "bg-primary-700 text-secondary-500 font-semibold border border-secondary-500 hover:bg-primary-600 dark:bg-primary-700 dark:text-secondary-500 dark:border-secondary-500 dark:hover:bg-primary-600",
+  // Style C — Outline button: transparent bg, orange border
+  outline:
+    "bg-transparent text-primary-700 font-semibold border border-secondary-500 hover:bg-secondary-500/8 dark:text-secondary-400 dark:hover:bg-secondary-500/10",
+  // Ghost — text only (no border/background)
   ghost:
-    "text-brand-indigo font-semibold hover:bg-brand-indigo/5 dark:text-primary-300 dark:hover:bg-white/5",
+    "text-primary-700 font-semibold hover:bg-primary-50 dark:text-secondary-300 dark:hover:bg-white/5",
+  // Destructive — danger actions remain visually distinct
+  danger:
+    "bg-error text-white font-semibold border border-error hover:bg-red-700 dark:bg-error dark:text-white dark:border-error dark:hover:bg-red-700",
 };
 
 const FOCUS_RING =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950";
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-ink-950";
 
 /**
  * Polymorphic CTA button: renders a react-router <Link> when given `to`,

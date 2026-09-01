@@ -1,120 +1,101 @@
 import { motion } from "framer-motion";
-import { Laptop, Building2 } from "lucide-react";
+import { Laptop, Building2, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useThemeContext } from '@shared/context/ThemeContext'
 
 const tracks = [
   {
     icon: Laptop,
     title: "Online Programs",
-    desc: "Live, instructor-led programs designed around practical skills, hands-on projects, and guided learning.",
-    items: [
-      "React Development",
-      "MERN Stack",
-      "Python Full Stack",
-      "AI Engineering",
-    ],
-    accent: "from-[#085FA7] via-[#38BDF8] to-[#7DD3B2]",
-    iconBg: "bg-[#085FA7]/10",
-    iconColor: "text-[#085FA7]",
+    desc: "Learn from anywhere with live classes, expert mentors, hands-on projects, and real-world assignments.",
+    bullets: ["Live Mentorship", "Project Based Learning", "Flexible Access", "Career Support"],
+    accent: "from-[#133B5D] via-[#38BDF8] to-[#7DD3B2]",
+    iconBg: "bg-[#133B5D]/10",
+    iconColor: "text-[#133B5D]",
+    bulletDot: "bg-[#133B5D]/20",
     ctaLink: "/upskill-program",
     ctaLabel: "Explore Online Programs",
   },
   {
     icon: Building2,
     title: "Offline Training",
-    desc: "Classroom-based learning with hands-on practice, mentor guidance, collaborative projects, and career preparation.",
-    items: [
-      "Practical Training",
-      "Hands-on Labs",
-      "Career Preparation",
-      "Peer Learning",
-    ],
-    accent: "from-[#5CA347] via-[#7DD3B2] to-[#085FA7]",
-    iconBg: "bg-[#5CA347]/10",
-    iconColor: "text-[#5CA347]",
+    desc: "Experience focused classroom training with practical labs, peer learning, and personalized guidance.",
+    bullets: ["Expert Trainers", "Interactive Sessions", "Practical Labs", "Placement Support"],
+    accent: "from-[#F39924] via-[#7DD3B2] to-[#133B5D]",
+    iconBg: "bg-[#F39924]/10",
+    iconColor: "text-[#F39924]",
+    bulletDot: "bg-[#F39924]/20",
     ctaLink: "/upskill-program",
     ctaLabel: "Explore Offline Training",
   },
-];
+]
+
+const EASE = [0.22, 1, 0.36, 1]
 
 export default function LearningEcosystem() {
+  const { isDark } = useThemeContext()
+
   return (
-    <section className="relative overflow-hidden py-28 sm:py-36">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#B5DBFF] via-[#C4EFF6] to-[#D8FBF5] dark:from-transparent dark:via-transparent dark:to-transparent dark:bg-app-dark-gradient" />
+    <section className="relative overflow-hidden py-10 sm:py-12">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-transparent dark:via-transparent dark:to-transparent dark:bg-app-dark-gradient" />
 
-      {/* Glows */}
-      <div className="absolute -top-48 -left-48 h-[500px] w-[500px] rounded-full bg-[#085FA7]/15 blur-[130px] dark:bg-[#4F46E5]/15" />
-      <div className="absolute -bottom-48 -right-48 h-[500px] w-[500px] rounded-full bg-[#5CA347]/15 blur-[130px] dark:bg-[#06B6D4]/10" />
-      <div className="absolute top-1/2 left-1/2 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/40 blur-[120px] dark:bg-white/5" />
+      <div className="absolute -top-48 -left-48 h-[500px] w-[500px] rounded-full bg-[#133B5D]/15 blur-[130px] dark:bg-[#35608A]/15" />
+      <div className="absolute -bottom-48 -right-48 h-[500px] w-[500px] rounded-full bg-[#F39924]/15 blur-[130px] dark:bg-[#F7A62E]/10" />
 
-      {/* Grid – reduced opacity */}
-      <div
-        className="absolute inset-0 opacity-[0.02] dark:opacity-[0.04]"
+      <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.04]"
         style={{
-          backgroundImage:
-            "linear-gradient(#085FA7 1px, transparent 1px), linear-gradient(90deg,#085FA7 1px,transparent 1px)",
+          backgroundImage: "linear-gradient(#133B5D 1px, transparent 1px), linear-gradient(90deg,#133B5D 1px,transparent 1px)",
           backgroundSize: "40px 40px",
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6">
-        {/* Heading */}
+      <div className="relative mx-auto max-w-6xl px-6">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <span className="inline-flex rounded-full bg-white/80 backdrop-blur-xl px-5 py-2 text-sm font-semibold text-[#085FA7] shadow dark:bg-white/10 dark:text-primary-300">
-            One Ecosystem • Two Learning Modes
+          <span className={`inline-flex rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide uppercase ${
+            isDark ? 'bg-white/10 text-primary-300' : 'bg-[#133B5D]/10 text-[#133B5D]'
+          }`}>
+            WHERE AMBITION BECOMES A CAREER
           </span>
-          <h2 className="mt-5 text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
+          <h2 className="mt-4 text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
             Our Learning Ecosystem
           </h2>
-          <p className="mt-5 max-w-2xl mx-auto text-lg text-slate-600 dark:text-slate-400">
-            Learn online from anywhere or experience immersive offline
-            training. Choose the path that fits your career goals.
+          <p className="mt-3 mx-auto max-w-xl text-[15px] leading-relaxed text-slate-600 dark:text-slate-400">
+            Everything you need to learn, practice, and grow — all in one place.
+            Flexible, practical, and outcome-driven.
           </p>
         </motion.div>
 
-        {/* Cards */}
-        <div className="mt-16 grid gap-6 lg:grid-cols-2">
+        <div className="mt-8 grid gap-6 lg:grid-cols-2">
           {tracks.map((track, index) => {
             const Icon = track.icon;
             return (
               <motion.div
                 key={track.title}
-                initial={{ opacity: 0, y: 25 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.15,
-                }}
-                whileHover={{
-                  y: -6,
-                }}
-                className="group relative overflow-hidden rounded-2xl border border-white/60 bg-white/75 backdrop-blur-xl shadow-[0_15px_40px_rgba(15,23,42,.06)] transition-all duration-500 hover:shadow-[0_25px_70px_rgba(8,95,167,.15)] dark:border-white/10 dark:bg-white/[0.03]"
+                viewport={{ once: false }}
+                transition={{ duration: 0.5, delay: index * 0.12, ease: EASE }}
+                whileHover={{ y: -4, transition: { duration: 0.25 } }}
+                className={`group relative overflow-hidden rounded-2xl border transition-all duration-300 ${
+                  isDark
+                    ? 'border-white/10 bg-white/[0.03] hover:bg-white/[0.06] hover:shadow-xl hover:shadow-black/20'
+                    : 'border-slate-200/80 bg-white/70 backdrop-blur-xl hover:shadow-xl hover:shadow-slate-200/60'
+                }`}
               >
-                {/* Top Gradient */}
-                <div
-                  className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${track.accent}`}
-                />
+                <div className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${track.accent}`} />
 
-                {/* Hover Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/30 opacity-0 transition duration-500 group-hover:opacity-100" />
-
-                <div className="relative p-5 sm:p-6">
-                  {/* Icon */}
-                  <div
-                    className={`flex h-12 w-12 items-center justify-center rounded-xl ${track.iconBg}`}
-                  >
+                <div className="relative p-6 sm:p-7">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${track.iconBg}`}>
                     <Icon className={track.iconColor} size={22} />
                   </div>
 
-                  <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">
+                  <h3 className="mt-4 text-xl font-bold text-slate-900 dark:text-white">
                     {track.title}
                   </h3>
 
@@ -122,12 +103,10 @@ export default function LearningEcosystem() {
                     {track.desc}
                   </p>
 
-                  <div className="mt-5 grid grid-cols-2 gap-3">
-                    {track.items.map((item) => (
-                      <div key={item} className="flex items-center gap-2.5">
-                        <span
-                          className={`h-2 w-2 rounded-full ${track.iconBg}`}
-                        />
+                  <div className="mt-5 grid grid-cols-2 gap-2.5">
+                    {track.bullets.map((item) => (
+                      <div key={item} className="flex items-center gap-2">
+                        <span className={`h-2 w-2 rounded-full ${track.bulletDot}`} />
                         <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
                           {item}
                         </span>
@@ -137,8 +116,7 @@ export default function LearningEcosystem() {
 
                   <Link
                     to={track.ctaLink}
-                    className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#085FA7] to-[#5CA347] px-4 py-2 text-sm font-semibold text-white transition hover:shadow-lg hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#085FA7]"
-                    aria-label={track.ctaLabel}
+                    className="mt-6 inline-flex items-center gap-2 rounded-lg bg-secondary-500 text-primary-700 border border-secondary-500 px-4 py-2.5 text-sm font-semibold transition-all duration-300 hover:bg-secondary-600 hover:shadow-lg hover:scale-[1.02]"
                   >
                     {track.ctaLabel}
                     <svg

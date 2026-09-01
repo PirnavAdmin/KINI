@@ -1,9 +1,9 @@
 // ─── Statistics ──────────────────────────────────────────────────────────────
 export const statData = [
-  { value: 10000, suffix: "+", label: "Students Trained", color: "#085FA7" },
-  { value: 2200, suffix: "+", label: "Placements", color: "#5CA347" },
-  { value: 50, suffix: "+", label: "Expert Mentors", color: "#085FA7" },
-  { value: 25, suffix: "+", label: "Skill Programs", color: "#5CA347" },
+  { value: 10000, suffix: "+", label: "Students Trained", color: "#133B5D" },
+  { value: 2200, suffix: "+", label: "Placements", color: "#F39924" },
+  { value: 50, suffix: "+", label: "Expert Mentors", color: "#133B5D" },
+  { value: 25, suffix: "+", label: "Skill Programs", color: "#F39924" },
 ];
 
 export const trustedCompanies = [
@@ -33,7 +33,7 @@ export const featuredCourses = [
     duration: "12 Weeks",
     sessions: "3 sessions/week",
     category: "Python",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-primary-500 to-primary-400",
     image: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&q=80&w=800&h=600",
     outcomes: [
       "Python fundamentals & OOP",
@@ -52,7 +52,7 @@ export const featuredCourses = [
     duration: "16 Weeks",
     sessions: "3 sessions/week",
     category: "Web Development",
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-primary-700 to-primary-500",
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800&h=600",
     outcomes: [
       "HTML, CSS & JavaScript",
@@ -73,7 +73,7 @@ export const featuredCourses = [
     duration: "16 Weeks",
     sessions: "3 sessions/week",
     category: "Cloud Computing",
-    gradient: "from-orange-500 to-amber-500",
+    gradient: "from-secondary-500 to-secondary-400",
     image: "https://images.unsplash.com/photo-1695668548342-c0c1ad479aee?auto=format&fit=crop&q=80&w=800&h=600",
     outcomes: [
       "Spring Boot & REST APIs",
@@ -93,7 +93,7 @@ export const featuredCourses = [
     duration: "14 Weeks",
     sessions: "3 sessions/week",
     category: "Cybersecurity",
-    gradient: "from-red-500 to-rose-500",
+    gradient: "from-primary-600 to-secondary-500",
     image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800&h=600",
     outcomes: [
       "Network security fundamentals",
@@ -112,7 +112,7 @@ export const featuredCourses = [
     duration: "12 Weeks",
     sessions: "2 sessions/week",
     category: "Data Analytics",
-    gradient: "from-teal-500 to-emerald-500",
+    gradient: "from-primary-500 to-secondary-400",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800&h=600",
     outcomes: [
       "SQL & data extraction",
@@ -131,7 +131,7 @@ export const featuredCourses = [
     duration: "16 Weeks",
     sessions: "3 sessions/week",
     category: "AI & Machine Learning",
-    gradient: "from-indigo-500 to-violet-500",
+    gradient: "from-primary-700 to-primary-400",
     image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800&h=600",
     outcomes: [
       "Python for AI",
@@ -151,7 +151,7 @@ export const featuredCourses = [
     duration: "12 Weeks",
     sessions: "2 sessions/week",
     category: "DevOps",
-    gradient: "from-cyan-500 to-blue-500",
+    gradient: "from-secondary-600 to-secondary-400",
     image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&q=80&w=800&h=600",
     outcomes: [
       "Docker containers",
@@ -170,7 +170,7 @@ export const featuredCourses = [
     duration: "10 Weeks",
     sessions: "2 sessions/week",
     category: "QA Automation",
-    gradient: "from-lime-500 to-green-500",
+    gradient: "from-primary-400 to-secondary-500",
     image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800&h=600",
     outcomes: [
       "Testing fundamentals",
@@ -354,7 +354,7 @@ export const learningProcessSteps = [
   },
   {
     step: 5,
-    title: "Get Hired",
+    title: "Ready to Market",
     desc: "Connect with our extensive hiring network through placement drives, warm referrals, and our alumni network.",
     duration: "Until Hired",
   },

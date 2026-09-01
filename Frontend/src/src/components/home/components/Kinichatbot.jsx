@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Bot, X } from "lucide-react";
 import ChatWindow from "../components/chatbot/ChatWindow";
 
-const GRAD = "linear-gradient(135deg, #0877B9 0%, #278F8D 50%, #58A94B 100%)";
+const GRAD = "linear-gradient(135deg, #133B5D 0%, #35608A 50%, #F39924 100%)";
 
 // ── If you have a ThemeContext, import and use it here ───────
 // import { ThemeContext } from "../../context/ThemeContext";
@@ -43,8 +43,8 @@ export default function KiniChatbot({ isDark = false }) {
         onClick={() => setOpen(v => !v)}
         whileHover={{ scale: 1.07 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-5 right-4 sm:right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-        style={{ background: GRAD, boxShadow: "0 8px 30px rgba(8, 119, 185, 0.4)" }}
+        className="fixed bottom-5 right-4 sm:right-6 z-50 w-14 h-14 rounded-2xl flex items-center justify-center bg-secondary-500 text-primary-700 shadow-xl transition-all duration-300 hover:bg-secondary-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary-500"
+        style={{ boxShadow: "0 8px 30px rgba(19, 59, 93, 0.4)" }}
         aria-label={open ? "Close Kini Chat" : "Open Kini Chat"}
       >
         <AnimatePresence mode="wait" initial={false}>

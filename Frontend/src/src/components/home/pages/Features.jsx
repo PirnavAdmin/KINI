@@ -1,6 +1,8 @@
 // ─── Import data ──────────────────────────────────────────────
 import React, { useState, useEffect, useRef } from 'react';
 import { featuredCourses, getCourseCategories } from '../data/homeData'; // adjust path
+import Navbar from '@shared/components/navbar';
+import Footer from '@shared/components/Footer';
 
 const Features = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -55,6 +57,7 @@ const Features = () => {
 
   return (
     <div className="bg-[#031427] text-[#d3e4fe] min-h-screen overflow-x-hidden">
+      <Navbar />
       <main className="relative pt-16 pb-20 min-h-screen flex flex-col items-center justify-center overflow-hidden">
         {/* Ambient Background */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -191,7 +194,7 @@ const Features = () => {
                         </li>
                       ))}
                     </ul>
-                    <button className="w-full mt-4 flex items-center justify-center gap-2 py-3 rounded-xl bg-[#0f55f7]/20 hover:bg-[#0f55f7]/30 border border-[#0f55f7]/30 transition-colors text-[#d3e4fe] text-sm font-medium">
+                    <button className="w-full mt-4 flex items-center justify-center gap-2 py-3 rounded-xl bg-primary-700 hover:bg-primary-600 border border-secondary-500 transition-colors text-secondary-500 text-sm font-semibold">
                       View Details
                       <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
                     </button>
@@ -266,6 +269,7 @@ const Features = () => {
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #334155; }
       `}</style>
+      <Footer />
     </div>
   );
 };

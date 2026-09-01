@@ -44,7 +44,7 @@ function AnimatedSection({ children, className = "" }) {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.2 }}
       variants={sectionVariants}
       className={className}
     >
@@ -166,16 +166,16 @@ function Home() {
           {loadRest && (
             <Suspense fallback={null}>
               {/* CARD FLIP */}
-             <section className="py-16 md:py-20 bg-white dark:bg-app-dark-gradient">
+             <section className="py-16 md:py-20 bg-[#F3F8FC] dark:bg-app-dark-gradient">
   <div className="max-w-7xl mx-auto px-6">
     <div className="text-center mb-8">
-      <span className="inline-flex items-center gap-2 rounded-full bg-[#EDF4FC] dark:bg-slate-800 px-4 py-2 text-sm font-semibold text-[#085FA7] dark:text-blue-300">
-        <div className="w-2 h-2 rounded-full bg-[#085FA7] dark:bg-blue-300 animate-pulse" />
+      <span className="inline-flex items-center gap-2 rounded-full bg-primary-50 dark:bg-primary-500/10 px-4 py-2 text-sm font-semibold text-primary-700 dark:text-primary-300">
+        <div className="w-2 h-2 rounded-full bg-primary-600 dark:bg-primary-300 animate-pulse" />
         Choose Your Path
       </span>
       <h2 className="mt-4 text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
         Explore Our{" "}
-        <span className="bg-gradient-to-r from-[#085FA7] to-[#5CA347] bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-[#133B5D] to-[#F39924] bg-clip-text text-transparent">
           Career Tracks
         </span>
       </h2>
@@ -246,7 +246,7 @@ function Home() {
 
         {loadRest && (
           <Suspense fallback={null}>
-            <Footer />
+            <Footer compact />
           </Suspense>
         )}
       </div>

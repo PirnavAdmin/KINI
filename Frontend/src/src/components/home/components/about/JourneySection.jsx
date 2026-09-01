@@ -38,15 +38,15 @@ const pathD = buildPath(points)
 
 export default function JourneySection() {
   const wrapRef = useRef(null)
-  const inView = useInView(wrapRef, { once: true, amount: 0.3 })
+  const inView = useInView(wrapRef, { once: false, amount: 0.3 })
 
   return (
-    <section className="relative overflow-hidden bg-white py-20 sm:py-24 dark:bg-app-dark-gradient">
+    <section className="relative overflow-hidden bg-white py-12 sm:py-16 dark:bg-app-dark-gradient">
       <div className="mx-auto max-w-6xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6 }}
           className="text-center"
         >
@@ -75,9 +75,9 @@ export default function JourneySection() {
             />
             <defs>
               <linearGradient id="journeyAscent" x1="0" y1="1" x2="1" y2="0">
-                <stop offset="0%" stopColor="#2563EB" />
-                <stop offset="60%" stopColor="#3B82F6" />
-                <stop offset="100%" stopColor="#22C55E" />
+                <stop offset="0%" stopColor="#133B5D" />
+                <stop offset="60%" stopColor="#1F4A70" />
+                <stop offset="100%" stopColor="#F39924" />
               </linearGradient>
             </defs>
           </svg>
@@ -115,7 +115,7 @@ export default function JourneySection() {
               key={s.label}
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
               className="relative flex items-start gap-4"
             >

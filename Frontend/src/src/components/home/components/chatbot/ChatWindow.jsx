@@ -7,7 +7,7 @@ import { X, Send, Bot, RotateCcw } from "lucide-react";
 import ChatMessage, { QuickActionGrid } from "./ChatMessage";
 import { detectIntent, buildResponse, buildRecommendResponse } from "./chatbotUtils";
 
-const GRAD = "linear-gradient(135deg, #0877B9 0%, #278F8D 50%, #58A94B 100%)";
+const GRAD = "linear-gradient(135deg, #133B5D 0%, #35608A 50%, #F39924 100%)";
 
 const WELCOME = {
   id: 0,
@@ -206,9 +206,9 @@ export default function ChatWindow({ onClose, isDark }) {
                 ? "opacity-100 cursor-pointer"
                 : "opacity-30 cursor-default"
             }`}
-            style={{ background: GRAD }}
+            style={{ backgroundColor: "#F39924" }}
           >
-            <Send size={13} className="text-white" />
+            <Send size={13} className="text-primary-700" />
           </button>
         </div>
         <p className="text-center text-xs text-slate-400 dark:text-slate-600 mt-1.5">

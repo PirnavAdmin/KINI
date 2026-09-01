@@ -57,9 +57,9 @@ const SUBJECT_OPTIONS = [
 ]
 
 // ─── Brand gradient (optional) ──────────────────────────────────────────
-const BRAND_GRADIENT = 'linear-gradient(90deg,#1E73BD 0%,#2890B8 35%,#35A89D 65%,#58B347 100%)'
-const BRAND_GRADIENT_SOFT_LIGHT = 'linear-gradient(135deg,#EAF4FC 0%,#E7F5F6 40%,#E7F7F2 70%,#F0FAEC 100%)'
-const BRAND_GRADIENT_SOFT_DARK  = 'linear-gradient(135deg,rgba(30,115,189,0.10) 0%,rgba(40,144,184,0.09) 40%,rgba(53,168,157,0.09) 70%,rgba(88,179,71,0.08) 100%)'
+const BRAND_GRADIENT = 'linear-gradient(90deg,#133B5D 0%,#1F4A70 55%,#F39924 100%)'
+const BRAND_GRADIENT_SOFT_LIGHT = 'linear-gradient(135deg,#EEF3F8 0%,#D9E3EE 50%,#FFF4E5 100%)'
+const BRAND_GRADIENT_SOFT_DARK  = 'linear-gradient(135deg,rgba(19,59,93,0.14) 0%,rgba(31,74,112,0.10) 50%,rgba(243,153,36,0.10) 100%)'
 
 // ─── Field Error component ─────────────────────────────────────────────
 function FieldError({ id, message }) {
@@ -139,14 +139,14 @@ export default function GetInTouchFormFields({ onSubmitted, heading = null }) {
           ? [
               'border-white/[0.09] bg-white/[0.05] text-white placeholder:text-slate-500',
               'hover:border-white/[0.16] hover:bg-white/[0.08]',
-              'focus:border-transparent focus:ring-[#2890B8]/30',
+              'focus:border-transparent focus:ring-[#1F4A70]/30',
               'focus:shadow-[0_0_0_2px_rgba(40,144,184,0.25)]',
             ].join(' ')
           : [
               'border-slate-200 bg-white text-slate-900 placeholder:text-slate-400',
               'shadow-[0_1px_3px_rgba(0,0,0,0.06)]',
               'hover:border-slate-300',
-              'focus:border-transparent focus:ring-[#2890B8]/20',
+              'focus:border-transparent focus:ring-[#1F4A70]/20',
               'focus:shadow-[0_0_0_2px_rgba(40,144,184,0.22),0_1px_3px_rgba(0,0,0,0.06)]',
             ].join(' '),
     ].join(' ')
@@ -198,11 +198,11 @@ export default function GetInTouchFormFields({ onSubmitted, heading = null }) {
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
           className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-3xl opacity-30"
-          style={{ background: 'radial-gradient(circle,#2890B8,transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle,#1F4A70,transparent 70%)' }}
         />
         <div
           className="absolute -bottom-16 -left-16 h-40 w-40 rounded-full blur-3xl opacity-20"
-          style={{ background: 'radial-gradient(circle,#58B347,transparent 70%)' }}
+          style={{ background: 'radial-gradient(circle,#F39924,transparent 70%)' }}
         />
       </div>
 
@@ -235,11 +235,11 @@ export default function GetInTouchFormFields({ onSubmitted, heading = null }) {
                   className={[
                     'relative flex h-16 w-16 items-center justify-center rounded-2xl border shadow-inner',
                     isDark
-                      ? 'border-[#58B347]/20 bg-[#58B347]/10'
-                      : 'border-[#58B347]/25 bg-[#58B347]/08',
+                      ? 'border-[#F39924]/20 bg-[#F39924]/10'
+                      : 'border-[#F39924]/25 bg-[#F39924]/08',
                   ].join(' ')}
                 >
-                  <CheckCircle2 className="h-8 w-8" style={{ color: '#58B347' }} />
+                  <CheckCircle2 className="h-8 w-8" style={{ color: '#F39924' }} />
                 </motion.div>
               </div>
               <motion.div
@@ -268,7 +268,7 @@ export default function GetInTouchFormFields({ onSubmitted, heading = null }) {
                     animate={{ opacity: [0.25, 1, 0.25] }}
                     transition={{ duration: 1.4, delay: i * 0.22, repeat: Infinity }}
                     className="h-1.5 w-1.5 rounded-full"
-                    style={{ background: '#35A89D' }}
+                    style={{ background: '#B6630F' }}
                   />
                 ))}
               </motion.div>
@@ -450,41 +450,15 @@ export default function GetInTouchFormFields({ onSubmitted, heading = null }) {
                     'relative w-full overflow-hidden rounded-xl py-3 text-[13.5px] font-bold',
                     'tracking-[-0.01em] transition-all duration-200',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-                    'focus-visible:ring-[#2890B8]',
+                    'focus-visible:ring-secondary-500',
                     isSubmitting || status === 'submitting'
                       ? isDark
                         ? 'cursor-not-allowed bg-white/10 text-slate-500'
                         : 'cursor-not-allowed bg-slate-100 text-slate-400'
-                      : 'text-white active:scale-[0.99]',
+                      : 'bg-secondary-500 text-primary-700 border border-secondary-500 hover:bg-secondary-600 active:scale-[0.99] shadow-md hover:shadow-lg',
                   ].join(' ')}
-                  style={
-                    isSubmitting || status === 'submitting'
-                      ? undefined
-                      : {
-                          backgroundImage: BRAND_GRADIENT,
-                          boxShadow: '0 4px 18px rgba(40,144,184,0.38)',
-                        }
-                  }
-                  onMouseEnter={(e) => {
-                    if (isSubmitting || status === 'submitting') return
-                    e.currentTarget.style.boxShadow = '0 6px 26px rgba(40,144,184,0.52)'
-                    e.currentTarget.style.filter = 'brightness(1.07)'
-                  }}
-                  onMouseLeave={(e) => {
-                    if (isSubmitting || status === 'submitting') return
-                    e.currentTarget.style.boxShadow = '0 4px 18px rgba(40,144,184,0.38)'
-                    e.currentTarget.style.filter = ''
-                  }}
                 >
-                  {!(isSubmitting || status === 'submitting') && (
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-0
-                                 bg-gradient-to-r from-white/0 via-white/[0.08] to-white/0
-                                 translate-x-[-110%] group-hover:translate-x-[110%]
-                                 transition-transform duration-700"
-                    />
-                  )}
+
 
                   {status === 'submitting' ? (
                     <span className="flex items-center justify-center gap-2">

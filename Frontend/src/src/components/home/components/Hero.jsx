@@ -1,228 +1,225 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Star, Users, Briefcase, ArrowRight } from "lucide-react";
-import { useThemeContext } from "@shared/context/ThemeContext";
-import { statData } from "../data/homeData";
+import { ArrowRight, Rocket, MessageCircle, Target } from "lucide-react";
 import heroImage from "../../../../../public/Generated image_ Smiling Student with Colorful Notebooks (2).png";
 
-// ─── Updated stat values ───────────────────────────────────────────────────────
-// "95% Success Rate" replaced with "4.8★ Avg Rating"
-// "20,000+ Students Trained" → "10,000+"
-// "500+ Hiring Partners" → "50+"
-
-const floatingStats = [
-  {
-    key: "rating",
-    icon: Star,
-    label: "at your own pace",
-    display: " Live Classes",   // shown as raw string — no toLocaleString needed
-    isRaw: true,
-  },
-  {
-    key: "students",
-    icon: Users,
-    label: "Learn from experienced",
-    display: "Expert",
-    isRaw: true,
-  },
-  {
-    key: "partners",
-    icon: Briefcase,
-    label: " To professional world",
-    display: "Career Ready",
-    isRaw: true,
-  },
-];
-
-const REGISTER_PATH = "/register";
-
 export default function Hero() {
-  const { isDark } = useThemeContext();
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <section
-      className={`relative overflow-hidden transition-colors duration-500 ${
-        isDark
-          ? "bg-app-dark-gradient"
-          : "bg-gradient-to-br from-primary-50 via-porcelain to-secondary-50"
-      }`}
+      className="relative overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(160deg, #0E3B5C 0%, #123F60 35%, #0B3554 65%, #0F2E49 100%)",
+      }}
     >
-      {/* Background glow */}
+      {/* ── Subtle background texture ── */}
+      <div
+        className="absolute inset-0 opacity-[0.025]"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+        }}
+      />
+
+      {/* ── Soft glow accents ── */}
       <div className="absolute inset-0" aria-hidden="true">
-        <div className="absolute top-0 left-0 h-[500px] w-[500px] rounded-full bg-primary-500/10 blur-[120px]" />
-        <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-secondary-500/10 blur-[120px]" />
+        <div className="absolute -top-48 -left-48 h-[550px] w-[550px] rounded-full bg-secondary-500/[0.05] blur-[180px]" />
+        <div className="absolute -bottom-48 -right-48 h-[450px] w-[450px] rounded-full bg-primary-300/[0.06] blur-[160px]" />
       </div>
 
-      {/*
-        VIEWPORT FIX:
-        - Mobile: auto height, sensible py, no min-h so content isn't stretched
-        - lg+: min-h calc so it fills the screen properly
-        - gap tightened on mobile
-      */}
+      {/* ══════════════════════════════════════════════════════════════════════
+         Main Grid — 2-column layout
+         Left ~45% / Right ~55%
+         ══════════════════════════════════════════════════════════════════════ */}
       <div className="relative mx-auto grid w-full max-w-[1580px] grid-cols-1 items-center
-        gap-8 px-5 pt-10 pb-24
-        sm:px-8 sm:py-12
-        lg:min-h-[calc(100svh-72px)] lg:grid-cols-2 lg:gap-6 lg:px-12 lg:py-5
-        xl:px-16">
+        gap-8 px-5 pt-14 pb-14
+        sm:px-8 sm:pt-16 sm:pb-16
+        lg:min-h-[calc(100svh-0px)] lg:grid-cols-[45fr_55fr] lg:gap-4 lg:px-12 lg:pt-14 lg:pb-14
+        xl:px-20">
 
-        {/* ── LEFT ── */}
+        {/* ══════════════════════════════════════════════════════════════════════
+           LEFT — Hero Content
+           ══════════════════════════════════════════════════════════════════════ */}
         <div className="text-center lg:text-left">
-          <span
-            className={`inline-flex items-center gap-2 rounded-pill px-4 py-2 text-xs font-medium sm:text-sm ${
-              isDark ? "bg-primary-500/10 text-primary-300" : "bg-primary-50 text-primary-700"
-            }`}
-          >
-            <span className="h-2 w-2 rounded-full bg-primary-500 animate-pulse" />
+          {/* Badge — muted blue/translucent, subtle */}
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.07] border border-white/[0.08] px-4 py-1.5 text-[11px] font-medium tracking-wide text-white/70 sm:text-xs">
+            <span className="h-1.5 w-1.5 rounded-full bg-secondary-500/80" />
             Future-Ready Corporate Training Platform
           </span>
 
-          {/*
-            FONT SIZE FIX:
-            - clamp tightened: starts smaller on mobile (1.8rem), caps at 4.2rem on xl
-            - prevents the huge text overflow seen on desktop
-          */}
-          <h1
-            className={`mt-4 font-black leading-[1.05] tracking-[-0.03em]
-              text-[clamp(1.8rem,5vw,4.2rem)]
-              ${isDark ? "text-white" : "text-ink-900"}`}
-          >
+          {/* Main Heading — sized to stay on its two intended lines at lg+ */}
+          <h1 className="mt-4 font-black leading-[1.1] tracking-[-0.02em] text-white"
+            style={{ fontSize: "clamp(2.25rem, 3.2vw, 3.75rem)" }}>
             Empowering{" "}
-            <span className="bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">
-              Minds.
-            </span>
-            <br className="hidden sm:block" />
+            <span className="text-secondary-500">Minds.</span>
+            <br />
             Building{" "}
             <span className="text-secondary-500">Futures.</span>
           </h1>
 
-          <p className={`mt-4 mx-auto max-w-xl text-sm leading-7 lg:mx-0 sm:text-base xl:text-lg
-            ${isDark ? "text-white/60" : "text-ink-900/60"}`}>
+          {/* Supporting paragraph */}
+          <p className="mt-4 mx-auto max-w-[520px] leading-[1.7] text-white/50 lg:mx-0"
+            style={{ fontSize: "clamp(0.9375rem, 1.2vw, 1.25rem)" }}>
             Master industry skills with live training, projects, mentorship and placement assistance.
           </p>
 
+          {/* CTA Buttons */}
           <div className="mt-6 flex flex-wrap justify-center gap-3 lg:justify-start">
             <Link
               to="/upskill-program"
-              className="group relative overflow-hidden inline-flex items-center justify-center gap-2
-                rounded-full bg-gradient-to-r from-[#1E73BE] via-[#2D8FB4] to-[#5BAE43]
-                px-6 py-3 text-sm font-semibold text-white shadow-xl
-                transition-all duration-300 hover:scale-[1.03] sm:px-8 sm:py-3.5"
+              className="group inline-flex items-center justify-center gap-2
+                rounded-full bg-secondary-500 px-7 py-3 text-sm font-semibold text-primary-950
+                transition-all duration-300 hover:scale-[1.03] hover:bg-secondary-400
+                sm:px-8 sm:py-3.5"
             >
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-              <span className="relative flex items-center gap-2">
+              <span className="flex items-center gap-2">
                 Explore Programs
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </span>
             </Link>
             <Link
               to="/contact"
-              className={`inline-flex items-center gap-2 rounded-pill border px-6 py-3 text-sm font-semibold
-                transition-all duration-300 sm:px-8 ${
-                isDark
-                  ? "border-white/15 text-white hover:border-white/30 hover:bg-white/5"
-                  : "border-primary-500/20 text-primary-600 hover:border-primary-500/40 hover:bg-primary-50"
-              }`}
+              className="inline-flex items-center gap-2 rounded-full bg-primary-700 text-secondary-500 border border-secondary-500 px-7 py-3 text-sm font-semibold
+                transition-all duration-300 hover:bg-primary-600 sm:px-8 sm:py-3.5"
             >
               Talk to an Advisor
             </Link>
           </div>
+
+          {/* ── Decorative Education Icons — spread around hero ── */}
+          <div className="absolute inset-0 pointer-events-none hidden lg:block" aria-hidden="true">
+            {/* Rocket — upper-middle area */}
+            <motion.div
+              animate={shouldReduceMotion ? undefined : { y: [0, -6, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity }}
+              className="absolute left-[45%] top-[12%] opacity-[0.2]"
+            >
+              <Rocket className="h-5 w-5 text-secondary-400" strokeWidth={1.5} />
+            </motion.div>
+            {/* Chat/message — lower-middle-left */}
+            <motion.div
+              animate={shouldReduceMotion ? undefined : { y: [0, 5, 0] }}
+              transition={{ duration: 4, repeat: Infinity, delay: 0.8 }}
+              className="absolute left-[8%] bottom-[22%] opacity-[0.16]"
+            >
+              <MessageCircle className="h-[18px] w-[18px] text-secondary-300" strokeWidth={1.5} />
+            </motion.div>
+            {/* Target — lower-right near image */}
+            <motion.div
+              animate={shouldReduceMotion ? undefined : { y: [0, -4, 0] }}
+              transition={{ duration: 3.8, repeat: Infinity, delay: 1.4 }}
+              className="absolute right-[8%] bottom-[18%] opacity-[0.16]"
+            >
+              <Target className="h-[18px] w-[18px] text-secondary-400" strokeWidth={1.5} />
+            </motion.div>
+          </div>
         </div>
 
-        {/* ── RIGHT — Image + floating badges ── */}
-        <div className="relative flex justify-center">
-          {/* Glow pulse */}
-          <motion.div
-            aria-hidden="true"
-            animate={shouldReduceMotion ? undefined : { scale: [1, 1.05, 1] }}
-            transition={{ duration: 6, repeat: Infinity }}
-            className="absolute rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 blur-3xl h-[300px] w-[300px] sm:h-[360px] sm:w-[360px] lg:h-[430px] lg:w-[430px] xl:h-[490px] xl:w-[490px]"
-          />
-          <motion.div
-            aria-hidden="true"
-            animate={shouldReduceMotion ? undefined : { scale: [1, 1.1, 1] }}
-            transition={{ duration: 5, repeat: Infinity }}
-            className="absolute rounded-full border border-primary-500/20 h-[290px] w-[290px] sm:h-[350px] sm:w-[350px] lg:h-[415px] lg:w-[415px] xl:h-[475px] xl:w-[475px]"
-          />
+        {/* ══════════════════════════════════════════════════════════════════════
+           RIGHT — Student Image with Organic Blobs
+           ══════════════════════════════════════════════════════════════════════ */}
+        <div className="relative flex justify-center lg:justify-end">
+          {/* ── Composition Wrapper ── */}
+          <div className="relative h-[min(80vw,420px)] w-[min(80vw,420px)] sm:h-[360px] sm:w-[360px] lg:h-[380px] lg:w-[380px] xl:h-[420px] xl:w-[420px]">
 
-          {/*
-            IMAGE SIZE FIX:
-            - Mobile: uses vw-based sizing so it never overflows
-            - lg+: restores larger viewport-relative size
-          */}
-          <motion.div whileHover={{ scale: 1.03 }} className="relative z-10">
-            <img
-              src={heroImage}
-              alt="Smiling student holding colorful notebooks"
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-              className="rounded-full object-cover object-top shadow-[0_40px_80px_rgba(0,0,0,.15)] h-[min(80vw,300px)] w-[min(80vw,300px)] sm:h-[340px] sm:w-[340px] lg:h-[400px] lg:w-[400px] xl:h-[460px] xl:w-[460px]"
-            />
-          </motion.div>
-
-          {/* ── Floating stat badges ── */}
-          {floatingStats.map((stat, i) => {
-            const Icon = stat.icon;
-
-            /*
-              POSITION FIX:
-              - More conservative positions so badges don't clip on small screens
-              - Slightly inset from edges on mobile, larger offset on lg+
-            */
-            const positionClasses = [
-              // Rating — top left
-              "top-2 left-0 sm:top-8 sm:left-2 lg:top-12 lg:-left-4",
-              // Students — top right
-              "top-2 right-0 sm:top-8 sm:right-2 lg:top-20 lg:-right-4",
-              // Partners — below image on mobile, bottom left on sm+
-              "-bottom-4 left-1/2 -translate-x-1/2 sm:bottom-8 sm:left-2 sm:translate-x-0 lg:bottom-16 lg:left-2",
-            ][i];
-
-            const floatOffset = i % 2 === 0 ? -6 : 6;
-
-            return (
+            {/* A. Orange/Yellow organic blob — rear layer (z-10) */}
+            <div className="absolute inset-0 z-[10]" aria-hidden="true">
               <motion.div
-                key={stat.key}
-                animate={shouldReduceMotion ? undefined : { y: [0, floatOffset, 0] }}
-                transition={{ duration: 4 + i, repeat: Infinity }}
-                className={`absolute z-20 ${positionClasses}`}
+                animate={shouldReduceMotion ? undefined : { scale: [1, 1.03, 1], rotate: [0, 2, 0] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -right-4 -top-6 h-[72%] w-[68%] sm:-right-6 sm:-top-8 sm:h-[75%] sm:w-[70%] lg:-right-4 lg:-top-6"
+                style={{
+                  background: "linear-gradient(135deg, #F5A623 0%, #FFAA1D 45%, #F39924 100%)",
+                  borderRadius: "62% 38% 48% 52% / 44% 58% 42% 56%",
+                  opacity: 0.75,
+                }}
+              />
+            </div>
+
+            {/* B. White organic blob — mid layer (z-20) */}
+            <div className="absolute inset-0 z-[20]" aria-hidden="true">
+              <motion.div
+                animate={shouldReduceMotion ? undefined : { scale: [1, 1.015, 1], rotate: [0, -1, 0] }}
+                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+                className="absolute inset-[6%] sm:inset-[5%] lg:inset-[4%]"
+                style={{
+                  background: "linear-gradient(155deg, #ffffff 0%, #f4f6f9 35%, #e9edf2 100%)",
+                  borderRadius: "46% 54% 42% 58% / 38% 42% 58% 62%",
+                  boxShadow: "0 25px 70px rgba(0,0,0,0.22), inset 0 2px 15px rgba(255,255,255,0.6)",
+                }}
+              />
+            </div>
+
+            {/* C. Thin white loop line — organic ellipse (z-30) */}
+            <div className="absolute inset-0 z-[30] pointer-events-none" aria-hidden="true">
+              <motion.svg
+                viewBox="0 0 500 500"
+                className="absolute inset-0 h-full w-full"
+                animate={shouldReduceMotion ? undefined : { rotate: [0, 360] }}
+                transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
               >
-                <div
-                  className={`flex items-center gap-1.5 rounded-2xl p-2 shadow-lg backdrop-blur-xl
-                    transition-transform hover:scale-105
-                    sm:gap-2 sm:p-2.5 sm:shadow-xl
-                    lg:rounded-3xl lg:p-3 lg:gap-3
-                    ${isDark ? "bg-ink-900/85" : "bg-white/90"}`}
-                >
-                  <span
-                    className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full
-                      sm:h-8 sm:w-8
-                      lg:h-10 lg:w-10
-                      ${isDark ? "bg-primary-500/15 text-primary-300" : "bg-primary-50 text-primary-600"}`}
-                  >
-                    <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
-                  </span>
-                  <span>
-                    {/*
-                      FONT SIZE FIX on badges:
-                      - Mobile: text-xs / text-[10px]
-                      - sm+: text-sm / text-xs
-                      - lg+: text-lg / text-sm
-                    */}
-                    <span className={`block text-xs font-bold leading-none sm:text-sm lg:text-lg
-                      ${isDark ? "text-white" : "text-ink-900"}`}>
-                      {stat.display}
-                    </span>
-                    <span className={`text-[10px] lg:text-xs
-                      ${isDark ? "text-white/50" : "text-ink-900/50"}`}>
-                      {stat.label}
-                    </span>
-                  </span>
-                </div>
+                <ellipse
+                  cx="250"
+                  cy="255"
+                  rx="225"
+                  ry="190"
+                  fill="none"
+                  stroke="rgba(255,255,255,0.15)"
+                  strokeWidth="1.2"
+                  strokeDasharray="14 10"
+                />
+              </motion.svg>
+            </div>
+
+            {/* D. Student image — z-40, NOT circular */}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="absolute inset-0 z-[40] flex items-center justify-center"
+            >
+              <img
+                src={heroImage}
+                alt="Smiling student holding colorful notebooks"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="h-[82%] w-[82%] object-cover object-top"
+                style={{
+                  borderRadius: "48% 52% 44% 56% / 42% 46% 54% 58%",
+                  boxShadow: "0 25px 60px rgba(0,0,0,0.35)",
+                }}
+              />
+            </motion.div>
+
+            {/* E. Small decorative accents (z-50) */}
+            <div className="absolute inset-0 z-[50] pointer-events-none" aria-hidden="true">
+              <motion.div
+                animate={shouldReduceMotion ? undefined : { y: [0, -5, 0] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="absolute -right-1 top-[12%] h-3 w-3 rounded-full bg-secondary-500/50 sm:h-3.5 sm:w-3.5"
+              />
+              <motion.div
+                animate={shouldReduceMotion ? undefined : { y: [0, 4, 0] }}
+                transition={{ duration: 4, repeat: Infinity, delay: 1.2 }}
+                className="absolute left-[5%] bottom-[18%] h-2.5 w-2.5 rounded-full bg-primary-300/30"
+              />
+              <div className="absolute left-[12%] top-[6%] h-1.5 w-1.5 rounded-full bg-white/20" />
+            </div>
+
+            {/* Mobile decorative icons (hidden on lg+) */}
+            <div className="absolute inset-0 z-[55] pointer-events-none lg:hidden" aria-hidden="true">
+              <motion.div
+                animate={shouldReduceMotion ? undefined : { y: [0, -3, 0] }}
+                transition={{ duration: 3.5, repeat: Infinity }}
+                className="absolute -right-3 top-[3%] opacity-20"
+              >
+                <Rocket className="h-4 w-4 text-secondary-400" strokeWidth={1.5} />
               </motion.div>
-            );
-          })}
+            </div>
+          </div>
         </div>
       </div>
     </section>

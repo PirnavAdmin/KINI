@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { FaLinkedinIn } from "react-icons/fa";
+import Navbar from "@shared/components/navbar";
+import Footer from "@shared/components/Footer";
 
 const founders = [
   {
@@ -24,29 +26,31 @@ const founders = [
 
 export default function FounderSection() {
   return (
-    <section className="relative py-24 bg-gradient-to-b from-slate-50 to-white overflow-hidden">
+    <>
+      <Navbar />
+      <section className="relative py-24 bg-background overflow-hidden">
 
       {/* Background Glow */}
-      <div className="absolute top-20 left-20 w-72 h-72 bg-blue-200 blur-[120px] rounded-full opacity-30"></div>
-      <div className="absolute bottom-20 right-20 w-72 h-72 bg-indigo-200 blur-[120px] rounded-full opacity-30"></div>
+      <div className="absolute top-20 left-20 w-72 h-72 bg-primary-200 dark:bg-primary-500/10 blur-[120px] rounded-full opacity-30"></div>
+      <div className="absolute bottom-20 right-20 w-72 h-72 bg-secondary-200 dark:bg-secondary-500/10 blur-[120px] rounded-full opacity-30"></div>
 
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Heading */}
         <div className="text-center mb-20">
 
-          <span className="uppercase tracking-[5px] text-slate-500 text-sm">
+          <span className="uppercase tracking-[5px] text-foreground-muted text-sm">
             Leadership Team
           </span>
 
-          <h2 className="mt-4 text-5xl font-bold text-slate-900">
+          <h2 className="mt-4 text-5xl font-bold text-foreground">
             Meet Our
-            <span className="text-blue-600 italic font-serif ml-3">
+            <span className="text-primary-500 italic font-serif ml-3">
               Founders
             </span>
           </h2>
 
-          <p className="max-w-2xl mx-auto mt-5 text-slate-600">
+          <p className="max-w-2xl mx-auto mt-5 text-foreground-secondary">
             Visionaries dedicated to creating the next generation
             of industry-ready software engineers.
           </p>
@@ -60,7 +64,7 @@ export default function FounderSection() {
               key={index}
               initial={{ opacity: 0, y: 80 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ duration: 0.6 }}
               className={`grid lg:grid-cols-2 gap-12 items-center ${
                 index % 2 === 1 ? "lg:flex-row-reverse" : ""
@@ -77,7 +81,7 @@ export default function FounderSection() {
               >
                 <div className="relative">
 
-                  <div className="absolute inset-0 bg-blue-600 rounded-3xl blur-3xl opacity-20 scale-110"></div>
+                  <div className="absolute inset-0 bg-primary-600 rounded-3xl blur-3xl opacity-20 scale-110"></div>
 
                   <img
                     src={founder.image}
@@ -87,7 +91,7 @@ export default function FounderSection() {
 
                   <a
                     href="#"
-                    className="absolute bottom-5 right-5 w-14 h-14 rounded-2xl bg-white shadow-lg flex items-center justify-center text-blue-600 text-xl hover:scale-110 transition"
+                    className="absolute bottom-5 right-5 w-14 h-14 rounded-2xl bg-surface shadow-lg flex items-center justify-center text-primary-600 text-xl hover:scale-110 transition"
                   >
                     <FaLinkedinIn />
                   </a>
@@ -96,55 +100,55 @@ export default function FounderSection() {
               </div>
 
               {/* Content */}
-              <div className="bg-white/80 backdrop-blur-xl border border-slate-200 rounded-3xl p-10 shadow-xl">
+              <div className="bg-surface/80 backdrop-blur-xl border border-border rounded-3xl p-10 shadow-xl">
 
                 <div className="flex flex-wrap gap-3 mb-5">
 
-                  <span className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-semibold">
+                  <span className="bg-primary-100 text-primary-700 dark:bg-primary-500/15 dark:text-primary-300 px-4 py-2 rounded-full text-sm font-semibold">
                     {founder.role}
                   </span>
 
-                  <span className="bg-slate-100 px-4 py-2 rounded-full text-sm">
+                  <span className="bg-background-secondary text-foreground-secondary px-4 py-2 rounded-full text-sm">
                     {founder.company}
                   </span>
 
                 </div>
 
-                <h3 className="text-4xl font-bold text-slate-900">
+                <h3 className="text-4xl font-bold text-foreground">
                   {founder.name}
                 </h3>
 
-                <div className="w-24 h-1 bg-blue-600 rounded-full my-6"></div>
+                <div className="w-24 h-1 bg-primary-600 rounded-full my-6"></div>
 
-                <p className="text-slate-600 leading-relaxed text-lg">
+                <p className="text-foreground-secondary leading-relaxed text-lg">
                   {founder.description}
                 </p>
 
                 <div className="grid grid-cols-3 gap-5 mt-10">
 
-                  <div className="bg-slate-50 rounded-2xl p-5 text-center">
-                    <h4 className="font-bold text-2xl text-blue-600">
+                  <div className="bg-background-secondary rounded-2xl p-5 text-center">
+                    <h4 className="font-bold text-2xl text-primary-500">
                       10+
                     </h4>
-                    <p className="text-sm text-slate-500">
+                    <p className="text-sm text-foreground-muted">
                       Years Exp
                     </p>
                   </div>
 
-                  <div className="bg-slate-50 rounded-2xl p-5 text-center">
-                    <h4 className="font-bold text-2xl text-blue-600">
+                  <div className="bg-background-secondary rounded-2xl p-5 text-center">
+                    <h4 className="font-bold text-2xl text-primary-500">
                       5000+
                     </h4>
-                    <p className="text-sm text-slate-500">
+                    <p className="text-sm text-foreground-muted">
                       Students
                     </p>
                   </div>
 
-                  <div className="bg-slate-50 rounded-2xl p-5 text-center">
-                    <h4 className="font-bold text-2xl text-blue-600">
+                  <div className="bg-background-secondary rounded-2xl p-5 text-center">
+                    <h4 className="font-bold text-2xl text-primary-500">
                       100+
                     </h4>
-                    <p className="text-sm text-slate-500">
+                    <p className="text-sm text-foreground-muted">
                       Placements
                     </p>
                   </div>
@@ -159,6 +163,8 @@ export default function FounderSection() {
         </div>
 
       </div>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 }

@@ -35,7 +35,7 @@ export default function FoundersSection() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           transition={{ duration: 0.6 }}
           className="text-center"
         >
@@ -64,7 +64,7 @@ function FounderRow({ name, role, tag, story, stats, reverse }) {
     <motion.div
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: false, amount: 0.3 }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className={`grid items-center gap-10 lg:grid-cols-[380px_1fr] ${
         reverse ? 'lg:[direction:rtl]' : ''

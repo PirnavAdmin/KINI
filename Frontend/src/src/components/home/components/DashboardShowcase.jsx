@@ -83,7 +83,7 @@ function DashboardMockup({ isDark }) {
     <motion.div
       initial={{ opacity: 0, scale: 0.95, filter: "blur(8px)" }}
       whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: false, amount: 0.3 }}
       transition={{ duration: 0.8, ease: EASE_PREMIUM }}
       className={`rounded-3xl border p-5 shadow-elevated sm:p-6 ${
         isDark ? "border-white/10 bg-white/[0.03]" : "border-slate-200 bg-white"
@@ -119,7 +119,7 @@ function DashboardMockup({ isDark }) {
               className="h-full rounded-pill bg-gradient-to-r from-primary-500 to-secondary-500"
               initial={{ width: 0 }}
               whileInView={{ width: "68%" }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ duration: 1.1, ease: EASE_PREMIUM, delay: 0.3 }}
             />
           </div>
@@ -206,7 +206,7 @@ export default function DashboardShowcase() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.3 }}
           variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
           className="order-1 lg:order-2"
         >

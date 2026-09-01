@@ -2,6 +2,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
+import { useThemeContext } from "@shared/context/ThemeContext";
 import {
   Rocket,
   ArrowRight,
@@ -178,15 +179,15 @@ const ADVANCED_MODULES = {
 };
 
 const ROLE_META = {
-  "React JS Developer": { icon: Atom, tone: "from-blue-500 to-cyan-500" },
-  "Frontend Developer": { icon: Code2, tone: "from-sky-500 to-blue-600" },
-  "MERN Stack Developer": { icon: Layers, tone: "from-emerald-500 to-teal-500" },
-  "Full Stack Developer": { icon: Boxes, tone: "from-indigo-500 to-violet-500" },
-  "Python Developer": { icon: Terminal, tone: "from-amber-500 to-yellow-500" },
-  "Java Developer": { icon: Coffee, tone: "from-orange-500 to-red-500" },
-  "AI Engineer": { icon: Brain, tone: "from-fuchsia-500 to-purple-600" },
-  "Data Scientist": { icon: LineChart, tone: "from-teal-500 to-emerald-600" },
-  "Cloud Engineer": { icon: Cloud, tone: "from-sky-400 to-indigo-500" },
+  "React JS Developer": { icon: Atom, tone: "from-primary-500 to-secondary-500" },
+  "Frontend Developer": { icon: Code2, tone: "from-primary-400 to-primary-600" },
+  "MERN Stack Developer": { icon: Layers, tone: "from-secondary-500 to-primary-500" },
+  "Full Stack Developer": { icon: Boxes, tone: "from-primary-600 to-secondary-600" },
+  "Python Developer": { icon: Terminal, tone: "from-secondary-400 to-secondary-600" },
+  "Java Developer": { icon: Coffee, tone: "from-secondary-600 to-primary-700" },
+  "AI Engineer": { icon: Brain, tone: "from-primary-500 to-primary-700" },
+  "Data Scientist": { icon: LineChart, tone: "from-secondary-500 to-secondary-700" },
+  "Cloud Engineer": { icon: Cloud, tone: "from-primary-400 to-secondary-500" },
 };
 
 const roadmapConfig = {
@@ -223,12 +224,12 @@ const roadmapConfig = {
 };
 
 const AVATAR_TONES = [
-  "from-blue-500 to-indigo-500",
-  "from-emerald-500 to-teal-500",
-  "from-violet-500 to-fuchsia-500",
-  "from-amber-500 to-orange-500",
-  "from-sky-500 to-cyan-500",
-  "from-rose-500 to-pink-500",
+  "from-primary-500 to-primary-700",
+  "from-secondary-400 to-secondary-600",
+  "from-primary-400 to-secondary-500",
+  "from-secondary-500 to-primary-600",
+  "from-primary-600 to-primary-800",
+  "from-secondary-600 to-secondary-800",
 ];
 
 /* ------------------------------------------------------------------ */
@@ -567,6 +568,7 @@ function CompanySelect({ inputId, instanceId, value, onChange, placeholder, isCl
 /* ------------------------------------------------------------------ */
 
 export default function CareerRoadmapGenerator() {
+  const { isDark } = useThemeContext();
   const reduceMotion = useReducedMotion();
   const roadmapRef = useRef(null);
 
@@ -613,7 +615,12 @@ export default function CareerRoadmapGenerator() {
   return (
     <section
       id="career-roadmap"
-      className="relative overflow-hidden bg-white py-20 sm:py-28 dark:bg-app-dark-gradient"
+      className="relative overflow-hidden py-12 sm:py-16"
+      style={{
+        background: isDark
+          ? "#0B2237"
+          : "#F3F8FC",
+      }}
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
         <div className="absolute -top-24 left-1/4 h-72 w-72 rounded-full bg-primary-500/10 blur-3xl" />
@@ -626,7 +633,7 @@ export default function CareerRoadmapGenerator() {
           variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: false, margin: "-80px" }}
           className="mx-auto max-w-2xl text-center"
         >
           <h2 className="flex items-center justify-center gap-2 font-display text-2xl font-extrabold text-ink-900 dark:text-white sm:text-3xl">
@@ -643,7 +650,7 @@ export default function CareerRoadmapGenerator() {
           variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
+          viewport={{ once: false, margin: "-80px" }}
           className="mx-auto mt-10 max-w-6xl rounded-3xl border border-ink-900/[0.06] bg-white p-6 shadow-card-lg dark:border-white/10 dark:bg-white/[0.02] sm:p-8"
         >
           {/* Row A: current + target */}
@@ -780,7 +787,7 @@ export default function CareerRoadmapGenerator() {
             disabled={!canGenerate}
             whileHover={canGenerate ? { scale: 1.01 } : undefined}
             whileTap={canGenerate ? { scale: 0.98 } : undefined}
-            className="group relative mt-8 flex w-full items-center justify-center gap-2 rounded-pill bg-gradient-to-r from-primary-500 to-secondary-500 px-6 py-4 text-sm font-bold text-white shadow-lg transition-shadow hover:shadow-[0_0_40px_-8px_rgba(37,99,235,0.55)] disabled:cursor-not-allowed disabled:opacity-60 sm:text-base"
+            className="group relative mt-8 flex w-full items-center justify-center gap-2 rounded-pill bg-secondary-500 hover:bg-secondary-600 px-6 py-4 text-sm font-bold text-primary-700 shadow-lg transition-shadow hover:shadow-[0_4px_12px_rgba(19,59,93,0.10)] disabled:cursor-not-allowed disabled:opacity-60 sm:text-base"
           >
             {isGenerating ? (
               <>
