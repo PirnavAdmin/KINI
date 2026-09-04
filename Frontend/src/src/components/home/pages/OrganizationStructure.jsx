@@ -1,9 +1,15 @@
 import Navbar from "@shared/components/navbar";
 import Footer from "@shared/components/Footer";
+import Seo from "@shared/components/Seo";
 
 function OrganizationStructure() {
   return (
     <>
+      <Seo
+        title="Our Learning Ecosystem"
+        description="See how Kini Edx Hub structures its online programs, cohorts and career tracks to take learners from fundamentals to placement-ready."
+        path="/organization-structure"
+      />
       <Navbar />
       <section className="py-24 bg-background-secondary">
 

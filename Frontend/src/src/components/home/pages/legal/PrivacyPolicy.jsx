@@ -177,6 +177,7 @@ export default function PrivacyPolicy() {
       title="Privacy Policy"
       intro="How Kini EdX Hub Pvt Ltd collects, uses, stores, and protects your personal information."
       sections={processedSections}
+      path="/privacy-policy"
     />
   )
 }

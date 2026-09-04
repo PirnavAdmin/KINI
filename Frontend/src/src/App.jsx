@@ -8,11 +8,12 @@ import { ModalProvider } from "@shared/context/ModalProvider";
 import Navbar from "@shared/components/navbar";
 import Footer from "@shared/components/Footer";
 import LoadingScreen from "@shared/components/LoadingScreen";
+import Seo from "@shared/components/Seo";
 import { FaWhatsapp } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import KiniChatbot from "./components/home/components/Kinichatbot";
+import Home from "./components/home/pages/Home";
 
-const Home = lazy(() => import("./components/home/pages/Home"));
 const About = lazy(() => import("./components/home/pages/About"));
 const Blog = lazy(() => import("./components/home/pages/Blog"));
 const Career = lazy(() => import("./components/home/pages/Career"));
@@ -153,6 +154,11 @@ function AppRoutes() {
           path="/project-new"
           element={
             <>
+              <Seo
+                title="Capstone Projects"
+                description="See the real-world capstone projects Kini Edx Hub students build and deploy as part of their training."
+                path="/project-new"
+              />
               <Navbar />
               <ProjectNew />
               <Footer />

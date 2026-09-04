@@ -22,14 +22,15 @@ import { ROUTES } from "@shared/constants/routeConstants";
 import { useThemeContext } from "@shared/context/ThemeContext";
 import Navbar from "@shared/components/navbar";
 import Footer from "@shared/components/Footer";
+import Seo from "@shared/components/Seo";
 
 const NAVY = "#133B5D";
 const TEAL = "#F39924";
 
 const heroBadges = [
   { icon: FileText, label: "95%+", sub: "Placement Assistance" },
-  { icon: Briefcase, label: "500+", sub: "Hiring Partners" },
-  { icon: Users, label: "1000+", sub: "Students Placed" },
+  { icon: Briefcase, label: "50+", sub: "Hiring Partners" },
+  { icon: Users, label: "2200+", sub: "Students Placed" },
 ];
 
 const services = [
@@ -127,6 +128,11 @@ export default function Placementspage() {
 
   return (
     <>
+      <Seo
+        title="Placements"
+        description="End-to-end placement support at Kini Edx Hub: career guidance, resume building, mock interviews and hiring partner connections."
+        path="/placements"
+      />
       <Navbar />
       <main className={isDark ? "bg-ink-950 text-white" : "bg-white text-ink-900"}>
         {/* Hero */}

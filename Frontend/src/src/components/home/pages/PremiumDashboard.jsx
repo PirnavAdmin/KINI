@@ -6,6 +6,7 @@ import {
 } from 'react-icons/fi';
 import { FaLinkedinIn, FaStar, FaQuoteRight } from 'react-icons/fa';
 import { useThemeContext } from '@shared/context/ThemeContext';
+import Seo from '@shared/components/Seo';
 
 // ─── STATIC DATA CONTRACTS ──────────────────────────────────────────────────
 
@@ -113,7 +114,12 @@ export default function PremiumDashboard() {
 
   return (
     <div className={`min-h-screen font-sans antialiased overflow-x-hidden selection:bg-cyan-500/30 select-none transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
-      
+      <Seo
+        title="Course Dashboard"
+        description="Browse Kini Edx Hub's full course catalog across Java, .NET, AI/ML and Cloud & DevOps tracks."
+        path="/dashboard"
+      />
+
       {/* ─── PREMIUM SAAS HEADER / NAVBAR ─── */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#010b14]/70 border-b border-white/[0.04] backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">

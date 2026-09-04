@@ -7,6 +7,7 @@ import SectionHeader from "@shared/components/ui/SectionHeader";
 import { whyChooseUsFeatures } from "../data/homeData";
 import Navbar from "@shared/components/navbar";
 import Footer from "@shared/components/Footer";
+import Seo from "@shared/components/Seo";
 
 const ICONS = [Radio, GraduationCap, Briefcase, Code2, Users, InfinityIcon];
 
@@ -97,6 +98,11 @@ export default function WhyChooseUs() {
 
   return (
     <>
+      <Seo
+        title="Why Choose Us"
+        description="Live training, real projects, industry mentorship and placement assistance — see why students choose Kini Edx Hub for career-focused tech education."
+        path="/why-choose-us"
+      />
       <Navbar />
       <Section className={isDark ? "bg-app-dark-gradient" : "bg-porcelain"}>
       <SectionHeader

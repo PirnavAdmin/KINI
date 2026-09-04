@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@shared/components/navbar";
+import Seo from "@shared/components/Seo";
 import Footer from "@shared/components/Footer";
 import Badge from "@shared/components/ui/Badge";
 import { EASE_PREMIUM, fadeUp, staggerContainer } from "@shared/hooks/useScrollAnimation";
@@ -74,7 +75,7 @@ export function TODOPlaceholder({ children }) {
  * Shared chrome for legal/compliance pages (Terms, Privacy, Cookies).
  * Fully supports dark mode while keeping readability high.
  */
-export function LegalLayout({ eyebrow, title, intro, sections }) {
+export function LegalLayout({ eyebrow, title, intro, sections, path }) {
   const { isDark } = useThemeContext();
   const [activeId, setActiveId] = useState(sections[0]?.id);
   const sectionRefs = useRef({});
@@ -98,6 +99,7 @@ export function LegalLayout({ eyebrow, title, intro, sections }) {
 
   return (
     <>
+      <Seo title={title} description={intro} path={path} />
       <Navbar />
       <main className={isDark ? "bg-slate-950" : "bg-white"}>
         {/* Header */}

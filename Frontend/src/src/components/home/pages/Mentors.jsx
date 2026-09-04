@@ -1,4 +1,5 @@
 import Navbar from "@shared/components/navbar";
+import Seo from "@shared/components/Seo";
 import Footer from "@shared/components/Footer";
 
 import mentorsData from "@shared/data/mentorsData";
@@ -29,6 +30,11 @@ function Mentors() {
 
   return (
     <>
+      <Seo
+        title="Expert Mentors"
+        description="Learn from industry-experienced mentors at Kini Edx Hub who guide students through real-world projects and career-ready training."
+        path="/mentors"
+      />
       <Navbar />
 
       {/* ================= HERO SECTION ================= */}

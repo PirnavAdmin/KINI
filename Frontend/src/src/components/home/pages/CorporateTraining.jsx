@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { ROUTES } from "@shared/constants/routeConstants";
 import Navbar from "../../../shared/components/navbar/index";
+import Seo from "../../../shared/components/Seo";
 import Footer from "../../../shared/components/Footer/index";
 
 const NAVY = "#133B5D";
@@ -144,6 +145,11 @@ export default function CorporateTraining() {
 
   return (
     <main className="min-h-screen bg-white font-sans text-slate-900">
+      <Seo
+        title="Corporate Training"
+        description="Upskill your workforce with Kini Edx Hub's corporate training programs in software development, AI and cloud technologies."
+        path="/corporate-training"
+      />
       <Navbar />
 
       {/* ══ HERO (dark image banner + two-column overlap card) ══ */}

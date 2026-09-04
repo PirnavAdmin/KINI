@@ -155,6 +155,9 @@ const sections = [
             : 'border-slate-200 bg-slate-50 text-slate-900'
         }`}>
           <p className="font-medium">Kini EdX Hub Pvt Ltd</p>
+          <p className={`mt-1 ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+            407, 4th Floor, Capital Park, Madhapur, Hyderabad, 500081
+          </p>
           <p className="mt-3">
             <a href="mailto:contact@kiniedx.com" className="text-brand-blue hover:underline dark:text-primary-300">
               contact@kiniedx.com
@@ -187,6 +190,7 @@ export default function TermsAndConditions() {
       intro="The terms that apply when you enroll in courses or use services provided by Kini EdX Hub Pvt Ltd."
       sections={processedSections}
       className={isDark ? 'dark' : ''}
+      path="/terms-conditions"
     />
   )
 }

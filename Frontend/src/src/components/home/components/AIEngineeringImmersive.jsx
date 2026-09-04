@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '@shared/components/navbar';
+import Seo from '@shared/components/Seo';
 import Footer from '@shared/components/Footer';
 
 const AIEngineeringImmersive = () => {
@@ -134,6 +135,11 @@ const AIEngineeringImmersive = () => {
 
   return (
     <div className="bg-background text-foreground antialiased font-sans">
+      <Seo
+        title="AI Engineering Immersive"
+        description="An intensive, project-based AI engineering program at Kini Edx Hub covering machine learning, LLMs and production AI systems."
+        path="/ai-engineering-immersive"
+      />
       <Navbar />
       {/* Hero Section */}
       <header className="pt-8 pb-8 px-4 md:px-8 max-w-7xl mx-auto relative overflow-hidden">

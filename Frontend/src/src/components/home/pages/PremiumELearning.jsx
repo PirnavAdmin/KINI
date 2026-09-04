@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Navbar from "@shared/components/navbar";
+import Seo from "@shared/components/Seo";
 import Footer from "@shared/components/Footer";
 
 // Your 4 Lottie URLs
@@ -424,6 +425,11 @@ export default function PremiumELearning() {
 
   return (
     <>
+      <Seo
+        title="Courses"
+        description="Browse Kini Edx Hub's full-stack, AI/ML, cloud and DevOps courses — live training, real projects and placement assistance included."
+        path="/courses"
+      />
       <Navbar />
       <section
       className="relative flex min-h-screen flex-col justify-center overflow-hidden"

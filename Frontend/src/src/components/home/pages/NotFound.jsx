@@ -4,9 +4,12 @@ import {
   FaHome,
   FaBookOpen,
 } from "react-icons/fa";
+import Seo from "@shared/components/Seo";
 
 function NotFound() {
   return (
+    <>
+    <Seo title="Page Not Found" description="The page you're looking for doesn't exist or may have been moved." path="/404" noIndex />
     <section
       className="
       min-h-screen
@@ -156,6 +159,7 @@ function NotFound() {
         </div>
       </motion.div>
     </section>
+    </>
   );
 }
 

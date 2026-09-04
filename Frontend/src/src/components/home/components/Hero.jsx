@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Rocket, MessageCircle, Target } from "lucide-react";
-import heroImage from "../../../../../public/Generated image_ Smiling Student with Colorful Notebooks (2).png";
+import heroImage from "../../../../../public/hero-student.webp";
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();

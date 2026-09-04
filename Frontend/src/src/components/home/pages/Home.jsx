@@ -2,11 +2,11 @@ import { Suspense, lazy, useEffect, useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import Navbar from "@shared/components/navbar";
+import Seo from "@shared/components/Seo";
 
 import Hero from "../components/Hero";
 import CardFlip from "../components/CardFlip";
 import { FaCode, FaServer, FaBrain } from "react-icons/fa";
-import CareerRoadmapGenerator from "../components/Careerroadmapgenerator";
 
 // ─── Import the video intro and form components ──────────────
 import VideoIntro from "@shared/components/GetInTouchModal/VideoIntro";   // adjust path
@@ -14,6 +14,7 @@ import VideoIntro from "@shared/components/GetInTouchModal/VideoIntro";   // adj
 
 const Footer = lazy(() => import("@shared/components/Footer"));
 const ProjectNew = lazy(() => import("./ProjectNew"));
+const CareerRoadmapGenerator = lazy(() => import("../components/Careerroadmapgenerator"));
 const TrustedCompanies = lazy(() => import("../components/TrustedCompanies"));
 const StudentJourney = lazy(() => import("../components/StudentJourney"));
 const WhyChooseUs = lazy(() => import("../components/WhyChooseUs"));
@@ -121,6 +122,11 @@ function Home() {
 
   return (
     <>
+      <Seo
+        title="Corporate Training, Internships & Placement Assistance"
+        description="Master industry skills with live training, real-world projects, expert mentorship and placement assistance. Kini Edx Hub is a future-ready corporate training platform."
+        path="/"
+      />
       <Navbar />
 
       <div className="relative z-10">

@@ -37,7 +37,6 @@ const highlightsLinks = [
   { label: "Corporate Training", to: "/corporate-training" },
   { label: "Internships", to: "/internships" },
   { label: "Placements", to: "/placements" },
-  { label: "Blog", to: "/blog" },
 ];
 
 const socialLinks = [

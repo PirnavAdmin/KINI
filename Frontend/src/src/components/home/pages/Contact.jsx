@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { MapPin, ArrowUpRight, Zap, Building2, RefreshCw, ShieldCheck } from "lucide-react";
 import Navbar from "@shared/components/navbar";
+import Seo from "@shared/components/Seo";
 import Footer from "@shared/components/Footer";
 import GetInTouchFormFields from "@shared/components/GetInTouchFormFields";
 import { useThemeContext } from "@shared/context/ThemeContext";
@@ -62,6 +63,11 @@ export default function Contact() {
 
   return (
     <>
+      <Seo
+        title="Contact Us"
+        description="Get in touch with Kini Edx Hub for course details, admissions, corporate training or placement support."
+        path="/contact"
+      />
       <Navbar />
 
       {/* ─── HERO (dark image banner + overlapping intro card) ─── */}

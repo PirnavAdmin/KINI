@@ -1,11 +1,17 @@
 import { useThemeContext } from "@shared/context/ThemeContext";
 import Navbar from "@shared/components/navbar";
 import Footer from "@shared/components/Footer";
+import Seo from "@shared/components/Seo";
 
 function MissionVision() {
   const { isDark } = useThemeContext();
   return (
     <>
+      <Seo
+        title="Our Mission & Vision"
+        description="Kini Edx Hub's mission and vision: helping learners build real-world skills and become top technology professionals through world-class training and mentorship."
+        path="/mission-vision"
+      />
       <Navbar />
       <section className={`py-24 transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient' : 'bg-slate-50'}`}>
 

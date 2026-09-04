@@ -4,8 +4,8 @@ import { useThemeContext } from '@shared/context/ThemeContext'
 
 // Files in /public are served from the site root, so these are plain
 // absolute paths rather than imports (Vite does not bundle /public assets).
-const MISSION_IMAGE_URL = '/OUR MISSION.png'
-const VISION_IMAGE_URL = '/vestion.png'
+const MISSION_IMAGE_URL = '/our-mission.webp'
+const VISION_IMAGE_URL = '/our-vision.webp'
 
 const cards = [
   {
@@ -96,6 +96,8 @@ export default function MissionVision() {
                 <img
                   src={c.image}
                   alt={c.alt}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/80 via-white/0 to-transparent dark:from-ink-900/80 dark:via-ink-900/0" />

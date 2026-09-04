@@ -35,6 +35,7 @@ import { FiArrowRight, FiCheckCircle, FiAward } from "react-icons/fi";
 import { motion, useReducedMotion } from "framer-motion";
 import { useThemeContext } from "@shared/context/ThemeContext";
 import Navbar from "@shared/components/navbar";
+import Seo from "@shared/components/Seo";
 import Footer from "@shared/components/Footer";
 
 // ─── DATA (unchanged shape; enriched optional fields) ─────────────────────────
@@ -399,6 +400,11 @@ export default function StudentReviews() {
 
   return (
     <>
+      <Seo
+        title="Success Stories"
+        description="Explore success stories and career outcomes from students who trained with Kini Edx Hub and landed roles at top companies."
+        path="/success-stories"
+      />
       <Navbar />
       <section
       id="reviews"

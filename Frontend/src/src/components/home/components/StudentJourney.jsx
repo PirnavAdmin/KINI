@@ -71,7 +71,7 @@ function StepNode({ step, Icon, isDark }) {
       variants={fadeUp}
       className="relative z-10 flex flex-row items-start gap-4 text-left md:flex-col md:items-center md:text-center"
     >
-      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-secondary-500 text-white shadow-elevated">
+      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-secondary-500 text-white shadow-elevated">
         <Icon className="h-5 w-5" aria-hidden="true" />
       </div>
       <div className="md:mt-3">

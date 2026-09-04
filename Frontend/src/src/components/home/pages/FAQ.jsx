@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, ChevronDown } from "lucide-react";
 import { useThemeContext } from "@shared/context/ThemeContext";
 import Navbar from "@shared/components/navbar";
+import Seo from "@shared/components/Seo";
 import Footer from "@shared/components/Footer";
 
 const faqDB = [
@@ -18,6 +19,11 @@ export default function FAQSection() {
 
   return (
     <>
+      <Seo
+        title="Frequently Asked Questions"
+        description="Answers to common questions about courses, admissions, fees, placement assistance and training formats at Kini Edx Hub."
+        path="/faq"
+      />
       <Navbar />
       <section className={`relative px-4 py-12 md:py-16 lg:py-20 overflow-hidden transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient text-white' : 'bg-[#F8FAFC] text-[#0F172A]'}`}>
       {/* Glow Background */}

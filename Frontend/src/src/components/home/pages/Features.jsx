@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { featuredCourses, getCourseCategories } from '../data/homeData'; // adjust path
 import Navbar from '@shared/components/navbar';
+import Seo from '@shared/components/Seo';
 import Footer from '@shared/components/Footer';
 
 const Features = () => {
@@ -57,6 +58,11 @@ const Features = () => {
 
   return (
     <div className="bg-[#031427] text-[#d3e4fe] min-h-screen overflow-x-hidden">
+      <Seo
+        title="Course Features"
+        description="Explore live training, hands-on projects, mentorship and career support features included in every Kini Edx Hub course."
+        path="/features"
+      />
       <Navbar />
       <main className="relative pt-16 pb-20 min-h-screen flex flex-col items-center justify-center overflow-hidden">
         {/* Ambient Background */}

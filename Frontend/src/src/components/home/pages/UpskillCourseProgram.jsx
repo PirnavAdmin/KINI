@@ -7,6 +7,7 @@ import {
   Award
 } from 'lucide-react';
 import Navbar from '@shared/components/navbar';
+import Seo from '@shared/components/Seo';
 import Footer from '@shared/components/Footer';
 import CareerRoadmapGenerator from '../components/Careerroadmapgenerator';
 import RegisterModal from '../../../shared/components/RegisterModal';
@@ -997,6 +998,11 @@ export default function UpskillCourseProgram() {
 
   return (
     <div className="usk-body bg-white text-slate-900 dark:bg-ink-950 dark:text-white">
+      <Seo
+        title="Upskill Programs & Admissions"
+        description="Explore Kini Edx Hub's upskilling programs, admissions process and career tracks in web development, AI/ML and cloud."
+        path="/upskill-program"
+      />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
 

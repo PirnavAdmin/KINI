@@ -104,7 +104,7 @@ export default function CardFlip({
                     transitionDelay: `${i * 60 + 80}ms`,
                   }}
                 >
-                  <span className="flex-shrink-0 w-4 h-4 rounded-full bg-gradient-to-br from-[#133B5D] to-[#F39924] dark:from-[#35608A] dark:to-[#F7A62E] flex items-center justify-center">
+                  <span className="flex-shrink-0 w-4 h-4 rounded-full bg-secondary-500 flex items-center justify-center">
                     <FaCheck className="text-white text-[6px]" />
                   </span>
                   <span className="text-[11px] text-slate-400 dark:text-slate-300">

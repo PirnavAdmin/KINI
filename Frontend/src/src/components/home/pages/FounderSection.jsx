@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FaLinkedinIn } from "react-icons/fa";
 import Navbar from "@shared/components/navbar";
+import Seo from "@shared/components/Seo";
 import Footer from "@shared/components/Footer";
 
 const founders = [
@@ -27,6 +28,11 @@ const founders = [
 export default function FounderSection() {
   return (
     <>
+      <Seo
+        title="Our Founders"
+        description="Meet the founders of Kini Edx Hub and the experience behind its industry-focused technology training programs."
+        path="/founder-section"
+      />
       <Navbar />
       <section className="relative py-24 bg-background overflow-hidden">
 

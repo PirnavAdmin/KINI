@@ -6,10 +6,16 @@ import {
 } from "react-icons/fa";
 import Navbar from "@shared/components/navbar";
 import Footer from "@shared/components/Footer";
+import Seo from "@shared/components/Seo";
 
 function WhoWeAre() {
   return (
     <>
+      <Seo
+        title="Who We Are"
+        description="Kini Edx Hub builds industry-ready engineers through structured learning, live mentorship, real projects and placement assistance."
+        path="/who-we-are"
+      />
       <Navbar />
       <section className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-6">

@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { ROUTES } from "@shared/constants/routeConstants";
 import Navbar from "../../../shared/components/navbar/index";
+import Seo from "../../../shared/components/Seo";
 import Footer from "../../../shared/components/Footer/index";
 
 /* ─── Tokens ─── */
@@ -140,6 +141,11 @@ export default function Internships() {
 
   return (
     <main className="min-h-screen bg-white font-sans text-slate-900 antialiased">
+      <Seo
+        title="Internships"
+        description="Gain real-world experience with Kini Edx Hub's internship program, bridging training and full-time placement opportunities."
+        path="/internships"
+      />
       <Navbar />
 
       {/* ── HERO (dark image banner + two-column overlap card) ── */}

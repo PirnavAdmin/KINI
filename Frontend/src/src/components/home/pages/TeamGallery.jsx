@@ -1,10 +1,16 @@
 import { motion } from "framer-motion";
 import Navbar from "@shared/components/navbar";
 import Footer from "@shared/components/Footer";
+import Seo from "@shared/components/Seo";
 
 function TeamGallery() {
   return (
     <>
+      <Seo
+        title="Meet The Team"
+        description="Meet the mentors, instructors and team behind Kini Edx Hub's training programs."
+        path="/team-gallery"
+      />
       <Navbar />
       <section className="py-24 bg-background bg-grid">
       <div className="max-w-7xl mx-auto px-6">

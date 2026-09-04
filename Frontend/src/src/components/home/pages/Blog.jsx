@@ -1,5 +1,6 @@
 import Navbar from "@shared/components/navbar";
 import Footer from "@shared/components/Footer";
+import Seo from "@shared/components/Seo";
 
 import {
   FaClock,
@@ -51,6 +52,11 @@ function Blog() {
   const { isDark } = useThemeContext();
   return (
     <>
+      <Seo
+        title="Blog"
+        description="Insights and trends on React, AI, MERN stack and Python careers from the Kini Edx Hub knowledge hub."
+        path="/blog"
+      />
       <Navbar />
 
       <section className="bg-gradient-to-br from-slate-950 via-primary-950 to-primary-900 text-white pt-32 pb-24">

@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 
 import Navbar from "@shared/components/navbar";
+import Seo from "@shared/components/Seo";
 import Footer from "@shared/components/Footer";
 
 /* ------------------------------------------------------------------ */
@@ -977,6 +978,11 @@ function FinalCTASection() {
 export default function Career() {
   return (
     <>
+      <Seo
+        title="Career Support & Placement Assistance"
+        description="Get career-ready with mentorship, mock interviews, hiring drives and end-to-end placement assistance from Kini Edx Hub's career roadmap program."
+        path="/career"
+      />
       <Navbar />
       <main className="overflow-x-hidden">
         <Hero />

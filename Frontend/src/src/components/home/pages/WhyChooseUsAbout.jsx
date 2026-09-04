@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { useThemeContext } from "@shared/context/ThemeContext";
 import Navbar from "@shared/components/navbar";
+import Seo from "@shared/components/Seo";
 import Footer from "@shared/components/Footer";
 
 const features = [
@@ -46,6 +47,11 @@ export default function WhyChooseUs() {
   const { isDark } = useThemeContext();
   return (
     <>
+      <Seo
+        title="What Sets Us Apart"
+        description="Discover what sets Kini Edx Hub apart: practical curriculum, expert mentors, real projects and dedicated placement support."
+        path="/why-choose-us-about"
+      />
       <Navbar />
       <section className={`py-24 relative overflow-hidden transition-colors duration-300 ${isDark ? 'bg-app-dark-gradient text-white' : 'bg-slate-50 text-slate-900'}`}>
 
